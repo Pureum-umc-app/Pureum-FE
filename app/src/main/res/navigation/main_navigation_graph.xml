@@ -1,6 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/main_navigation_graph">
+    android:id="@+id/main_navigation_graph"
+    app:startDestination="@id/homeFragment">
 
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="kr.co.pureum.views.home.HomeFragment"
+        android:label="HomeFragment">
+    </fragment>
+
+    <fragment
+        android:id="@+id/chatFragment"
+        android:name="kr.co.pureum.views.chat.ChatFragment"
+        android:label="ChatFragment">
+    </fragment>
+
+    <fragment
+        android:id="@+id/questFragment"
+        android:name="kr.co.pureum.views.quest.QuestFragment"
+        android:label="QuestFragment">
+    </fragment>
+
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="kr.co.pureum.views.profile.ProfileFragment"
+        android:label="ProfileFragment">
+        <action
+            android:id="@+id/action_profileFragment_to_profileTempFragment"
+            app:destination="@id/profileTempFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/profileTempFragment"
+        android:name="kr.co.pureum.views.profile.ProfileTempFragment"
+        android:label="ProfileTempFragment">
+    </fragment>
 </navigation>

@@ -5,24 +5,20 @@
         android:id="@+id/homeFragment"
         android:title="홈"
         android:icon="@drawable/ic_navigation_home"
-        app:showAsAction="always"
-        />
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/chatFragment"
         android:title="채팅"
         android:icon="@drawable/ic_navigation_chat"
-        app:showAsAction="always"
-        />
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/questFragment"
         android:title="퀘스트"
         android:icon="@drawable/ic_navigation_quest"
-        app:showAsAction="always"
-        />
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/profileFragment"
         android:title="마이페이지"
         android:icon="@drawable/ic_navigation_user"
-        app:showAsAction="always"
-        />
+        app:showAsAction="ifRoom" />
 </menu>
