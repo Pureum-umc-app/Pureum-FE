@@ -4,7 +4,10 @@ import android.os.Build
 import android.os.Bundle
 import android.view.View
 import androidx.annotation.RequiresApi
+import androidx.recyclerview.widget.LinearLayoutManager
+import kr.co.domain.model.UsageTimeInfo
 import kr.co.pureum.R
+import kr.co.pureum.adapter.home.UsageTimeAdapter
 import kr.co.pureum.base.BaseFragment
 import kr.co.pureum.databinding.FragmentHomeBinding
 import kr.co.pureum.views.MainActivity
@@ -34,6 +37,22 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     private fun initView() {
         today = LocalDateTime.now()
 
-        binding.homeDate.text = today.format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일"))
+        binding.homeViewPager.apply {
+            adapter = UsageTimeAdapter().apply {
+                setListener(object : UsageTimeAdapter.Listener{
+                    override fun onClick(combId: Long) {
+                    }
+
+                    override fun onDelete(combId: Long) {
+                    }
+
+                    override fun onPost(combId: Long) {
+                    }
+                })
+            }
+        }
+
+        val usageTimeList : List<UsageTimeInfo> = listOf(UsageTimeInfo(10, 7, LocalDateTime.now()), UsageTimeInfo(10, 7, LocalDateTime.now()), UsageTimeInfo(10, 7, LocalDateTime.now()))
+        (binding.homeViewPager.adapter as UsageTimeAdapter).setData(usageTimeList)
     }
 }
