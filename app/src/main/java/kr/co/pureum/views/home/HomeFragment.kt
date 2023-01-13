@@ -27,7 +27,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     }
 
     private fun initView() {
-        binding.homeTextView.text = "홈 화면입니다."
-        Log.e("ScreenBuild", "HomeFragment")
+        binding.homeDate.text = "홈 화면입니다."
     }
 }
