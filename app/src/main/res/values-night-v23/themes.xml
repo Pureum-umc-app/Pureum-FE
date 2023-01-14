@@ -11,9 +11,11 @@
         <item name="colorSecondaryVariant">@color/sub2</item>
         <item name="colorOnSecondary">@color/white</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">@color/main1</item>
+        <item name="android:statusBarColor">@color/bg</item>
         <!-- Status bar text color.  -->
         <item name="android:windowLightStatusBar">true</item>
+        <!-- Background color. -->
+        <item name="android:backgroundTint">@color/bg</item>
         <!-- Customize your theme here. -->
         <item name="android:textViewStyle">@style/customTextViewFontStyle</item>
         <item name="android:buttonStyle">@style/customButtonFontStyle</item>
