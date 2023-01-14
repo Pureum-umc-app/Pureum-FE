@@ -3,7 +3,9 @@ package kr.co.pureum.views.quest
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import com.google.android.material.tabs.TabLayoutMediator
 import kr.co.pureum.R
+import kr.co.pureum.adapter.quest.QuestMainVPAdapter
 import kr.co.pureum.base.BaseFragment
 import kr.co.pureum.databinding.FragmentQuestBinding
 import kr.co.pureum.views.MainActivity
@@ -26,7 +28,21 @@ class QuestFragment : BaseFragment<FragmentQuestBinding>(R.layout.fragment_quest
     }
 
     private fun initView() {
-        binding.questFragment.text = "퀘스트 화면입니다."
         Log.e("ScreenBuild", "QuestFragment")
+        initViewPager()
     }
+
+    // 뷰페이저 함수
+    private fun initViewPager() {
+        val questVPAdapter = QuestMainVPAdapter(this)
+        binding.questViewpagerVp.adapter = questVPAdapter
+        val tabNameArray = arrayListOf(
+            "배지",
+            "챌린지 도전하기"
+        )
+        TabLayoutMediator(binding.questTabTl, binding.questViewpagerVp) {
+                tab, position -> tab.text = tabNameArray[position]
+        }.attach()
+    }
+
 }

@@ -30,4 +30,25 @@
         <item name="android:fontFamily">@font/nanum_square_neo</item>
         <item name="android:lineSpacingExtra">3sp</item>
     </style>
+
+    <!-- tabLayout 텍스트 커스텀 -->
+    <style name="tab_text_style">
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">@font/nanum_square_neo</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- tabLayout 커스텀-->
+    <style name="tab_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="tabIndicatorColor">#85B5FF</item>
+        <item name="tabIndicatorHeight">2dp</item>
+        <item name="tabTextAppearance">@style/tab_text_style</item>
+        <item name="tabSelectedTextColor">#85B5FF</item>
+        <item name="tabTextColor">#6E6D73</item>
+        <item name="android:background">@drawable/custom_inactive_tab_indicator</item>
+        <item name="tabGravity">fill</item>
+        <item name="tabMode">fixed</item>
+    </style>
 </resources>

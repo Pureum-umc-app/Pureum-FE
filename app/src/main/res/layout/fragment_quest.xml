@@ -8,15 +8,27 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/questFragment"
+        <com.google.android.material.tabs.TabLayout
+            android:layout_marginTop="?attr/actionBarSize"
+            android:id="@+id/quest_tab_tl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            style="@style/tab_style"
+            app:tabRippleColor="#00FF0000"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="100dp"
-            android:textStyle="normal"
-            android:textAlignment="center"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/quest_viewpager_vp"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/quest_tab_tl"
+            app:layout_constraintVertical_bias="0.0" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
