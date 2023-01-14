@@ -2,15 +2,15 @@
     <!-- Base application theme. -->
     <style name="Theme.Pureum" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">#85B5FF</item>
-        <item name="colorPrimaryVariant">#D8ECFF</item>
+        <item name="colorPrimary">@color/main1</item>
+        <item name="colorPrimaryVariant">@color/main3</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">#FF8283</item>
-        <item name="colorSecondaryVariant">#FFC6C7</item>
+        <item name="colorSecondary">@color/sub1</item>
+        <item name="colorSecondaryVariant">@color/sub2</item>
         <item name="colorOnSecondary">@color/white</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">?attr/colorPrimary</item>
+        <item name="android:statusBarColor">@color/main1</item>
         <!-- Font Family. -->
         <item name="android:textViewStyle">@style/customTextViewFontStyle</item>
         <item name="android:buttonStyle">@style/customButtonFontStyle</item>
