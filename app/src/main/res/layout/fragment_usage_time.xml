@@ -14,9 +14,10 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:fontFamily="@font/nanum_square_neo_extrabold"
             android:text="@string/today"
-            android:textSize="22sp"/>
+            android:fontFamily="@font/nanum_square_neo_extrabold"
+            android:textSize="22sp"
+            android:textColor="@color/text2"/>
 
         <TextView
             android:id="@+id/home_date"
@@ -53,7 +54,7 @@
                 android:text="@string/daily_usage_time"
                 android:textSize="14sp"
                 android:fontFamily="@font/nanum_square_neo_bold"
-                android:textColor="?attr/colorPrimary"/>
+                android:textColor="@color/main1"/>
 
             <com.google.android.material.progressindicator.CircularProgressIndicator
                 android:id="@+id/home_usage_time_indicator"
@@ -64,7 +65,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:indicatorSize="160dp"
-                android:foregroundTint="@color/black"
+                android:progressBackgroundTint="@color/progressbar_light_grey"
+                android:progressTint="@color/main1"
                 app:trackThickness="8dp"/>
 
             <TextView
