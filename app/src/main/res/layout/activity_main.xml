@@ -37,10 +37,11 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="68dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            android:backgroundTint="@null"
             android:background="@drawable/shadow"/>
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
