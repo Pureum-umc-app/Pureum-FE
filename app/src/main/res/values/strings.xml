@@ -4,4 +4,6 @@
     <!--  HomeFragment  -->
     <string name="today">TODAY</string>
     <string name="daily_usage_time">일일 사용시간</string>
+    <string name="home_goal_time">휴대폰\n사용 목표 시간</string>
+    <string name="home_screen_count">휴대폰\n화면 켠 횟수</string>
 </resources>
