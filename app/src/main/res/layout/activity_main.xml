@@ -14,14 +14,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
-            android:elevation="4dp"
             android:theme="@style/ThemeOverlay.AppCompat.ActionBar">
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/main_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="@color/white"
+                android:background="@color/bg"
                 app:navigationIcon="@drawable/ic_toolbar_back"/>
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -38,10 +37,11 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="68dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            android:backgroundTint="@null"
             android:background="@drawable/shadow"/>
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
