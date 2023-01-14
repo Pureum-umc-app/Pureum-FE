@@ -4,19 +4,16 @@ import android.os.Build
 import android.os.Bundle
 import android.view.View
 import androidx.annotation.RequiresApi
-import androidx.recyclerview.widget.LinearLayoutManager
-import kr.co.domain.model.UsageTimeInfo
+import androidx.recyclerview.widget.RecyclerView
 import kr.co.pureum.R
 import kr.co.pureum.adapter.home.UsageTimeAdapter
 import kr.co.pureum.base.BaseFragment
 import kr.co.pureum.databinding.FragmentHomeBinding
 import kr.co.pureum.views.MainActivity
 import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     private lateinit var mainActivity: MainActivity
-    private lateinit var today: LocalDateTime
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -35,24 +32,27 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun initView() {
-        today = LocalDateTime.now()
-
         binding.homeViewPager.apply {
-            adapter = UsageTimeAdapter().apply {
+            adapter = UsageTimeAdapter(this@HomeFragment).apply {
                 setListener(object : UsageTimeAdapter.Listener{
-                    override fun onClick(combId: Long) {
-                    }
-
-                    override fun onDelete(combId: Long) {
-                    }
-
-                    override fun onPost(combId: Long) {
-                    }
+                    override fun onClick(combId: Long) {}
+                    override fun onDelete(combId: Long) {}
+                    override fun onPost(combId: Long) {}
                 })
             }
-        }
+            setCurrentItem(UsageTimeAdapter.START_POSITION, false)
 
-        val usageTimeList : List<UsageTimeInfo> = listOf(UsageTimeInfo(10, 7, LocalDateTime.now()), UsageTimeInfo(10, 7, LocalDateTime.now()), UsageTimeInfo(10, 7, LocalDateTime.now()))
-        (binding.homeViewPager.adapter as UsageTimeAdapter).setData(usageTimeList)
+            offscreenPageLimit = 3
+            getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
+
+            val pageMarginPx = resources.getDimensionPixelOffset(R.dimen.pageMargin)
+            val pagerWidth = resources.getDimensionPixelOffset(R.dimen.pagerWidth)
+            val screenWidth = resources.displayMetrics.widthPixels
+            val offsetPx = screenWidth - pageMarginPx - pagerWidth
+
+            setPageTransformer { page, position ->
+                page.translationX = position * -offsetPx
+            }
+        }
     }
 }

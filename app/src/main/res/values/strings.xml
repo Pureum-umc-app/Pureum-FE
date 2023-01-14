@@ -2,5 +2,6 @@
     <string name="app_name">푸름</string>
 
     <!--  HomeFragment  -->
+    <string name="today">TODAY</string>
     <string name="daily_usage_time">일일 사용시간</string>
 </resources>
