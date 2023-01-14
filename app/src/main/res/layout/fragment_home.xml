@@ -8,15 +8,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/homeTextView"
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/home_view_pager"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="16dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="100dp"
-            android:textStyle="normal"
-            android:textAlignment="center"/>
+            android:paddingHorizontal="32dp"
+            android:clipChildren="false"
+            android:clipToPadding="false"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

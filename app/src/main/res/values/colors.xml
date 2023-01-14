@@ -1,10 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="error">#FFB3261E</color>
+    <color name="bg">#FFF8F8F8</color>
+    <color name="main1">#FF85B5FF</color>
+    <color name="main2">#FFAECEFF</color>
+    <color name="main3">#FFD8ECFF</color>
+    <color name="sub1">#FFFF8283</color>
+    <color name="sub2">#FFFFC6C7</color>
+    <color name="text1">#FF1A1A1B</color>
+    <color name="text2">#FF6E6D73</color>
+    <color name="text3">#FFB3B4BC</color>
+    <color name="calender_red">#FFBA1A1A</color>
+    <color name="calender_blue">#FF1A50BA</color>
+    <color name="progressbar_light_grey">#FFEFEFEF</color>
+    <color name="crown_yellow">#FFF3EA23</color>
+    <color name="button_light_grey">#FFE9E9E9</color>
+    <color name="button_green">#FF53B781</color>
+    <color name="like_red">#FFD74A4A</color>
 </resources>

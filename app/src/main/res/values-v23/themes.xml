@@ -3,17 +3,22 @@
 
     <style name="Theme.Pureum" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">#85B5FF</item>
-        <item name="colorPrimaryVariant">#D8ECFF</item>
+        <item name="colorPrimary">@color/main1</item>
+        <item name="colorPrimaryVariant">@color/main3</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">#FF8283</item>
-        <item name="colorSecondaryVariant">#FFC6C7</item>
+        <item name="colorSecondary">@color/sub1</item>
+        <item name="colorSecondaryVariant">@color/sub2</item>
         <item name="colorOnSecondary">@color/white</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">@color/white</item>
-        <!--Status Bar 글자색깔 -->
+        <item name="android:statusBarColor">@color/main1</item>
+        <!-- Status bar text color.  -->
         <item name="android:windowLightStatusBar">true</item>
         <!-- Customize your theme here. -->
+        <item name="android:textViewStyle">@style/customTextViewFontStyle</item>
+        <item name="android:buttonStyle">@style/customButtonFontStyle</item>
+        <item name="android:editTextStyle">@style/customEditTextFontStyle</item>
+        <item name="android:radioButtonStyle">@style/customRadioButtonFontStyle</item>
+        <item name="android:checkboxStyle">@style/customCheckboxFontStyle</item>
     </style>
 </resources>
