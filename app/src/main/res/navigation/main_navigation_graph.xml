@@ -20,7 +20,34 @@
         android:id="@+id/questFragment"
         android:name="kr.co.pureum.views.quest.QuestFragment"
         android:label="QuestFragment">
+
+        <action
+            android:id="@+id/action_questFragment_to_questClickFragment"
+            app:destination="@id/questClickFragment" />
+
     </fragment>
+
+    <fragment
+        android:id="@+id/questClickFragment"
+        android:name="kr.co.pureum.views.quest.QuestClickFragment"
+        android:label="QuestClickFragment">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/questBadeFragment"
+        android:name="kr.co.pureum.views.quest.QuestBadgeFragment"
+        android:label="QuestBadgeFragment" >
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/questChallengeFragment"
+        android:name="kr.co.pureum.views.quest.QuestChallengeFragment"
+        android:label="QuestChallengeFragment" >
+
+    </fragment>
+
 
     <fragment
         android:id="@+id/profileFragment"

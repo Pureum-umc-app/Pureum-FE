@@ -16,5 +16,4 @@ class QuestMainVPAdapter(fragment : QuestFragment) : FragmentStateAdapter(fragme
             else -> QuestBadgeFragment()
         }
     }
-
 }

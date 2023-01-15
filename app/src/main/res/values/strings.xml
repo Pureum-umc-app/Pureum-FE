@@ -4,4 +4,6 @@
     <!--  HomeFragment  -->
     <string name="today">TODAY</string>
     <string name="daily_usage_time">일일 사용시간</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
