@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".views.signup.OnboardActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/onboard_img_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_onboard_keyword"
+            android:layout_marginTop="200dp"
+            android:layout_marginStart="25dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <TextView
+            android:id="@+id/onboard_ddindong_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ddingdong"
+            android:textColor="@color/main1"
+            android:textSize="22sp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="120dp"
+            android:layout_marginStart="30dp"
+            android:fontFamily="@font/nanum_square_neo_bold"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/onboard_keyword_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="22sp"
+            android:text="@string/onboard_keywords"
+            android:textColor="@color/text1"
+            android:fontFamily="@font/nanum_square_neo_bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="30dp"
+            app:layout_constraintStart_toEndOf="@id/onboard_ddindong_tv"
+            app:layout_constraintTop_toTopOf="@id/onboard_ddindong_tv"
+            app:layout_constraintBottom_toBottomOf="@id/onboard_ddindong_tv"
+            />
+
+        <TextView
+            android:id="@+id/onboard_first_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="350dp"
+            android:text="@string/onboard_first"
+            android:textSize="16sp"
+            android:textColor="@color/text1"
+            android:fontFamily="@font/nanum_square_neo_bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/onboard_ddindong_tv"
+            />
+
+        <ImageView
+            android:id="@+id/onboard_dots"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_onboard_dots"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/onboard_first_tv"
+            android:layout_marginTop="10dp"/>
+
+        <Button
+            android:id="@+id/onboard_next"
+            android:layout_width="250dp"
+            android:layout_height="70dp"
+            android:text="@string/onboard_next"
+            android:fontFamily="@font/nanum_square_neo_regular"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:background="@null"
+            android:backgroundTint="@color/main1"
+            android:layout_marginTop="18dp"
+            android:textSize="16sp"
+            app:layout_constraintTop_toBottomOf="@id/onboard_dots"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

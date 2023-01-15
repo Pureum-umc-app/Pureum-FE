@@ -4,4 +4,17 @@
     <!--  HomeFragment  -->
     <string name="today">TODAY</string>
     <string name="daily_usage_time">일일 사용시간</string>
+
+
+    <!-- OnboardActivity -->
+    <string name="onboard_first">오늘의 키워드로 매일 한 문장 작성하기</string>
+    <string name="ddingdong">띵동!&#160;&#160;</string>
+    <string name="onboard_keywords">오늘의 키워드가 도착했습니다</string>
+    <string name="onboard_next">다음</string>
+    <string name="onboard_badge">귀여운 배지를 획득해볼까요?</string>
+    <string name="onboard_sec">퀘스트 클리어하고 배지 획득하기</string>
+    <string name="onboard_third">작성한 문장으로 대결 신청하기</string>
+    <string name="onboard_challenge">도전장을 내밀어보아요</string>
+    <string name="onboard_glove">작성한 문장으로 대결 신청하기</string>
+    <string name="login_simple">간편하게 로그인하기</string>
 </resources>
