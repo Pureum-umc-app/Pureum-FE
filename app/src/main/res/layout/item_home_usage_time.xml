@@ -14,7 +14,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:text="@string/today"
+            android:text="@string/home_today"
             android:fontFamily="@font/nanum_square_neo_extrabold"
             android:textSize="22sp"
             android:textColor="@color/text2"/>
@@ -51,7 +51,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginTop="20dp"
                 android:layout_marginStart="20dp"
-                android:text="@string/daily_usage_time"
+                android:text="@string/home_daily_usage_time"
                 android:textSize="14sp"
                 android:fontFamily="@font/nanum_square_neo_bold"
                 android:textColor="@color/main1"/>

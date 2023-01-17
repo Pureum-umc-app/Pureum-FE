@@ -5,7 +5,7 @@ import android.os.Bundle
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import kr.co.pureum.views.home.UsageTimeFragment
+import kr.co.pureum.views.home.UsageTimeItem
 import java.time.LocalDate
 
 class UsageTimeAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
@@ -16,7 +16,9 @@ class UsageTimeAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun getItemId(position: Int): Long {
         val date = LocalDate.now().plusDays((position - START_POSITION).toLong())
-        return date.year * 10000L + date.monthValue * 100L + date.dayOfMonth
+        val itemId = date.year * 100000L + date.monthValue * 1000L + date.dayOfMonth * 10L
+        if (date.isEqual(LocalDate.now())) itemId + 1
+        return itemId
     }
 
     override fun getItemCount(): Int = Int.MAX_VALUE
@@ -24,11 +26,12 @@ class UsageTimeAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun createFragment(position: Int): Fragment {
         val itemId = getItemId(position)
-        return UsageTimeFragment().apply {
+        return UsageTimeItem().apply {
             arguments = Bundle().apply {
-                putInt("year" , (itemId / 10000L).toInt())
-                putInt("month" , ((itemId % 10000L) / 100L).toInt())
-                putInt("day", (itemId % 100L).toInt())
+                putInt("year" , (itemId / 100000L).toInt())
+                putInt("month" , ((itemId % 100000L) / 1000L).toInt())
+                putInt("day", ((itemId % 1000L) / 10L).toInt())
+                putInt("isToday", (itemId % 10L).toInt())
             }
         }
     }

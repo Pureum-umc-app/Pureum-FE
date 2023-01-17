@@ -3,134 +3,187 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".views.home.HomeFragment">
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/home_view_pager"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="16dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:paddingHorizontal="32dp"
-            android:clipChildren="false"
-            android:clipToPadding="false"/>
+            android:layout_height="wrap_content">
 
-        <LinearLayout
-            android:layout_width="296dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/home_view_pager"
-            android:layout_marginTop="24dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:orientation="horizontal"
-            android:gravity="center">
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/home_view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:paddingHorizontal="32dp"
+                android:clipChildren="false"
+                android:clipToPadding="false"/>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="145dp"
-                android:layout_height="117dp"
-                android:background="@drawable/bg_home_goal_time"
-                android:backgroundTint="@null">
+            <LinearLayout
+                android:id="@+id/home_buttons_layout"
+                android:layout_width="296dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/home_view_pager"
+                android:layout_marginTop="12dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="145dp"
+                    android:layout_height="117dp"
+                    android:background="@drawable/bg_home_goal_time"
+                    android:backgroundTint="@null">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_marginTop="16dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:layout_marginStart="20dp"
+                        android:text="@string/home_goal_time"
+                        android:fontFamily="@font/nanum_square_neo_bold"
+                        android:textSize="16sp"
+                        android:textColor="@color/white"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:layout_marginBottom="20dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_marginHorizontal="20dp"
+                        android:orientation="horizontal"
+                        android:gravity="center"
+                        tools:ignore="UseCompoundDrawables">
+
+                        <ImageView
+                            android:contentDescription="@string/home_screen_count"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_time"/>
+
+                        <TextView
+                            android:id="@+id/home_goal_time"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="목표 시간"
+                            android:fontFamily="@font/nanum_square_neo_bold"
+                            android:textSize="16sp"
+                            android:textColor="@color/white"
+                            android:textAlignment="center"/>
+                    </LinearLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"/>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="145dp"
+                    android:layout_height="117dp"
+                    android:background="@drawable/bg_home_screen_count"
+                    android:backgroundTint="@null">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_marginTop="16dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:layout_marginStart="20dp"
+                        android:text="@string/home_screen_count"
+                        android:fontFamily="@font/nanum_square_neo_bold"
+                        android:textSize="16sp"
+                        android:textColor="@color/main1"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:layout_marginBottom="20dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_marginHorizontal="20dp"
+                        android:orientation="horizontal"
+                        android:gravity="center"
+                        tools:ignore="UseCompoundDrawables">
+
+                        <ImageView
+                            android:contentDescription="@string/home_screen_count"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_smartphone"
+                            app:tint="@color/main1" />
+
+                        <TextView
+                            android:id="@+id/home_screen_count"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="0회"
+                            android:fontFamily="@font/nanum_square_neo_bold"
+                            android:textSize="16sp"
+                            android:textColor="@color/main1"
+                            android:textAlignment="center"/>
+                    </LinearLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/home_rank_label_layout"
+                android:layout_width="296dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/home_buttons_layout"
+                android:layout_marginTop="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:orientation="horizontal"
+                android:gravity="center">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:layout_marginTop="16dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginStart="20dp"
-                    android:text="@string/home_goal_time"
+                    android:text="@string/home_yesterday_rank"
                     android:fontFamily="@font/nanum_square_neo_bold"
-                    android:textSize="16sp"
-                    android:textColor="@color/white"/>
+                    android:textSize="14sp"
+                    android:textColor="@color/text2"/>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:layout_marginBottom="20dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginHorizontal="20dp"
-                    android:orientation="horizontal"
-                    android:gravity="center"
-                    tools:ignore="UseCompoundDrawables">
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"/>
 
-                    <ImageView
-                        android:contentDescription="@string/home_screen_count"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/ic_time"/>
-
-                    <TextView
-                        android:id="@+id/home_goal_time"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="목표 시간"
-                        android:fontFamily="@font/nanum_square_neo_bold"
-                        android:textSize="16sp"
-                        android:textColor="@color/white"
-                        android:textAlignment="center"/>
-                </LinearLayout>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="1"/>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="145dp"
-                android:layout_height="117dp"
-                android:background="@drawable/bg_home_screen_count"
-                android:backgroundTint="@null">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:layout_marginTop="16dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginStart="20dp"
-                    android:text="@string/home_screen_count"
+                <Button
+                    android:id="@+id/home_more_button"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="64dp"
+                    android:layout_height="32dp"
+                    android:text="@string/home_more"
                     android:fontFamily="@font/nanum_square_neo_bold"
-                    android:textSize="16sp"
-                    android:textColor="@color/main1"/>
+                    android:textSize="14sp"
+                    android:textColor="@color/text2"
+                    android:paddingVertical="0dp"/>
+            </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:layout_marginBottom="20dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginHorizontal="20dp"
-                    android:orientation="horizontal"
-                    android:gravity="center"
-                    tools:ignore="UseCompoundDrawables">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/home_rank_recycler_view"
+                android:layout_width="296dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/home_rank_label_layout"
+                android:layout_marginTop="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:orientation="vertical">
 
-                    <ImageView
-                        android:contentDescription="@string/home_screen_count"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/ic_smartphone"
-                        app:tint="@color/main1" />
 
-                    <TextView
-                        android:id="@+id/home_screen_count"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="0회"
-                        android:fontFamily="@font/nanum_square_neo_bold"
-                        android:textSize="16sp"
-                        android:textColor="@color/main1"
-                        android:textAlignment="center"/>
-                </LinearLayout>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </LinearLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.recyclerview.widget.RecyclerView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </layout>

@@ -10,7 +10,6 @@ import kr.co.pureum.adapter.home.UsageTimeAdapter
 import kr.co.pureum.base.BaseFragment
 import kr.co.pureum.databinding.FragmentHomeBinding
 import kr.co.pureum.views.MainActivity
-import java.time.LocalDateTime
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     private lateinit var mainActivity: MainActivity
@@ -20,6 +19,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         super.onViewCreated(view, savedInstanceState)
         initToolbar()
         initView()
+        initListener()
     }
 
     private fun initToolbar() {
@@ -30,28 +30,37 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     private fun initView() {
-        binding.homeViewPager.apply {
-            adapter = UsageTimeAdapter(this@HomeFragment).apply {
-                setListener(object : UsageTimeAdapter.Listener{
-                    override fun onClick(combId: Long) {}
-                    override fun onDelete(combId: Long) {}
-                    override fun onPost(combId: Long) {}
-                })
+        with(binding) {
+            homeViewPager.apply {
+                adapter = UsageTimeAdapter(this@HomeFragment).apply {
+                    setListener(object : UsageTimeAdapter.Listener{
+                        override fun onClick(combId: Long) {}
+                        override fun onDelete(combId: Long) {}
+                        override fun onPost(combId: Long) {}
+                    })
+                }
+                setCurrentItem(UsageTimeAdapter.START_POSITION, false)
+
+                offscreenPageLimit = 3
+                getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
+
+                val pageMarginPx = resources.getDimensionPixelOffset(R.dimen.pageMargin)
+                val pagerWidth = resources.getDimensionPixelOffset(R.dimen.pagerWidth)
+                val screenWidth = resources.displayMetrics.widthPixels
+                val offsetPx = screenWidth - pageMarginPx - pagerWidth
+
+                setPageTransformer { page, position ->
+                    page.translationX = position * -offsetPx
+                }
             }
-            setCurrentItem(UsageTimeAdapter.START_POSITION, false)
+        }
+    }
 
-            offscreenPageLimit = 3
-            getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
+    private fun initListener() {
+        with(binding) {
+            homeMoreButton.setOnClickListener {
 
-            val pageMarginPx = resources.getDimensionPixelOffset(R.dimen.pageMargin)
-            val pagerWidth = resources.getDimensionPixelOffset(R.dimen.pagerWidth)
-            val screenWidth = resources.displayMetrics.widthPixels
-            val offsetPx = screenWidth - pageMarginPx - pagerWidth
-
-            setPageTransformer { page, position ->
-                page.translationX = position * -offsetPx
             }
         }
     }

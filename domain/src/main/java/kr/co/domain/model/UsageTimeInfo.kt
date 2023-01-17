@@ -5,5 +5,7 @@ import java.time.LocalDate
 data class UsageTimeInfo(
     var goalTime: Int,
     var usageTime: Int,
-    var dateTime: LocalDate,
+    var year: Int,
+    var month: Int,
+    var day: Int,
 )
