@@ -3,6 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".views.home.HomeFragment">
+    
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="usageTimeDto"
+            type="kr.co.domain.model.UsageTimeDto" />
+    </data>
+    
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -11,11 +19,37 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/home_view_pager"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/home_today"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:text="@string/home_today"
+                android:fontFamily="@font/nanum_square_neo_extrabold"
+                android:textSize="22sp"
+                android:textColor="@color/text2"/>
+
+            <TextView
+                android:id="@+id/home_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/home_today"
+                android:layout_marginTop="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:text="@{@string/home_date(usageTimeDto.year, usageTimeDto.month, usageTimeDto.day)}"
+                android:fontFamily="@font/nanum_square_neo_extrabold"
+                android:textSize="16sp"
+                android:textAlignment="center"
+                android:textStyle="normal" />
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/home_usage_time_view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/home_date"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:paddingHorizontal="32dp"
@@ -26,7 +60,7 @@
                 android:id="@+id/home_buttons_layout"
                 android:layout_width="296dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/home_view_pager"
+                app:layout_constraintTop_toBottomOf="@+id/home_usage_time_view_pager"
                 android:layout_marginTop="12dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -46,7 +80,7 @@
                         android:layout_marginTop="16dp"
                         app:layout_constraintStart_toStartOf="parent"
                         android:layout_marginStart="20dp"
-                        android:text="@string/home_goal_time"
+                        android:text="@string/home_goal_time_label"
                         android:fontFamily="@font/nanum_square_neo_bold"
                         android:textSize="16sp"
                         android:textColor="@color/white"/>
@@ -64,7 +98,7 @@
                         tools:ignore="UseCompoundDrawables">
 
                         <ImageView
-                            android:contentDescription="@string/home_screen_count"
+                            android:contentDescription="@string/home_screen_count_label"
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:src="@drawable/ic_time"/>
@@ -73,7 +107,7 @@
                             android:id="@+id/home_goal_time"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="목표 시간"
+                            android:text="@{@string/home_goal_time(usageTimeDto.goalTime / 60)}"
                             android:fontFamily="@font/nanum_square_neo_bold"
                             android:textSize="16sp"
                             android:textColor="@color/white"
@@ -99,7 +133,7 @@
                         android:layout_marginTop="16dp"
                         app:layout_constraintStart_toStartOf="parent"
                         android:layout_marginStart="20dp"
-                        android:text="@string/home_screen_count"
+                        android:text="@string/home_screen_count_label"
                         android:fontFamily="@font/nanum_square_neo_bold"
                         android:textSize="16sp"
                         android:textColor="@color/main1"/>
@@ -117,7 +151,7 @@
                         tools:ignore="UseCompoundDrawables">
 
                         <ImageView
-                            android:contentDescription="@string/home_screen_count"
+                            android:contentDescription="@string/home_screen_count_label"
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:src="@drawable/ic_smartphone"
@@ -127,7 +161,7 @@
                             android:id="@+id/home_screen_count"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="0회"
+                            android:text="@{@string/home_screen_count(usageTimeDto.screenCount)}"
                             android:fontFamily="@font/nanum_square_neo_bold"
                             android:textSize="16sp"
                             android:textColor="@color/main1"
@@ -180,10 +214,7 @@
                 android:layout_marginTop="8dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:orientation="vertical">
-
-
-            </androidx.recyclerview.widget.RecyclerView>
+                android:orientation="vertical"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </layout>

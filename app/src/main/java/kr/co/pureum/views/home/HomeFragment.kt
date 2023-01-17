@@ -4,15 +4,18 @@ import android.os.Build
 import android.os.Bundle
 import android.view.View
 import androidx.annotation.RequiresApi
-import androidx.recyclerview.widget.RecyclerView
+import androidx.fragment.app.viewModels
+import androidx.viewpager2.widget.ViewPager2
 import kr.co.pureum.R
 import kr.co.pureum.adapter.home.UsageTimeAdapter
 import kr.co.pureum.base.BaseFragment
 import kr.co.pureum.databinding.FragmentHomeBinding
 import kr.co.pureum.views.MainActivity
+import java.time.LocalDate
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     private lateinit var mainActivity: MainActivity
+    private val viewModel by viewModels<HomeViewModel>()
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -20,6 +23,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         initToolbar()
         initView()
         initListener()
+        observe()
     }
 
     private fun initToolbar() {
@@ -30,29 +34,37 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun initView() {
+        viewModel.getHomeInfo()
         with(binding) {
-            homeViewPager.apply {
-                adapter = UsageTimeAdapter(this@HomeFragment).apply {
+            homeUsageTimeViewPager.apply {
+                adapter = UsageTimeAdapter(mainActivity).apply {
                     setListener(object : UsageTimeAdapter.Listener{
-                        override fun onClick(combId: Long) {}
-                        override fun onDelete(combId: Long) {}
-                        override fun onPost(combId: Long) {}
+                        override fun onLoad() {
+                            // TODO("Not yet implemented")
+                        }
                     })
                 }
-                setCurrentItem(UsageTimeAdapter.START_POSITION, false)
-
                 offscreenPageLimit = 3
-                getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
-
-                val pageMarginPx = resources.getDimensionPixelOffset(R.dimen.pageMargin)
-                val pagerWidth = resources.getDimensionPixelOffset(R.dimen.pagerWidth)
-                val screenWidth = resources.displayMetrics.widthPixels
-                val offsetPx = screenWidth - pageMarginPx - pagerWidth
-
                 setPageTransformer { page, position ->
-                    page.translationX = position * -offsetPx
+                    page.translationX = position * -(resources.displayMetrics.widthPixels
+                            - resources.getDimensionPixelOffset(R.dimen.pageMargin)
+                            - resources.getDimensionPixelOffset(R.dimen.pagerWidth))
                 }
+                registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+                    override fun onPageSelected(position: Int) {
+                        super.onPageSelected(position)
+                        viewModel.prevUsageTimeLiveDate.value?.let {
+                            usageTimeDto = it[position]
+                            homeToday.visibility = when (LocalDate.of(it[position].year, it[position].month, it[position].day).isEqual(LocalDate.now())) {
+                                true -> View.VISIBLE
+                                else -> View.INVISIBLE
+                            }
+                        }
+
+                    }
+                })
             }
         }
     }
@@ -62,6 +74,21 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
             homeMoreButton.setOnClickListener {
 
             }
+        }
+    }
+
+    private fun observe() {
+        viewModel.goalTimeLiveData.observe(viewLifecycleOwner) {
+
+        }
+        viewModel.prevUsageTimeLiveDate.observe(viewLifecycleOwner) {
+            with(binding.homeUsageTimeViewPager) {
+                (adapter as UsageTimeAdapter).setData(it)
+                setCurrentItem(it.size, false)
+            }
+        }
+        viewModel.prevRankLiveDate.observe(viewLifecycleOwner) {
+
         }
     }
 }
