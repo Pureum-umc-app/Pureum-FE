@@ -13,20 +13,6 @@ class UsageTimeAdapter(val context: Context) : RecyclerView.Adapter<UsageTimeAda
     private lateinit var binding: ItemHomeUsageTimeBinding
     private var usageList = mutableListOf<UsageTimeDto>()
 
-    companion object {
-        const val START_POSITION = 0
-    }
-
-    interface Listener {
-        fun onLoad()
-    }
-
-    private lateinit var usageTimeListener : Listener
-
-    fun setListener(listener: Listener){
-        usageTimeListener = listener
-    }
-
     inner class ViewHolder(val binding: ItemHomeUsageTimeBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(usageTimeDto: UsageTimeDto){
             binding.usageTimeDto = usageTimeDto

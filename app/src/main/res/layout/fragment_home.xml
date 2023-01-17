@@ -7,13 +7,18 @@
     <data>
         <import type="android.view.View"/>
         <variable
+            name="isToday"
+            type="java.lang.Boolean" />
+        <variable
             name="usageTimeDto"
             type="kr.co.domain.model.UsageTimeDto" />
     </data>
     
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:overScrollMode="never"
+        android:scrollbars="none">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -29,7 +34,8 @@
                 android:text="@string/home_today"
                 android:fontFamily="@font/nanum_square_neo_extrabold"
                 android:textSize="22sp"
-                android:textColor="@color/text2"/>
+                android:textColor="@color/text2"
+                android:visibility="@{isToday ? View.VISIBLE : View.INVISIBLE}"/>
 
             <TextView
                 android:id="@+id/home_date"
@@ -58,18 +64,20 @@
 
             <LinearLayout
                 android:id="@+id/home_buttons_layout"
-                android:layout_width="296dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@+id/home_usage_time_view_pager"
                 android:layout_marginTop="12dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                android:paddingHorizontal="32dp"
                 android:orientation="horizontal"
-                android:gravity="center">
+                android:gravity="clip_horizontal">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="145dp"
-                    android:layout_height="117dp"
+                    android:layout_width="0dp"
+                    android:layout_height="120dp"
+                    android:layout_weight="8"
                     android:background="@drawable/bg_home_goal_time"
                     android:backgroundTint="@null">
 
@@ -107,7 +115,7 @@
                             android:id="@+id/home_goal_time"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@{@string/home_goal_time(usageTimeDto.goalTime / 60)}"
+                            android:text="@{@string/home_goal_time(usageTimeDto.goalTime / 60), default=시간}"
                             android:fontFamily="@font/nanum_square_neo_bold"
                             android:textSize="16sp"
                             android:textColor="@color/white"
@@ -121,8 +129,9 @@
                     android:layout_weight="1"/>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="145dp"
-                    android:layout_height="117dp"
+                    android:layout_width="0dp"
+                    android:layout_height="120dp"
+                    android:layout_weight="8"
                     android:background="@drawable/bg_home_screen_count"
                     android:backgroundTint="@null">
 
@@ -161,7 +170,7 @@
                             android:id="@+id/home_screen_count"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@{@string/home_screen_count(usageTimeDto.screenCount)}"
+                            android:text="@{@string/home_screen_count(usageTimeDto.screenCount), default=횟수}"
                             android:fontFamily="@font/nanum_square_neo_bold"
                             android:textSize="16sp"
                             android:textColor="@color/main1"
@@ -172,19 +181,20 @@
 
             <LinearLayout
                 android:id="@+id/home_rank_label_layout"
-                android:layout_width="296dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@+id/home_buttons_layout"
                 android:layout_marginTop="20dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                android:paddingHorizontal="32dp"
                 android:orientation="horizontal"
                 android:gravity="center">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/home_yesterday_rank"
+                    android:text="@{isToday ? @string/home_yesterday_rank : @string/home_total_rank, default=어제의순위}"
                     android:fontFamily="@font/nanum_square_neo_bold"
                     android:textSize="14sp"
                     android:textColor="@color/text2"/>
@@ -208,13 +218,17 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/home_rank_recycler_view"
-                android:layout_width="296dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@+id/home_rank_label_layout"
+                app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_marginTop="8dp"
+                android:layout_marginBottom="68dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:orientation="vertical"/>
+                android:paddingHorizontal="32dp"
+                android:orientation="vertical"
+                android:overScrollMode="never"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </layout>

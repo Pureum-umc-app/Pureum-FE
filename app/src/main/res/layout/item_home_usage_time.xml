@@ -9,18 +9,19 @@
             name="usageTimeDto"
             type="kr.co.domain.model.UsageTimeDto" />
     </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="296dp"
+            android:layout_width="match_parent"
             android:layout_height="256dp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginVertical="8dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            android:layout_margin="8dp"
             android:background="@drawable/bg_home_usage_time"
             android:elevation="4dp">
 
@@ -44,11 +45,11 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:indicatorSize="160dp"
-                android:progressBackgroundTint="@color/progressbar_light_grey"
-                android:progressTint="@color/main1"
+                app:trackColor="@color/progressbar_light_grey"
+                app:indicatorColor="@color/main1"
                 app:trackThickness="8dp"
-                android:max="@{usageTimeDto.goalTime}"
-                android:progress="@{usageTimeDto.usageTime}"/>
+                android:max="@{usageTimeDto.goalTime, default=100}"
+                android:progress="@{usageTimeDto.usageTime, default=75}"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -70,7 +71,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{Integer.toString(usageTimeDto.usageTime / 60)}"
+                        android:text="@{Integer.toString(usageTimeDto.usageTime / 60), default=5}"
                         android:textAlignment="center"
                         android:fontFamily="@font/nanum_square_neo_bold"
                         android:textSize="40sp"/>
@@ -94,7 +95,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{Integer.toString(usageTimeDto.usageTime % 60)}"
+                        android:text="@{Integer.toString(usageTimeDto.usageTime % 60), default=45}"
                         android:textAlignment="center"
                         android:fontFamily="@font/nanum_square_neo_bold"
                         android:textSize="40sp"/>

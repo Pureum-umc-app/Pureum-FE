@@ -1,31 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
             name="rank"
             type="java.lang.Integer" />
         <variable
-            name="nickname"
-            type="java.lang.String" />
-        <variable
-            name="goalTime"
-            type="java.lang.Integer" />
-        <variable
-            name="usageTime"
-            type="java.lang.Integer" />
+            name="userRankDto"
+            type="kr.co.domain.model.UserRankDto" />
     </data>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="4dp"
         android:orientation="horizontal"
         android:gravity="center">
 
-        <TextView
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="16dp"
-            android:text="@{rank.toString()}"/>
+            android:layout_marginEnd="8dp"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="4dp"
+            android:background="@drawable/bg_rank_winner"
+            android:backgroundTint="@{rank == 1 ? @color/sub1 : @color/bg}">
+
+            <TextView
+                android:layout_width="12dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:text="@{Integer.toString(rank), default=1}"
+                android:fontFamily="@font/nanum_square_neo_bold"
+                android:textSize="16sp"
+                android:textColor="@{rank == 1 ? @color/white : @color/text1}"
+                android:textAlignment="center"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ImageView
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:src="@drawable/bg_default_profile_image"
+            android:contentDescription="@string/home_rank_profile_image" />
+        
+        <LinearLayout
+            android:layout_width="184dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="8dp"
+            android:orientation="vertical"
+            android:gravity="start">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="@{userRankDto.nickname, default=닉네임}"
+                android:fontFamily="@font/nanum_square_neo_bold"
+                android:textSize="14sp"/>
+
+            <com.google.android.material.progressindicator.LinearProgressIndicator
+                android:layout_width="match_parent"
+                android:layout_height="12dp"
+                app:trackThickness="12dp"
+                app:trackColor="@color/progressbar_light_grey"
+                app:indicatorColor="@color/main1"
+                app:trackCornerRadius="6dp"
+                android:max="@{userRankDto.goalTime, default=100}"
+                android:progress="@{userRankDto.usageTime, default=50}"/>
+        </LinearLayout>
     </LinearLayout>
 </layout>

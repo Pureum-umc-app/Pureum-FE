@@ -12,7 +12,9 @@
     <string name="home_screen_count_label">휴대폰\n화면 켠 횟수</string>
     <string name="home_screen_count">%d회</string>
     <string name="home_yesterday_rank">어제의 순위</string>
+    <string name="home_total_rank">전체 순위</string>
     <string name="home_more"><u>더보기</u></string>
+    <string name="home_rank_profile_image">Default Profile Image</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
