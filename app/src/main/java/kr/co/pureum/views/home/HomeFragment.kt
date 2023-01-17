@@ -51,11 +51,16 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                     override fun onPageSelected(position: Int) {
                         super.onPageSelected(position)
                         viewModel.prevUsageTimeLiveData.value?.let {
-                            viewModel.changeDate(it[position].year, it[position].month, it[position].day)
+                            var date = LocalDate.of(it[position].year, it[position].month, it[position].day)
+                            isToday = date.isEqual(LocalDate.now())
                             usageTimeDto = it[position]
-                            isToday = LocalDate.of(it[position].year, it[position].month, it[position].day).isEqual(LocalDate.now())
+                            goalTime = it[position].goalTime
+                            if (date.isEqual(LocalDate.now())) {
+                                date = date.minusDays(1)
+                                goalTime = viewModel.goalTimeLiveData.value
+                            }
+                            viewModel.changeDate(date.year, date.monthValue, date.dayOfMonth)
                         }
-
                     }
                 })
             }

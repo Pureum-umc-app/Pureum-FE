@@ -34,12 +34,12 @@ class HomeViewModel : ViewModel() {
             // TODO: 임시
             val res = HomeResponse(goalTime = 640,
                 prevUsageTime = List(5) {dateIdx ->
-                    val tempDate = LocalDate.now().plusDays((dateIdx - 4).toLong())
+                    val tempDate = LocalDate.now().minusDays((4 - dateIdx).toLong())
                     UsageTimeDto(year = tempDate.year, month = tempDate.monthValue, day = tempDate.dayOfMonth,
                         usageTime = 300 + dateIdx * 10, screenCount = dateIdx + 10, goalTime = 300 + dateIdx * 60, isSuccess = true)
                 },
                 prevRank = List(5) { dateIdx ->
-                    val tempDate = LocalDate.now().plusDays((dateIdx - 4).toLong())
+                    val tempDate = LocalDate.now().minusDays((4 - dateIdx).toLong())
                     RankDto(year = tempDate.year, month = tempDate.monthValue, day = tempDate.dayOfMonth,
                         rank = List(5) { userIdx ->
                             UserRankDto(nickname = "%d일의 User %d".format(tempDate.dayOfMonth, userIdx + 1), profileImage = "",

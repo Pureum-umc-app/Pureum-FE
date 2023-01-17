@@ -12,6 +12,9 @@
         <variable
             name="usageTimeDto"
             type="kr.co.domain.model.UsageTimeDto" />
+        <variable
+            name="goalTime"
+            type="java.lang.Integer" />
     </data>
     
     <ScrollView
@@ -115,7 +118,7 @@
                             android:id="@+id/home_goal_time"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@{@string/home_goal_time(usageTimeDto.goalTime / 60), default=시간}"
+                            android:text="@{@string/home_goal_time(goalTime / 60), default=시간}"
                             android:fontFamily="@font/nanum_square_neo_bold"
                             android:textSize="16sp"
                             android:textColor="@color/white"
