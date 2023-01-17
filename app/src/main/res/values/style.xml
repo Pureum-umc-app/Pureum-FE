@@ -30,4 +30,9 @@
         <item name="android:fontFamily">@font/nanum_square_neo</item>
         <item name="android:lineSpacingExtra">3sp</item>
     </style>
+
+    <style name="customBottomNavigationFontStyle">
+        <item name="android:fontFamily">@font/nanum_square_neo</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 </resources>
