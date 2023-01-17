@@ -25,4 +25,12 @@
         <item name="android:textColor">@color/text1</item>
         <item name="android:fontFamily">@font/nanum_square_neo</item>
     </style>
+
+    <style name="BottomSheetDialogTheme" parent="Theme.Design.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/BottomSheetStyle</item>
+    </style>
+
+    <style name="BottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/signup_bottom_sheet_background</item>
+    </style>
 </resources>

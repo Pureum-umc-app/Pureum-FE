@@ -17,4 +17,19 @@
     <string name="onboard_challenge">도전장을 내밀어보아요</string>
     <string name="onboard_glove">작성한 문장으로 대결 신청하기</string>
     <string name="login_simple">간편하게 로그인하기</string>
+
+    <!-- SignUpActivity -->
+    <string name="signup_agree">이용 약관에 동의해주세요</string>
+    <string name="signup_all_agree">모두 동의합니다</string>
+    <string name="agree_service">서비스 이용 약관 동의</string>
+    <string name="agree_my_info">개인정보 수집 및 이용 동의</string>
+    <string name="signup_next">계속 진행합니다</string>
+    <string name="pureum_clause">푸름 이용 약관</string>
+    <string name="clause">이용 약관</string>
+    <string name="clause_ok">확인</string>
+    <string name="signup_welcome">환영합니다!</string>
+    <string name="signup_setting">나를 나타내는 프로필 사진과\n닉네임을 설정해주세요.</string>
+    <string name="change_profile_img">사진 변경하기</string>
+    <string name="enter_nickname">닉네임을 입력해주세요. (최대 10자)</string>
+    <string name="signup_follow">다음</string>
 </resources>

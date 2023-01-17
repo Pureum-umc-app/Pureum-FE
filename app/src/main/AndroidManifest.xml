@@ -17,6 +17,27 @@
         android:theme="@style/Theme.Pureum"
         tools:targetApi="31">
         <activity
+            android:name="kr.co.pureum.views.signup.SignUpProfileActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name="kr.co.pureum.views.signup.SignUpInfoActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name="kr.co.pureum.views.signup.SignUpClauseActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name="kr.co.pureum.views.signup.SignUpActivity"
             android:exported="false">
             <meta-data
