@@ -4,26 +4,52 @@
     <style name="customTextViewFontStyle" parent="@android:style/Widget.DeviceDefault.TextView">
         <item name="android:textColor">@color/text1</item>
         <item name="android:fontFamily">@font/nanum_square_neo</item>
+        <item name="android:lineSpacingExtra">3sp</item>
     </style>
 
     <style name="customButtonFontStyle" parent="@android:style/Widget.DeviceDefault.Button.Borderless">
         <item name="android:textColor">@color/text1</item>
         <item name="android:fontFamily">@font/nanum_square_neo</item>
+        <item name="android:lineSpacingExtra">3sp</item>
     </style>
 
     <style name="customEditTextFontStyle" parent="@android:style/Widget.DeviceDefault.EditText">
         <item name="android:textColor">@color/text1</item>
         <item name="android:fontFamily">@font/nanum_square_neo</item>
+        <item name="android:lineSpacingExtra">3sp</item>
     </style>
 
     <style name="customRadioButtonFontStyle" parent="@android:style/Widget.DeviceDefault.CompoundButton.RadioButton">
         <item name="android:textColor">@color/text1</item>
         <item name="android:fontFamily">@font/nanum_square_neo</item>
+        <item name="android:lineSpacingExtra">3sp</item>
     </style>
 
     <style name="customCheckboxFontStyle" parent="@android:style/Widget.DeviceDefault.CompoundButton.CheckBox">
         <item name="android:textColor">@color/text1</item>
         <item name="android:fontFamily">@font/nanum_square_neo</item>
+        <item name="android:lineSpacingExtra">3sp</item>
+    </style>
+
+    <!-- tabLayout 텍스트 커스텀 -->
+    <style name="tab_text_style">
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">@font/nanum_square_neo</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- tabLayout 커스텀-->
+    <style name="tab_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="tabIndicatorColor">#85B5FF</item>
+        <item name="tabIndicatorHeight">2dp</item>
+        <item name="tabTextAppearance">@style/tab_text_style</item>
+        <item name="tabSelectedTextColor">#85B5FF</item>
+        <item name="tabTextColor">#6E6D73</item>
+        <item name="android:background">@drawable/custom_inactive_tab_indicator</item>
+        <item name="tabGravity">fill</item>
+        <item name="tabMode">fixed</item>
     </style>
 
     <style name="BottomSheetDialogTheme" parent="Theme.Design.BottomSheetDialog">

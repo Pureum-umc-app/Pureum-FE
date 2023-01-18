@@ -4,8 +4,7 @@
     <!--  HomeFragment  -->
     <string name="today">TODAY</string>
     <string name="daily_usage_time">일일 사용시간</string>
-
-
+    
     <!-- OnboardActivity -->
     <string name="onboard_first">오늘의 키워드로 매일 한 문장 작성하기</string>
     <string name="ddingdong">띵동!&#160;&#160;</string>

@@ -16,6 +16,21 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Pureum"
         tools:targetApi="31">
+        
+        <activity
+            android:name="kr.co.pureum.views.quest.WriteSentence1Activity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name="kr.co.pureum.views.quest.WriteSentenceActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <activity
             android:name="kr.co.pureum.views.signup.SignUpProfileActivity"
             android:exported="false">
