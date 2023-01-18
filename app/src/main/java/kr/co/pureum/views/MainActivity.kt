@@ -17,7 +17,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     private fun initToolBar() {
         val toolbarBodyTemplate = binding.mainToolbar
         setSupportActionBar(toolbarBodyTemplate)
-        supportActionBar?.setLogo(R.drawable.ic_pureum_logo)
+        supportActionBar?.setLogo(R.drawable.ic_appicon)
         supportActionBar?.title = ""
     }
 
