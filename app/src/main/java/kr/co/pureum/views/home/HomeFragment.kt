@@ -1,7 +1,9 @@
 package kr.co.pureum.views.home
 
+import android.app.usage.UsageStats
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.viewModels
