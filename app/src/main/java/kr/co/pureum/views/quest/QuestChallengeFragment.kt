@@ -1,9 +1,14 @@
 package kr.co.pureum.views.quest
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.navigation.Navigator
+import androidx.navigation.fragment.FragmentNavigator
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.navArgument
 import androidx.recyclerview.widget.LinearLayoutManager
 import kr.co.domain.model.DataSentence
 import kr.co.pureum.R
@@ -14,7 +19,8 @@ import kr.co.pureum.views.MainActivity
 
 class QuestChallengeFragment : BaseFragment<FragmentQuestChallengeBinding>(R.layout.fragment_quest_challenge) {
     lateinit var mainActivity : MainActivity
-
+    private val dataSentenceList : ArrayList<DataSentence> = arrayListOf()
+    private val dataSentenceAdapter = DataSentenceRVAdapter(dataSentenceList)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
@@ -23,6 +29,8 @@ class QuestChallengeFragment : BaseFragment<FragmentQuestChallengeBinding>(R.lay
     }
 
     private fun initView() {
+        binding.questChallenge1Tv.text = "한 문장 챌린지에 도전해요"
+        binding.questChallenge2Tv.text = "클릭 시 오늘의 키워드로 이동"
         Log.e("ScreenBuild", "QuestChallengeFragment")
     }
 
@@ -37,8 +45,6 @@ class QuestChallengeFragment : BaseFragment<FragmentQuestChallengeBinding>(R.lay
 
     // 리사이클러뷰 sentence 함수
     private fun initApplySentenceView() {
-        val dataSentenceList : ArrayList<DataSentence> = arrayListOf()
-        val dataSentenceAdapter = DataSentenceRVAdapter(dataSentenceList)
 
         val managerSentence = LinearLayoutManager(activity)
         managerSentence.reverseLayout = true
@@ -48,9 +54,9 @@ class QuestChallengeFragment : BaseFragment<FragmentQuestChallengeBinding>(R.lay
         binding.questChallengeSentenceRv.adapter = dataSentenceAdapter
 
         dataSentenceList.apply {
-            add(DataSentence("성실"))
-            add(DataSentence("바보"))
-            add(DataSentence("호구"))
+            add(DataSentence("", "성실"))
+            add(DataSentence("","바보"))
+            add(DataSentence("", "호구"))
         }
     }
 }

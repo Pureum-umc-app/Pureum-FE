@@ -21,9 +21,7 @@ class DataSentenceRVAdapter(private val dataSentenceList: ArrayList<DataSentence
 
     override fun onBindViewHolder(holder: DataSentenceViewHolder, position: Int) {
         holder.bind(dataSentenceList[position])
-
     }
 
     override fun getItemCount(): Int = dataSentenceList.size
-
 }
