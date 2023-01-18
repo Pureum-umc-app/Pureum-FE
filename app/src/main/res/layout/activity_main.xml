@@ -14,6 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
+            app:elevation="0dp"
             android:theme="@style/ThemeOverlay.AppCompat.ActionBar">
 
             <androidx.appcompat.widget.Toolbar
@@ -21,7 +22,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="@color/bg"
-                app:navigationIcon="@drawable/ic_toolbar_back"/>
+                app:navigationIcon="@drawable/ic_back"/>
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.fragment.app.FragmentContainerView
@@ -56,6 +57,7 @@
             app:itemTextColor="@drawable/selector_navigation_icon"
             app:menu="@menu/purem_menu"
             app:labelVisibilityMode="labeled"
-            app:itemRippleColor="@color/transparent" />
+            app:itemRippleColor="@color/transparent"
+            android:theme="@style/customBottomNavigationFontStyle"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

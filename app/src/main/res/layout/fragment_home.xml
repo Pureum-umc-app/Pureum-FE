@@ -3,21 +3,235 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".views.home.HomeFragment">
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="isToday"
+            type="java.lang.Boolean" />
+        <variable
+            name="usageTimeDto"
+            type="kr.co.domain.model.UsageTimeDto" />
+        <variable
+            name="goalTime"
+            type="java.lang.Integer" />
+    </data>
+    
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:overScrollMode="never"
+        android:scrollbars="none">
 
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/home_view_pager"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="16dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:paddingHorizontal="32dp"
-            android:clipChildren="false"
-            android:clipToPadding="false"/>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/home_today"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:text="@string/home_today"
+                android:fontFamily="@font/nanum_square_neo_extrabold"
+                android:textSize="22sp"
+                android:textColor="@color/text2"
+                android:visibility="@{isToday ? View.VISIBLE : View.INVISIBLE}"/>
+
+            <TextView
+                android:id="@+id/home_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/home_today"
+                android:layout_marginTop="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:text="@{@string/home_date(usageTimeDto.year, usageTimeDto.month, usageTimeDto.day)}"
+                android:fontFamily="@font/nanum_square_neo_extrabold"
+                android:textSize="16sp"
+                android:textAlignment="center"
+                android:textStyle="normal" />
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/home_usage_time_view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/home_date"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:paddingHorizontal="32dp"
+                android:clipChildren="false"
+                android:clipToPadding="false"/>
+
+            <LinearLayout
+                android:id="@+id/home_buttons_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/home_usage_time_view_pager"
+                android:layout_marginTop="12dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:paddingHorizontal="32dp"
+                android:orientation="horizontal"
+                android:gravity="clip_horizontal">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="0dp"
+                    android:layout_height="120dp"
+                    android:layout_weight="8"
+                    android:background="@drawable/bg_home_goal_time"
+                    android:backgroundTint="@null">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_marginTop="16dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:layout_marginStart="20dp"
+                        android:text="@string/home_goal_time_label"
+                        android:fontFamily="@font/nanum_square_neo_bold"
+                        android:textSize="16sp"
+                        android:textColor="@color/white"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:layout_marginBottom="20dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_marginHorizontal="20dp"
+                        android:orientation="horizontal"
+                        android:gravity="center"
+                        tools:ignore="UseCompoundDrawables">
+
+                        <ImageView
+                            android:contentDescription="@string/home_screen_count_label"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_time"/>
+
+                        <TextView
+                            android:id="@+id/home_goal_time"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@{@string/home_goal_time(goalTime / 60), default=시간}"
+                            android:fontFamily="@font/nanum_square_neo_bold"
+                            android:textSize="16sp"
+                            android:textColor="@color/white"
+                            android:textAlignment="center"/>
+                    </LinearLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"/>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="0dp"
+                    android:layout_height="120dp"
+                    android:layout_weight="8"
+                    android:background="@drawable/bg_home_screen_count"
+                    android:backgroundTint="@null">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_marginTop="16dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:layout_marginStart="20dp"
+                        android:text="@string/home_screen_count_label"
+                        android:fontFamily="@font/nanum_square_neo_bold"
+                        android:textSize="16sp"
+                        android:textColor="@color/main1"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:layout_marginBottom="20dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_marginHorizontal="20dp"
+                        android:orientation="horizontal"
+                        android:gravity="center"
+                        tools:ignore="UseCompoundDrawables">
+
+                        <ImageView
+                            android:contentDescription="@string/home_screen_count_label"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_smartphone"
+                            app:tint="@color/main1" />
+
+                        <TextView
+                            android:id="@+id/home_screen_count"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@{@string/home_screen_count(usageTimeDto.screenCount), default=횟수}"
+                            android:fontFamily="@font/nanum_square_neo_bold"
+                            android:textSize="16sp"
+                            android:textColor="@color/main1"
+                            android:textAlignment="center"/>
+                    </LinearLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/home_rank_label_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/home_buttons_layout"
+                android:layout_marginTop="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:paddingHorizontal="32dp"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{isToday ? @string/home_yesterday_rank : @string/home_total_rank, default=어제의순위}"
+                    android:fontFamily="@font/nanum_square_neo_bold"
+                    android:textSize="14sp"
+                    android:textColor="@color/text2"/>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"/>
+
+                <Button
+                    android:id="@+id/home_more_button"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="64dp"
+                    android:layout_height="32dp"
+                    android:text="@string/home_more"
+                    android:fontFamily="@font/nanum_square_neo_bold"
+                    android:textSize="14sp"
+                    android:textColor="@color/text2"
+                    android:paddingVertical="0dp"/>
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/home_rank_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/home_rank_label_layout"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="68dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:paddingHorizontal="32dp"
+                android:orientation="vertical"
+                android:overScrollMode="never"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </layout>

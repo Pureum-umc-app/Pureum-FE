@@ -1,47 +1,38 @@
 package kr.co.pureum.adapter.home
 
-import android.os.Build
-import android.os.Bundle
-import androidx.annotation.RequiresApi
-import androidx.fragment.app.Fragment
-import androidx.viewpager2.adapter.FragmentStateAdapter
-import kr.co.pureum.views.home.UsageTimeFragment
-import java.time.LocalDate
+import android.content.Context
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.RecyclerView
+import kr.co.domain.model.UsageTimeDto
+import kr.co.pureum.R
+import kr.co.pureum.databinding.ItemHomeUsageTimeBinding
 
-class UsageTimeAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
-    companion object {
-        const val START_POSITION = Int.MAX_VALUE / 2
-    }
+class UsageTimeAdapter(val context: Context) : RecyclerView.Adapter<UsageTimeAdapter.ViewHolder>() {
+    private lateinit var binding: ItemHomeUsageTimeBinding
+    private var usageList = mutableListOf<UsageTimeDto>()
 
-    @RequiresApi(Build.VERSION_CODES.O)
-    override fun getItemId(position: Int): Long {
-        val date = LocalDate.now().plusDays((position - START_POSITION).toLong())
-        return date.year * 10000L + date.monthValue * 100L + date.dayOfMonth
-    }
-
-    override fun getItemCount(): Int = Int.MAX_VALUE
-
-    @RequiresApi(Build.VERSION_CODES.O)
-    override fun createFragment(position: Int): Fragment {
-        val itemId = getItemId(position)
-        return UsageTimeFragment().apply {
-            arguments = Bundle().apply {
-                putInt("year" , (itemId / 10000L).toInt())
-                putInt("month" , ((itemId % 10000L) / 100L).toInt())
-                putInt("day", (itemId % 100L).toInt())
-            }
+    inner class ViewHolder(val binding: ItemHomeUsageTimeBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(usageTimeDto: UsageTimeDto){
+            binding.usageTimeDto = usageTimeDto
         }
     }
 
-    interface Listener {
-        fun onClick(combId: Long)
-        fun onDelete(combId: Long)
-        fun onPost(combId: Long)
+    override fun getItemCount(): Int = usageList.size
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        binding = DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.item_home_usage_time, parent, false)
+        return ViewHolder(binding)
     }
 
-    private lateinit var usageTimeListener : Listener
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.bind(usageList[position])
+    }
 
-    fun setListener(listener: Listener){
-        usageTimeListener = listener
+    fun setData(data: List<UsageTimeDto>) {
+        usageList.clear()
+        usageList.addAll(data)
+        notifyDataSetChanged()
     }
 }
