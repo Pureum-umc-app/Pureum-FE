@@ -1,0 +1,62 @@
+package kr.co.pureum.views.quest
+
+import android.content.Intent
+import android.os.Bundle
+import android.util.Log
+import android.view.View
+import androidx.navigation.Navigator
+import androidx.navigation.fragment.FragmentNavigator
+import androidx.navigation.fragment.FragmentNavigatorExtras
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.navArgument
+import androidx.recyclerview.widget.LinearLayoutManager
+import kr.co.domain.model.DataSentence
+import kr.co.pureum.R
+import kr.co.pureum.adapter.quest.DataSentenceRVAdapter
+import kr.co.pureum.base.BaseFragment
+import kr.co.pureum.databinding.FragmentQuestChallengeBinding
+import kr.co.pureum.views.MainActivity
+
+class QuestChallengeFragment : BaseFragment<FragmentQuestChallengeBinding>(R.layout.fragment_quest_challenge) {
+    lateinit var mainActivity : MainActivity
+    private val dataSentenceList : ArrayList<DataSentence> = arrayListOf()
+    private val dataSentenceAdapter = DataSentenceRVAdapter(dataSentenceList)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initView()
+        initListener()
+        initApplySentenceView()
+    }
+
+    private fun initView() {
+        binding.questChallenge1Tv.text = "한 문장 챌린지에 도전해요"
+        binding.questChallenge2Tv.text = "클릭 시 오늘의 키워드로 이동"
+        Log.e("ScreenBuild", "QuestChallengeFragment")
+    }
+
+    private fun initListener() {
+        with(binding) {
+            questChallengeSentenceCv.setOnClickListener {
+                val action = QuestFragmentDirections.actionQuestFragmentToQuestClickFragment()
+                findNavController().navigate(action)
+            }
+        }
+    }
+
+    // 리사이클러뷰 sentence 함수
+    private fun initApplySentenceView() {
+
+        val managerSentence = LinearLayoutManager(activity)
+        managerSentence.reverseLayout = true
+        managerSentence.stackFromEnd = true
+        binding.questChallengeSentenceRv.layoutManager = managerSentence
+        binding.questChallengeSentenceRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        binding.questChallengeSentenceRv.adapter = dataSentenceAdapter
+
+        dataSentenceList.apply {
+            add(DataSentence("", "성실"))
+            add(DataSentence("","바보"))
+            add(DataSentence("", "호구"))
+        }
+    }
+}

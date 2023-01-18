@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".views.quest.QuestFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".views.quest.QuestClickFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent" >
 
         <com.google.android.material.tabs.TabLayout
-            android:id="@+id/quest_tab_tl"
+            android:id="@+id/quest_click_tab_tl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/tab_style"
@@ -19,15 +19,18 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/quest_viewpager_vp"
+            android:id="@+id/quest_click_viewpager_vp"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/quest_tab_tl"
+            app:layout_constraintTop_toBottomOf="@+id/quest_click_tab_tl"
             app:layout_constraintVertical_bias="0.0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>
+
+
