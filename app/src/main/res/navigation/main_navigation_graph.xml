@@ -32,22 +32,17 @@
         android:name="kr.co.pureum.views.quest.QuestClickFragment"
         android:label="QuestClickFragment">
 
+        <action
+            android:id="@+id/action_questClickFragment_to_questVoidFragment"
+            app:destination="@id/questVoidFragment" />
     </fragment>
 
     <fragment
-        android:id="@+id/questBadeFragment"
-        android:name="kr.co.pureum.views.quest.QuestBadgeFragment"
-        android:label="QuestBadgeFragment" >
+        android:id="@+id/questVoidFragment"
+        android:name="kr.co.pureum.views.quest.QuestVoid1Fragment"
+        android:label="QuestVoidFragment" >
 
     </fragment>
-
-    <fragment
-        android:id="@+id/questChallengeFragment"
-        android:name="kr.co.pureum.views.quest.QuestChallengeFragment"
-        android:label="QuestChallengeFragment" >
-
-    </fragment>
-
 
     <fragment
         android:id="@+id/profileFragment"
