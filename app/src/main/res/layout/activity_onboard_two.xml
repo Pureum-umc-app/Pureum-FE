@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".views.signup.OnboardTwoActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/onboard_img_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_onboard_badge"
+            android:layout_marginTop="200dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+
+        <TextView
+            android:id="@+id/onboard_badge_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="22sp"
+            android:layout_marginBottom="20dp"
+            android:text="@string/onboard_badge"
+            android:textColor="@color/text1"
+            android:layout_marginTop="120dp"
+            android:fontFamily="@font/nanum_square_neo_bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+        <TextView
+            android:id="@+id/onboard_sec_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/onboard_sec"
+            android:textSize="16sp"
+            android:layout_marginTop="350dp"
+            android:textColor="@color/text1"
+            android:fontFamily="@font/nanum_square_neo_bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/onboard_badge_tv"
+            />
+
+        <ImageView
+            android:id="@+id/onboard_dots"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_onboard_dots_two"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/onboard_sec_tv"
+            android:layout_marginTop="10dp"/>
+
+        <Button
+            android:id="@+id/onboard_next"
+            android:layout_width="250dp"
+            android:layout_height="70dp"
+            android:text="@string/onboard_next"
+            android:fontFamily="@font/nanum_square_neo_regular"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:background="@drawable/signup_next_button"
+            android:layout_marginTop="18dp"
+            android:textSize="16sp"
+            app:layout_constraintTop_toBottomOf="@id/onboard_dots"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
