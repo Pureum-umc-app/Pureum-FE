@@ -1,5 +1,6 @@
 package kr.co.pureum.views.profile
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -8,6 +9,7 @@ import kr.co.pureum.R
 import kr.co.pureum.base.BaseFragment
 import kr.co.pureum.databinding.FragmentProfileBinding
 import kr.co.pureum.views.MainActivity
+import kr.co.pureum.views.signup.OnboardActivity
 
 class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_profile) {
     lateinit var mainActivity: MainActivity
@@ -37,6 +39,11 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_p
             profileButton.setOnClickListener {
                 val action = ProfileFragmentDirections.actionProfileFragmentToProfileTempFragment()
                 findNavController().navigate(action)
+            }
+
+            profileOnboardButton.setOnClickListener {
+                val intent = Intent(activity, OnboardActivity::class.java)
+                startActivity(intent)
             }
         }
     }
