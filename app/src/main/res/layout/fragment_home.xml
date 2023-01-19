@@ -78,6 +78,7 @@
                 android:gravity="clip_horizontal">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/home_goal_time_layout"
                     android:layout_width="0dp"
                     android:layout_height="120dp"
                     android:layout_weight="8"
@@ -115,7 +116,6 @@
                             android:src="@drawable/ic_time"/>
 
                         <TextView
-                            android:id="@+id/home_goal_time"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@{@string/home_goal_time(goalTime / 60), default=시간}"
@@ -132,6 +132,7 @@
                     android:layout_weight="1"/>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/home_screen_count_layout"
                     android:layout_width="0dp"
                     android:layout_height="120dp"
                     android:layout_weight="8"
@@ -170,7 +171,6 @@
                             app:tint="@color/main1" />
 
                         <TextView
-                            android:id="@+id/home_screen_count"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@{@string/home_screen_count(usageTimeDto.screenCount), default=횟수}"

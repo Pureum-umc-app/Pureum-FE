@@ -4,8 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <item
-        android:id="@+id/toolbar_back"
-        android:icon="@drawable/ic_back"
-        android:title="뒤로가기"
+        android:id="@+id/toolbar_calender"
+        android:icon="@drawable/ic_calendar"
+        android:iconTint="@color/text1"
+        android:title="달력"
         app:showAsAction="always"/>
 </menu>
