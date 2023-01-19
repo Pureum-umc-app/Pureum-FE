@@ -53,6 +53,10 @@
     <string name="today_keyword_one">오늘의 키워드 1</string>
     <string name="today_keyword_two">오늘의 키워드 2</string>
     <string name="today_keyword_three">오늘의 키워드 3</string>
-
+    <string name="sentence_public">공개</string>
+    <string name="sentence_private">비공개</string>
+    <string name="keyword_definition">정의</string>
+    <string name="keyword_definition_sentence">어떤 내용을 구체적인 사실로\n나타내게 하다</string>
+    <string name="keyword_sentence_hint">키워드를 보고 떠오르는 생각을 자유롭게\n문장으로 표현해주세요!</string>
 
 </resources>
