@@ -65,5 +65,10 @@
     <string name="dialog_back_msg">나가기를 누르면\n작성 중인 글이 사라집니다.</string>
     <string name="dialog_back_continue">계속 쓰기</string>
     <string name="dialog_back_back">나가기</string>
+    <string name="dialog_sentence_completion">문장 작성 완료</string>
+    <string name="dialog_keyword">키워드</string>
+    <string name="dialog_private_public">공개 여부</string>
+    <string name="dialog_go_my_sentence">내가 쓴 문장 보러 가기</string>
+    <string name="dialog_go_other_sentence">다른 사람이 쓴 문장 보러 가기</string>
 
 </resources>

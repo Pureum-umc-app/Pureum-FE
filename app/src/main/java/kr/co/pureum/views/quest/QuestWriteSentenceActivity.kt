@@ -3,6 +3,7 @@ package kr.co.pureum.views.quest
 import android.app.Dialog
 import android.content.Context
 import android.text.Editable
+import android.util.Log
 import android.view.KeyEvent
 import android.view.WindowManager
 import android.widget.Button
@@ -39,12 +40,22 @@ class QuestWriteSentenceActivity : BaseActivity<ActivityQuestWriteSentenceBindin
     }
 
     private fun initClickListener() {
-        val keyword = binding.questKeywordTv.text.toString()
-        val sentence = binding.questSentenceWritingEt.text
-        if (sentence.isEmpty() || sentence.length < 10 || sentence.contains(keyword)) {
-            binding.questSentenceCompletionBt.setOnClickListener {
+        binding.questSentenceCompletionBt.setOnClickListener {
+            val keyword = binding.questKeywordTv.text.toString()
+            val sentence = binding.questSentenceWritingEt.text
+
+            Log.d("tag", keyword)
+            Log.d("tag", sentence.toString())
+            if (sentence.isEmpty() || sentence.length < 10 || !sentence.contains(keyword)) {
                 errorDidaLog(this, sentence, keyword)
             }
+            else if (sentence.length >= 10 && sentence.contains(keyword)) {
+                completionDialog(this, keyword)
+            }
+        }
+
+        binding.questSentencePublicPrivateBt.setOnClickListener {
+
         }
     }
 
@@ -61,7 +72,7 @@ class QuestWriteSentenceActivity : BaseActivity<ActivityQuestWriteSentenceBindin
             errorText.text = "10자 이상 입력해주세요."
         }
 
-        else if (sentence.contains(keyword)){
+        else if (!sentence.contains(keyword)){
             errorText.text = "키워드를 포함하여 작성해주세요"
         }
 
@@ -73,7 +84,7 @@ class QuestWriteSentenceActivity : BaseActivity<ActivityQuestWriteSentenceBindin
         }
         dialog.show()
     }
-    // 뒤로가기 시 dialog
+    // 뒤로가기 dialog
     private fun backDialog(context: Context) {
         val dialog = Dialog(context)
         dialog.setContentView(R.layout.dialog_back_msg)
@@ -88,6 +99,15 @@ class QuestWriteSentenceActivity : BaseActivity<ActivityQuestWriteSentenceBindin
         backButton.setOnClickListener {
             finish()
         }
+        dialog.show()
+    }
+
+    private fun completionDialog(context: Context, keyword: String) {
+        val dialog = Dialog(context)
+        dialog.setContentView(R.layout.dialog_completion_msg)
+        dialog.findViewById<TextView>(R.id.dialog_today_keyword_tv).text = keyword
+        dialog.window?.setBackgroundDrawableResource(R.drawable.bg_home_goal_time)
+        dialog.window!!.setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT)
         dialog.show()
     }
 
