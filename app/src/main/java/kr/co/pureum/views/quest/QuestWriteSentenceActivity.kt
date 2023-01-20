@@ -3,6 +3,7 @@ package kr.co.pureum.views.quest
 import android.app.Dialog
 import android.content.Context
 import android.text.Editable
+import android.view.KeyEvent
 import android.view.WindowManager
 import android.widget.Button
 import android.widget.TextView
@@ -16,6 +17,15 @@ class QuestWriteSentenceActivity : BaseActivity<ActivityQuestWriteSentenceBindin
         initToolbar()
         initClickListener()
     }
+    // 뒤로가기 버튼 or 스와이프 시 dialog
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        when (keyCode) {
+            KeyEvent.KEYCODE_BACK -> {
+                backDialog(this)
+            }
+        }
+        return true
+    }
 
     private fun initToolbar() {
         val toolbarBodyTemplate = binding.mainToolbar
@@ -24,24 +34,22 @@ class QuestWriteSentenceActivity : BaseActivity<ActivityQuestWriteSentenceBindin
         supportActionBar?.setDisplayUseLogoEnabled(false)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         binding.mainToolbar.setOnClickListener {
-            finish()
+            backDialog(this)
         }
     }
 
     private fun initClickListener() {
         val keyword = binding.questKeywordTv.text.toString()
         val sentence = binding.questSentenceWritingEt.text
-
         if (sentence.isEmpty() || sentence.length < 10 || sentence.contains(keyword)) {
             binding.questSentenceCompletionBt.setOnClickListener {
-                didaLog(this, sentence, keyword)
+                errorDidaLog(this, sentence, keyword)
             }
         }
-
     }
 
-
-    private fun didaLog(context: Context, sentence: Editable, keyword: String) {
+    // 작성완료 클릭 시 dialog
+    private fun errorDidaLog(context: Context, sentence: Editable, keyword: String) {
         val dialog = Dialog(context)
         dialog.setContentView(R.layout.dialog_error_msg)
         val okButton = dialog.findViewById<Button>(R.id.dialog_button_ok_bt)
@@ -57,17 +65,30 @@ class QuestWriteSentenceActivity : BaseActivity<ActivityQuestWriteSentenceBindin
             errorText.text = "키워드를 포함하여 작성해주세요"
         }
 
-
         dialog.window?.setBackgroundDrawableResource(R.drawable.bg_dialog)
         dialog.window!!.setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT)
+        dialog.setCancelable(false)
         okButton.setOnClickListener {
             dialog.dismiss()
         }
         dialog.show()
-
-
-
-
-
     }
+    // 뒤로가기 시 dialog
+    private fun backDialog(context: Context) {
+        val dialog = Dialog(context)
+        dialog.setContentView(R.layout.dialog_back_msg)
+        val continueButton = dialog.findViewById<Button>(R.id.dialog_continue_bt)
+        val backButton = dialog.findViewById<Button>(R.id.dialog_back_bt)
+        dialog.window?.setBackgroundDrawableResource(R.drawable.bg_dialog_back)
+        dialog.window!!.setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT)
+        dialog.setCancelable(false)
+        continueButton.setOnClickListener {
+            dialog.dismiss()
+        }
+        backButton.setOnClickListener {
+            finish()
+        }
+        dialog.show()
+    }
+
 }

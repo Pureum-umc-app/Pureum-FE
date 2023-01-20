@@ -61,5 +61,9 @@
     <string name="keyword_definition_sentence">어떤 내용을 구체적인 사실로\n나타내게 하다</string>
     <string name="keyword_sentence_hint">키워드를 보고 떠오르는 생각을 자유롭게\n문장으로 표현해주세요!</string>
     <string name="dialog_ok">확인</string>
+    <string name="dialog_back_end">작성을 종료하시겠습니까?</string>
+    <string name="dialog_back_msg">나가기를 누르면\n작성 중인 글이 사라집니다.</string>
+    <string name="dialog_back_continue">계속 쓰기</string>
+    <string name="dialog_back_back">나가기</string>
 
 </resources>
