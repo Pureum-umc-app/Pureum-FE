@@ -17,7 +17,7 @@
     <string name="home_rank_profile_image">Default Profile Image</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    
+
     <!-- OnboardActivity -->
     <string name="onboard_first">오늘의 키워드로 매일 한 문장 작성하기</string>
     <string name="ddingdong">띵동!&#160;&#160;</string>
@@ -53,10 +53,13 @@
     <string name="today_keyword_one">오늘의 키워드 1</string>
     <string name="today_keyword_two">오늘의 키워드 2</string>
     <string name="today_keyword_three">오늘의 키워드 3</string>
+    <string name="void_sentence">작성된 문장이 없습니다.\n가장 먼저 문장을 작성해볼까요?</string>
+    <string name="void_sentence_button">문장 작성하러 가기</string>
     <string name="sentence_public">공개</string>
     <string name="sentence_private">비공개</string>
     <string name="keyword_definition">정의</string>
     <string name="keyword_definition_sentence">어떤 내용을 구체적인 사실로\n나타내게 하다</string>
     <string name="keyword_sentence_hint">키워드를 보고 떠오르는 생각을 자유롭게\n문장으로 표현해주세요!</string>
+    <string name="dialog_ok">확인</string>
 
 </resources>

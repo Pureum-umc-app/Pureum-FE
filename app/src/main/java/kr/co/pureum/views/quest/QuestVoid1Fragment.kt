@@ -20,13 +20,12 @@ class QuestVoid1Fragment : BaseFragment<FragmentQuestVoid1Binding>(R.layout.frag
     }
 
     private fun initView() {
-        binding.questInformTextTv.text = "작성된 문장이 없습니다.\n가장 먼저 문장을 작성해볼까요?"
         binding.questWritingSentenceBt.text = "문장 작성하러 가기"
     }
 
     private fun initClickListener() {
         binding.questWritingSentenceBt.setOnClickListener() {
-            val intent = Intent(activity, WriteSentence1Activity::class.java)
+            val intent = Intent(activity, QuestWriteSentenceActivity::class.java)
             startActivity(intent)
         }
     }
