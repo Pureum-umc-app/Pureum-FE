@@ -80,7 +80,7 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/signup_nickname_et"
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -99,6 +99,8 @@
             app:layout_constraintStart_toStartOf="@+id/signup_logo_iv"
             app:layout_constraintEnd_toEndOf="@+id/signup_logo_iv"
             app:layout_constraintTop_toBottomOf="@id/signup_change_img_cl"/>
+
+
 
 
         <androidx.appcompat.widget.AppCompatButton
