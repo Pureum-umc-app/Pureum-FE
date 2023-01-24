@@ -102,7 +102,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                 // TODO: 랭킹 전체 화면으로 이동
             }
             homeGoalTimeLayout.setOnClickListener {
-                val dialog = BottomSheetDialog(mainActivity)
+                val dialog = BottomSheetDialog(mainActivity, R.style.BottomSheetDialogTheme).apply {
+                    behavior.state = BottomSheetBehavior.STATE_EXPANDED
+                }
                 val dialogBinding = BottomSheetSetGoalTimeBinding.inflate(LayoutInflater.from(requireContext()))
                 dialog.setContentView(dialogBinding.root)
                 with(dialogBinding) {
