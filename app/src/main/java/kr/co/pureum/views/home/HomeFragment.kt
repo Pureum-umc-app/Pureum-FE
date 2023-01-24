@@ -1,5 +1,6 @@
 package kr.co.pureum.views.home
 
+import android.app.Dialog
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -18,6 +19,7 @@ import kr.co.pureum.adapter.home.RankingAdapter
 import kr.co.pureum.adapter.home.UsageTimeAdapter
 import kr.co.pureum.base.BaseFragment
 import kr.co.pureum.databinding.BottomSheetSetGoalTimeBinding
+import kr.co.pureum.databinding.DialogDefaultBinding
 import kr.co.pureum.databinding.FragmentHomeBinding
 import kr.co.pureum.views.MainActivity
 import java.time.LocalDate
@@ -121,7 +123,23 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                         hour = time
                     }
                     homeDialogNextButton.setOnClickListener {
-                        dialog.dismiss()
+                        val confirmDialog = Dialog(mainActivity)
+                        val confirmDialogBinding = DialogDefaultBinding.inflate(LayoutInflater.from(requireContext()))
+                        confirmDialog.setContentView(confirmDialogBinding.root)
+                        with(confirmDialogBinding) {
+                            titleText = "목표시간은 한 번만 설정 가능합니다.\n설정하시겠습니까?"
+                            cancelText = "다시 설정"
+                            confirmText = "확인"
+                            dialogCancelButton.setOnClickListener {
+                                confirmDialog.dismiss()
+                            }
+                            dialogConfirmButton.setOnClickListener {
+                                // TODO: 서버에 설정 결과 전송
+                                confirmDialog.dismiss()
+                                dialog.dismiss()
+                            }
+                            confirmDialog.show()
+                        }
                     }
                 }
                 dialog.show()
