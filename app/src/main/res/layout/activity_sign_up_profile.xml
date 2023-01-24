@@ -80,25 +80,37 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/signup_nickname_et"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@drawable/signup_edittext_round"
-            android:backgroundTint="@color/white"
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:id="@+id/signup_nickname_tf"
+            app:counterEnabled="true"
+            app:counterMaxLength="10"
+            android:layout_marginTop="40dp"
             android:layout_marginStart="40dp"
             android:layout_marginEnd="40dp"
-            android:layout_marginTop="40dp"
-            android:paddingStart="10dp"
-            android:maxLines="1"
-            android:hint="@string/enter_nickname"
-            android:textColorHint="@color/text3"
-            android:textSize="14sp"
-            android:textColor="@color/text1"
-            android:fontFamily="@font/nanum_square_neo_regular"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="@+id/signup_logo_iv"
             app:layout_constraintEnd_toEndOf="@+id/signup_logo_iv"
-            app:layout_constraintTop_toBottomOf="@id/signup_change_img_cl"/>
+            app:layout_constraintTop_toBottomOf="@id/signup_change_img_cl">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/signup_nickname_et"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:maxLength="15"
+                android:background="@drawable/signup_edittext_round"
+                android:backgroundTint="@color/white"
+                android:maxLines="1"
+                android:hint="@string/enter_nickname"
+                android:textColorHint="@color/text3"
+                android:textSize="14sp"
+                android:textColor="@color/text1"
+                android:fontFamily="@font/nanum_square_neo_regular" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
 
 
 
