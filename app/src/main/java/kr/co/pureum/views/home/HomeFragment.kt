@@ -12,6 +12,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -24,6 +25,7 @@ import kr.co.pureum.databinding.BottomSheetSetGoalTimeBinding
 import kr.co.pureum.databinding.DialogDefaultBinding
 import kr.co.pureum.databinding.FragmentHomeBinding
 import kr.co.pureum.views.MainActivity
+import kr.co.pureum.views.profile.ProfileFragmentDirections
 import java.time.LocalDate
 
 
@@ -43,8 +45,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     private fun initToolbar() {
         mainActivity = context as MainActivity
         with(mainActivity) {
-            supportActionBar!!.setDisplayUseLogoEnabled(true)
-            supportActionBar!!.setDisplayHomeAsUpEnabled(false)
+            with(supportActionBar!!) {
+                setDisplayUseLogoEnabled(true)
+                setDisplayHomeAsUpEnabled(false)
+            }
             addMenuProvider(object : MenuProvider {
                 override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
                     // Add menu items here
@@ -103,7 +107,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     private fun initListener() {
         with(binding) {
             homeMoreButton.setOnClickListener {
-                // TODO: 랭킹 전체 화면으로 이동
+                val action = HomeFragmentDirections.actionHomeFragmentToRankingFragment()
+                findNavController().navigate(action)
             }
             homeGoalTimeLayout.setOnClickListener {
                 val dialog = BottomSheetDialog(mainActivity, R.style.BottomSheetDialogTheme).apply {

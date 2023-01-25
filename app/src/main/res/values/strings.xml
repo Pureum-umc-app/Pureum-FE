@@ -22,9 +22,18 @@
     <string name="home_dialog_hour">시간/일</string>
     <string name="home_dialog_increase_button">증가 버튼</string>
     <string name="home_dialog_next_button">설정하기</string>
+
+    <!--  RankingFragment  -->
+    <string name="ranking_left_button">왼쪽</string>
+    <string name="ranking_right_button">오른쪽</string>
+    <string name="ranking_date">%d년 %d월 %d일</string>
+    <string name="ranking_my_rank">MY 순위</string>
+    <string name="ranking_total_rank">전체 순위</string>
+    <string name="ranking_type_univ"><u>대학생</u></string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    
+
     <!-- OnboardActivity -->
     <string name="onboard_first">오늘의 키워드로 매일 한 문장 작성하기</string>
     <string name="ddingdong">띵동!&#160;&#160;</string>

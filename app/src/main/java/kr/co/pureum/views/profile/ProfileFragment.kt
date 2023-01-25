@@ -24,8 +24,10 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_p
     private fun initToolbar() {
         mainActivity = context as MainActivity
         with(mainActivity) {
-            supportActionBar?.setDisplayUseLogoEnabled(true)
-            supportActionBar?.setDisplayHomeAsUpEnabled(false)
+            with(supportActionBar!!) {
+                setDisplayUseLogoEnabled(true)
+                setDisplayHomeAsUpEnabled(false)
+            }
         }
     }
 
