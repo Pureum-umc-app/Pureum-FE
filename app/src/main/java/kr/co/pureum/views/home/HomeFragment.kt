@@ -1,6 +1,8 @@
 package kr.co.pureum.views.home
 
 import android.app.Dialog
+import android.content.Context
+import android.graphics.Point
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -125,7 +127,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                     homeDialogNextButton.setOnClickListener {
                         val confirmDialog = Dialog(mainActivity)
                         val confirmDialogBinding = DialogDefaultBinding.inflate(LayoutInflater.from(requireContext()))
-                        confirmDialog.setContentView(confirmDialogBinding.root)
+                        with(confirmDialog) {
+                            with(window!!) {
+                                setBackgroundDrawableResource(R.drawable.bg_default_dialog)
+                                Log.e("widthwidth", resources.displayMetrics.widthPixels.toString())
+                            }
+                            setContentView(confirmDialogBinding.root)
+                        }
                         with(confirmDialogBinding) {
                             titleText = "목표시간은 한 번만 설정 가능합니다.\n설정하시겠습니까?"
                             cancelText = "다시 설정"

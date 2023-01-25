@@ -17,7 +17,6 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/bg_default_dialog"
         app:dialogCornerRadius="20dp"
         android:minHeight="160dp">
 
@@ -28,6 +27,7 @@
             app:layout_constraintBottom_toTopOf="@id/dialog_button_layout"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            android:paddingHorizontal="20dp"
             android:text="@{titleText, default=다이얼로그}"
             android:fontFamily="@font/nanum_square_neo_regular"
             android:textSize="16sp"
