@@ -25,7 +25,7 @@ class ProfileTempFragment : BaseFragment<FragmentProfileTempBinding>(R.layout.fr
     }
 
     private fun initToolbar() {
-        mainActivity = context as MainActivity
+        mainActivity = activity as MainActivity
         with(mainActivity) {
             with(supportActionBar!!) {
                 setDisplayUseLogoEnabled(false)

@@ -9,7 +9,7 @@ import kr.co.domain.model.UsageTimeDto
 import kr.co.pureum.R
 import kr.co.pureum.databinding.ItemHomeUsageTimeBinding
 
-class UsageTimeAdapter(val context: Context) : RecyclerView.Adapter<UsageTimeAdapter.ViewHolder>() {
+class UsageTimeAdapter : RecyclerView.Adapter<UsageTimeAdapter.ViewHolder>() {
     private lateinit var binding: ItemHomeUsageTimeBinding
     private var usageList = mutableListOf<UsageTimeDto>()
 

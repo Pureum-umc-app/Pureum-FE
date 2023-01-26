@@ -1,14 +1,11 @@
 package kr.co.pureum.views.home
 
 import android.app.Dialog
-import android.content.Context
-import android.graphics.Point
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.*
 import androidx.annotation.RequiresApi
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -17,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import dagger.hilt.android.AndroidEntryPoint
 import kr.co.pureum.R
 import kr.co.pureum.adapter.home.RankingAdapter
 import kr.co.pureum.adapter.home.UsageTimeAdapter
@@ -28,7 +26,7 @@ import kr.co.pureum.views.MainActivity
 import kr.co.pureum.views.profile.ProfileFragmentDirections
 import java.time.LocalDate
 
-
+@AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     private lateinit var mainActivity: MainActivity
     private val viewModel by viewModels<HomeViewModel>()
@@ -43,7 +41,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     }
 
     private fun initToolbar() {
-        mainActivity = context as MainActivity
+        mainActivity = activity as MainActivity
         with(mainActivity) {
             with(supportActionBar!!) {
                 setDisplayUseLogoEnabled(true)
@@ -75,7 +73,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         with(binding) {
             isToday = true
             homeUsageTimeViewPager.apply {
-                adapter = UsageTimeAdapter(mainActivity)
+                adapter = UsageTimeAdapter()
                 offscreenPageLimit = 3
                 setPageTransformer { page, position ->
                     page.translationX = position * -(resources.displayMetrics.widthPixels - resources.getDimensionPixelOffset(R.dimen.pageMargin) - resources.getDimensionPixelOffset(R.dimen.pagerWidth))
@@ -98,8 +96,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                 })
             }
             homeRankRecyclerView.apply {
-                adapter = RankingAdapter(mainActivity)
-                layoutManager = LinearLayoutManager(mainActivity)
+                adapter = RankingAdapter()
+                layoutManager = LinearLayoutManager(requireContext())
             }
         }
     }
