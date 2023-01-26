@@ -9,7 +9,7 @@ import kr.co.domain.model.UserRankDto
 import kr.co.pureum.R
 import kr.co.pureum.databinding.ItemHomeRankBinding
 
-class RankingAdapter(val context: Context) : RecyclerView.Adapter<RankingAdapter.ViewHolder>() {
+class RankingAdapter : RecyclerView.Adapter<RankingAdapter.ViewHolder>() {
     private lateinit var binding: ItemHomeRankBinding
     private var rankList = mutableListOf<UserRankDto>()
 

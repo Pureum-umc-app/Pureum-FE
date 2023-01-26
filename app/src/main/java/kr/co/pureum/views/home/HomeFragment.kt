@@ -7,6 +7,7 @@ import androidx.annotation.RequiresApi
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
+import dagger.hilt.android.AndroidEntryPoint
 import kr.co.pureum.R
 import kr.co.pureum.adapter.home.RankingAdapter
 import kr.co.pureum.adapter.home.UsageTimeAdapter
@@ -15,6 +16,7 @@ import kr.co.pureum.databinding.FragmentHomeBinding
 import kr.co.pureum.views.MainActivity
 import java.time.LocalDate
 
+@AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     private lateinit var mainActivity: MainActivity
     private val viewModel by viewModels<HomeViewModel>()
@@ -29,7 +31,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     }
 
     private fun initToolbar() {
-        mainActivity = context as MainActivity
+        mainActivity = activity as MainActivity
         with(mainActivity) {
             supportActionBar?.setDisplayUseLogoEnabled(true)
             supportActionBar?.setDisplayHomeAsUpEnabled(false)
@@ -42,7 +44,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         with(binding) {
             isToday = true
             homeUsageTimeViewPager.apply {
-                adapter = UsageTimeAdapter(mainActivity)
+                adapter = UsageTimeAdapter()
                 offscreenPageLimit = 3
                 setPageTransformer { page, position ->
                     page.translationX = position * -(resources.displayMetrics.widthPixels - resources.getDimensionPixelOffset(R.dimen.pageMargin) - resources.getDimensionPixelOffset(R.dimen.pagerWidth))
@@ -65,8 +67,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                 })
             }
             homeRankRecyclerView.apply {
-                adapter = RankingAdapter(mainActivity)
-                layoutManager = LinearLayoutManager(mainActivity)
+                adapter = RankingAdapter()
+                layoutManager = LinearLayoutManager(requireContext())
             }
         }
     }
