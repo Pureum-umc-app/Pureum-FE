@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="grade">
+        <item>학년을 입력해주세요.</item>
+        <item>초등학생</item>
+        <item>중학교 1학년</item>
+        <item>중학교 2학년</item>
+        <item>중학교 3학년</item>
+        <item>고등학교 1학년</item>
+        <item>고등학교 2학년</item>
+        <item>고등학교 3학년, N수생</item>
+        <item>대학생</item>
+    </string-array>
+</resources>

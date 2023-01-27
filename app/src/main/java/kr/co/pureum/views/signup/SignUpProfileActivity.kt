@@ -1,13 +1,14 @@
 package kr.co.pureum.views.signup
 
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.text.Editable
 import android.text.TextWatcher
-import android.widget.EditText
 import kr.co.pureum.R
 import kr.co.pureum.base.BaseActivity
 import kr.co.pureum.databinding.ActivitySignUpProfileBinding
+import java.util.logging.Logger
 
 
 class SignUpProfileActivity : BaseActivity<ActivitySignUpProfileBinding>(R.layout.activity_sign_up_profile) {
@@ -19,6 +20,10 @@ class SignUpProfileActivity : BaseActivity<ActivitySignUpProfileBinding>(R.layou
 
         checkNickname()
 
+    }
+
+    override fun onBackPressed() {
+//        super.onBackPressed()
     }
 
     fun buttonOnOff(flag: Int){
@@ -63,6 +68,12 @@ class SignUpProfileActivity : BaseActivity<ActivitySignUpProfileBinding>(R.layou
                     else{
                         signupNicknameTf.error = null
                         buttonOnOff(1)
+                        signupAgreeNextBt.setOnClickListener {
+//                            finish()
+                            val intent = Intent(this@SignUpProfileActivity, SignUpGradeActivity::class.java)
+                            startActivity(intent)
+                            this@SignUpProfileActivity.overridePendingTransition(R.anim.rightin_activity,R.anim.not_move_activity)
+                        }
                     }
                 }
 
@@ -70,4 +81,21 @@ class SignUpProfileActivity : BaseActivity<ActivitySignUpProfileBinding>(R.layou
             })
         }
     }
+
+    fun profileImgToAlbum(){
+        with(binding) {
+
+
+
+            // 앨범 버튼 클릭 리스너 구현
+            signupBasicProfileIb.setOnClickListener{
+//                requirePermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), PERMISSION_Album)
+
+            }
+        }
+    }
+
+
+
+
 }

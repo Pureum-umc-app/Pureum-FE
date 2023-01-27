@@ -4,6 +4,8 @@
     package="co.kr.pureum">
     <!-- 인터넷 사용 권한 설정 -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:name="kr.co.pureum.di.PureumApplication"
@@ -16,7 +18,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Pureum"
         tools:targetApi="31">
-
+        <activity
+            android:name="kr.co.pureum.views.signup.SignUpGradeActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <activity
             android:name="kr.co.pureum.views.quest.WriteSentence1Activity"
             android:exported="false">
@@ -24,7 +32,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name="kr.co.pureum.views.signup.SignUpProfileActivity"
             android:exported="false">
@@ -46,7 +53,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name="kr.co.pureum.views.signup.OnBoardActivity"
             android:exported="false">
