@@ -4,9 +4,11 @@ import android.app.Application
 import android.util.Log
 import com.kakao.sdk.common.KakaoSdk
 import com.kakao.sdk.common.util.Utility
+import dagger.hilt.android.HiltAndroidApp
 import kr.co.pureum.BuildConfig
 import kr.co.pureum.utils.SharedPreferenceUtil
 
+@HiltAndroidApp
 class PureumApplication: Application() {
     companion object {
         private lateinit var application: PureumApplication

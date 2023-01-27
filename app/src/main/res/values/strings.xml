@@ -15,6 +15,22 @@
     <string name="home_total_rank">전체 순위</string>
     <string name="home_more"><u>더보기</u></string>
     <string name="home_rank_profile_image">Default Profile Image</string>
+    <string name="home_dialog_title">휴대폰 사용 목표시간</string>
+    <string name="home_dialog_body">평소의 휴대폰 사용시간을 기준으로\n목표 사용시간을 설정하세요.</string>
+    <string name="home_dialog_exit_button">다이얼로그 종료 버튼</string>
+    <string name="home_dialog_decrease_button">감소 버튼</string>
+    <string name="home_dialog_hour">시간/일</string>
+    <string name="home_dialog_increase_button">증가 버튼</string>
+    <string name="home_dialog_next_button">설정하기</string>
+
+    <!--  RankingFragment  -->
+    <string name="ranking_left_button">왼쪽</string>
+    <string name="ranking_right_button">오른쪽</string>
+    <string name="ranking_date">%d년 %d월 %d일</string>
+    <string name="ranking_my_rank">MY 순위</string>
+    <string name="ranking_total_rank">전체 순위</string>
+    <string name="ranking_type_univ"><u>대학생</u></string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 

@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="KAKAO_NATIVE_APP_KEY">kakao68ab5acffa2ad3146458370e438be3f7</string>
-    <string name="KAKAO_APP_KEY">68ab5acffa2ad3146458370e438be3f7</string>
-    <string name="KAKAO_REST_API_KEY">633bdb4f088357e5fe5cde61b4543053</string>
-</resources>
