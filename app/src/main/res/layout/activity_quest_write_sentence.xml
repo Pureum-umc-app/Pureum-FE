@@ -43,12 +43,13 @@
                 android:textSize="22sp"
                 android:textStyle="bold" />
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/quest_sentence_public_private_bt"
                 android:layout_width="106dp"
-                android:layout_height="39dp"
+                android:layout_height="30dp"
+                android:paddingVertical="0dp"
                 android:layout_marginStart="210dp"
-                android:background="@drawable/bg_quest_public"
+                android:background="@drawable/selector_private_public"
                 android:backgroundTint="@null"
                 android:text="@string/sentence_private"
                 android:textColor="@color/main1"

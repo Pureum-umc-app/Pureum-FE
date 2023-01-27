@@ -50,6 +50,7 @@
     <string name="check_go">출석체크 하러 가기</string>
     <string name="sentence_challenge">한 문장 챌린지에 도전해요</string>
     <string name="click_keyword">클릭 시 오늘의 키워드로 이동</string>
+    <string name="click_letter_challenge">대기중인 도전장 보러가기</string>
     <string name="today_keyword_one">오늘의 키워드 1</string>
     <string name="today_keyword_two">오늘의 키워드 2</string>
     <string name="today_keyword_three">오늘의 키워드 3</string>
@@ -70,5 +71,4 @@
     <string name="dialog_private_public">공개 여부</string>
     <string name="dialog_go_my_sentence">내가 쓴 문장 보러 가기</string>
     <string name="dialog_go_other_sentence">다른 사람이 쓴 문장 보러 가기</string>
-
 </resources>

@@ -2,9 +2,10 @@ package kr.co.pureum.views.quest
 
 import android.app.Dialog
 import android.content.Context
+import android.graphics.Color
 import android.text.Editable
-import android.util.Log
 import android.view.KeyEvent
+import android.view.MenuItem
 import android.view.WindowManager
 import android.widget.Button
 import android.widget.TextView
@@ -34,9 +35,17 @@ class QuestWriteSentenceActivity : BaseActivity<ActivityQuestWriteSentenceBindin
         supportActionBar?.title = ""
         supportActionBar?.setDisplayUseLogoEnabled(false)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        binding.mainToolbar.setOnClickListener {
-            backDialog(this)
+    }
+
+    // 뒤로가기 클릭 시 다이얼로그 호출
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                backDialog(this)
+                return true
+            }
         }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun initClickListener() {
@@ -44,8 +53,6 @@ class QuestWriteSentenceActivity : BaseActivity<ActivityQuestWriteSentenceBindin
             val keyword = binding.questKeywordTv.text.toString()
             val sentence = binding.questSentenceWritingEt.text
 
-            Log.d("tag", keyword)
-            Log.d("tag", sentence.toString())
             if (sentence.isEmpty() || sentence.length < 10 || !sentence.contains(keyword)) {
                 errorDidaLog(this, sentence, keyword)
             }
@@ -53,10 +60,7 @@ class QuestWriteSentenceActivity : BaseActivity<ActivityQuestWriteSentenceBindin
                 completionDialog(this, keyword)
             }
         }
-
-        binding.questSentencePublicPrivateBt.setOnClickListener {
-
-        }
+        privatePublicButton()
     }
 
     // 작성완료 클릭 시 dialog
@@ -106,9 +110,28 @@ class QuestWriteSentenceActivity : BaseActivity<ActivityQuestWriteSentenceBindin
         val dialog = Dialog(context)
         dialog.setContentView(R.layout.dialog_completion_msg)
         dialog.findViewById<TextView>(R.id.dialog_today_keyword_tv).text = keyword
+        dialog.findViewById<TextView>(R.id.dialog_public_private_tv).text = binding.questSentencePublicPrivateBt.text.toString()
         dialog.window?.setBackgroundDrawableResource(R.drawable.bg_home_goal_time)
         dialog.window!!.setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT)
         dialog.show()
+    }
+
+    // 공개, 비공개 버튼 클릭 시 변경 이벤트
+    private fun privatePublicButton() {
+        binding.questSentencePublicPrivateBt.setOnClickListener {
+            when (binding.questSentencePublicPrivateBt.isSelected) {
+                true -> {
+                    binding.questSentencePublicPrivateBt.isSelected = false
+                    binding.questSentencePublicPrivateBt.text = "비공개"
+                    binding.questSentencePublicPrivateBt.setTextColor(Color.parseColor("#85B5FF"))
+                }
+                false -> {
+                    binding.questSentencePublicPrivateBt.isSelected = true
+                    binding.questSentencePublicPrivateBt.text = "공개"
+                    binding.questSentencePublicPrivateBt.setTextColor(Color.parseColor("#ffffff"))
+                }
+            }
+        }
     }
 
 }
