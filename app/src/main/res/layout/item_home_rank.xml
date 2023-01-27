@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:paddingVertical="4dp"
-            android:background="@drawable/bg_rank_winner"
+            android:background="@drawable/bg_rectangle_30dp"
             android:backgroundTint="@{rank == 1 ? @color/sub1 : @color/bg}">
 
             <TextView

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="date"
+            type="java.time.LocalDate" />
+        <variable
+            name="isToday"
+            type="java.lang.Boolean" />
+        <variable
+            name="rank"
+            type="java.lang.Integer" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/home_calendar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:minHeight="720dp">
+
+        <ImageButton
+            android:id="@+id/home_calendar_exit_button"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="32dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="32dp"
+            android:src="@drawable/ic_cancel"
+            android:contentDescription="@string/home_dialog_exit_button" />
+
+        <LinearLayout
+            android:id="@+id/home_calendar_date_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="64dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <ImageButton
+                android:id="@+id/home_calendar_left_button"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_left"
+                android:contentDescription="@string/ranking_left_button" />
+
+            <TextView
+                android:id="@+id/home_calendar_date_text"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:text="@{@string/home_calendar_date(date.month.name, date.year), default=날짜}"
+                android:fontFamily="@font/nanum_square_neo_extrabold"
+                android:textSize="16sp"
+                android:textColor="@color/main1"
+                android:textAlignment="center"/>
+
+            <ImageButton
+                android:id="@+id/home_calendar_right_button"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_right"
+                android:contentDescription="@string/ranking_right_button"
+                android:visibility="@{isToday ? View.INVISIBLE : View.VISIBLE}"/>
+        </LinearLayout>
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/home_calendar_view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/home_calendar_date_layout"
+            android:layout_marginTop="24dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:paddingHorizontal="24dp"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

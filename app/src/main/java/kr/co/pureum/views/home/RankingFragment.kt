@@ -2,12 +2,12 @@ package kr.co.pureum.views.home
 
 import android.os.Build
 import android.os.Bundle
-import android.service.notification.NotificationListenerService.Ranking
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -36,30 +36,28 @@ class RankingFragment : BaseFragment<FragmentRankingBinding>(R.layout.fragment_r
     }
 
     private fun initToolbar() {
-        mainActivity = activity as MainActivity
-        with(mainActivity) {
-            with(supportActionBar!!) {
-                setDisplayUseLogoEnabled(false)
-                setDisplayHomeAsUpEnabled(true)
-            }
-            binding.mainToolbar.setNavigationOnClickListener {
+        with(binding.mainToolbar){
+            logo = null
+            navigationIcon = androidx.core.content.ContextCompat.getDrawable(context, kr.co.pureum.R.drawable.ic_back)
+            setNavigationOnClickListener {
                 findNavController().navigateUp()
             }
-            addMenuProvider(object : MenuProvider {
-                override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-                    menuInflater.inflate(R.menu.menu_toolbar, menu)
-                }
-
-                override fun onMenuItemSelected(menuItem: MenuItem): Boolean =
-                    when (menuItem.itemId) {
-                        R.id.toolbar_calender -> {
-                            // TODO: 월간 목표 달성 여부 확인 페이지로 이동
-                            true
-                        }
-                        else -> false
-                    }
-            }, viewLifecycleOwner, Lifecycle.State.RESUMED)
         }
+        mainActivity = activity as MainActivity
+        requireActivity().addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.menu_toolbar, menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean =
+                when (menuItem.itemId) {
+                    R.id.toolbar_calender -> {
+                        HomeFragment.showCalendarDialog(mainActivity, requireContext())
+                        true
+                    }
+                    else -> false
+                }
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
 
     @RequiresApi(Build.VERSION_CODES.O)

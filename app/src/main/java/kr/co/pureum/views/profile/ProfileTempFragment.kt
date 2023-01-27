@@ -6,6 +6,9 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.addCallback
+import androidx.core.content.ContextCompat
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.lifecycle.Lifecycle
@@ -16,7 +19,6 @@ import kr.co.pureum.databinding.FragmentProfileTempBinding
 import kr.co.pureum.views.MainActivity
 
 class ProfileTempFragment : BaseFragment<FragmentProfileTempBinding>(R.layout.fragment_profile_temp) {
-    lateinit var mainActivity: MainActivity
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -25,13 +27,10 @@ class ProfileTempFragment : BaseFragment<FragmentProfileTempBinding>(R.layout.fr
     }
 
     private fun initToolbar() {
-        mainActivity = activity as MainActivity
-        with(mainActivity) {
-            with(supportActionBar!!) {
-                setDisplayUseLogoEnabled(false)
-                setDisplayHomeAsUpEnabled(true)
-            }
-            binding.mainToolbar.setNavigationOnClickListener {
+        with(binding.mainToolbar){
+            logo = null
+            navigationIcon = ContextCompat.getDrawable(context, R.drawable.ic_back)
+            setNavigationOnClickListener {
                 findNavController().navigateUp()
             }
         }

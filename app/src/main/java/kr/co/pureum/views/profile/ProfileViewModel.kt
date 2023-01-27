@@ -19,7 +19,7 @@ class ProfileViewModel @Inject constructor(
 
     fun nicknameValidation(nickname: String) {
         viewModelScope.launch {
-            val res = repository.nicknameValidate(nickname).message
+            val res = repository.nicknameValidate(nickname).result
             _responseMessage.value = res
         }
     }
