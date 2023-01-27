@@ -1,14 +1,9 @@
 package kr.co.pureum.views.quest
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import androidx.navigation.Navigator
-import androidx.navigation.fragment.FragmentNavigator
-import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.navArgument
 import androidx.recyclerview.widget.LinearLayoutManager
 import kr.co.domain.model.DataSentence
 import kr.co.pureum.R
@@ -53,6 +48,7 @@ class QuestChallengeFragment : BaseFragment<FragmentQuestChallengeBinding>(R.lay
         binding.questChallengeSentenceRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         binding.questChallengeSentenceRv.adapter = dataSentenceAdapter
 
+        dataSentenceList.clear()
         dataSentenceList.apply {
             add(DataSentence("", "성실"))
             add(DataSentence("","바보"))

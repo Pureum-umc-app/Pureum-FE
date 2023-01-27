@@ -4,9 +4,9 @@ import android.os.Bundle
 import android.view.View
 import kr.co.pureum.R
 import kr.co.pureum.base.BaseFragment
-import kr.co.pureum.databinding.FragmentQuestWritingComletionBinding
+import kr.co.pureum.databinding.FragmentQuestWritingCompletionBinding
 
-class QuestWritingCompletionFragment : BaseFragment<FragmentQuestWritingComletionBinding>(R.layout.fragment_quest_writing_comletion) {
+class QuestWritingCompletionFragment : BaseFragment<FragmentQuestWritingCompletionBinding>(R.layout.fragment_quest_writing_completion) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

@@ -30,27 +30,38 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="14dp"
                     android:layout_marginTop="11dp"
-                    android:text="오늘의 출석체크"
-                    android:textColor="@color/black"
-                    android:textSize="15dp"
-                    android:textStyle="bold"
+                    android:text="@string/today_check"
+                    android:textColor="@color/text1"
+                    android:textSize="15sp"
+                    android:fontFamily="@font/nanum_square_neo_bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/quest_challenge_attendance_bt"
-                    android:layout_width="240dp"
-                    android:layout_height="42dp"
-                    android:layout_marginTop="8dp"
-                    android:background="@drawable/custom_round_button"
-                    android:text="아직 출석체크 전이에요"
-                    android:textColor="#1A1A1B"
-                    android:textSize="14dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/quest_challenge_today_tv" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="16dp"
+                    android:text="@string/check_go"
+                    android:textColor="@color/text2"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/imageButton"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <ImageButton
+                    android:id="@+id/imageButton"
+                    android:layout_width="8dp"
+                    android:layout_height="11dp"
+                    android:layout_marginEnd="24dp"
+                    android:layout_marginBottom="18dp"
+                    android:background="#00FF0000"
+                    android:src="@drawable/ic_arrow_right"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -80,9 +91,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="14dp"
                     android:layout_marginTop="11dp"
-                    android:textColor="@color/black"
-                    android:textSize="15dp"
-                    android:textStyle="bold"
+                    android:text="@string/sentence_challenge"
+                    android:textColor="@color/text1"
+                    android:textSize="15sp"
+                    android:fontFamily="@font/nanum_square_neo_bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
@@ -103,24 +115,27 @@
                     android:id="@+id/quest_challenge2_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="17.5dp"
-                    android:textColor="#6E6D73"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginBottom="16dp"
+                    android:text="@string/click_keyword"
+                    android:textColor="@color/text2"
                     android:textSize="12dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.09"
+                    app:layout_constraintHorizontal_bias="0.942"
                     app:layout_constraintStart_toStartOf="parent" />
 
                 <ImageButton
                     android:id="@+id/quest_challenge_sentence_ib"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="19dp"
+                    android:layout_marginEnd="24dp"
+                    android:layout_marginBottom="18dp"
                     android:background="#00FF0000"
                     android:src="@drawable/ic_arrow_right"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.050"
+                    app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toEndOf="@+id/quest_challenge2_tv" />
 
 
@@ -153,13 +168,40 @@
                     android:layout_marginStart="14dp"
                     android:layout_marginTop="11dp"
                     android:text="도전장을 내밀어봐요"
-                    android:textColor="@color/black"
-                    android:textSize="15dp"
-                    android:textStyle="bold"
+                    android:textColor="@color/text1"
+                    android:textSize="15sp"
+                    android:fontFamily="@font/nanum_square_neo_bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/quest_challenge3_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginBottom="16dp"
+                    android:text="@string/click_letter_challenge"
+                    android:textColor="@color/text2"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.942"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <ImageButton
+                    android:id="@+id/quest_letter_challenge_ib"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="24dp"
+                    android:layout_marginBottom="18dp"
+                    android:background="#00FF0000"
+                    android:src="@drawable/ic_arrow_right"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toEndOf="@+id/quest_challenge3_tv" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
