@@ -8,6 +8,15 @@
         android:id="@+id/homeFragment"
         android:name="kr.co.pureum.views.home.HomeFragment"
         android:label="HomeFragment">
+        <action
+            android:id="@+id/action_homeFragment_to_rankingFragment"
+            app:destination="@id/rankingFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/rankingFragment"
+        android:name="kr.co.pureum.views.home.RankingFragment"
+        android:label="RankingFragment">
     </fragment>
 
     <fragment
