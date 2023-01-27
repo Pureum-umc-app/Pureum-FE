@@ -24,8 +24,6 @@ class QuestChallengeFragment : BaseFragment<FragmentQuestChallengeBinding>(R.lay
     }
 
     private fun initView() {
-        binding.questChallenge1Tv.text = "한 문장 챌린지에 도전해요"
-        binding.questChallenge2Tv.text = "클릭 시 오늘의 키워드로 이동"
         Log.e("ScreenBuild", "QuestChallengeFragment")
     }
 
@@ -37,7 +35,6 @@ class QuestChallengeFragment : BaseFragment<FragmentQuestChallengeBinding>(R.lay
             }
         }
     }
-
     // 리사이클러뷰 sentence 함수
     private fun initApplySentenceView() {
 
@@ -50,9 +47,9 @@ class QuestChallengeFragment : BaseFragment<FragmentQuestChallengeBinding>(R.lay
 
         dataSentenceList.clear()
         dataSentenceList.apply {
-            add(DataSentence("", "성실"))
-            add(DataSentence("","바보"))
-            add(DataSentence("", "호구"))
+            add(DataSentence( "성실"))
+            add(DataSentence("바보"))
+            add(DataSentence( "호구"))
         }
     }
 }

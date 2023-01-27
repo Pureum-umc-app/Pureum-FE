@@ -77,6 +77,7 @@
     <string name="today_check">오늘의 출석체크</string>
     <string name="check_go">출석체크 하러 가기</string>
     <string name="sentence_challenge">한 문장 챌린지에 도전해요</string>
+    <string name="text_letter_challenge">도전장을 내밀어봐요</string>
     <string name="click_keyword">클릭 시 오늘의 키워드로 이동</string>
     <string name="click_letter_challenge">대기중인 도전장 보러가기</string>
     <string name="today_keyword_one">오늘의 키워드 1</string>

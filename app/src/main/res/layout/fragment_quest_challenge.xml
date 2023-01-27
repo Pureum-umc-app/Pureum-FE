@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -52,7 +51,7 @@
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent" />
 
-                <ImageButton
+                <androidx.appcompat.widget.AppCompatImageButton
                     android:id="@+id/imageButton"
                     android:layout_width="8dp"
                     android:layout_height="11dp"
@@ -119,13 +118,13 @@
                     android:layout_marginBottom="16dp"
                     android:text="@string/click_keyword"
                     android:textColor="@color/text2"
-                    android:textSize="12dp"
+                    android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.942"
                     app:layout_constraintStart_toStartOf="parent" />
 
-                <ImageButton
+                <androidx.appcompat.widget.AppCompatImageButton
                     android:id="@+id/quest_challenge_sentence_ib"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -167,7 +166,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="14dp"
                     android:layout_marginTop="11dp"
-                    android:text="도전장을 내밀어봐요"
+                    android:text="@string/text_letter_challenge"
                     android:textColor="@color/text1"
                     android:textSize="15sp"
                     android:fontFamily="@font/nanum_square_neo_bold"
@@ -190,7 +189,7 @@
                     app:layout_constraintHorizontal_bias="0.942"
                     app:layout_constraintStart_toStartOf="parent" />
 
-                <ImageButton
+                <androidx.appcompat.widget.AppCompatImageButton
                     android:id="@+id/quest_letter_challenge_ib"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
