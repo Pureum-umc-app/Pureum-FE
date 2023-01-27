@@ -3,6 +3,7 @@ package kr.co.pureum.views.quest
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayoutMediator
@@ -13,7 +14,6 @@ import kr.co.pureum.databinding.FragmentQuestBinding
 import kr.co.pureum.views.MainActivity
 
 class QuestFragment : BaseFragment<FragmentQuestBinding>(R.layout.fragment_quest) {
-    lateinit var mainActivity: MainActivity
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -23,10 +23,9 @@ class QuestFragment : BaseFragment<FragmentQuestBinding>(R.layout.fragment_quest
     }
 
     private fun initToolbar() {
-        mainActivity = context as MainActivity
-        with(mainActivity) {
-            supportActionBar?.setDisplayUseLogoEnabled(true)
-            supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        with(binding.mainToolbar){
+            logo = ContextCompat.getDrawable(context, R.drawable.ic_pureum_logo)
+            navigationIcon = null
         }
     }
 

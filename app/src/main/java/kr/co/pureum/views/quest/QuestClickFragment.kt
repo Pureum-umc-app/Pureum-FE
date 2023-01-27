@@ -4,6 +4,7 @@ package kr.co.pureum.views.quest
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayoutMediator
 import kr.co.pureum.R
@@ -28,11 +29,10 @@ class QuestClickFragment : BaseFragment<FragmentQuestClickBinding>(R.layout.frag
     }
 
     private fun initToolbar() {
-        mainActivity = context as MainActivity
-        with(mainActivity) {
-            supportActionBar?.setDisplayUseLogoEnabled(false)
-            supportActionBar?.setDisplayHomeAsUpEnabled(true)
-            binding.mainToolbar.setNavigationOnClickListener {
+        with(binding.mainToolbar){
+            logo = null
+            navigationIcon = androidx.core.content.ContextCompat.getDrawable(context, kr.co.pureum.R.drawable.ic_back)
+            setNavigationOnClickListener {
                 findNavController().navigateUp()
             }
         }

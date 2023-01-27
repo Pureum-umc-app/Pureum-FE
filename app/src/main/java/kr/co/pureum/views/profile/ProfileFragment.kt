@@ -4,8 +4,14 @@ import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
+import androidx.core.content.ContextCompat
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import kr.co.pureum.R
@@ -16,7 +22,6 @@ import kr.co.pureum.views.signup.OnBoardActivity
 
 @AndroidEntryPoint
 class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_profile) {
-    private lateinit var mainActivity: MainActivity
     private val viewModel by viewModels<ProfileViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -28,12 +33,9 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_p
     }
 
     private fun initToolbar() {
-        mainActivity = activity as MainActivity
-        with(mainActivity) {
-            with(supportActionBar!!) {
-                setDisplayUseLogoEnabled(true)
-                setDisplayHomeAsUpEnabled(false)
-            }
+        with(binding.mainToolbar){
+            logo = ContextCompat.getDrawable(context, R.drawable.ic_pureum_logo)
+            navigationIcon = null
         }
     }
 
