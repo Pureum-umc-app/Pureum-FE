@@ -12,7 +12,7 @@ class LoginDataSource @Inject constructor(
     private val pureumLoginService: PureumLoginService
 ) {
     suspend fun nicknameValidate(nickname: String) : NicknameValidationResponse {
-        val nicknameValidationResponse : NicknameValidationResponse = NicknameValidationResponse(0, false, "", "")
+        val nicknameValidationResponse = NicknameValidationResponse(0, false, "", "")
         withContext(Dispatchers.IO) {
             runCatching {
                 pureumLoginService.nicknameValidate(nickname)

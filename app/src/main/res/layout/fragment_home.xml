@@ -229,7 +229,6 @@
                 android:layout_marginBottom="68dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:paddingHorizontal="32dp"
                 android:orientation="vertical"
                 android:overScrollMode="never"/>
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,21 +5,22 @@
     tools:context=".views.home.RankingFragment">
 
     <data>
+        <import type="android.view.View"/>
         <variable
-            name="year"
-            type="java.lang.Integer" />
+            name="date"
+            type="java.time.LocalDate" />
         <variable
-            name="month"
-            type="java.lang.Integer" />
-        <variable
-            name="day"
-            type="java.lang.Integer" />
+            name="isToday"
+            type="java.lang.Boolean" />
         <variable
             name="rank"
             type="java.lang.Integer" />
         <variable
             name="userRankDto"
             type="kr.co.domain.model.UserRankDto" />
+        <variable
+            name="isLoading"
+            type="java.lang.Boolean" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -45,18 +46,20 @@
 
             <TextView
                 android:id="@+id/ranking_date_text"
-                android:layout_width="wrap_content"
+                android:layout_width="160dp"
                 android:layout_height="wrap_content"
-                android:text="@{@string/ranking_date(year, month, day), default=날짜}"
+                android:text="@{@string/ranking_date(date.year, date.monthValue, date.dayOfMonth), default=날짜}"
                 android:fontFamily="@font/nanum_square_neo_extrabold"
-                android:textSize="16sp"/>
+                android:textSize="16sp"
+                android:textAlignment="center"/>
 
             <ImageButton
                 android:id="@+id/ranking_right_button"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_right"
-                android:contentDescription="@string/ranking_right_button" />
+                android:contentDescription="@string/ranking_right_button"
+                android:visibility="@{isToday ? View.INVISIBLE : View.VISIBLE}"/>
         </LinearLayout>
         
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -205,11 +208,33 @@
             app:layout_constraintTop_toBottomOf="@+id/ranking_rank_label_layout"
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginTop="8dp"
+            android:layout_marginBottom="60dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:orientation="vertical"
+            android:overScrollMode="never"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginBottom="68dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:paddingHorizontal="32dp"
-            android:orientation="vertical"
-            android:overScrollMode="never"/>
+            android:padding="2dp"
+            android:background="@drawable/bg_circle"
+            android:backgroundTint="@null"
+            android:visibility="@{isLoading ? View.VISIBLE : View.GONE}">
+
+            <com.google.android.material.progressindicator.CircularProgressIndicator
+                android:id="@+id/ranking_loading_indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:indeterminate="true" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

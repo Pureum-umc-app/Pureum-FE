@@ -20,6 +20,11 @@ object NetworkModule {
     @Retention(AnnotationRetention.BINARY)
     annotation class PureumLoginRetrofit
 
+    // 푸름 로그인 외 API Retrofit
+    @Qualifier
+    @Retention(AnnotationRetention.BINARY)
+    annotation class PureumRetrofit
+
     @Provides
     @Singleton
     @PureumLoginRetrofit
@@ -34,6 +39,24 @@ object NetworkModule {
     @Singleton
     @PureumLoginRetrofit
     fun provideLoginOkHttpClient(interceptor: HttpLoggingInterceptor): OkHttpClient =
+        OkHttpClient.Builder()
+            .addInterceptor(interceptor)
+            .build()
+
+    @Provides
+    @Singleton
+    @PureumRetrofit
+    fun provideRetrofit(gsonConverterFactory: GsonConverterFactory, @PureumRetrofit client: OkHttpClient) : Retrofit =
+        Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(gsonConverterFactory)
+            .client(client)
+            .build()
+
+    @Provides
+    @Singleton
+    @PureumRetrofit
+    fun provideOkHttpClient(interceptor: HttpLoggingInterceptor): OkHttpClient =
         OkHttpClient.Builder()
             .addInterceptor(interceptor)
             .build()

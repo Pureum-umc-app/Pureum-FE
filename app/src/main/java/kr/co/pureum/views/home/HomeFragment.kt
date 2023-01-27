@@ -4,7 +4,11 @@ import android.app.Dialog
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
@@ -23,7 +27,6 @@ import kr.co.pureum.databinding.BottomSheetSetGoalTimeBinding
 import kr.co.pureum.databinding.DialogDefaultBinding
 import kr.co.pureum.databinding.FragmentHomeBinding
 import kr.co.pureum.views.MainActivity
-import kr.co.pureum.views.profile.ProfileFragmentDirections
 import java.time.LocalDate
 
 @AndroidEntryPoint
