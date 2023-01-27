@@ -9,7 +9,7 @@ import kr.co.pureum.R
 import kr.co.pureum.base.BaseFragment
 import kr.co.pureum.databinding.FragmentProfileBinding
 import kr.co.pureum.views.MainActivity
-import kr.co.pureum.views.signup.OnboardActivity
+import kr.co.pureum.views.signup.OnBoardActivity
 
 class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_profile) {
     lateinit var mainActivity: MainActivity
@@ -42,7 +42,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_p
             }
 
             profileOnboardButton.setOnClickListener {
-                val intent = Intent(activity, OnboardActivity::class.java)
+                val intent = Intent(activity, OnBoardActivity::class.java)
                 startActivity(intent)
             }
         }
