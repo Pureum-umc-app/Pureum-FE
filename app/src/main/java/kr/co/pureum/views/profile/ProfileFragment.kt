@@ -1,31 +1,39 @@
 package kr.co.pureum.views.profile
 
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import dagger.hilt.android.AndroidEntryPoint
 import kr.co.pureum.R
 import kr.co.pureum.base.BaseFragment
 import kr.co.pureum.databinding.FragmentProfileBinding
 import kr.co.pureum.views.MainActivity
-import kr.co.pureum.views.signup.OnboardActivity
+import kr.co.pureum.views.signup.OnBoardActivity
 
+@AndroidEntryPoint
 class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_profile) {
-    lateinit var mainActivity: MainActivity
+    private lateinit var mainActivity: MainActivity
+    private val viewModel by viewModels<ProfileViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initToolbar()
         initView()
         initListener()
+        observe()
     }
 
     private fun initToolbar() {
-        mainActivity = context as MainActivity
+        mainActivity = activity as MainActivity
         with(mainActivity) {
-            supportActionBar?.setDisplayUseLogoEnabled(true)
-            supportActionBar?.setDisplayHomeAsUpEnabled(false)
+            with(supportActionBar!!) {
+                setDisplayUseLogoEnabled(true)
+                setDisplayHomeAsUpEnabled(false)
+            }
         }
     }
 
@@ -33,7 +41,6 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_p
         binding.profileTextView.text = "프로필 화면입니다."
         Log.e("ScreenBuild", "ProfileFragment")
     }
-
     private fun initListener() {
         with(binding) {
             profileButton.setOnClickListener {
@@ -42,9 +49,19 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_p
             }
 
             profileOnboardButton.setOnClickListener {
-                val intent = Intent(activity, OnboardActivity::class.java)
+                val intent = Intent(activity, OnBoardActivity::class.java)
                 startActivity(intent)
             }
+
+            profileApiButton.setOnClickListener {
+                viewModel.nicknameValidation("nickname")
+            }
+        }
+    }
+
+    private fun observe() {
+        viewModel.responseMessage.observe(viewLifecycleOwner) {
+            Log.e(TAG, it)
         }
     }
 }

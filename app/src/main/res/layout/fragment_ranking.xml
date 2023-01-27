@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".views.home.RankingFragment">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="date"
+            type="java.time.LocalDate" />
+        <variable
+            name="isToday"
+            type="java.lang.Boolean" />
+        <variable
+            name="rank"
+            type="java.lang.Integer" />
+        <variable
+            name="userRankDto"
+            type="kr.co.domain.model.UserRankDto" />
+        <variable
+            name="isLoading"
+            type="java.lang.Boolean" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/ranking_date_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:orientation="horizontal"
+            android:gravity="center">
+            
+            <ImageButton
+                android:id="@+id/ranking_left_button"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_left"
+                android:contentDescription="@string/ranking_left_button" />
+
+            <TextView
+                android:id="@+id/ranking_date_text"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:text="@{@string/ranking_date(date.year, date.monthValue, date.dayOfMonth), default=날짜}"
+                android:fontFamily="@font/nanum_square_neo_extrabold"
+                android:textSize="16sp"
+                android:textAlignment="center"/>
+
+            <ImageButton
+                android:id="@+id/ranking_right_button"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_right"
+                android:contentDescription="@string/ranking_right_button"
+                android:visibility="@{isToday ? View.INVISIBLE : View.VISIBLE}"/>
+        </LinearLayout>
+        
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/ranking_my_rank_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/ranking_date_layout"
+            android:layout_marginTop="32dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginHorizontal="32dp"
+            android:paddingVertical="16dp"
+            android:background="@drawable/bg_rectangle_10dp"
+            android:backgroundTint="@null">
+
+            <TextView
+                android:id="@+id/ranking_my_rank_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:text="@string/ranking_my_rank"
+                android:fontFamily="@font/nanum_square_neo_bold"
+                android:textSize="16sp"
+                android:textColor="@color/text2"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                app:layout_constraintTop_toBottomOf="@+id/ranking_my_rank_text"
+                app:layout_constraintBottom_toTopOf="@+id/ranking_my_rank_linear_layout"
+                android:layout_margin="16dp"
+                android:background="@color/text2"
+                android:backgroundTint="@null"/>
+
+            <LinearLayout
+                android:id="@+id/ranking_my_rank_linear_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="4dp"
+                    android:background="@drawable/bg_rank_winner"
+                    android:backgroundTint="@{rank == 1 ? @color/sub1 : @color/bg}">
+
+                    <TextView
+                        android:layout_width="12dp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:text="@{Integer.toString(rank), default=2}"
+                        android:fontFamily="@font/nanum_square_neo_bold"
+                        android:textSize="16sp"
+                        android:textColor="@{rank == 1 ? @color/white : @color/text1}"
+                        android:textAlignment="center"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <ImageView
+                    android:layout_width="52dp"
+                    android:layout_height="52dp"
+                    android:src="@drawable/bg_default_profile_image"
+                    android:contentDescription="@string/home_rank_profile_image" />
+
+                <LinearLayout
+                    android:layout_width="184dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="8dp"
+                    android:orientation="vertical"
+                    android:gravity="start">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:text="@{userRankDto.nickname, default=닉네임}"
+                        android:fontFamily="@font/nanum_square_neo_bold"
+                        android:textSize="14sp"/>
+
+                    <com.google.android.material.progressindicator.LinearProgressIndicator
+                        android:layout_width="match_parent"
+                        android:layout_height="12dp"
+                        app:trackThickness="12dp"
+                        app:trackColor="@color/progressbar_light_grey"
+                        app:indicatorColor="@color/main1"
+                        app:trackCornerRadius="6dp"
+                        android:max="@{userRankDto.goalTime, default=100}"
+                        android:progress="@{userRankDto.usageTime, default=50}"/>
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:id="@+id/ranking_rank_label_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/ranking_my_rank_layout"
+            android:layout_marginTop="32dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:paddingHorizontal="32dp"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ranking_total_rank"
+                android:fontFamily="@font/nanum_square_neo_bold"
+                android:textSize="14sp"
+                android:textColor="@color/text2"/>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+
+            <Button
+                android:id="@+id/ranking_type_button"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="64dp"
+                android:layout_height="32dp"
+                android:text="@string/ranking_type_univ"
+                android:fontFamily="@font/nanum_square_neo_bold"
+                android:textSize="14sp"
+                android:textColor="@color/text2"
+                android:paddingVertical="0dp"/>
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/ranking_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@+id/ranking_rank_label_layout"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="60dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:orientation="vertical"
+            android:overScrollMode="never"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="68dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:padding="2dp"
+            android:background="@drawable/bg_circle"
+            android:backgroundTint="@null"
+            android:visibility="@{isLoading ? View.VISIBLE : View.GONE}">
+
+            <com.google.android.material.progressindicator.CircularProgressIndicator
+                android:id="@+id/ranking_loading_indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:indeterminate="true" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

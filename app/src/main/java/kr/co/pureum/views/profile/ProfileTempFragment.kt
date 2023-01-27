@@ -25,10 +25,12 @@ class ProfileTempFragment : BaseFragment<FragmentProfileTempBinding>(R.layout.fr
     }
 
     private fun initToolbar() {
-        mainActivity = context as MainActivity
+        mainActivity = activity as MainActivity
         with(mainActivity) {
-            supportActionBar?.setDisplayUseLogoEnabled(false)
-            supportActionBar?.setDisplayHomeAsUpEnabled(true)
+            with(supportActionBar!!) {
+                setDisplayUseLogoEnabled(false)
+                setDisplayHomeAsUpEnabled(true)
+            }
             binding.mainToolbar.setNavigationOnClickListener {
                 findNavController().navigateUp()
             }
