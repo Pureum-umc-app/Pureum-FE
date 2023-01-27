@@ -3,26 +3,36 @@ package kr.co.pureum.views.signup
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
+import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import kr.co.pureum.R
-import kr.co.pureum.base.BaseActivity
-import kr.co.pureum.databinding.ActivitySignUpBinding
+import kr.co.pureum.base.BaseFragment
+import kr.co.pureum.databinding.FragmentOnBoardFourBinding
 
-class SignUpActivity : BaseActivity<ActivitySignUpBinding>(R.layout.activity_sign_up) {
+class OnBoardFourFragment : BaseFragment<FragmentOnBoardFourBinding>(R.layout.fragment_on_board_four) {
 
-    override fun initView() {
-
-        binding.kakaoLoginBtn.setOnClickListener {
-
-            bottomSheetOpen()
-        }
-
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initView()
+        initListener()
     }
 
+    private fun initView() {
+//        binding.profileTextView.text = "프로필 화면입니다."
+//        Log.e("ScreenBuild", "ProfileFragment")
+    }
 
+    private fun initListener() {
+        with(binding) {
+
+            kakaoLoginIb.setOnClickListener {
+                bottomSheetOpen()
+            }
+        }
+    }
 
     private fun bottomSheetOpen() {
 
@@ -31,9 +41,13 @@ class SignUpActivity : BaseActivity<ActivitySignUpBinding>(R.layout.activity_sig
         var info : Int = 0
 
         // bottomSheetDialog 객체 생성
-        val bottomSheetDialog = BottomSheetDialog(
-            this, R.style.BottomSheetDialogTheme
-        )
+        val bottomSheetDialog = activity?.let {
+            BottomSheetDialog(
+                it, R.style.BottomSheetDialogTheme
+            )
+        }
+
+
 
         // layout_bottom_sheet를 뷰 객체로 생성
         val bottomSheetView = layoutInflater.inflate(R.layout.sign_up_bottom_sheet, null)
@@ -42,10 +56,10 @@ class SignUpActivity : BaseActivity<ActivitySignUpBinding>(R.layout.activity_sig
         bottomSheetView.findViewById<View>(R.id.signup_agree_next_bt).setOnClickListener {
 
             if(flag==1 || (service==1)&&(info==1)){
-                bottomSheetDialog.dismiss()
-                val intent = Intent(this, SignUpProfileActivity::class.java)
+                bottomSheetDialog?.dismiss()
+                val intent = Intent(activity?.applicationContext, SignUpProfileActivity::class.java)
                 startActivity(intent)
-                overridePendingTransition(R.anim.rightin_activity,R.anim.not_move_activity)
+                activity?.overridePendingTransition(R.anim.rightin_activity,R.anim.not_move_activity)
 
 //                finish()
 //                overridePendingTransition(R.anim.not_move_activity,R.anim.rightout_activity)
@@ -56,14 +70,14 @@ class SignUpActivity : BaseActivity<ActivitySignUpBinding>(R.layout.activity_sig
 
         // 약관 자세히 보기
         bottomSheetView.findViewById<View>(R.id.service_agree_tv).setOnClickListener {
-            val intent = Intent(this, SignUpClauseActivity::class.java)
+            val intent = Intent(activity?.applicationContext , SignUpClauseActivity::class.java)
             startActivity(intent)
-            overridePendingTransition(R.anim.rightin_activity,R.anim.not_move_activity)
+            activity?.overridePendingTransition(R.anim.rightin_activity,R.anim.not_move_activity)
         }
         bottomSheetView.findViewById<View>(R.id.my_info_agree_tv).setOnClickListener {
-            val intent = Intent(this, SignUpInfoActivity::class.java)
+            val intent = Intent(activity?.applicationContext, SignUpInfoActivity::class.java)
             startActivity(intent)
-            overridePendingTransition(R.anim.rightin_activity,R.anim.not_move_activity)
+            activity?.overridePendingTransition(R.anim.rightin_activity,R.anim.not_move_activity)
         }
 
 
@@ -153,13 +167,11 @@ class SignUpActivity : BaseActivity<ActivitySignUpBinding>(R.layout.activity_sig
 
 
         // bottomSheetDialog 뷰 생성
-        bottomSheetDialog.setContentView(bottomSheetView)
+        bottomSheetDialog?.setContentView(bottomSheetView)
 
         // bottomSheetDialog 호출
-        bottomSheetDialog.show()
+        bottomSheetDialog?.show()
 
 
     }
-
-
 }
