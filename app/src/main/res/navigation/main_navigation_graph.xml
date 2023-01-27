@@ -48,7 +48,7 @@
 
     <fragment
         android:id="@+id/questVoidFragment"
-        android:name="kr.co.pureum.views.quest.QuestVoid1Fragment"
+        android:name="kr.co.pureum.views.quest.QuestVoidFragment"
         android:label="QuestVoidFragment" >
 
     </fragment>
