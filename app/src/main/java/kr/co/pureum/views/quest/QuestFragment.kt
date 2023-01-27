@@ -38,6 +38,7 @@ class QuestFragment : BaseFragment<FragmentQuestBinding>(R.layout.fragment_quest
     private fun initViewPager() {
         val questVPAdapter = QuestMainVPAdapter(this)
         binding.questViewpagerVp.adapter = questVPAdapter
+        binding.questViewpagerVp.isUserInputEnabled = false
         val tabNameArray = arrayListOf(
             "배지",
             "챌린지 도전하기"

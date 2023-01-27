@@ -64,4 +64,31 @@
     회원은 자신의 계정을 통해 좀더 다양한 네이버 서비스를 보다 편리하게 이용할 수 있습니다. 이와 관련한 상세한 내용은 계정 운영정책 및 고객센터 내 네이버 회원가입 방법 등에서 확인해 주세요.
     네이버는 단체에 속한 여러 구성원들이 공동의 계정으로 네이버 서비스를 함께 이용할 수 있도록 단체회원 계정도 부여하고 있습니다. 단체회원 구성원들은 하나의 계정 및 아이디(ID)를 공유하되 각자 개별적으로 설정한 비밀번호를 입력하여 계정에 로그인하고 각종 서비스를 이용하게 됩니다. 단체회원은 관리자와 멤버로 구성되며, 관리자는 구성원 전부로부터 권한을 위임 받아 단체회원을 대표하고 단체회원 계정을 운용합니다. 따라서 관리자는 단체회원 계정을 통해 별도 약관 또는 기존 약관 개정에 대해 동의하거나 단체회원에서 탈퇴할 수 있고, 멤버들의 단체회원 계정 로그인 방법 및 이를 통한 게시물 게재 등 네이버 서비스 이용을 관리(게시물 삭제 포함)할 수 있습니다. 본 약관에서 규정한 사항은 원칙적으로 구성원 모두에게 적용되며, 각각의 구성원은 다른 구성원들의 단체회원 계정 및 아이디(ID)를 통한 서비스 이용에 관해 연대책임을 부담합니다.
     단체회원 계정 사용에서의 관리자, 멤버 등의 권한 및 (공동)책임에 관한 사항 등은 계정 운영정책 및 고객센터 내 네이버 단체회원(단체 아이디) 소개 등에서 확인해 주시기 바랍니다.</string>
+    
+    <!-- QuestFragment -->
+    <string name="today_check">오늘의 출석체크</string>
+    <string name="check_go">출석체크 하러 가기</string>
+    <string name="sentence_challenge">한 문장 챌린지에 도전해요</string>
+    <string name="click_keyword">클릭 시 오늘의 키워드로 이동</string>
+    <string name="click_letter_challenge">대기중인 도전장 보러가기</string>
+    <string name="today_keyword_one">오늘의 키워드 1</string>
+    <string name="today_keyword_two">오늘의 키워드 2</string>
+    <string name="today_keyword_three">오늘의 키워드 3</string>
+    <string name="void_sentence">작성된 문장이 없습니다.\n가장 먼저 문장을 작성해볼까요?</string>
+    <string name="void_sentence_button">문장 작성하러 가기</string>
+    <string name="sentence_public">공개</string>
+    <string name="sentence_private">비공개</string>
+    <string name="keyword_definition">정의</string>
+    <string name="keyword_definition_sentence">어떤 내용을 구체적인 사실로\n나타내게 하다</string>
+    <string name="keyword_sentence_hint">키워드를 보고 떠오르는 생각을 자유롭게\n문장으로 표현해주세요!</string>
+    <string name="dialog_ok">확인</string>
+    <string name="dialog_back_end">작성을 종료하시겠습니까?</string>
+    <string name="dialog_back_msg">나가기를 누르면\n작성 중인 글이 사라집니다.</string>
+    <string name="dialog_back_continue">계속 쓰기</string>
+    <string name="dialog_back_back">나가기</string>
+    <string name="dialog_sentence_completion">문장 작성 완료</string>
+    <string name="dialog_keyword">키워드</string>
+    <string name="dialog_private_public">공개 여부</string>
+    <string name="dialog_go_my_sentence">내가 쓴 문장 보러 가기</string>
+    <string name="dialog_go_other_sentence">다른 사람이 쓴 문장 보러 가기</string>
 </resources>

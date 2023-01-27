@@ -42,6 +42,7 @@ class QuestClickFragment : BaseFragment<FragmentQuestClickBinding>(R.layout.frag
     private fun initViewPager() {
         val questClickVPAdapter = QuestClickVPAdapter(this)
         binding.questClickViewpagerVp.adapter = questClickVPAdapter
+        binding.questClickViewpagerVp.isUserInputEnabled = false
         val tabNameArray = arrayListOf(
             "작성 전",
             "작성 완료"
