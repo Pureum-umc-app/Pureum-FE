@@ -3,16 +3,18 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
     id 'androidx.navigation.safeargs.kotlin'
+    id 'kotlin-kapt'
+    id 'com.google.dagger.hilt.android'
 }
 
 android {
     namespace 'kr.co.pureum'
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "kr.co.pureum"
         minSdk 21
-        targetSdk 32
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 
@@ -35,6 +37,12 @@ android {
     buildFeatures {
         viewBinding true
         dataBinding true
+    }
+    kapt{
+        javacOptions{
+            option("-Adagger.fastInit=ENABLED")
+            option("-Adagger.hilt.android.internal.disableAndroidSuperclassValidation=true")
+        } // 얘는 data 모듈에 작성 안 해줘도 된다.
     }
 }
 
@@ -69,4 +77,15 @@ dependencies {
     // Glide : 사진 크롭과 같은 기능 제공
     implementation 'com.github.bumptech.glide:glide:4.14.2'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.14.2'
+
+    // dagger - hilt
+    implementation 'com.google.dagger:hilt-android:2.44.2'
+    kapt 'com.google.dagger:hilt-compiler:2.44.2'
+
+    // Retrofit2 라이브러리
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    // GsonConverter 라이브러리
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    // loggingInterceptor 라이브러리
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.10.0'
 }
