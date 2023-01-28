@@ -21,6 +21,7 @@ class QuestVoidFragment : BaseFragment<FragmentQuestVoidBinding>(R.layout.fragme
         initToolbar()
         initClickListener()
         initViewPager()
+        initLayoutExamination()
     }
 
     private fun initView() {
@@ -55,5 +56,9 @@ class QuestVoidFragment : BaseFragment<FragmentQuestVoidBinding>(R.layout.fragme
         TabLayoutMediator(binding.questVoidTabTl, binding.questVoidViewpagerVp) {
                 tab, position -> tab.text = tabNameArray[position]
         }.attach()
+    }
+
+    private fun initLayoutExamination() {
+
     }
 }

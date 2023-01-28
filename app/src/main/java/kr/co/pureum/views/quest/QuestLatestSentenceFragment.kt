@@ -1,18 +1,53 @@
 package kr.co.pureum.views.quest
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.recyclerview.widget.LinearLayoutManager
+import kr.co.domain.model.DataWrittenSentence
 import kr.co.pureum.R
+import kr.co.pureum.adapter.quest.DataWrittenSentenceRVAdapter
 import kr.co.pureum.base.BaseFragment
 import kr.co.pureum.databinding.FragmentQuestLatestSentenceBinding
 
 class QuestLatestSentenceFragment : BaseFragment<FragmentQuestLatestSentenceBinding>(R.layout.fragment_quest_latest_sentence) {
+    private val dataWrittenSentenceList : ArrayList<DataWrittenSentence> = arrayListOf()
+    private val dataWrittenSentenceAdapter = DataWrittenSentenceRVAdapter(dataWrittenSentenceList)
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
+        initClickListener()
+        initApplyRecyclerView()
     }
 
     private fun initView() {
-        binding.text1Tv.text = "최신순 화면"
+    }
+
+    private fun initClickListener() {
+        binding.questLatestSentenceAddBt.setOnClickListener{
+            val intent = Intent(activity, QuestWriteSentenceActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
+    private fun initApplyRecyclerView() {
+        val managerSentence = LinearLayoutManager(activity)
+        managerSentence.reverseLayout = true
+        managerSentence.stackFromEnd = true
+        binding.questLatestSentenceRv.layoutManager = managerSentence
+        binding.questLatestSentenceRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        binding.questLatestSentenceRv.adapter = dataWrittenSentenceAdapter
+
+        dataWrittenSentenceList.apply {
+            add(DataWrittenSentence(R.drawable.ic_appicon_round, "르미", "방금", "3", "리사이클러뷰 구현에 성공했습니다"))
+            add(DataWrittenSentence(R.drawable.ic_appicon_round, "르미", "방금", "3", "리사이클러뷰 구현에 성공했습니다"))
+            add(DataWrittenSentence(R.drawable.ic_appicon_round, "르미", "방금", "3", "리사이클러뷰 구현에 성공했습니다"))
+            add(DataWrittenSentence(R.drawable.ic_appicon_round, "르미", "방금", "3", "리사이클러뷰 구현에 성공했습니다"))
+            add(DataWrittenSentence(R.drawable.ic_appicon_round, "르미", "방금", "3", "리사이클러뷰 구현에 성공했습니다"))
+            add(DataWrittenSentence(R.drawable.ic_appicon_round, "르미", "방금", "3", "리사이클러뷰 구현에 성공했습니다"))
+            add(DataWrittenSentence(R.drawable.ic_appicon_round, "르미", "방금", "3", "리사이클러뷰 구현에 성공했습니다"))
+
+        }
     }
 }
