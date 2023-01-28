@@ -1,10 +1,15 @@
 package kr.co.pureum.views.signup
 
+import android.Manifest
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.text.Editable
 import android.text.TextWatcher
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import coil.load
+import coil.transform.RoundedCornersTransformation
 import kr.co.pureum.R
 import kr.co.pureum.base.BaseActivity
 import kr.co.pureum.databinding.ActivitySignUpProfileBinding
@@ -19,6 +24,7 @@ class SignUpProfileActivity : BaseActivity<ActivitySignUpProfileBinding>(R.layou
 //        nameEt.setBackgroundResource(R.drawable.signup_edittext_round)
 
         checkNickname()
+        profileImgToAlbum()
 
     }
 
@@ -69,26 +75,50 @@ class SignUpProfileActivity : BaseActivity<ActivitySignUpProfileBinding>(R.layou
                         signupNicknameTf.error = null
                         buttonOnOff(1)
                         signupAgreeNextBt.setOnClickListener {
-//                            finish()
-                            val intent = Intent(this@SignUpProfileActivity, SignUpGradeActivity::class.java)
-                            startActivity(intent)
-                            this@SignUpProfileActivity.overridePendingTransition(R.anim.rightin_activity,R.anim.not_move_activity)
+
+                            if(signupNicknameTf.error==null || signupNicknameTf.error==""){
+                                val intent = Intent(this@SignUpProfileActivity, SignUpGradeActivity::class.java)
+                                startActivity(intent)
+                                this@SignUpProfileActivity.overridePendingTransition(R.anim.rightin_activity,R.anim.not_move_activity)
+                            }
+
                         }
                     }
                 }
 
 
+
+
             })
+
         }
     }
 
     fun profileImgToAlbum(){
         with(binding) {
 
+            val permissionList = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
+            val checkPermission = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { result ->
+                result.forEach {
+                    if(!it.value) {
+//                            Toast.makeText(applicationContext, "권한 동의 필요!", Toast.LENGTH_SHORT).show()
+//                        finish()
+                    }
+                }
+            }
+            val readImage = registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
+                signupBasicProfileIb.load(uri){
+//                    size(150,150)
+                    transformations(RoundedCornersTransformation(10F,10F,10F,10F))
+                }
+            }
 
+            checkPermission.launch(permissionList)
 
             // 앨범 버튼 클릭 리스너 구현
-            signupBasicProfileIb.setOnClickListener{
+            signupChangeImgCl.setOnClickListener{
+
+                readImage.launch("image/*")
 //                requirePermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), PERMISSION_Album)
 
             }

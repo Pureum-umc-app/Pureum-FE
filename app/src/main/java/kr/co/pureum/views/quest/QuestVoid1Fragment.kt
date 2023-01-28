@@ -3,6 +3,7 @@ package kr.co.pureum.views.quest
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import kr.co.pureum.R
 import kr.co.pureum.base.BaseFragment
@@ -15,7 +16,7 @@ class QuestVoid1Fragment : BaseFragment<FragmentQuestVoid1Binding>(R.layout.frag
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
-        initToolbar()
+//        initToolbar()
         initClickListener()
     }
 
@@ -31,15 +32,25 @@ class QuestVoid1Fragment : BaseFragment<FragmentQuestVoid1Binding>(R.layout.frag
     }
 
     private fun initToolbar() {
-        mainActivity = context as MainActivity
-        with(mainActivity) {
-            supportActionBar?.setDisplayUseLogoEnabled(false)
-            supportActionBar?.setDisplayHomeAsUpEnabled(true)
-            binding.mainToolbar.setNavigationOnClickListener {
+        with(binding.mainToolbar){
+            logo = null
+            navigationIcon = ContextCompat.getDrawable(context, R.drawable.ic_back)
+            setNavigationOnClickListener {
                 findNavController().navigateUp()
             }
         }
     }
+
+//    private fun initToolbar() {
+//        mainActivity = context as MainActivity
+//        with(mainActivity) {
+//            supportActionBar?.setDisplayUseLogoEnabled(false)
+//            supportActionBar?.setDisplayHomeAsUpEnabled(true)
+//            binding.mainToolbar.setNavigationOnClickListener {
+//                findNavController().navigateUp()
+//            }
+//        }
+//    }
 
 
 }

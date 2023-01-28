@@ -43,7 +43,7 @@
             app:layout_constraintTop_toBottomOf="@id/signup_welcome"
             android:layout_marginTop="12dp"/>
 
-        <Spinner
+        <androidx.appcompat.widget.AppCompatSpinner
             android:id="@+id/spinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
