@@ -118,7 +118,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginHorizontal="32dp"
-            android:background="@drawable/bg_button_large"
+            android:background="@drawable/bg_rectangle_10dp"
             android:text="@string/home_dialog_next_button"
             android:fontFamily="@font/nanum_square_neo_regular"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
