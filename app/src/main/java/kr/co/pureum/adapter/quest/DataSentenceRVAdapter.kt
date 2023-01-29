@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import kr.co.domain.model.DataSentence
 import kr.co.pureum.databinding.ItemSentenceBinding
 
-class DataSentenceRVAdapter(private val dataSentenceList: ArrayList<DataSentence>) : RecyclerView.Adapter<DataSentenceRVAdapter.DataSentenceViewHolder>() {
+class DataSentenceRVAdapter(private var dataSentenceList: ArrayList<DataSentence>) : RecyclerView.Adapter<DataSentenceRVAdapter.DataSentenceViewHolder>() {
 
     inner class DataSentenceViewHolder(private val binding: ItemSentenceBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(dataSentence: DataSentence) {
@@ -24,4 +24,10 @@ class DataSentenceRVAdapter(private val dataSentenceList: ArrayList<DataSentence
     }
 
     override fun getItemCount(): Int = dataSentenceList.size
+
+    fun setData(data: ArrayList<DataSentence>) {
+        dataSentenceList.clear()
+        dataSentenceList.addAll(data)
+        notifyDataSetChanged()
+    }
 }

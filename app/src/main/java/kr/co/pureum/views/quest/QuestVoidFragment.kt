@@ -70,12 +70,14 @@ class QuestVoidFragment : BaseFragment<FragmentQuestVoidBinding>(R.layout.fragme
     private fun initLayoutExamination() {
         Log.d("Tag", dataWrittenSentenceAdapter.itemCount.toString())
         if (dataWrittenSentenceAdapter.itemCount == 0) {
-            binding.questVoidCl.isVisible
-            binding.questVoidExistCl.isGone
+            binding.questVoidCl.isVisible = true
+            binding.questVoidExistCl.isGone = true
         }
         else if (dataWrittenSentenceAdapter.itemCount > 0){
-            binding.questVoidCl.isGone
-            binding.questVoidExistCl.isVisible
+            binding.questVoidCl.isGone = true
+            binding.questVoidExistCl.isVisible = true
         }
+
+
     }
 }
