@@ -15,12 +15,21 @@ class QuestBadgeFragment : BaseFragment<FragmentQuestBadgeBinding>(R.layout.frag
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
-        //initToolbar()
+        initToolbar()
     }
 
     private fun initView() {
-        binding.badgeTextView.text = "배지 화면입니다"
         Log.e("ScreenBuild", "QuestBadgeFragment")
+    }
+
+    private fun initToolbar() {
+        with(binding.mainToolbar){
+            logo = null
+            navigationIcon = androidx.core.content.ContextCompat.getDrawable(context, R.drawable.ic_back)
+            setNavigationOnClickListener {
+                findNavController().navigateUp()
+            }
+        }
     }
 
 }
