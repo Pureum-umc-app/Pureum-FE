@@ -76,6 +76,9 @@
     <string name="check_grade">몇 학년이신가요? 학년을 선택해주세요.</string>
     <string name="grade_hint">학년을 선택해주세요.</string>
     <string name="signup_end">완료</string>
+    <string name="access_right">앱 접근 권한 안내</string>
+    <string name="use_access">푸름은 앱 이용 시\n다음 권한을 사용하고 있습니다.</string>
+    <string name="use_camera">카메라/사진\n프로필 설정 시 촬영 및 이미지 업로드</string>
 
     <!-- QuestFragment -->
     <string name="today_check">오늘의 출석체크</string>
