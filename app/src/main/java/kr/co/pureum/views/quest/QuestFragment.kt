@@ -26,8 +26,21 @@ class QuestFragment : BaseFragment<FragmentQuestBinding>(R.layout.fragment_quest
         initView()
         initApplySentenceView()
         initListener()
-        //activity?.let { updateStatusBarColor(it, "#D8ECFF") }
+        activity?.let { updateStatusBarColor(it, "#D8ECFF") }
     }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d("LifeCycle", "onResume")
+        activity?.let { updateStatusBarColor(it, "#D8ECFF") }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.d("LifeCycle", "onPause")
+        activity?.let { updateStatusBarColor(it, "#F8F8F8") }
+    }
+
 
     private fun initToolbar() {
         with(binding.mainToolbar){
@@ -40,18 +53,21 @@ class QuestFragment : BaseFragment<FragmentQuestBinding>(R.layout.fragment_quest
         Log.e("ScreenBuild", "QuestFragment")
     }
 
-
+    // 상태바 color 지정 함수
     private fun updateStatusBarColor(context: Activity, color: String?) {
         val window = context.window
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
         window.statusBarColor = Color.parseColor(color)
     }
 
-
     private fun initListener() {
         with(binding) {
             questActionLl.setOnClickListener {
                 val action = QuestFragmentDirections.actionQuestFragmentToQuestClickFragment()
+                findNavController().navigate(action)
+            }
+            questGoBadgeBt.setOnClickListener {
+                val action = QuestFragmentDirections.actionQuestFragmentToQuestBadgeFragment()
                 findNavController().navigate(action)
             }
         }
