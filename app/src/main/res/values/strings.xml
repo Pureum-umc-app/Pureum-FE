@@ -74,12 +74,15 @@
     단체회원 계정 사용에서의 관리자, 멤버 등의 권한 및 (공동)책임에 관한 사항 등은 계정 운영정책 및 고객센터 내 네이버 단체회원(단체 아이디) 소개 등에서 확인해 주시기 바랍니다.</string>
     
     <!-- QuestFragment -->
-    <string name="today_check">오늘의 출석체크</string>
+    <string name="hello_text">반가워요 %s 님!</string>
+    <string name="no_ignore">잊기 전에 출석체크를 해주세요</string>
     <string name="check_go">출석체크 하러 가기</string>
-    <string name="sentence_challenge">한 문장 챌린지에 도전해요</string>
-    <string name="text_letter_challenge">도전장을 내밀어봐요</string>
+    <string name="today_keyword">오늘의 키워드로 문장을 작성해요</string>
     <string name="click_keyword">클릭 시 오늘의 키워드로 이동</string>
-    <string name="click_letter_challenge">대기중인 도전장 보러가기</string>
+    <string name="my_badge">MY 배지</string>
+    <string name="get_badge_name">배지명</string>
+    <string name="check_get_badge">열심히 획득한 배지를\n확인하러 가볼까요?</string>
+    <string name="latest_get_badge">최근 획득 배지</string>
     <string name="today_keyword_one">오늘의 키워드 1</string>
     <string name="today_keyword_two">오늘의 키워드 2</string>
     <string name="today_keyword_three">오늘의 키워드 3</string>
@@ -100,4 +103,5 @@
     <string name="dialog_private_public">공개 여부</string>
     <string name="dialog_go_my_sentence">내가 쓴 문장 보러 가기</string>
     <string name="dialog_go_other_sentence">다른 사람이 쓴 문장 보러 가기</string>
+    <string name="text_letter_challenge">리사이클러뷰를 구현했습니다.</string>
 </resources>

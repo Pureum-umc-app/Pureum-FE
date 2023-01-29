@@ -39,6 +39,7 @@ class QuestLatestSentenceFragment : BaseFragment<FragmentQuestLatestSentenceBind
         binding.questLatestSentenceRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         binding.questLatestSentenceRv.adapter = dataWrittenSentenceAdapter
 
+        /*
         dataWrittenSentenceList.apply {
             add(DataWrittenSentence(R.drawable.ic_appicon_round, "르미", "방금", "3", "리사이클러뷰 구현에 성공했습니다"))
             add(DataWrittenSentence(R.drawable.ic_appicon_round, "르미", "방금", "3", "리사이클러뷰 구현에 성공했습니다"))
@@ -49,5 +50,7 @@ class QuestLatestSentenceFragment : BaseFragment<FragmentQuestLatestSentenceBind
             add(DataWrittenSentence(R.drawable.ic_appicon_round, "르미", "방금", "3", "리사이클러뷰 구현에 성공했습니다"))
 
         }
+
+         */
     }
 }
