@@ -106,4 +106,17 @@
     <string name="dialog_private_public">공개 여부</string>
     <string name="dialog_go_my_sentence">내가 쓴 문장 보러 가기</string>
     <string name="dialog_go_other_sentence">다른 사람이 쓴 문장 보러 가기</string>
+
+    <!-- BattleFragment -->
+    <string name="battle_with_friends">친구들과 대결을 해볼까요?</string>
+    <string name="battle_start">대결 신청하기</string>
+    <string name="battle_background">battle_background</string>
+    <string name="battle_status">대결 현황</string>
+    <string name="battle_my_battle_label">MY 대결</string>
+    <string name="battle_my_battle_body">나의 대결 현황을\n알아봐요.</string>
+    <string name="battle_button">보러가기</string>
+    <string name="battle_all_battle_label">전체 대결</string>
+    <string name="battle_all_battle_body">진행 중인 대결\n문장들을 보러가요.</string>
+    <string name="battle_waiting_label">대기 중인 대결</string>
+    <string name="battle_more"><u>전체 보기</u> ></string>
 </resources>
