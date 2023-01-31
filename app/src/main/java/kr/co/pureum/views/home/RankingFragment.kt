@@ -38,7 +38,7 @@ class RankingFragment : BaseFragment<FragmentRankingBinding>(R.layout.fragment_r
     private fun initToolbar() {
         with(binding.mainToolbar){
             logo = null
-            navigationIcon = androidx.core.content.ContextCompat.getDrawable(context, kr.co.pureum.R.drawable.ic_back)
+            navigationIcon = ContextCompat.getDrawable(context, R.drawable.ic_back)
             setNavigationOnClickListener {
                 findNavController().navigateUp()
             }

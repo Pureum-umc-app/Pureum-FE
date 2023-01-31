@@ -119,4 +119,6 @@
     <string name="battle_all_battle_body">진행 중인 대결\n문장들을 보러가요.</string>
     <string name="battle_waiting_label">대기 중인 대결</string>
     <string name="battle_more"><u>전체 보기</u> ></string>
+    <string name="battle_item_period_label">대결 기간</string>
+    <string name="battle_item_period">%d일</string>
 </resources>
