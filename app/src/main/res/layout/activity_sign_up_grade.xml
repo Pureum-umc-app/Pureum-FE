@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".views.signup.SignUpGradeActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <ImageView
+            android:id="@+id/signup_logo_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="80dp"
+            android:layout_marginStart="40dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/ic_pureum_logo"/>
+
+        <TextView
+            android:id="@+id/signup_welcome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="@color/main1"
+            android:fontFamily="@font/nanum_square_neo_bold"
+            android:text="@string/signup_last"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="@+id/signup_logo_iv"
+            app:layout_constraintTop_toBottomOf="@id/signup_logo_iv"/>
+
+        <TextView
+            android:id="@+id/signup_setting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/check_grade"
+            android:fontFamily="@font/nanum_square_neo_bold"
+            android:textColor="@color/text1"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@id/signup_logo_iv"
+            app:layout_constraintTop_toBottomOf="@id/signup_welcome"
+            android:layout_marginTop="12dp"/>
+
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:spinnerMode="dropdown"
+            android:layout_marginHorizontal="40dp"
+            android:layout_marginTop="20dp"
+            android:entries="@array/grade"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/signup_setting" />
+
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/signup_agree_next_bt"
+            android:layout_width="296dp"
+            android:layout_height="65dp"
+            android:text="@string/signup_end"
+            android:textSize="16sp"
+            android:background="@drawable/signup_next_button_not_fill"
+            android:backgroundTint="@color/main3"
+            android:textColor="@color/text2"
+            android:layout_marginBottom="70dp"
+            android:fontFamily="@font/nanum_square_neo_regular"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
