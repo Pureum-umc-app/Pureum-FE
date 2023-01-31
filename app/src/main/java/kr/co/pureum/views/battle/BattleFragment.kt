@@ -1,16 +1,14 @@
-package kr.co.pureum.views.chat
+package kr.co.pureum.views.battle
 
 import android.os.Bundle
 import android.util.Log
-import android.view.MenuItem
 import android.view.View
 import androidx.core.content.ContextCompat
 import kr.co.pureum.R
 import kr.co.pureum.base.BaseFragment
-import kr.co.pureum.databinding.FragmentChatBinding
-import kr.co.pureum.views.MainActivity
+import kr.co.pureum.databinding.FragmentBattleBinding
 
-class ChatFragment : BaseFragment<FragmentChatBinding>(R.layout.fragment_chat) {
+class BattleFragment : BaseFragment<FragmentBattleBinding>(R.layout.fragment_battle) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -26,7 +24,6 @@ class ChatFragment : BaseFragment<FragmentChatBinding>(R.layout.fragment_chat) {
     }
 
     private fun initView() {
-        binding.chatTextView.text = "채팅 화면입니다."
-        Log.e("ScreenBuild", "ChatFragment")
+        Log.e("ScreenBuild", "BattleFragment")
     }
 }
