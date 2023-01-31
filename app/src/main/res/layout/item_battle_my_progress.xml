@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="170dp"
+        android:layout_gravity="center_horizontal">
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:backgroundTint="@color/white"
+                android:background="@drawable/custom_round_button"
+                android:layout_width="312dp"
+                android:layout_height="160dp"
+                android:elevation="4dp">
+
+            <TextView
+                android:id="@+id/my_battle_keyword_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="구현"
+                android:textSize="16sp"
+                android:fontFamily="@font/nanum_square_neo_bold"
+                android:textColor="@color/main1"
+                android:layout_marginTop="14dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/my_battle_first_profile_iv"
+                android:layout_width="52dp"
+                android:layout_height="52dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="20dp"
+                android:src="@drawable/ic_battle_basic_profile"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/my_battle_keyword_tv"/>
+
+            <TextView
+                android:id="@+id/my_battle_first_name_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="푸름"
+                android:textColor="@color/text1"
+                android:layout_marginTop="11dp"
+                android:fontFamily="@font/nanum_square_neo_bold"
+                app:layout_constraintStart_toStartOf="@id/my_battle_first_profile_iv"
+                app:layout_constraintEnd_toEndOf="@id/my_battle_first_profile_iv"
+                app:layout_constraintTop_toBottomOf="@id/my_battle_first_profile_iv"/>
+
+            <ImageView
+                android:id="@+id/my_battle_first_like_iv"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_battle_heart_not_fill"
+                android:layout_marginStart="18dp"
+                android:layout_marginBottom="7dp"
+                app:layout_constraintStart_toEndOf="@id/my_battle_first_profile_iv"
+                app:layout_constraintBottom_toBottomOf="@id/my_battle_first_profile_iv"/>
+
+            <TextView
+                android:id="@+id/my_battle_first_like_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text1"
+                android:text="5"
+                android:textSize="12sp"
+                android:layout_marginStart="12dp"
+                app:layout_constraintStart_toEndOf="@+id/my_battle_first_like_iv"
+                app:layout_constraintTop_toTopOf="@+id/my_battle_first_like_iv"
+                app:layout_constraintBottom_toBottomOf="@+id/my_battle_first_like_iv"/>
+
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/my_battle_second_profile_iv"
+                android:layout_width="52dp"
+                android:layout_height="52dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="20dp"
+                android:src="@drawable/ic_battle_basic_profile"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/my_battle_keyword_tv"/>
+
+
+            <ImageView
+                android:id="@+id/my_battle_second_like_iv"
+                android:layout_width="22.5dp"
+                android:layout_height="22.5dp"
+                android:src="@drawable/ic_battle_heart_fill"
+                android:layout_marginEnd="18dp"
+                app:layout_constraintEnd_toStartOf="@+id/my_battle_second_profile_iv"
+                app:layout_constraintTop_toTopOf="@+id/my_battle_first_like_iv"
+                app:layout_constraintBottom_toBottomOf="@+id/my_battle_first_like_iv"/>
+
+
+            <TextView
+                android:id="@+id/my_battle_second_like_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text1"
+                android:text="5"
+                android:textSize="12sp"
+                android:layout_marginEnd="12dp"
+                app:layout_constraintEnd_toStartOf="@+id/my_battle_second_like_iv"
+                app:layout_constraintTop_toTopOf="@+id/my_battle_first_like_num"
+                app:layout_constraintBottom_toBottomOf="@+id/my_battle_first_like_num"/>
+
+            <TextView
+                android:id="@+id/my_battle_second_name_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="푸름"
+                android:textColor="@color/text1"
+                android:layout_marginTop="11dp"
+                android:fontFamily="@font/nanum_square_neo_bold"
+                app:layout_constraintStart_toStartOf="@id/my_battle_second_profile_iv"
+                app:layout_constraintEnd_toEndOf="@id/my_battle_second_profile_iv"
+                app:layout_constraintTop_toBottomOf="@id/my_battle_second_profile_iv"/>
+
+            <TextView
+                android:id="@+id/my_battle_day"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:text="D-2"
+                android:textColor="@color/sub1"
+                android:layout_marginBottom="16dp"
+                android:fontFamily="@font/nanum_square_neo_bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+</layout>

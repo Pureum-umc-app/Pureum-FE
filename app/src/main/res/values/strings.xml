@@ -121,4 +121,6 @@
     <string name="battle_more"><u>전체 보기</u> ></string>
     <string name="battle_item_period_label">대결 기간</string>
     <string name="battle_item_period">%d일</string>
+    <string name="keyword_battle">키워드</string>
+    <string name="my_battle_win">이(가) 이겼어요!</string>
 </resources>
