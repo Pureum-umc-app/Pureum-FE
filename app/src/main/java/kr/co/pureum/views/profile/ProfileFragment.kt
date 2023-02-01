@@ -4,20 +4,15 @@ import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.Menu
-import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import androidx.core.content.ContextCompat
-import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import kr.co.pureum.R
 import kr.co.pureum.base.BaseFragment
 import kr.co.pureum.databinding.FragmentProfileBinding
-import kr.co.pureum.views.MainActivity
 import kr.co.pureum.views.signup.OnBoardActivity
 
 @AndroidEntryPoint
@@ -30,6 +25,28 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_p
         initView()
         initListener()
         observe()
+
+        if (requireActivity().intent.hasExtra("mySentence")){
+            val action = ProfileFragmentDirections.actionProfileFragmentToProfileMySentenceFragment()
+            findNavController().navigate(action)
+        }
+
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d("Tag", "onResume")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.d("Tag", "onPause")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d("Tag", "onDestroy")
     }
 
     private fun initToolbar() {
@@ -40,7 +57,6 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_p
     }
 
     private fun initView() {
-        binding.profileTextView.text = "프로필 화면입니다."
         Log.e("ScreenBuild", "ProfileFragment")
     }
     private fun initListener() {
@@ -57,6 +73,16 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_p
 
             profileApiButton.setOnClickListener {
                 viewModel.nicknameValidation("nickname")
+            }
+
+            profileMySentenceIb.setOnClickListener {
+                val action = ProfileFragmentDirections.actionProfileFragmentToProfileMySentenceFragment()
+                findNavController().navigate(action)
+            }
+
+            profileAccountInfoTv.setOnClickListener{
+                val intent = Intent(activity, ProfileAccountInfoActivity::class.java)
+                startActivity(intent)
             }
         }
     }
