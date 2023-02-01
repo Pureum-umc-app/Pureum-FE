@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="195dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="312dp"
+            android:layout_height="150dp"
+            android:background="@drawable/bg_rectangle_10dp"
+            android:backgroundTint="@null"
+            android:elevation="10dp"
+            android:layout_marginTop="12dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/item_profile_image_ib"
+                android:layout_width="54dp"
+                android:layout_height="54dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/bg_rectangle_20dp"
+                android:backgroundTint="@null"
+                android:scaleType="center"
+                android:src="@drawable/ic_appicon_round"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/item_user_nickname_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="14dp"
+                android:layout_marginTop="23dp"
+                android:fontFamily="@font/nanum_square_neo_regular"
+                android:text="@string/app_name"
+                android:textColor="@color/text1"
+                android:textSize="14sp"
+                app:layout_constraintStart_toEndOf="@+id/item_profile_image_ib"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/item_upload_time_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="14dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/nanum_square_neo_regular"
+                android:textColor="@color/text2"
+                android:textSize="12sp"
+                app:layout_constraintStart_toEndOf="@+id/item_profile_image_ib"
+                app:layout_constraintTop_toBottomOf="@+id/item_user_nickname_tv" />
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/item_like_icon_ib"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="23dp"
+                android:layout_marginEnd="38dp"
+                android:background="#00FF0000"
+                android:src="@drawable/ic_like"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/item_like_number_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="26dp"
+                android:textColor="@color/text1"
+                android:textSize="12sp"
+                app:layout_constraintStart_toEndOf="@+id/item_like_icon_ib"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/item_written_sentence_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="12dp"
+                android:fontFamily="@font/nanum_square_neo_regular"
+                android:text="@string/text_letter_challenge"
+                android:textColor="@color/text1"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/item_profile_image_ib" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</layout>

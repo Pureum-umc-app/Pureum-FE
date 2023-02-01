@@ -2,6 +2,7 @@ package kr.co.pureum.views.quest
 
 import android.app.Dialog
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.text.Editable
 import android.view.KeyEvent
@@ -9,11 +10,21 @@ import android.view.MenuItem
 import android.view.WindowManager
 import android.widget.Button
 import android.widget.TextView
+import androidx.fragment.app.commit
+import androidx.navigation.ActivityNavigator
+import androidx.navigation.findNavController
+import dagger.hilt.android.AndroidEntryPoint
 import kr.co.pureum.R
 import kr.co.pureum.base.BaseActivity
 import kr.co.pureum.databinding.ActivityQuestWriteSentenceBinding
+import kr.co.pureum.views.MainActivity
+import kr.co.pureum.views.home.HomeFragment
+import kr.co.pureum.views.home.HomeFragmentDirections
+import kr.co.pureum.views.profile.ProfileFragment
+import kr.co.pureum.views.profile.ProfileFragmentDirections
+import kr.co.pureum.views.profile.ProfileMySentenceFragment
 
-
+@AndroidEntryPoint
 class QuestWriteSentenceActivity : BaseActivity<ActivityQuestWriteSentenceBinding>(R.layout.activity_quest_write_sentence) {
     override fun initView() {
         initToolbar()
@@ -106,11 +117,29 @@ class QuestWriteSentenceActivity : BaseActivity<ActivityQuestWriteSentenceBindin
         dialog.show()
     }
 
+    //작성완료 다이얼로그
     private fun completionDialog(context: Context, keyword: String) {
         val dialog = Dialog(context)
         dialog.setContentView(R.layout.dialog_completion_msg)
         dialog.findViewById<TextView>(R.id.dialog_today_keyword_tv).text = keyword
         dialog.findViewById<TextView>(R.id.dialog_public_private_tv).text = binding.questSentencePublicPrivateBt.text.toString()
+        val mySentenceButton = dialog.findViewById<Button>(R.id.dialog_go_my_sentence_bt)
+        val anotherSentenceButton = dialog.findViewById<Button>(R.id.dialog_go_another_sentence_bt)
+
+        mySentenceButton.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java).apply {
+                putExtra("screen", 4)
+                putExtra("mySentence", 10)
+            }
+            startActivity(intent)
+            finish()
+        }
+        anotherSentenceButton.setOnClickListener {
+            finish()
+        }
+
+
+
         dialog.window?.setBackgroundDrawableResource(R.drawable.bg_home_goal_time)
         dialog.window!!.setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT)
         dialog.show()

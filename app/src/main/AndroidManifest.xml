@@ -17,12 +17,20 @@
         android:theme="@style/Theme.Pureum"
         tools:targetApi="31">
         <activity
+            android:name="kr.co.pureum.views.profile.ProfileAccountInfoActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name="kr.co.pureum.views.quest.QuestWriteSentenceActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+
         <activity
             android:name="kr.co.pureum.views.signup.SignUpGradeActivity"
             android:exported="false">
@@ -52,7 +60,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name="kr.co.pureum.views.signup.OnBoardActivity"
             android:exported="false">
