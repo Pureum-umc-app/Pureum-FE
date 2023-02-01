@@ -133,4 +133,7 @@
     <string name="battle_keyword_3">대결할 키워드 3</string>
     <string name="battle_sentence_label">대결 문장 작성</string>
     <string name="battle_sentence_body">키워드를 사용하여 대결할 문장을 작성해주세요!</string>
+    <string name="battle_definition_label">정의</string>
+    <string name="battle_sentence_hint">키워드를 보고 떠오르는 생각을 자유롭게\n문장으로 표현해주세요!</string>
+    <string name="battle_sentence_button">작성 완료</string>
 </resources>

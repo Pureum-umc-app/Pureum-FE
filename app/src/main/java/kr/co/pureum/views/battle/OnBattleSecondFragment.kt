@@ -9,7 +9,9 @@ import kr.co.pureum.base.BaseFragment
 import kr.co.pureum.databinding.FragmentOnBattleSecondBinding
 
 @AndroidEntryPoint
-class OnBattleSecondFragment : BaseFragment<FragmentOnBattleSecondBinding>(R.layout.fragment_on_battle_second) {
+class OnBattleSecondFragment (
+    private val _keyword: String
+) : BaseFragment<FragmentOnBattleSecondBinding>(R.layout.fragment_on_battle_second) {
     private val viewModel by viewModels<BattleViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -21,12 +23,17 @@ class OnBattleSecondFragment : BaseFragment<FragmentOnBattleSecondBinding>(R.lay
 
     private fun initView() {
         with(binding) {
-            keyword = viewModel.keywordLiveData.value
+            keyword = _keyword
+            definition = "손실 이전의 상태로 회복함."
         }
     }
 
     private fun initListener() {
+        with(binding) {
+            battleSentenceButton.setOnClickListener {
 
+            }
+        }
     }
 
     private fun observe() {

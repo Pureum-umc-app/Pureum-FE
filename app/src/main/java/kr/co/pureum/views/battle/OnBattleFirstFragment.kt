@@ -46,7 +46,10 @@ class OnBattleFirstFragment : BaseFragment<FragmentOnBattleFirstBinding>(R.layou
         }
         viewModel.keywordLiveData.observe(viewLifecycleOwner) {
             Log.e(TAG, it)
-            requireActivity().supportFragmentManager.beginTransaction().replace(R.id.battle_frame, OnBattleSecondFragment()).commit()
+            requireActivity().supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.battle_frame, OnBattleSecondFragment(viewModel.keywordLiveData.value!!))
+                .commit()
         }
     }
 }

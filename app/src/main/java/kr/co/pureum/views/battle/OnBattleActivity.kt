@@ -8,6 +8,7 @@ import kr.co.pureum.databinding.ActivityOnBattleBinding
 
 @AndroidEntryPoint
 class OnBattleActivity : BaseActivity<ActivityOnBattleBinding>(R.layout.activity_on_battle) {
+    lateinit var keyword: String
     override fun initView() {
         initToolbar()
         supportFragmentManager.beginTransaction().add(R.id.battle_frame, OnBattleFirstFragment()).commit()
