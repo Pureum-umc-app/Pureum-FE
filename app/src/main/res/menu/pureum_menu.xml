@@ -7,9 +7,9 @@
         android:icon="@drawable/ic_navigation_home"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/chatFragment"
-        android:title="채팅"
-        android:icon="@drawable/ic_navigation_chat"
+        android:id="@+id/battleFragment"
+        android:title="대결"
+        android:icon="@drawable/ic_navigation_battle"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/questFragment"
