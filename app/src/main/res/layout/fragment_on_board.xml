@@ -38,7 +38,7 @@
         <ImageView
             android:id="@+id/on_board_keyword_iv"
             android:layout_width="match_parent"
-            android:layout_height="240dp"
+            android:layout_height="322dp"
             android:src="@drawable/ic_onboard_keyword"
             android:layout_marginHorizontal="32dp"
             android:layout_marginTop="100dp"

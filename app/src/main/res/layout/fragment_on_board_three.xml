@@ -38,7 +38,7 @@
         <ImageView
             android:id="@+id/on_board_glove_iv"
             android:layout_width="match_parent"
-            android:layout_height="240dp"
+            android:layout_height="322dp"
             android:src="@drawable/ic_onboard_glove"
             android:layout_marginHorizontal="32dp"
             android:layout_marginTop="100dp"
@@ -49,7 +49,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/onboard_sec"
+            android:text="@string/onboard_third"
             android:textColor="@color/text1"
             android:textSize="16sp"
             android:textAlignment="center"
