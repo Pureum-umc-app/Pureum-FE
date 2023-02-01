@@ -19,11 +19,15 @@
         android:label="RankingFragment">
     </fragment>
 
+<<<<<<< HEAD
     <fragment
         android:id="@+id/battleFragment"
         android:name="kr.co.pureum.views.battle.BattleFragment"
         android:label="BattleFragment">
     </fragment>
+=======
+
+>>>>>>> 7cb8cb5e352cf707e5663c295d1ed7bbc3124116
 
     <fragment
         android:id="@+id/questFragment"
@@ -33,6 +37,16 @@
         <action
             android:id="@+id/action_questFragment_to_questClickFragment"
             app:destination="@id/questClickFragment" />
+        <action
+            android:id="@+id/action_questFragment_to_questBadgeFragment"
+            app:destination="@id/questBadgeFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/questBadgeFragment"
+        android:name="kr.co.pureum.views.quest.QuestBadgeFragment"
+        android:label="QuestBadgeFragment">
 
     </fragment>
 
@@ -48,7 +62,7 @@
 
     <fragment
         android:id="@+id/questVoidFragment"
-        android:name="kr.co.pureum.views.quest.QuestVoid1Fragment"
+        android:name="kr.co.pureum.views.quest.QuestVoidFragment"
         android:label="QuestVoidFragment" >
 
     </fragment>
@@ -59,7 +73,19 @@
         android:label="ProfileFragment">
         <action
             android:id="@+id/action_profileFragment_to_profileTempFragment"
-            app:destination="@id/profileTempFragment" />
+            app:destination="@id/profileTempFragment" >
+
+        </action>
+        <action
+            android:id="@+id/action_profileFragment_to_profileMySentenceFragment"
+            app:destination="@id/profileMySentenceFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/profileMySentenceFragment"
+        android:name="kr.co.pureum.views.profile.ProfileMySentenceFragment"
+        android:label="ProfileMySentenceFragment">
+
     </fragment>
 
     <fragment
@@ -67,4 +93,21 @@
         android:name="kr.co.pureum.views.profile.ProfileTempFragment"
         android:label="ProfileTempFragment">
     </fragment>
+
+    <fragment
+        android:id="@+id/battleFragment"
+        android:name="kr.co.pureum.views.battle.BattleFragment"
+        android:label="BattleFragment">
+        <action
+            android:id="@+id/action_battleFragment_to_myBattleFragment"
+            app:destination="@id/myBattleFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/myBattleFragment"
+        android:name="kr.co.pureum.views.battle.MyBattleFragment"
+        android:label="MyBattleFragment">
+
+    </fragment>
+
 </navigation>

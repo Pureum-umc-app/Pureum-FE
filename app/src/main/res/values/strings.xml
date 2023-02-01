@@ -81,11 +81,17 @@
     <string name="use_camera">카메라/사진\n프로필 설정 시 촬영 및 이미지 업로드</string>
 
     <!-- QuestFragment -->
-    <string name="today_check">오늘의 출석체크</string>
+    <string name="hello_text">반가워요 %s 님!</string>
+    <string name="no_ignore">잊기 전에 출석체크를 해주세요</string>
     <string name="check_go">출석체크 하러 가기</string>
-    <string name="sentence_challenge">한 문장 챌린지에 도전해요</string>
+    <string name="today_keyword">오늘의 키워드로 문장을 작성해요</string>
     <string name="click_keyword">클릭 시 오늘의 키워드로 이동</string>
-    <string name="click_letter_challenge">대기중인 도전장 보러가기</string>
+    <string name="my_badge">MY 배지</string>
+    <string name="my_sentence">MY 문장</string>
+    <string name="my_challenge">MY 도전</string>
+    <string name="get_badge_name">배지명</string>
+    <string name="check_get_badge">열심히 획득한 배지를\n확인하러 가볼까요?</string>
+    <string name="latest_get_badge">최근 획득 배지</string>
     <string name="today_keyword_one">오늘의 키워드 1</string>
     <string name="today_keyword_two">오늘의 키워드 2</string>
     <string name="today_keyword_three">오늘의 키워드 3</string>
@@ -119,6 +125,15 @@
     <string name="battle_all_battle_body">진행 중인 대결\n문장들을 보러가요.</string>
     <string name="battle_waiting_label">대기 중인 대결</string>
     <string name="battle_more"><u>전체 보기</u> ></string>
+    <string name="text_letter_challenge">리사이클러뷰를 구현했습니다.</string>
+
+    <!-- ProfileFragment -->
+    <string name="account_info">계정 정보</string>
+
+    <string name="profile_setting">프로필 설정</string>
+    <string name="logout">로그아웃</string>
+    <string name="membership_withdrawal">회원탈퇴</string>
+    <string name="my_text">MY</string>
     <string name="battle_item_period_label">대결 기간</string>
     <string name="battle_item_period">%d일</string>
     <string name="battle_fragment_indicator">BattleFragmentIndicator</string>
@@ -136,4 +151,6 @@
     <string name="battle_definition_label">정의</string>
     <string name="battle_sentence_hint">키워드를 보고 떠오르는 생각을 자유롭게\n문장으로 표현해주세요!</string>
     <string name="battle_sentence_button">작성 완료</string>
+    <string name="keyword_battle">키워드</string>
+    <string name="my_battle_win">이(가) 이겼어요!</string>
 </resources>
