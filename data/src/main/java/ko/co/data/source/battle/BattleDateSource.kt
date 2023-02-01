@@ -3,6 +3,7 @@ package ko.co.data.source.battle
 import ko.co.data.remote.PureumService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import kr.co.domain.model.MyBattleProgressDto
 import kr.co.domain.model.WaitingBattleDto
 import javax.inject.Inject
 
@@ -19,5 +20,16 @@ class BattleDateSource @Inject constructor(
             Thread.sleep(1000)
         }
         return battleList
+    }
+
+    suspend fun getMyBattleProgressInfo() : List<MyBattleProgressDto>{
+        val progressList = MutableList(8){ myBattleIdx ->
+            MyBattleProgressDto(keyword = "구현", firstUserName = "소다", firstUserProfile = "", secondUserName = "물댕", secondUserProfile = "",
+                day = "D-2", firstLike = "", firstLikeNum = 4, secondLike ="", secondLikeNum = 2)
+        }
+        withContext(Dispatchers.IO) {
+            Thread.sleep(1000)
+        }
+        return progressList
     }
 }

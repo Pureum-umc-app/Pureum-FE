@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.tabs.TabLayoutMediator
 import kr.co.pureum.R
 import kr.co.pureum.adapter.battle.MyBattleVPAdapter
+import kr.co.pureum.adapter.battle.WaitingBattleAdapter
 import kr.co.pureum.base.BaseFragment
 import kr.co.pureum.databinding.FragmentMyBattleBinding
 import kr.co.pureum.views.MainActivity
@@ -25,6 +26,7 @@ class MyBattleFragment : BaseFragment<FragmentMyBattleBinding>(R.layout.fragment
 
     private fun initView() {
         Log.e("ScreenBuild", "MyBattleFragment")
+
     }
 
     private fun initToolbar() {
