@@ -29,6 +29,16 @@
         <action
             android:id="@+id/action_questFragment_to_questClickFragment"
             app:destination="@id/questClickFragment" />
+        <action
+            android:id="@+id/action_questFragment_to_questBadgeFragment"
+            app:destination="@id/questBadgeFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/questBadgeFragment"
+        android:name="kr.co.pureum.views.quest.QuestBadgeFragment"
+        android:label="QuestBadgeFragment">
 
     </fragment>
 
@@ -44,7 +54,7 @@
 
     <fragment
         android:id="@+id/questVoidFragment"
-        android:name="kr.co.pureum.views.quest.QuestVoid1Fragment"
+        android:name="kr.co.pureum.views.quest.QuestVoidFragment"
         android:label="QuestVoidFragment" >
 
     </fragment>
@@ -55,7 +65,19 @@
         android:label="ProfileFragment">
         <action
             android:id="@+id/action_profileFragment_to_profileTempFragment"
-            app:destination="@id/profileTempFragment" />
+            app:destination="@id/profileTempFragment" >
+
+        </action>
+        <action
+            android:id="@+id/action_profileFragment_to_profileMySentenceFragment"
+            app:destination="@id/profileMySentenceFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/profileMySentenceFragment"
+        android:name="kr.co.pureum.views.profile.ProfileMySentenceFragment"
+        android:label="ProfileMySentenceFragment">
+
     </fragment>
 
     <fragment
