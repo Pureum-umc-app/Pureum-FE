@@ -22,7 +22,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 graph = navInflater.inflate(R.navigation.main_navigation_graph).apply {
                     setStartDestination( when(intent.getIntExtra("screen", 0)){
                         1 -> R.id.homeFragment
-                        2 -> R.id.chatFragment
+                        2 -> R.id.battleFragment
                         3 -> R.id.questFragment
                         else -> R.id.profileFragment
                     })
