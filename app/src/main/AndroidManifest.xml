@@ -30,6 +30,14 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+
+        <activity
+            android:name="kr.co.pureum.views.signup.SignUpGradeActivity"
+            android:exported="false">
+        <meta-data
+            android:name="android.app.lib_name"
+            android:value="" />
+
         <activity
             android:name="kr.co.pureum.views.signup.SignUpProfileActivity"
             android:exported="false">
