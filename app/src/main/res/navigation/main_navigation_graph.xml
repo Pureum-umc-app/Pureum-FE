@@ -19,7 +19,15 @@
         android:label="RankingFragment">
     </fragment>
 
+<<<<<<< HEAD
+    <fragment
+        android:id="@+id/battleFragment"
+        android:name="kr.co.pureum.views.battle.BattleFragment"
+        android:label="BattleFragment">
+    </fragment>
+=======
 
+>>>>>>> 7cb8cb5e352cf707e5663c295d1ed7bbc3124116
 
     <fragment
         android:id="@+id/questFragment"

@@ -22,7 +22,16 @@ class BattleDateSource @Inject constructor(
         return battleList
     }
 
-    suspend fun getMyBattleProgressInfo() : List<MyBattleProgressDto>{
+    suspend fun getThreeKeywords() : List<String> {
+        // TODO: 임시
+        val keywords = mutableListOf<String>("복구", "신년", "단련")
+        withContext(Dispatchers.IO) {
+            Thread.sleep(1000)
+        }
+        return keywords
+    }
+
+    suspend fun getMyBattleProgressInfo() : List<MyBattleProgressDto> {
         val progressList = MutableList(8){ myBattleIdx ->
             MyBattleProgressDto(keyword = "구현", firstUserName = "소다", firstUserProfile = "", secondUserName = "물댕", secondUserProfile = "",
                 day = "D-2", firstLike = "", firstLikeNum = 4, secondLike ="", secondLikeNum = 2)

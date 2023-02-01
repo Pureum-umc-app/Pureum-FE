@@ -1,5 +1,6 @@
 package kr.co.pureum.views.battle
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -50,6 +51,7 @@ class BattleFragment : BaseFragment<FragmentBattleBinding>(R.layout.fragment_bat
         with(binding) {
             battleStartButton.setOnClickListener {
                 // TODO: 대결 시작 화면으로 이동
+                startActivity(Intent(requireContext(), OnBattleActivity::class.java))
             }
             battleMyBattleButton.setOnClickListener {
                 val action = BattleFragmentDirections.actionBattleFragmentToMyBattleFragment()
