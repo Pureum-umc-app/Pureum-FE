@@ -136,6 +136,21 @@
     <string name="my_text">MY</string>
     <string name="battle_item_period_label">대결 기간</string>
     <string name="battle_item_period">%d일</string>
+    <string name="battle_fragment_indicator">BattleFragmentIndicator</string>
+    <string name="battle_1">1</string>
+    <string name="battle_2">2</string>
+    <string name="battle_3">3</string>
+    <string name="battle_4">4</string>
+    <string name="battle_keyword_label">대결 키워드 선택</string>
+    <string name="battle_keyword_body">상대와 대결해보고 싶은 키워드를 선택해주세요!</string>
+    <string name="battle_keyword_1">대결할 키워드 1</string>
+    <string name="battle_keyword_2">대결할 키워드 2</string>
+    <string name="battle_keyword_3">대결할 키워드 3</string>
+    <string name="battle_sentence_label">대결 문장 작성</string>
+    <string name="battle_sentence_body">키워드를 사용하여 대결할 문장을 작성해주세요!</string>
+    <string name="battle_definition_label">정의</string>
+    <string name="battle_sentence_hint">키워드를 보고 떠오르는 생각을 자유롭게\n문장으로 표현해주세요!</string>
+    <string name="battle_sentence_button">작성 완료</string>
     <string name="keyword_battle">키워드</string>
     <string name="my_battle_win">이(가) 이겼어요!</string>
 </resources>
