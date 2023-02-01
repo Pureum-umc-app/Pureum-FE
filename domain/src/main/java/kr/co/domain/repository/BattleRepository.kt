@@ -4,4 +4,5 @@ import kr.co.domain.model.WaitingBattleDto
 
 interface BattleRepository {
     suspend fun getWaitingBattleInfo() : List<WaitingBattleDto>
+    suspend fun getThreeKeywords() : List<String>
 }

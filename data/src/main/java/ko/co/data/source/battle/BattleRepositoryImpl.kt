@@ -9,4 +9,7 @@ class BattleRepositoryImpl @Inject constructor(
 ) : BattleRepository{
     override suspend fun getWaitingBattleInfo() : List<WaitingBattleDto> =
         dataSource.getWaitingBattleInfo()
+
+    override suspend fun getThreeKeywords(): List<String> =
+        dataSource.getThreeKeywords()
 }

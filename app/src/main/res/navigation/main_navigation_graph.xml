@@ -20,9 +20,9 @@
     </fragment>
 
     <fragment
-        android:id="@+id/chatFragment"
+        android:id="@+id/battleFragment"
         android:name="kr.co.pureum.views.battle.BattleFragment"
-        android:label="ChatFragment">
+        android:label="BattleFragment">
     </fragment>
 
     <fragment

@@ -20,4 +20,13 @@ class BattleDateSource @Inject constructor(
         }
         return battleList
     }
+
+    suspend fun getThreeKeywords() : List<String> {
+        // TODO: 임시
+        val keywords = mutableListOf<String>("복구", "신년", "단련")
+        withContext(Dispatchers.IO) {
+            Thread.sleep(1000)
+        }
+        return keywords
+    }
 }
