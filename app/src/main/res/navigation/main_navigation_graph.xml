@@ -19,11 +19,7 @@
         android:label="RankingFragment">
     </fragment>
 
-    <fragment
-        android:id="@+id/chatFragment"
-        android:name="kr.co.pureum.views.battle.BattleFragment"
-        android:label="ChatFragment">
-    </fragment>
+
 
     <fragment
         android:id="@+id/questFragment"
@@ -88,6 +84,22 @@
         android:id="@+id/profileTempFragment"
         android:name="kr.co.pureum.views.profile.ProfileTempFragment"
         android:label="ProfileTempFragment">
+    </fragment>
+
+    <fragment
+        android:id="@+id/battleFragment"
+        android:name="kr.co.pureum.views.battle.BattleFragment"
+        android:label="BattleFragment">
+        <action
+            android:id="@+id/action_battleFragment_to_myBattleFragment"
+            app:destination="@id/myBattleFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/myBattleFragment"
+        android:name="kr.co.pureum.views.battle.MyBattleFragment"
+        android:label="MyBattleFragment">
+
     </fragment>
 
 </navigation>
