@@ -69,7 +69,19 @@
         android:label="ProfileFragment">
         <action
             android:id="@+id/action_profileFragment_to_profileTempFragment"
-            app:destination="@id/profileTempFragment" />
+            app:destination="@id/profileTempFragment" >
+
+        </action>
+        <action
+            android:id="@+id/action_profileFragment_to_profileMySentenceFragment"
+            app:destination="@id/profileMySentenceFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/profileMySentenceFragment"
+        android:name="kr.co.pureum.views.profile.ProfileMySentenceFragment"
+        android:label="ProfileMySentenceFragment">
+
     </fragment>
 
     <fragment
@@ -77,4 +89,5 @@
         android:name="kr.co.pureum.views.profile.ProfileTempFragment"
         android:label="ProfileTempFragment">
     </fragment>
+
 </navigation>

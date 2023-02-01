@@ -18,6 +18,7 @@ class DataWrittenSentenceRVAdapter(private val dataWrittenSentenceList: ArrayLis
         }
     }
 
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
