@@ -13,11 +13,6 @@ class MyBattleProgressAdapter : RecyclerView.Adapter<MyBattleProgressAdapter.Vie
     private var myBattleProgressList = mutableListOf<MyBattleProgressDto>()
 
     inner class ViewHolder(val binding: ItemBattleMyProgressBinding) : RecyclerView.ViewHolder(binding.root) {
-//        fun bind(myBattleProgressDto: MyBattleProgressDto, position: Int) {
-////            with(binding) {
-////                myBattleProgress = myBattleProgressDto
-////            }
-//        }
 
         fun bind(progressData: MyBattleProgressDto, position: Int) {
             with(binding) {

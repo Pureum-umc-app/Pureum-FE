@@ -11,7 +11,7 @@ tools:context=".views.battle.MyBattleCompletionFragment">
     android:layout_marginTop="24dp">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/my_battle_progress_rv"
+        android:id="@+id/my_battle_completion_rv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
