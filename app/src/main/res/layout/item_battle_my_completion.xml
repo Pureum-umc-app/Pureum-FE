@@ -4,7 +4,7 @@
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="145dp"
+        android:layout_height="150dp"
         android:layout_gravity="center_horizontal">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -63,6 +63,7 @@
                 app:layout_constraintBottom_toBottomOf="@+id/my_battle_winner_name"/>
 
             <ImageView
+                android:id="@+id/my_battle_winner_profile"
                 android:layout_width="65dp"
                 android:layout_height="65dp"
                 android:layout_marginEnd="32dp"
