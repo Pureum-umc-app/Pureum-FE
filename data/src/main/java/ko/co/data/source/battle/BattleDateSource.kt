@@ -3,6 +3,7 @@ package ko.co.data.source.battle
 import ko.co.data.remote.PureumService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import kr.co.domain.model.MyBattleCompletionDto
 import kr.co.domain.model.MyBattleProgressDto
 import kr.co.domain.model.WaitingBattleDto
 import javax.inject.Inject

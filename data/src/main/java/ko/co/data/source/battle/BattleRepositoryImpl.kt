@@ -1,5 +1,6 @@
 package ko.co.data.source.battle
 
+import kr.co.domain.model.MyBattleCompletionDto
 import kr.co.domain.model.MyBattleProgressDto
 import kr.co.domain.model.WaitingBattleDto
 import kr.co.domain.repository.BattleRepository

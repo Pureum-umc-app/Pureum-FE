@@ -1,5 +1,6 @@
 package kr.co.domain.repository
 
+import kr.co.domain.model.MyBattleCompletionDto
 import kr.co.domain.model.MyBattleProgressDto
 import kr.co.domain.model.WaitingBattleDto
 
