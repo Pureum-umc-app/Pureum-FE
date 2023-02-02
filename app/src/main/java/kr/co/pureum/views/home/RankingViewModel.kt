@@ -26,6 +26,12 @@ class RankingViewModel @Inject constructor(
         const val PLUS = 2
     }
 
+    private var _myRankLiveData = MutableLiveData<UserRankDto>()
+    private var _prevRankList : MutableList<UserRankDto> = mutableListOf()
+    private var _prevRankListLiveData = MutableLiveData<List<UserRankDto>>()
+    val prevRankListLiveData: LiveData<List<UserRankDto>> = _prevRankListLiveData
+    val myRankLiveDate : LiveData<UserRankDto> = _myRankLiveData
+
     @RequiresApi(Build.VERSION_CODES.O)
     var localDate : LocalDate = LocalDate.now()
 
@@ -41,10 +47,6 @@ class RankingViewModel @Inject constructor(
         }
     }
 
-    private var _myRankLiveData = MutableLiveData<UserRankDto>()
-    val myRankLiveDate : LiveData<UserRankDto>
-        get() = _myRankLiveData
-
     fun getMyRank() {
         viewModelScope.launch {
             val res = repository.getMyRank()
@@ -52,12 +54,6 @@ class RankingViewModel @Inject constructor(
             _myRankLiveData.value = res
         }
     }
-
-    private var _prevRankList : MutableList<UserRankDto> = mutableListOf()
-
-    private var _prevRankListLiveData = MutableLiveData<List<UserRankDto>>()
-    val prevRankListLiveData: LiveData<List<UserRankDto>>
-        get() = _prevRankListLiveData
 
     fun getRankInfo() {
         viewModelScope.launch {

@@ -41,4 +41,17 @@ class BattleDateSource @Inject constructor(
         }
         return progressList
     }
+
+    suspend fun getDefinition(keyword: String) : String {
+        val definition = when(keyword) {
+            "복구" -> "손실 이전의 상태로 회복함."
+            "신년" -> "새로 시작되는 해."
+            "단련" -> "어떤 일을 반복하여 익숙하게 됨. 또는 그렇게 함."
+            else -> ""
+        }
+        withContext(Dispatchers.IO) {
+            Thread.sleep(1000)
+        }
+        return definition
+    }
 }

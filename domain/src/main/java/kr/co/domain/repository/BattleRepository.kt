@@ -7,4 +7,5 @@ interface BattleRepository {
     suspend fun getWaitingBattleInfo() : List<WaitingBattleDto>
     suspend fun getThreeKeywords() : List<String>
     suspend fun getMyBattleProgressInfo() : List<MyBattleProgressDto>
+    suspend fun getDefinition(keyword: String) : String
 }

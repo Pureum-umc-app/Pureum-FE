@@ -15,32 +15,12 @@ class BattleViewModel @Inject constructor(
     private val repository: BattleRepository
 ) : ViewModel() {
     private val _waitingBattleListLiveData = MutableLiveData<List<WaitingBattleDto>>()
-    val waitingBattleListLiveData: LiveData<List<WaitingBattleDto>>
-        get() = _waitingBattleListLiveData
+    val waitingBattleListLiveData: LiveData<List<WaitingBattleDto>> = _waitingBattleListLiveData
 
     fun getWaitingBattleInfo() {
         viewModelScope.launch {
             val res = repository.getWaitingBattleInfo()
             _waitingBattleListLiveData.value = res
         }
-    }
-
-    private val _keywordsLiveData = MutableLiveData<List<String>>()
-    val keywordsLiveData: LiveData<List<String>>
-        get() = _keywordsLiveData
-    fun getThreeKeywords() {
-        viewModelScope.launch {
-            val res = repository.getThreeKeywords()
-            _keywordsLiveData.value = res
-        }
-    }
-
-    private val _keywordLiveData = MutableLiveData<String>()
-    val keywordLiveData: LiveData<String>
-        get() = _keywordLiveData
-
-    fun setKeyword(keyword: String) {
-        _keywordLiveData.value = keyword
-        // TODO: 서버로 전송?
     }
 }
