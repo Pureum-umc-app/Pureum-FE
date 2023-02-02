@@ -52,7 +52,7 @@ class RankingFragment : BaseFragment<FragmentRankingBinding>(R.layout.fragment_r
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean =
                 when (menuItem.itemId) {
                     R.id.toolbar_calender -> {
-                        HomeFragment.showCalendarDialog(mainActivity, requireContext())
+                        HomeFragment.showCalendarDialog(requireContext())
                         true
                     }
                     else -> false
