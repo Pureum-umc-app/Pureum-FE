@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="errorMessage"
+            type="java.lang.String" />
+        <variable
+            name="confirmText"
+            type="java.lang.String" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:dialogCornerRadius="20dp"
+        android:minWidth="296dp"
+        android:minHeight="160dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/dialog_confirm_button"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:paddingHorizontal="20dp"
+            android:text="@{errorMessage, default=다이얼로그}"
+            android:fontFamily="@font/nanum_square_neo_regular"
+            android:textSize="16sp"
+            android:textAlignment="center"
+            android:gravity="center"/>
+
+        <TextView
+            android:id="@+id/dialog_confirm_button"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:background="@drawable/bg_dialog_msg_bottom"
+            android:backgroundTint="@null"
+            android:text="@{confirmText, default=확인}"
+            android:fontFamily="@font/nanum_square_neo_regular"
+            android:textSize="14sp"
+            android:textColor="@color/white"
+            android:textAlignment="center"
+            android:gravity="center"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -26,13 +26,14 @@ import kr.co.pureum.R
 import kr.co.pureum.adapter.home.RankingAdapter
 import kr.co.pureum.adapter.home.UsageTimeAdapter
 import kr.co.pureum.base.BaseFragment
-import kr.co.pureum.databinding.*
-import kr.co.pureum.views.MainActivity
+import kr.co.pureum.databinding.BottomSheetCalendarBinding
+import kr.co.pureum.databinding.BottomSheetSetGoalTimeBinding
+import kr.co.pureum.databinding.DialogDefaultBinding
+import kr.co.pureum.databinding.FragmentHomeBinding
 import java.time.LocalDate
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
-    private lateinit var mainActivity: MainActivity
     private val viewModel by viewModels<HomeViewModel>()
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -49,7 +50,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
             logo = ContextCompat.getDrawable(context, R.drawable.ic_pureum_logo)
             navigationIcon = null
         }
-        mainActivity = activity as MainActivity
         requireActivity().addMenuProvider(object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
                 menuInflater.inflate(R.menu.menu_toolbar, menu)
@@ -58,7 +58,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean =
                 when (menuItem.itemId) {
                     R.id.toolbar_calender -> {
-                        HomeFragment.showCalendarDialog(mainActivity, requireContext())
+                        showCalendarDialog(requireContext())
                         true
                     }
                     else -> false
@@ -100,7 +100,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
             homeRankRecyclerView.apply {
                 adapter = RankingAdapter()
                 layoutManager = LinearLayoutManager(requireContext())
-                isNestedScrollingEnabled = false;
+                isNestedScrollingEnabled = false
             }
         }
     }
@@ -129,8 +129,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     }
 
     companion object {
-        fun showCalendarDialog(mainActivity: MainActivity, context: Context) {
-            val dialog = BottomSheetDialog(mainActivity, R.style.BottomSheetDialogTheme).apply {
+        fun showCalendarDialog(context: Context) {
+            val dialog = BottomSheetDialog(context, R.style.BottomSheetDialogTheme).apply {
                 behavior.state = BottomSheetBehavior.STATE_EXPANDED
             }
             val dialogBinding =
@@ -146,7 +146,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     }
 
     private fun showGoalTimeDialog() {
-        val dialog = BottomSheetDialog(mainActivity, R.style.BottomSheetDialogTheme).apply {
+        val dialog = BottomSheetDialog(requireContext(), R.style.BottomSheetDialogTheme).apply {
             behavior.state = BottomSheetBehavior.STATE_EXPANDED
         }
         val dialogBinding =
@@ -171,7 +171,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     }
 
     private fun showConfirmDialog(parentDialog: BottomSheetDialog) {
-        val dialog = Dialog(mainActivity)
+        val dialog = Dialog(requireContext())
         val dialogBinding = DialogDefaultBinding.inflate(LayoutInflater.from(requireContext()))
         with(dialog) {
             window!!.setBackgroundDrawableResource(R.drawable.bg_rectangle_20dp)

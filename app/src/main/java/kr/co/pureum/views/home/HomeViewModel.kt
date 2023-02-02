@@ -15,18 +15,13 @@ import java.time.LocalDate
 
 class HomeViewModel : ViewModel() {
     private var _goalTimeLiveData = MutableLiveData<Int>()
-    val goalTimeLiveData: LiveData<Int>
-        get() = _goalTimeLiveData
-
     private var _prevUsageTimeLiveData = MutableLiveData<List<UsageTimeDto>>()
-    val prevUsageTimeLiveData: LiveData<List<UsageTimeDto>>
-        get() = _prevUsageTimeLiveData
-
     private var _prevRankListLiveData = MutableLiveData<List<RankDto>>()
-
     private var _prevRankLiveData = MutableLiveData<List<UserRankDto>>()
-    val prevRankLiveData: LiveData<List<UserRankDto>>
-        get() = _prevRankLiveData
+
+    val goalTimeLiveData: LiveData<Int> = _goalTimeLiveData
+    val prevUsageTimeLiveData: LiveData<List<UsageTimeDto>> = _prevUsageTimeLiveData
+    val prevRankLiveData: LiveData<List<UserRankDto>> = _prevRankLiveData
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun getHomeInfo() {
