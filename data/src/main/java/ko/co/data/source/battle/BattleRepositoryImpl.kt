@@ -15,6 +15,7 @@ class BattleRepositoryImpl @Inject constructor(
 
     override suspend fun getThreeKeywords(): List<String> =
         dataSource.getThreeKeywords()
+
     override suspend fun getMyBattleProgressInfo(): List<MyBattleProgressDto> =
         dataSource.getMyBattleProgressInfo()
 

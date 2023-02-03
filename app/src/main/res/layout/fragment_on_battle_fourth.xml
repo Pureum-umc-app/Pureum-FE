@@ -4,155 +4,222 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".views.battle.OnBattleFourthFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="isLoading"
+            type="java.lang.Boolean" />
+        <variable
+            name="keyword"
+            type="java.lang.String" />
+    </data>
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingHorizontal="32dp">
+        android:layout_height="match_parent">
 
-        <LinearLayout
-            android:id="@+id/battle_indicator_layout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:orientation="horizontal"
-            android:gravity="center">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/battle_keyword"
+                android:layout_marginBottom="64dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:src="@drawable/bg_bottom_main1_30dp"/>
+
+            <LinearLayout
+                android:id="@+id/battle_indicator_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="5dp">
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="32dp"
+                android:orientation="horizontal"
+                android:gravity="center">
 
-                <ImageView
-                    android:id="@+id/battle_indicator_1"
-                    android:layout_width="28dp"
-                    android:layout_height="28dp"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    android:src="@drawable/bg_circle"
-                    app:tint="@color/main3"
-                    android:contentDescription="@string/battle_fragment_indicator" />
-
-                <TextView
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:text="@string/battle_1"
-                    android:fontFamily="@font/nanum_square_neo_bold"
-                    android:textSize="12sp"
-                    android:textColor="@color/text2"/>
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    android:layout_marginEnd="5dp">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+                    <ImageView
+                        android:id="@+id/battle_indicator_1"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:src="@drawable/bg_circle"
+                        app:tint="@color/main3"
+                        android:contentDescription="@string/battle_fragment_indicator" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:text="@string/battle_1"
+                        android:fontFamily="@font/nanum_square_neo_bold"
+                        android:textSize="12sp"
+                        android:textColor="@color/text2"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="5dp">
+
+                    <ImageView
+                        android:id="@+id/battle_indicator_2"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:src="@drawable/bg_circle"
+                        app:tint="@color/main3"
+                        android:contentDescription="@string/battle_fragment_indicator" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:text="@string/battle_2"
+                        android:fontFamily="@font/nanum_square_neo_bold"
+                        android:textSize="12sp"
+                        android:textColor="@color/text2"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="5dp">
+
+                    <ImageView
+                        android:id="@+id/battle_indicator_3"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:src="@drawable/bg_circle"
+                        app:tint="@color/main3"
+                        android:contentDescription="@string/battle_fragment_indicator" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:text="@string/battle_3"
+                        android:fontFamily="@font/nanum_square_neo_bold"
+                        android:textSize="12sp"
+                        android:textColor="@color/text2"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp">
+
+                    <ImageView
+                        android:id="@+id/battle_indicator_4"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:src="@drawable/bg_circle"
+                        app:tint="@color/white"
+                        android:contentDescription="@string/battle_fragment_indicator" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:text="@string/battle_4"
+                        android:fontFamily="@font/nanum_square_neo_bold"
+                        android:textSize="12sp"
+                        android:textColor="@color/main1"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/battle_challenge_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="5dp">
+                app:layout_constraintTop_toBottomOf="@+id/battle_indicator_layout"
+                android:layout_marginTop="18dp"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="32dp"
+                android:text="@string/battle_challenge_label"
+                android:fontFamily="@font/nanum_square_neo_bold"
+                android:textSize="16sp"
+                android:textColor="@color/white"/>
 
-                <ImageView
-                    android:id="@+id/battle_indicator_2"
-                    android:layout_width="28dp"
-                    android:layout_height="28dp"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    android:src="@drawable/bg_circle"
-                    app:tint="@color/main3"
-                    android:contentDescription="@string/battle_fragment_indicator" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:text="@string/battle_2"
-                    android:fontFamily="@font/nanum_square_neo_bold"
-                    android:textSize="12sp"
-                    android:textColor="@color/text2"/>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <TextView
+                android:id="@+id/battle_challenge_body"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="5dp">
+                app:layout_constraintTop_toBottomOf="@+id/battle_challenge_label"
+                android:layout_marginTop="12dp"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="32dp"
+                android:text="@string/battle_challenge_body"
+                android:fontFamily="@font/nanum_square_neo_bold"
+                android:textSize="14sp"/>
 
-                <ImageView
-                    android:id="@+id/battle_indicator_3"
-                    android:layout_width="28dp"
-                    android:layout_height="28dp"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    android:src="@drawable/bg_circle"
-                    app:tint="@color/main3"
-                    android:contentDescription="@string/battle_fragment_indicator" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:text="@string/battle_3"
-                    android:fontFamily="@font/nanum_square_neo_bold"
-                    android:textSize="12sp"
-                    android:textColor="@color/text2"/>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <TextView
+                android:id="@+id/battle_keyword"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp">
+                app:layout_constraintTop_toBottomOf="@+id/battle_challenge_body"
+                android:layout_marginTop="40dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:text="@{keyword, default=`복구`}"
+                android:fontFamily="@font/nanum_square_neo_extrabold"
+                android:textSize="22sp"
+                android:visibility="@{isLoading ? View.GONE : View.VISIBLE}"/>
+            
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="136dp"
+                app:layout_constraintTop_toBottomOf="@+id/battle_keyword"
+                android:layout_marginTop="40dp"
+                android:layout_marginBottom="36dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginHorizontal="32dp"
+                android:background="@drawable/bg_rectangle_10dp"
+                android:backgroundTint="@null"
+                android:elevation="2dp">
 
-                <ImageView
-                    android:id="@+id/battle_indicator_4"
-                    android:layout_width="28dp"
-                    android:layout_height="28dp"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    android:src="@drawable/bg_circle"
-                    app:tint="@color/main1"
-                    android:contentDescription="@string/battle_fragment_indicator" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:text="@string/battle_4"
-                    android:fontFamily="@font/nanum_square_neo_bold"
-                    android:textSize="12sp"
-                    android:textColor="@color/white"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
-        </LinearLayout>
 
-        <TextView
-            android:id="@+id/battle_sentence_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/battle_indicator_layout"
-            android:layout_marginTop="18dp"
-            app:layout_constraintStart_toStartOf="parent"
-            android:text="@string/battle_sentence_label"
-            android:fontFamily="@font/nanum_square_neo_bold"
-            android:textSize="16sp"
-            android:textColor="@color/main1"/>
-
-        <TextView
-            android:id="@+id/battle_sentence_body"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/battle_sentence_label"
-            android:layout_marginTop="12dp"
-            app:layout_constraintStart_toStartOf="parent"
-            android:text="@string/battle_sentence_body"
-            android:fontFamily="@font/nanum_square_neo_bold"
-            android:textSize="14sp"/>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
+            <TextView
+                android:id="@+id/battle_challenge_sentence_body"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/battle_challenge_label"
+                android:layout_marginTop="12dp"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="32dp"
+                android:text="작성한 문장"
+                android:fontFamily="@font/nanum_square_neo_bold"
+                android:textSize="14sp"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </layout>

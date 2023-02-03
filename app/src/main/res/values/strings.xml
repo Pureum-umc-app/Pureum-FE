@@ -157,4 +157,6 @@
     <string name="battle_opponent_body">대결할 상대를 선택해주세요!</string>
     <string name="battle_opponent_button">선택 완료</string>
     <string name="battle_sentence_clear"><u>다시 작성하기</u></string>
+    <string name="battle_challenge_label">대결장 작성</string>
+    <string name="battle_challenge_body">작성한 문장을 확인하고,\n목표 좋아요 수를 설정해주세요!</string>
 </resources>
