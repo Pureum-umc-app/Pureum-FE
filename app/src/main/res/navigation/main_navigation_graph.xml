@@ -91,6 +91,9 @@
         android:name="kr.co.pureum.views.profile.ProfileMySentenceFragment"
         android:label="ProfileMySentenceFragment">
 
+        <action
+            android:id="@+id/action_profileMySentenceFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
 
     <fragment

@@ -29,6 +29,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_p
         if (requireActivity().intent.hasExtra("mySentence")){
             val action = ProfileFragmentDirections.actionProfileFragmentToProfileMySentenceFragment()
             findNavController().navigate(action)
+            requireActivity().intent.removeExtra("mySentence")
         }
 
 

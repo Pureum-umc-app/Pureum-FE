@@ -10,10 +10,12 @@ import kr.co.pureum.R
 import kr.co.pureum.adapter.profile.DataMySentenceRVAdapter
 import kr.co.pureum.base.BaseFragment
 import kr.co.pureum.databinding.FragmentProfileMySentenceBinding
+
 @AndroidEntryPoint
 class ProfileMySentenceFragment : BaseFragment<FragmentProfileMySentenceBinding>(R.layout.fragment_profile_my_sentence){
     private val dataMyWrittenSentenceList: ArrayList<DataWrittenSentence> = arrayListOf()
     private val dataMySentenceAdapter = DataMySentenceRVAdapter(dataMyWrittenSentenceList)
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRecyclerView()
@@ -27,7 +29,6 @@ class ProfileMySentenceFragment : BaseFragment<FragmentProfileMySentenceBinding>
             }
         }
     }
-
 
     private fun initRecyclerView() {
         val managerMySentence = LinearLayoutManager(activity)
