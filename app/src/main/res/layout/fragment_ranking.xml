@@ -229,14 +229,13 @@
             android:layout_marginBottom="60dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:orientation="vertical"
-            android:overScrollMode="never"/>
+            android:orientation="vertical"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginBottom="68dp"
+            android:layout_marginBottom="76dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:padding="2dp"

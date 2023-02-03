@@ -70,11 +70,9 @@ class RankingFragment : BaseFragment<FragmentRankingBinding>(R.layout.fragment_r
                     addOnScrollListener(object : RecyclerView.OnScrollListener() {
                         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                             super.onScrolled(recyclerView, dx, dy)
-                            if (isLoading == false) {
-                                if ((recyclerView.layoutManager as LinearLayoutManager?)!!.findLastCompletelyVisibleItemPosition() == itemCount - 1) {
-                                    isLoading = true
-                                    viewModel.getAdditionalRankInfo()
-                                }
+                            if (isLoading == false && (recyclerView.layoutManager as LinearLayoutManager?)!!.findLastCompletelyVisibleItemPosition() == itemCount - 1) {
+                                isLoading = true
+                                viewModel.getAdditionalRankInfo()
                             }
                         }
                     })

@@ -35,6 +35,6 @@ class RankingAdapter : RecyclerView.Adapter<RankingAdapter.ViewHolder>() {
     fun setData(data: List<UserRankDto>) {
         rankList.clear()
         rankList.addAll(data)
-        notifyDataSetChanged()
+        notifyItemRangeInserted(rankList.size - 1, 25)
     }
 }

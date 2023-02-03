@@ -5,6 +5,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kr.co.domain.model.MyBattleCompletionDto
 import kr.co.domain.model.MyBattleProgressDto
+import kr.co.domain.model.OpponentDto
 import kr.co.domain.model.WaitingBattleDto
 import javax.inject.Inject
 
@@ -64,5 +65,25 @@ class BattleDateSource @Inject constructor(
             Thread.sleep(1000)
         }
         return definition
+    }
+
+    suspend fun getOpponentsList() : List<OpponentDto> {
+        val opponentsList = MutableList(10){
+            OpponentDto(nickname = "%d 번째 상대".format(it + 1), profile = "")
+        }
+        withContext(Dispatchers.IO) {
+            Thread.sleep(1000)
+        }
+        return opponentsList
+    }
+
+    suspend fun getAdditionalOpponents(position: Int, itemCount: Int) : List<OpponentDto> {
+        val opponentsList = MutableList(itemCount){
+            OpponentDto(nickname = "%d 번째 상대".format(position + it + 1), profile = "")
+        }
+        withContext(Dispatchers.IO) {
+            Thread.sleep(1000)
+        }
+        return opponentsList
     }
 }
