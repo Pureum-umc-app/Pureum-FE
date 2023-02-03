@@ -2,6 +2,7 @@ package ko.co.data.source.battle
 
 import kr.co.domain.model.MyBattleCompletionDto
 import kr.co.domain.model.MyBattleProgressDto
+import kr.co.domain.model.OpponentDto
 import kr.co.domain.model.WaitingBattleDto
 import kr.co.domain.repository.BattleRepository
 import javax.inject.Inject
@@ -20,7 +21,12 @@ class BattleRepositoryImpl @Inject constructor(
     override suspend fun getMyBattleCompletionInfo(): List<MyBattleCompletionDto> =
         dataSource.getMyBattleCompletion()
 
-
     override suspend fun getDefinition(keyword: String): String =
         dataSource.getDefinition(keyword)
+
+    override suspend fun getOpponentsList(): List<OpponentDto> =
+        dataSource.getOpponentsList()
+
+    override suspend fun getAdditionalOpponents(position: Int, itemCount: Int): List<OpponentDto> =
+        dataSource.getAdditionalOpponents(position, itemCount)
 }
