@@ -1,5 +1,6 @@
 package kr.co.pureum.views.battle
 
+import android.content.Context
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -28,4 +29,6 @@ class OnBattleActivity : BaseActivity<ActivityOnBattleBinding>(R.layout.activity
     fun navigate(fragment: Fragment) {
         supportFragmentManager.beginTransaction().replace(R.id.battle_frame, fragment).commit()
     }
+
+    fun changeToolbarColor() { binding.isFourth = true }
 }
