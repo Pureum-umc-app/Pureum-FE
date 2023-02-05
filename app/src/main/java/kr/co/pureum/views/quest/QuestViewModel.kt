@@ -11,7 +11,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class QuestViewModel @Inject constructor(
-    private val repository: QuestRepository
+    //private val repository: QuestRepository
     ) : ViewModel() {
     private var _todayKeywordLiveData = MutableLiveData<String>()
     val todayKeywordLiveData: LiveData<String>
@@ -26,7 +26,7 @@ class QuestViewModel @Inject constructor(
         get() = _todaySentenceDate
 
 
-
+/*
     suspend fun getSentencesIncomplete() {
         viewModelScope.launch {
             val res = repository.sentencesIncomplete(1)
@@ -44,4 +44,5 @@ class QuestViewModel @Inject constructor(
             _todaySentenceDate.value = res.date
         }
     }
+    */
 }

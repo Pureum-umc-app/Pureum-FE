@@ -18,7 +18,7 @@ import kr.co.pureum.databinding.FragmentQuestBinding
 
 
 class QuestFragment : BaseFragment<FragmentQuestBinding>(R.layout.fragment_quest) {
-    private val viewModel by viewModels<QuestViewModel>()
+    //private val viewModel by viewModels<QuestViewModel>()
     private val dataSentenceList : ArrayList<DataSentence> = arrayListOf()
     private val dataSentenceAdapter = DataSentenceRVAdapter(dataSentenceList)
 
@@ -90,9 +90,12 @@ class QuestFragment : BaseFragment<FragmentQuestBinding>(R.layout.fragment_quest
             add(DataSentence( "호구"))
         }
     }
+    /*
     private fun observe() {
         viewModel.todayKeywordLiveData.observe(viewLifecycleOwner) {
             (binding.questKeywordViewRv.adapter as DataSentenceRVAdapter)
         }
     }
+    */
+
 }
