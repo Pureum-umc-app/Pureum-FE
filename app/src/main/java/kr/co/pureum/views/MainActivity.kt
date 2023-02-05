@@ -2,7 +2,6 @@ package kr.co.pureum.views
 
 import android.app.AppOpsManager
 import android.app.usage.EventStats
-import android.app.usage.UsageEvents
 import android.app.usage.UsageStats
 import android.app.usage.UsageStatsManager
 import android.content.ContentValues.TAG
@@ -11,7 +10,6 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.provider.Settings
 import android.util.Log
-import androidx.annotation.RequiresApi
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
@@ -21,7 +19,8 @@ import kr.co.pureum.base.BaseActivity
 import kr.co.pureum.databinding.ActivityMainBinding
 import java.time.LocalDate
 import java.time.ZoneId
-import java.util.*
+import java.util.Calendar
+import java.util.Date
 import java.util.concurrent.TimeUnit
 
 @AndroidEntryPoint
@@ -45,6 +44,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             Log.e(TAG, "The user allowed the access to apps usage.")
             totalUsageTime = (calculateTotalUsageTime(getAppUsageStats()) / 60).toInt()
             screenCount = calculateScreenCount(getAppEventStats())
+            showAppEventStats(getAppEventStats())
+            Log.e(TAG, "일일 사용 시간: ${totalUsageTime}, 휴대폰 화면 켠 횟수: $screenCount")
         }
     }
 
@@ -129,15 +130,17 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     }
 
     private fun calculateTotalUsageTime(usageStats: MutableList<UsageStats>): Long {
-        var total = 0L
-        for (stats in usageStats) {
-            if (stats.totalTimeInForeground != 0L) {
-                total += stats.totalTimeInForeground
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
+            var total = 0L
+            for (stats in usageStats) {
+                if (stats.totalTimeInForeground != 0L) {
+                    total += stats.totalTimeInForeground
+                }
             }
-        }
-        val time = TimeUnit.MILLISECONDS.toSeconds(total)
-        Log.e(TAG, "총 사용 시간: ${time / 3600}시간 ${(time % 3600) / 60}분 ${time % 60}초")
-        return time
+            val time = TimeUnit.MILLISECONDS.toSeconds(total)
+            Log.e(TAG, "총 사용 시간: ${time / 3600}시간 ${(time % 3600) / 60}분 ${time % 60}초")
+            time
+        } else 3000     // TODO: 낮은 버전을 위한 임시
     }
 
     private fun getAppEventStats(): MutableList<EventStats> {
@@ -175,12 +178,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     }
 
     private fun calculateScreenCount(usageStats: MutableList<EventStats>) : Int {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            for (usage in usageStats) {
-                if (usage.eventType == 16) return usage.count
-            }
-            return 0
-        } else return 0
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                for (usage in usageStats) if (usage.eventType == 16) return usage.count
+                return 0
+            } else return 0
+        } else return 9     // TODO: 낮은 버전을 위한 임시
+
     }
 
     private fun showAppEvents() {
