@@ -12,6 +12,11 @@ class RankingAdapter : RecyclerView.Adapter<RankingAdapter.ViewHolder>() {
     private lateinit var binding: ItemHomeRankBinding
     private var rankList = mutableListOf<UserRankDto>()
 
+    companion object {
+        const val HOME = 1
+        const val RANK = 2
+    }
+
     inner class ViewHolder(val binding: ItemHomeRankBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(userRankInfo: UserRankDto, position: Int){
             with(binding) {
@@ -32,9 +37,12 @@ class RankingAdapter : RecyclerView.Adapter<RankingAdapter.ViewHolder>() {
         holder.bind(rankList[position], position)
     }
 
-    fun setData(data: List<UserRankDto>) {
+    fun setData(data: List<UserRankDto>, option: Int) {
         rankList.clear()
         rankList.addAll(data)
-        notifyItemRangeInserted(rankList.size - 1, 25)
+        when (option) {
+            HOME -> notifyDataSetChanged()
+            else -> notifyItemRangeInserted(rankList.size - 1, 25)
+        }
     }
 }
