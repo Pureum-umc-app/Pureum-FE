@@ -47,7 +47,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:indicatorSize="160dp"
                 app:trackColor="@color/progressbar_light_grey"
-                app:indicatorColor="@color/main1"
+                indicatorColor="@{usageTimeDto.goalTime &lt; usageTimeDto.usageTime ? @color/sub1 : @color/main1}"
                 app:trackThickness="8dp"
                 android:max="@{usageTimeDto.goalTime, default=100}"
                 android:progress="@{usageTimeDto.usageTime, default=75}"/>

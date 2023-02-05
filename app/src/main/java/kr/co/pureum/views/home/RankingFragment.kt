@@ -2,6 +2,7 @@ package kr.co.pureum.views.home
 
 import android.os.Build
 import android.os.Bundle
+import android.service.notification.NotificationListenerService.Ranking
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -39,9 +40,7 @@ class RankingFragment : BaseFragment<FragmentRankingBinding>(R.layout.fragment_r
         with(binding.mainToolbar){
             logo = null
             navigationIcon = ContextCompat.getDrawable(context, R.drawable.ic_back)
-            setNavigationOnClickListener {
-                findNavController().navigateUp()
-            }
+            setNavigationOnClickListener { findNavController().navigateUp() }
         }
         mainActivity = activity as MainActivity
         requireActivity().addMenuProvider(object : MenuProvider {
@@ -100,7 +99,7 @@ class RankingFragment : BaseFragment<FragmentRankingBinding>(R.layout.fragment_r
     @RequiresApi(Build.VERSION_CODES.O)
     private fun observe() {
         viewModel.prevRankListLiveData.observe(viewLifecycleOwner) {
-            (binding.rankingRecyclerView.adapter as RankingAdapter).setData(it)
+            (binding.rankingRecyclerView.adapter as RankingAdapter).setData(it, RankingAdapter.RANK)
             binding.isLoading = false
         }
         viewModel.myRankLiveDate.observe(viewLifecycleOwner) {

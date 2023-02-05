@@ -2,6 +2,7 @@ package kr.co.pureum.adapter.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import kr.co.domain.model.UsageTimeDto
@@ -32,6 +33,12 @@ class UsageTimeAdapter : RecyclerView.Adapter<UsageTimeAdapter.ViewHolder>() {
     fun setData(data: List<UsageTimeDto>) {
         usageList.clear()
         usageList.addAll(data)
-        notifyDataSetChanged()
+        notifyItemRangeInserted(0, usageList.size)
+    }
+
+    fun updateData(data: List<UsageTimeDto>, color: Int) {
+        usageList.clear()
+        usageList.addAll(data)
+        notifyItemChanged(usageList.size - 1)
     }
 }

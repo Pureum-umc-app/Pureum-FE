@@ -7,13 +7,16 @@
     <data>
         <import type="android.view.View"/>
         <variable
+            name="isLoading"
+            type="java.lang.Boolean" />
+        <variable
             name="isToday"
             type="java.lang.Boolean" />
         <variable
             name="usageTimeDto"
             type="kr.co.domain.model.UsageTimeDto" />
         <variable
-            name="goalTime"
+            name="screenCount"
             type="java.lang.Integer" />
     </data>
     
@@ -56,7 +59,7 @@
                 android:fontFamily="@font/nanum_square_neo_extrabold"
                 android:textSize="22sp"
                 android:textColor="@color/text2"
-                android:visibility="@{isToday ? View.VISIBLE : View.INVISIBLE}"/>
+                android:visibility="@{isToday &amp;&amp; !isLoading ? View.VISIBLE : View.INVISIBLE}"/>
 
             <TextView
                 android:id="@+id/home_date"
@@ -66,11 +69,12 @@
                 android:layout_marginTop="8dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:text="@{@string/home_date(usageTimeDto.year, usageTimeDto.month, usageTimeDto.day)}"
+                android:text="@{@string/home_date(usageTimeDto.year, usageTimeDto.month, usageTimeDto.day), default=`2023년 2월 15일`}"
                 android:fontFamily="@font/nanum_square_neo_extrabold"
                 android:textSize="16sp"
                 android:textAlignment="center"
-                android:textStyle="normal" />
+                android:textStyle="normal"
+                android:visibility="@{isLoading ? View.GONE : View.VISIBLE}" />
 
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/home_usage_time_view_pager"
@@ -81,7 +85,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 android:paddingHorizontal="32dp"
                 android:clipChildren="false"
-                android:clipToPadding="false"/>
+                android:clipToPadding="false"
+                android:visibility="@{isLoading ? View.GONE : View.VISIBLE}"/>
 
             <LinearLayout
                 android:id="@+id/home_buttons_layout"
@@ -93,7 +98,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 android:paddingHorizontal="32dp"
                 android:orientation="horizontal"
-                android:gravity="clip_horizontal">
+                android:gravity="clip_horizontal"
+                android:visibility="@{isLoading ? View.GONE : View.VISIBLE}">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/home_goal_time_layout"
@@ -134,9 +140,10 @@
                             android:src="@drawable/ic_time"/>
 
                         <TextView
+                            android:id="@+id/home_goal_time"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@{@string/home_goal_time(goalTime / 60), default=시간}"
+                            android:text="@string/home_goal_time_temp"
                             android:fontFamily="@font/nanum_square_neo_bold"
                             android:textSize="16sp"
                             android:textColor="@color/white"
@@ -191,7 +198,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@{@string/home_screen_count(usageTimeDto.screenCount), default=횟수}"
+                            android:text="@{@string/home_screen_count(screenCount), default=`14회`}"
                             android:fontFamily="@font/nanum_square_neo_bold"
                             android:textSize="16sp"
                             android:textColor="@color/main1"
@@ -210,7 +217,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 android:paddingHorizontal="32dp"
                 android:orientation="horizontal"
-                android:gravity="center">
+                android:gravity="center"
+                android:visibility="@{isLoading ? View.GONE : View.VISIBLE}">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -248,7 +256,20 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:orientation="vertical"
-                android:overScrollMode="never"/>
+                android:overScrollMode="never"
+                android:visibility="@{isLoading ? View.GONE : View.VISIBLE}"/>
+
+            <com.google.android.material.progressindicator.CircularProgressIndicator
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:trackColor="@color/progressbar_light_grey"
+                app:indicatorColor="@color/main1"
+                android:indeterminate="true"
+                android:visibility="@{isLoading ? View.VISIBLE : View.GONE}"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </layout>
