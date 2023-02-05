@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import kr.co.domain.model.DataSentence
@@ -17,6 +18,7 @@ import kr.co.pureum.databinding.FragmentQuestBinding
 
 
 class QuestFragment : BaseFragment<FragmentQuestBinding>(R.layout.fragment_quest) {
+    private val viewModel by viewModels<QuestViewModel>()
     private val dataSentenceList : ArrayList<DataSentence> = arrayListOf()
     private val dataSentenceAdapter = DataSentenceRVAdapter(dataSentenceList)
 
@@ -40,7 +42,6 @@ class QuestFragment : BaseFragment<FragmentQuestBinding>(R.layout.fragment_quest
         Log.d("LifeCycle", "onPause")
         activity?.let { updateStatusBarColor(it, "#F8F8F8") }
     }
-
 
     private fun initToolbar() {
         with(binding.mainToolbar){
@@ -84,9 +85,14 @@ class QuestFragment : BaseFragment<FragmentQuestBinding>(R.layout.fragment_quest
 
         dataSentenceList.clear()
         dataSentenceList.apply {
-            add(DataSentence( "성실"))
+            add(DataSentence("구현"))
             add(DataSentence("바보"))
             add(DataSentence( "호구"))
+        }
+    }
+    private fun observe() {
+        viewModel.todayKeywordLiveData.observe(viewLifecycleOwner) {
+            (binding.questKeywordViewRv.adapter as DataSentenceRVAdapter)
         }
     }
 }
