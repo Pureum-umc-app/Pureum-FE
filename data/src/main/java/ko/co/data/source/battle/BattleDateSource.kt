@@ -4,6 +4,7 @@ import ko.co.data.remote.PureumService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kr.co.domain.model.MyBattleCompletionDto
+import kr.co.domain.model.MyBattleProgMoreDto
 import kr.co.domain.model.MyBattleProgressDto
 import kr.co.domain.model.OpponentDto
 import kr.co.domain.model.WaitingBattleDto
@@ -85,5 +86,15 @@ class BattleDateSource @Inject constructor(
             Thread.sleep(1000)
         }
         return opponentsList
+    }
+
+    suspend fun getMyBattleProgMoreInfo() : MyBattleProgMoreDto {
+        val progressMore = MyBattleProgMoreDto(keyword = "구현", nickname = "푸름", mySentence = "황폐화된 자연을 복구하였다.",
+            opponentNickname = "르미", day = 10, opponentSentence = "떨어진 내 성적을 복구하였다.", mySentenceLikeNum = 5, opSentenceLikeNum = 3,
+            mySentenceLike = true, opSentenceLike = false)
+        withContext(Dispatchers.IO) {
+            Thread.sleep(1000)
+        }
+        return progressMore
     }
 }

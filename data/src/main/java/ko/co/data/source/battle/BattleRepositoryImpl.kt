@@ -1,6 +1,7 @@
 package ko.co.data.source.battle
 
 import kr.co.domain.model.MyBattleCompletionDto
+import kr.co.domain.model.MyBattleProgMoreDto
 import kr.co.domain.model.MyBattleProgressDto
 import kr.co.domain.model.OpponentDto
 import kr.co.domain.model.WaitingBattleDto
@@ -30,4 +31,7 @@ class BattleRepositoryImpl @Inject constructor(
 
     override suspend fun getAdditionalOpponents(position: Int, itemCount: Int): List<OpponentDto> =
         dataSource.getAdditionalOpponents(position, itemCount)
+
+    override suspend fun getMyBattleProgMoreInfo(): MyBattleProgMoreDto =
+        dataSource.getMyBattleProgMoreInfo()
 }
