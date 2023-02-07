@@ -32,6 +32,9 @@
         android:id="@+id/myBattleFragment"
         android:name="kr.co.pureum.views.battle.MyBattleFragment"
         android:label="MyBattleFragment">
+        <action
+            android:id="@+id/action_myBattleFragment_to_myBattleProgInfoFragment"
+            app:destination="@id/myBattleProgInfoFragment" />
     </fragment>
 
     <fragment
@@ -100,6 +103,13 @@
         android:id="@+id/profileTempFragment"
         android:name="kr.co.pureum.views.profile.ProfileTempFragment"
         android:label="ProfileTempFragment">
+    </fragment>
+
+    <fragment
+        android:id="@+id/myBattleProgInfoFragment"
+        android:name="kr.co.pureum.views.battle.MyBattleProgInfoFragment"
+        android:label="MyBattleProgInfoFragment">
+
     </fragment>
 
 </navigation>

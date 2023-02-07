@@ -12,6 +12,16 @@ class MyBattleProgressAdapter : RecyclerView.Adapter<MyBattleProgressAdapter.Vie
     private lateinit var binding: ItemBattleMyProgressBinding
     private var myBattleProgressList = mutableListOf<MyBattleProgressDto>()
 
+    interface Listener {
+        fun onItemClick(pos: Int)
+    }
+
+    private lateinit var progressListener : Listener
+
+    fun setListener(listener: Listener){
+        progressListener = listener
+    }
+
     inner class ViewHolder(val binding: ItemBattleMyProgressBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(progressData: MyBattleProgressDto, position: Int) {
@@ -26,6 +36,10 @@ class MyBattleProgressAdapter : RecyclerView.Adapter<MyBattleProgressAdapter.Vie
                 myBattleSecondLikeNum.text = progressData.secondLikeNum.toString()
                 myBattleSecondNameTv.text = progressData.secondUserName
 //                myBattleSecondProfileIv.setImageResource(progressData.secondUserProfile.toInt())
+
+                root.setOnClickListener {
+                    progressListener.onItemClick(position)
+                }
             }
         }
     }

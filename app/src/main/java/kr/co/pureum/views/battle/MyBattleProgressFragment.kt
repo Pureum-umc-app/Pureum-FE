@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import kr.co.pureum.R
+import kr.co.pureum.adapter.battle.MyBattleCompletionAdapter
 import kr.co.pureum.adapter.battle.MyBattleProgressAdapter
 import kr.co.pureum.adapter.battle.WaitingBattleAdapter
 import kr.co.pureum.base.BaseFragment
@@ -35,7 +36,14 @@ class MyBattleProgressFragment : BaseFragment<FragmentMyBattleProgressBinding>(R
         with(binding) {
             viewModel.getMyBattleProgressInfo()
             myBattleProgressRv.apply {
-                adapter = MyBattleProgressAdapter()
+                adapter =  MyBattleProgressAdapter().apply {
+                    setListener(object : MyBattleProgressAdapter.Listener{
+                        override fun onItemClick(pos: Int) {
+                            val action = MyBattleFragmentDirections.actionMyBattleFragmentToMyBattleProgInfoFragment()
+                            findNavController().navigate(action)
+                        }
+                    })
+                }
                 layoutManager = LinearLayoutManager(requireContext())
             }
         }

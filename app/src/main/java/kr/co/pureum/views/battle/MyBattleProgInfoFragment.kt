@@ -16,7 +16,9 @@ import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
+import kr.co.domain.model.MyBattleProgMoreDto
 import kr.co.pureum.R
+import kr.co.pureum.adapter.battle.MyBattleCompletionAdapter
 import kr.co.pureum.adapter.battle.MyBattleProgressAdapter
 import kr.co.pureum.base.BaseFragment
 import kr.co.pureum.databinding.FragmentMyBattleProgInfoBinding
@@ -38,12 +40,12 @@ class MyBattleProgInfoFragment : BaseFragment<FragmentMyBattleProgInfoBinding>(R
 
     private fun initView() {
         Log.e("ScreenBuild", "MyBattleProgInfoFragment")
-        (requireActivity() as OnBattleActivity).changeToolbarColor()
         viewModel.getMyBattleProgressInfo()
         with(binding) {
+//            isLoading = false
+//            day = 3
+//            nickname = "푸름"
 
-            isLoading = false
-            day = 1
 
         }
 
@@ -56,6 +58,22 @@ class MyBattleProgInfoFragment : BaseFragment<FragmentMyBattleProgInfoBinding>(R
     }
 
     private fun observe() {
+        viewModel.myBattleProgressListLiveData.observe(viewLifecycleOwner) {
+            with(binding) {
+                isLoading = false
+                keyword = it.keyword.toString()
+                nickname = it.nickname.toString()
+                mySentence = it.mySentence.toString()
+                opponentNickname = it.opponentNickname.toString()
+                day = it.day.toInt()
+                opponentSentence = it.opponentSentence.toString()
+                mySentenceLikeNum = it.mySentenceLikeNum
+                opSentenceLikeNum = it.opSentenceLikeNum.toInt()
+                mySentenceLike = it.mySentenceLike
+                opSentenceLike = it.opSentenceLike
+        }
+
+        }
     }
 
 }

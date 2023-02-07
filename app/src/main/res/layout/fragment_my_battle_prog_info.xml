@@ -236,12 +236,13 @@ tools:context=".views.battle.MyBattleProgInfoFragment">
                     android:layout_weight="1" />
 
 
-                <ImageButton
+                <CheckBox
                     android:id="@+id/my_battle_sentence_like"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_marginEnd="16dp"
-                    android:src="@{mySentenceLike ? @drawable/ic_battle_heart_fill : @drawable/ic_battle_heart_not_fill, default=@drawable/ic_battle_heart_not_fill }"
+                    android:button="@null"
+                    android:background="@drawable/custom_checkbox_heart"
                      />
 
                 <TextView
@@ -309,12 +310,13 @@ tools:context=".views.battle.MyBattleProgInfoFragment">
                     android:layout_weight="1" />
 
 
-                <ImageButton
+                <CheckBox
                     android:id="@+id/my_battle_op_sentence_like"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_marginEnd="16dp"
-                    android:src="@{opSentenceLike ? @drawable/ic_battle_heart_fill : @drawable/ic_battle_heart_not_fill, default=@drawable/ic_battle_heart_not_fill }"
+                    android:button="@null"
+                    android:background="@drawable/custom_checkbox_heart"
                     />
 
                 <TextView
