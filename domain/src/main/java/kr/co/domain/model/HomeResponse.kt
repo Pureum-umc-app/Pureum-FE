@@ -1,7 +1,8 @@
 package kr.co.domain.model
 
 data class HomeResponse(
-    var goalTime: Int,
-    var prevUsageTime: List<UsageTimeDto>,
-    var prevRank: List<RankDto>,
+    val code: Int,
+    val isSuccess: Boolean,
+    val message: String,
+    val result: List<HomeInfo>
 )

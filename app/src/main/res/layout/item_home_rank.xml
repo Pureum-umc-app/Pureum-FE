@@ -4,13 +4,11 @@
     <data>
         <variable
             name="rank"
-            type="java.lang.Integer" />
-        <variable
-            name="userRankDto"
-            type="kr.co.domain.model.UserRankDto" />
+            type="kr.co.domain.model.Rank" />
     </data>
 
     <LinearLayout
+        android:id="@+id/rank_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginVertical="4dp"
@@ -24,7 +22,7 @@
             android:layout_marginEnd="8dp"
             android:paddingVertical="4dp"
             android:background="@drawable/bg_rectangle_30dp"
-            android:backgroundTint="@{rank == 1 ? @color/sub1 : @color/bg}">
+            android:backgroundTint="@{rank.rankNum == 1 ? @color/sub1 : @color/bg}">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -33,10 +31,10 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:text="@{Integer.toString(rank), default=1}"
+                android:text="@{Integer.toString(rank.rankNum), default=1}"
                 android:fontFamily="@font/nanum_square_neo_bold"
                 android:textSize="16sp"
-                android:textColor="@{rank == 1 ? @color/white : @color/text1}"
+                android:textColor="@{rank.rankNum == 1 ? @color/white : @color/text1}"
                 android:textAlignment="center"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -59,7 +57,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:text="@{userRankDto.nickname, default=닉네임}"
+                android:text="@{rank.nickname, default=닉네임}"
                 android:fontFamily="@font/nanum_square_neo_bold"
                 android:textSize="14sp"/>
 
@@ -70,8 +68,8 @@
                 app:trackColor="@color/progressbar_light_grey"
                 app:indicatorColor="@color/main1"
                 app:trackCornerRadius="6dp"
-                android:max="@{userRankDto.goalTime, default=100}"
-                android:progress="@{userRankDto.usageTime, default=50}"/>
+                android:max="@{rank.purposeTime.minutes, default=100}"
+                android:progress="@{rank.useTime.minutes, default=50}"/>
         </LinearLayout>
     </LinearLayout>
 </layout>

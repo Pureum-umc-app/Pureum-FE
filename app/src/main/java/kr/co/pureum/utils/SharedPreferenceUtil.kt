@@ -12,13 +12,19 @@ class SharedPreferenceUtil(context: Context) {
     }
 
     // userToken 메서드
-    fun getUserToken(): String {
-        return spfManager.getString("user_token", "").toString()
-    }
+    fun checkUserToken() : Boolean = spfManager.contains("user_token")
+    fun getUserToken(): String = spfManager.getString("user_token", "").toString()
     fun setUserToken(token: String) {
         spfManager.edit().putString("user_token", token).apply()
     }
-    fun checkUserToken() : Boolean {
-        return spfManager.contains("user_token")
+
+    // 목표 시간 설정 메서드
+    fun checkPurposeTime() : Boolean = spfManager.contains("purpose_time")
+    fun getPurposeTime(): Int = spfManager.getInt("purpose_time", 0)
+    fun setPurposeTime(purposeTime: Int) {
+        spfManager.edit().putInt("purpose_time", purposeTime).apply()
+    }
+    fun clearPurposeTime() {
+        spfManager.edit().remove("purpose_time").apply()
     }
 }

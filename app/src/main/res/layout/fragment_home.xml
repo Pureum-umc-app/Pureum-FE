@@ -6,6 +6,7 @@
     
     <data>
         <import type="android.view.View"/>
+        <import type="java.util.List"/>
         <variable
             name="isLoading"
             type="java.lang.Boolean" />
@@ -13,8 +14,8 @@
             name="isToday"
             type="java.lang.Boolean" />
         <variable
-            name="usageTimeDto"
-            type="kr.co.domain.model.UsageTimeDto" />
+            name="dateValue"
+            type="List&lt;java.lang.Integer>" />
         <variable
             name="screenCount"
             type="java.lang.Integer" />
@@ -69,12 +70,12 @@
                 android:layout_marginTop="8dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:text="@{@string/home_date(usageTimeDto.year, usageTimeDto.month, usageTimeDto.day), default=`2023년 2월 15일`}"
+                android:text="@{@string/home_date(dateValue[0], dateValue[1], dateValue[2]), default=`2023년 2월 15일`}"
                 android:fontFamily="@font/nanum_square_neo_extrabold"
                 android:textSize="16sp"
                 android:textAlignment="center"
                 android:textStyle="normal"
-                android:visibility="@{isLoading ? View.GONE : View.VISIBLE}" />
+                android:visibility="@{isLoading ? View.INVISIBLE : View.VISIBLE}" />
 
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/home_usage_time_view_pager"
@@ -86,7 +87,7 @@
                 android:paddingHorizontal="32dp"
                 android:clipChildren="false"
                 android:clipToPadding="false"
-                android:visibility="@{isLoading ? View.GONE : View.VISIBLE}"/>
+                android:visibility="@{isLoading ? View.INVISIBLE : View.VISIBLE}"/>
 
             <LinearLayout
                 android:id="@+id/home_buttons_layout"
@@ -99,7 +100,7 @@
                 android:paddingHorizontal="32dp"
                 android:orientation="horizontal"
                 android:gravity="clip_horizontal"
-                android:visibility="@{isLoading ? View.GONE : View.VISIBLE}">
+                android:visibility="@{isLoading ? View.INVISIBLE : View.VISIBLE}">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/home_goal_time_layout"
@@ -218,7 +219,7 @@
                 android:paddingHorizontal="32dp"
                 android:orientation="horizontal"
                 android:gravity="center"
-                android:visibility="@{isLoading ? View.GONE : View.VISIBLE}">
+                android:visibility="@{isLoading ? View.INVISIBLE : View.VISIBLE}">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -257,7 +258,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 android:orientation="vertical"
                 android:overScrollMode="never"
-                android:visibility="@{isLoading ? View.GONE : View.VISIBLE}"/>
+                android:visibility="@{isLoading ? View.INVISIBLE : View.VISIBLE}"/>
 
             <com.google.android.material.progressindicator.CircularProgressIndicator
                 android:layout_width="wrap_content"
