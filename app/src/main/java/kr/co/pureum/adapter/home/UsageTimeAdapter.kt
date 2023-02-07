@@ -2,24 +2,24 @@ package kr.co.pureum.adapter.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
+import kr.co.domain.model.HomeInfo
 import kr.co.domain.model.UsageTimeDto
 import kr.co.pureum.R
 import kr.co.pureum.databinding.ItemHomeUsageTimeBinding
 
 class UsageTimeAdapter : RecyclerView.Adapter<UsageTimeAdapter.ViewHolder>() {
     private lateinit var binding: ItemHomeUsageTimeBinding
-    private var usageList = mutableListOf<UsageTimeDto>()
+    private var homeInfoList = mutableListOf<HomeInfo>()
 
     inner class ViewHolder(val binding: ItemHomeUsageTimeBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(usageTimeDto: UsageTimeDto){
-            binding.usageTimeDto = usageTimeDto
+        fun bind(homeInfo: HomeInfo){
+            binding.homeInfo = homeInfo
         }
     }
 
-    override fun getItemCount(): Int = usageList.size
+    override fun getItemCount(): Int = homeInfoList.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         binding = DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.item_home_usage_time, parent, false)
@@ -27,18 +27,18 @@ class UsageTimeAdapter : RecyclerView.Adapter<UsageTimeAdapter.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(usageList[position])
+        holder.bind(homeInfoList[position])
     }
 
-    fun setData(data: List<UsageTimeDto>) {
-        usageList.clear()
-        usageList.addAll(data)
-        notifyItemRangeInserted(0, usageList.size)
+    fun setData(data: List<HomeInfo>) {
+        homeInfoList.clear()
+        homeInfoList.addAll(data)
+        notifyItemRangeInserted(0, homeInfoList.size)
     }
 
-    fun updateData(data: List<UsageTimeDto>, color: Int) {
-        usageList.clear()
-        usageList.addAll(data)
-        notifyItemChanged(usageList.size - 1)
+    fun updateData(data: List<HomeInfo>) {
+        homeInfoList.clear()
+        homeInfoList.addAll(data)
+        notifyItemChanged(homeInfoList.size - 1)
     }
 }

@@ -12,63 +12,70 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import kr.co.domain.model.*
 import kr.co.domain.repository.HomeRepository
+import kr.co.pureum.di.PureumApplication.Companion.spfManager
 import okhttp3.internal.notify
 import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val repository: HomeRepository
 ): ViewModel() {
-    private val _homeResponseLiveData = MutableLiveData<HomeResponse>()
-    private val _usageTimeLiveData = MutableLiveData<MutableList<UsageTimeDto>>()
-    private val _prevRankLiveData = MutableLiveData<List<UserRankDto>>()
+    private val _homeInfoListLiveData = MutableLiveData<MutableList<HomeInfo>>()
+    private val _prevRankLiveData = MutableLiveData<List<Rank>>()
     private val _updatedGoalTimeLiveData = MutableLiveData<Int>()
 
-    val homeResponseLiveData: LiveData<HomeResponse> = _homeResponseLiveData
-    val usageTimeLiveData: LiveData<MutableList<UsageTimeDto>> = _usageTimeLiveData
-    val prevRankLiveData: LiveData<List<UserRankDto>> = _prevRankLiveData
+    val homeInfoListLiveData: LiveData<MutableList<HomeInfo>> = _homeInfoListLiveData
+    val prevRankLiveData: LiveData<List<Rank>> = _prevRankLiveData
     val updatedGoalTimeLiveData: LiveData<Int> = _updatedGoalTimeLiveData
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun getHomeInfo(usageTime: Int, screenCount: Int) {
         val today = LocalDate.now()
-        val todayInfo = UsageTimeDto(
-            year = today.year,
-            month = today.monthValue,
-            day = today.dayOfMonth,
-            usageTime = usageTime,
-            screenCount = screenCount,
-            goalTime = 0,
-            isSuccess = false
+        val todayInfo = HomeInfo(
+            count = screenCount,
+            date = today.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),
+            purposeTime = TimeInfo(
+                year = today.year,
+                month = today.monthValue,
+                day = today.dayOfMonth,
+                minutes = spfManager.getPurposeTime(),
+            ),
+            rank = listOf(),
+            useTime = TimeInfo(
+                year = today.year,
+                month = today.monthValue,
+                day = today.dayOfMonth,
+                minutes = usageTime,
+            ),
         )
         viewModelScope.launch {
             val res = repository.getHomeInfo()
-            if(res.goalTime != -1) todayInfo.goalTime = res.goalTime
-            _usageTimeLiveData.value = (res.prevUsageTime as MutableList<UsageTimeDto>).apply { add(todayInfo) }
-            _homeResponseLiveData.value = res
+            _homeInfoListLiveData.value = (res.result as MutableList<HomeInfo>).apply { add(todayInfo) }
         }
     }
 
-    fun changeDate(year: Int, month: Int, day: Int) {
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun changeDate(date: LocalDate) {
         viewModelScope.launch {
-            for (rankData in _homeResponseLiveData.value!!.prevRank) {
-                if (rankData.year == year && rankData.month == month && rankData.day == day) {
-                    _prevRankLiveData.value = rankData.rank
+            for (homeInfo in _homeInfoListLiveData.value!!) {
+                if (homeInfo.date == date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))) {
+                    _prevRankLiveData.value = homeInfo.rank
                     break
                 }
             }
         }
     }
 
-    fun updateGoalTime(goalTime: Int) {
+    fun updateGoalTime(purposeTime: Int) {
         // TODO: 서버로 전송
         viewModelScope.launch {
-            repository.updateGoalTime(goalTime)
-            _usageTimeLiveData.value!![_usageTimeLiveData.value!!.size - 1].goalTime = goalTime
-            _homeResponseLiveData.value!!.goalTime = goalTime
-            _updatedGoalTimeLiveData.value = goalTime
-            Log.e(TAG, "휴대폰 사용 목표 시간 $goalTime 시간으로 설정")
+            repository.updateGoalTime(purposeTime)
+            spfManager.setPurposeTime(purposeTime)
+            _homeInfoListLiveData.value!![_homeInfoListLiveData.value!!.size - 1].purposeTime.minutes = purposeTime
+            _updatedGoalTimeLiveData.value = purposeTime
+            Log.e(TAG, "휴대폰 사용 목표 시간 $purposeTime 시간으로 설정")
         }
     }
 }

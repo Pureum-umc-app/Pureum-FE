@@ -98,16 +98,20 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     private fun getAppUsageStats(): MutableList<UsageStats> {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val startDate = LocalDate.now().atStartOfDay(ZoneId.systemDefault()).withZoneSameInstant(ZoneId.of("Asia/Seoul"))
+            val startDate = LocalDate.now().atStartOfDay(ZoneId.systemDefault())
             val start = startDate.toInstant().toEpochMilli()
             val end = startDate.plusDays(1).toInstant().toEpochMilli()
+            Log.e(TAG, "startDate: $startDate")
+            Log.e(TAG, "start: $start")
+            Log.e(TAG, "end: $end")
             return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
                 val usageStatsManager = getSystemService(USAGE_STATS_SERVICE) as UsageStatsManager
                 usageStatsManager.queryUsageStats(UsageStatsManager.INTERVAL_DAILY, start, end)
             } else { mutableListOf() }
         } else {
             val cal = Calendar.getInstance()
-            cal.add(Calendar.MONTH, -1)
+            cal.add(Calendar.DATE, -1)
+            Log.e(TAG, cal.toString())
             return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
                 val usageStatsManager =
                     getSystemService(USAGE_STATS_SERVICE) as UsageStatsManager

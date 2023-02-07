@@ -4,13 +4,14 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
+import kr.co.domain.model.Rank
 import kr.co.domain.model.UserRankDto
 import kr.co.pureum.R
 import kr.co.pureum.databinding.ItemHomeRankBinding
 
 class RankingAdapter : RecyclerView.Adapter<RankingAdapter.ViewHolder>() {
     private lateinit var binding: ItemHomeRankBinding
-    private var rankList = mutableListOf<UserRankDto>()
+    private var rankList = mutableListOf<Rank>()
 
     companion object {
         const val HOME = 1
@@ -18,11 +19,8 @@ class RankingAdapter : RecyclerView.Adapter<RankingAdapter.ViewHolder>() {
     }
 
     inner class ViewHolder(val binding: ItemHomeRankBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(userRankInfo: UserRankDto, position: Int){
-            with(binding) {
-                userRankDto = userRankInfo
-                rank = position + 1
-            }
+        fun bind(rank: Rank){
+            binding.rank = rank
         }
     }
 
@@ -34,10 +32,10 @@ class RankingAdapter : RecyclerView.Adapter<RankingAdapter.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(rankList[position], position)
+        holder.bind(rankList[position])
     }
 
-    fun setData(data: List<UserRankDto>, option: Int) {
+    fun setData(data: List<Rank>, option: Int) {
         rankList.clear()
         rankList.addAll(data)
         when (option) {
