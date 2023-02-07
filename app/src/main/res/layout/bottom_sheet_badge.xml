@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="android.view.View"/>
+        <import type="java.util.List"/>
+        <variable
+            name="badgeUnlocked"
+            type="List&lt;java.lang.Integer>" />
+        <variable
+            name="badgeIndex"
+            type="java.lang.Integer" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/dialog_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:minHeight="300dp">
+
+        <ImageButton
+            android:id="@+id/dialog_exit_button"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/ic_cancel"
+            android:contentDescription="@string/home_dialog_exit_button" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="32dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="56dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginHorizontal="32dp"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="100dp"
+                    android:layout_height="110dp"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/ic_badge_attendance"
+                    android:visibility="@{badgeIndex == 1 ? View.VISIBLE : View.INVISIBLE, default=visible}"/>
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="100dp"
+                    android:layout_height="110dp"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/ic_badge_goal_time"
+                    android:visibility="@{badgeIndex == 2 ? View.VISIBLE : View.INVISIBLE, default=invisible}"/>
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="100dp"
+                    android:layout_height="110dp"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/ic_badge_like"
+                    android:visibility="@{badgeIndex == 3 ? View.VISIBLE : View.INVISIBLE, default=invisible}"/>
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="100dp"
+                    android:layout_height="110dp"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/ic_badge_winner"
+                    android:visibility="@{badgeIndex == 4 ? View.VISIBLE : View.INVISIBLE, default=invisible}"/>
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="100dp"
+                    android:layout_height="110dp"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/ic_badge_battle"
+                    android:visibility="@{badgeIndex == 5 ? View.VISIBLE : View.INVISIBLE, default=invisible}"/>
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="100dp"
+                    android:layout_height="110dp"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/ic_badge_time"
+                    android:visibility="@{badgeIndex == 6 ? View.VISIBLE : View.INVISIBLE, default=invisible}"/>
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="100dp"
+                    android:layout_height="110dp"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/ic_badge_ranker"
+                    android:visibility="@{badgeIndex == 7 ? View.VISIBLE : View.INVISIBLE, default=invisible}"/>
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="100dp"
+                    android:layout_height="110dp"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/ic_badge_first"
+                    android:visibility="@{badgeIndex == 8 ? View.VISIBLE : View.INVISIBLE, default=invisible}"/>
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="100dp"
+                    android:layout_height="110dp"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/ic_badge_sentences"
+                    android:visibility="@{badgeIndex == 9 ? View.VISIBLE : View.INVISIBLE, default=invisible}"/>
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="100dp"
+                    android:layout_height="110dp"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/ic_badge_locked"
+                    android:visibility="@{badgeUnlocked[badgeIndex] == -1 ? View.INVISIBLE : View.VISIBLE, default=invisible}"/>
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_gravity="center_horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@{badgeUnlocked[1] == -1 ? @string/badge_name_1 : @string/badge_name_locked, default=`@string/badge_name_1`}"
+                    android:fontFamily="@font/nanum_square_neo_bold"
+                    android:textSize="16sp"
+                    android:textColor="@color/main1"
+                    android:visibility="@{badgeIndex == 1 ? View.VISIBLE : View.INVISIBLE, default=visible}"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@{badgeUnlocked[2] == -1 ? @string/badge_name_2 : @string/badge_name_locked, default=`@string/badge_name_2`}"
+                    android:fontFamily="@font/nanum_square_neo_bold"
+                    android:textSize="16sp"
+                    android:textColor="@color/main1"
+                    android:visibility="@{badgeIndex == 2 ? View.VISIBLE : View.INVISIBLE, default=invisible}"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@{badgeUnlocked[3] == -1 ? @string/badge_name_3 : @string/badge_name_locked, default=`@string/badge_name_3`}"
+                    android:fontFamily="@font/nanum_square_neo_bold"
+                    android:textSize="16sp"
+                    android:textColor="@color/main1"
+                    android:visibility="@{badgeIndex == 3 ? View.VISIBLE : View.INVISIBLE, default=invisible}"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@{badgeUnlocked[4] == -1 ? @string/badge_name_4 : @string/badge_name_locked, default=`@string/badge_name_4`}"
+                    android:fontFamily="@font/nanum_square_neo_bold"
+                    android:textSize="16sp"
+                    android:textColor="@color/main1"
+                    android:visibility="@{badgeIndex == 4 ? View.VISIBLE : View.INVISIBLE, default=invisible}"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@{badgeUnlocked[5] == -1 ? @string/badge_name_5 : @string/badge_name_locked, default=`@string/badge_name_5`}"
+                    android:fontFamily="@font/nanum_square_neo_bold"
+                    android:textSize="16sp"
+                    android:textColor="@color/main1"
+                    android:visibility="@{badgeIndex == 5 ? View.VISIBLE : View.INVISIBLE, default=invisible}"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@{badgeUnlocked[6] == -1 ? @string/badge_name_6 : @string/badge_name_locked, default=`@string/badge_name_6`}"
+                    android:fontFamily="@font/nanum_square_neo_bold"
+                    android:textSize="16sp"
+                    android:textColor="@color/main1"
+                    android:visibility="@{badgeIndex == 6 ? View.VISIBLE : View.INVISIBLE, default=invisible}"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@{badgeUnlocked[7] == -1 ? @string/badge_name_7 : @string/badge_name_locked, default=`@string/badge_name_7`}"
+                    android:fontFamily="@font/nanum_square_neo_bold"
+                    android:textSize="16sp"
+                    android:textColor="@color/main1"
+                    android:visibility="@{badgeIndex == 7 ? View.VISIBLE : View.INVISIBLE, default=invisible}"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@{badgeUnlocked[8] == -1 ? @string/badge_name_8 : @string/badge_name_locked, default=`@string/badge_name_8`}"
+                    android:fontFamily="@font/nanum_square_neo_bold"
+                    android:textSize="16sp"
+                    android:textColor="@color/main1"
+                    android:visibility="@{badgeIndex == 8 ? View.VISIBLE : View.INVISIBLE, default=invisible}"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@{badgeUnlocked[9] == -1 ? @string/badge_name_9 : @string/badge_name_locked, default=`@string/badge_name_9`}"
+                    android:fontFamily="@font/nanum_square_neo_bold"
+                    android:textSize="16sp"
+                    android:textColor="@color/main1"
+                    android:visibility="@{badgeIndex == 9 ? View.VISIBLE : View.INVISIBLE, default=invisible}"/>
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/badge_dialog_info_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="24dp"
+                android:text="@string/badge_info_default"
+                android:fontFamily="@font/nanum_square_neo_bold"
+                android:textSize="14sp"
+                android:textAlignment="center"/>
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
