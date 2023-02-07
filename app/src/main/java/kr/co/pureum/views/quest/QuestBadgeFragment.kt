@@ -1,5 +1,8 @@
 package kr.co.pureum.views.quest
 
+import android.app.Dialog
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +15,10 @@ import dagger.hilt.android.AndroidEntryPoint
 import kr.co.pureum.R
 import kr.co.pureum.base.BaseFragment
 import kr.co.pureum.databinding.BottomSheetBadgeBinding
+import kr.co.pureum.databinding.DialogBadgeAchieveBinding
+import kr.co.pureum.databinding.DialogDefaultBinding
 import kr.co.pureum.databinding.FragmentQuestBadgeBinding
+import kr.co.pureum.views.MainActivity
 
 @AndroidEntryPoint
 class QuestBadgeFragment : BaseFragment<FragmentQuestBadgeBinding>(R.layout.fragment_quest_badge) {
@@ -51,6 +57,9 @@ class QuestBadgeFragment : BaseFragment<FragmentQuestBadgeBinding>(R.layout.frag
             badge7.setOnClickListener { showBadgeInfoDialog(7) }
             badge8.setOnClickListener { showBadgeInfoDialog(8) }
             badge9.setOnClickListener { showBadgeInfoDialog(9) }
+
+            // TODO: 임시 다이얼로그 테스트
+            badgeTemp.setOnClickListener { showBadgeAchieveDialog(1) }
         }
     }
 
@@ -88,6 +97,41 @@ class QuestBadgeFragment : BaseFragment<FragmentQuestBadgeBinding>(R.layout.frag
                 else -> if(badgeList[index] == -1) R.string.badge_info_9_true else R.string.badge_info_9_false
             }).toString()
             dialogExitButton.setOnClickListener { dialog.dismiss() }
+        }
+        dialog.show()
+    }
+
+    private fun showBadgeAchieveDialog(index: Int) {
+        val dialog = Dialog(requireContext())
+        val dialogBinding = DialogBadgeAchieveBinding.inflate(LayoutInflater.from(requireContext()))
+        with(dialog) {
+            window!!.setBackgroundDrawableResource(R.drawable.bg_rectangle_20dp)
+            setContentView(dialogBinding.root)
+        }
+        dialog.setContentView(dialogBinding.root)
+        with(dialogBinding) {
+            badgeIndex = index
+            badgeDialogInfoText.text = resources.getText(when(index) {
+                1 -> R.string.badge_info_1_true
+                2 -> R.string.badge_info_2_true
+                3 -> R.string.badge_info_3_true
+                4 -> R.string.badge_info_4_true
+                5 -> R.string.badge_info_5_true
+                6 -> R.string.badge_info_6_true
+                7 -> R.string.badge_info_7_true
+                8 -> R.string.badge_info_8_true
+                else -> R.string.badge_info_9_true
+            }).toString()
+            dialogExitButton.setOnClickListener { dialog.dismiss() }
+            badgeDialogButton.setOnClickListener {
+                val intent = Intent(requireContext(), MainActivity::class.java).apply {
+                    putExtra("screen", 3)
+                    putExtra("badge", 10)
+                }
+                dialog.dismiss()
+                startActivity(intent)
+                requireActivity().finish()
+            }
         }
         dialog.show()
     }

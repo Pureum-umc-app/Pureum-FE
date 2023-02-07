@@ -15,6 +15,7 @@ import kr.co.pureum.R
 import kr.co.pureum.adapter.quest.DataSentenceRVAdapter
 import kr.co.pureum.base.BaseFragment
 import kr.co.pureum.databinding.FragmentQuestBinding
+import kr.co.pureum.views.profile.ProfileFragmentDirections
 
 
 class QuestFragment : BaseFragment<FragmentQuestBinding>(R.layout.fragment_quest) {
@@ -29,6 +30,12 @@ class QuestFragment : BaseFragment<FragmentQuestBinding>(R.layout.fragment_quest
         initApplySentenceView()
         initListener()
         activity?.let { updateStatusBarColor(it, "#D8ECFF") }
+        if (requireActivity().intent.hasExtra("badge")){
+            activity?.let { updateStatusBarColor(it, "#F8F8F8") }
+            val action = QuestFragmentDirections.actionQuestFragmentToQuestBadgeFragment()
+            findNavController().navigate(action)
+            requireActivity().intent.removeExtra("badge")
+        }
     }
 
     override fun onResume() {
@@ -52,6 +59,7 @@ class QuestFragment : BaseFragment<FragmentQuestBinding>(R.layout.fragment_quest
 
     private fun initView() {
         Log.e("ScreenBuild", "QuestFragment")
+        binding.nickname = "태우"
     }
 
     // 상태바 color 지정 함수
