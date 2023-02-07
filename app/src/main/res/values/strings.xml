@@ -171,6 +171,9 @@
     <string name="battle_request_period">%d일</string>
     <string name="battle_request_my_battle_button">내 대결 보러가기</string>
     <string name="battle_request_exit_button">나가기</string>
+    <string name="battle_other_sentence">상대가 작성한 문장</string>
+    <string name="battle_my_sentence">내가 작성한 문장</string>
+    <string name="battle_the_end">이미 종료된 대결입니다.</string>
 
     <!-- ProfileFragment -->
     <string name="account_info">계정 정보</string>
