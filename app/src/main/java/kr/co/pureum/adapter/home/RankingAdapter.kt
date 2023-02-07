@@ -19,8 +19,12 @@ class RankingAdapter : RecyclerView.Adapter<RankingAdapter.ViewHolder>() {
     }
 
     inner class ViewHolder(val binding: ItemHomeRankBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(rank: Rank){
+        fun bind(rank: Rank, position: Int){
             binding.rank = rank
+            if (position == rankList.size - 1) {
+                val scale = binding.rankLayout.resources.displayMetrics.density
+                (binding.rankLayout.layoutParams as ViewGroup.MarginLayoutParams).bottomMargin = (12 * scale).toInt()
+            }
         }
     }
 
@@ -32,7 +36,7 @@ class RankingAdapter : RecyclerView.Adapter<RankingAdapter.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(rankList[position])
+        holder.bind(rankList[position], position)
     }
 
     fun setData(data: List<Rank>, option: Int) {

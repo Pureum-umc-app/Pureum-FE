@@ -67,7 +67,7 @@ class QuestFragment : BaseFragment<FragmentQuestBinding>(R.layout.fragment_quest
                 val action = QuestFragmentDirections.actionQuestFragmentToQuestClickFragment()
                 findNavController().navigate(action)
             }
-            questGoBadgeBt.setOnClickListener {
+            questBadgeButton.setOnClickListener {
                 val action = QuestFragmentDirections.actionQuestFragmentToQuestBadgeFragment()
                 findNavController().navigate(action)
             }

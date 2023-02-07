@@ -9,8 +9,15 @@ import kr.co.pureum.databinding.ItemSentenceBinding
 class DataSentenceRVAdapter(private var dataSentenceList: ArrayList<DataSentence>) : RecyclerView.Adapter<DataSentenceRVAdapter.DataSentenceViewHolder>() {
 
     inner class DataSentenceViewHolder(private val binding: ItemSentenceBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(dataSentence: DataSentence) {
+        fun bind(dataSentence: DataSentence, position: Int) {
             binding.keyword = dataSentence.sentence
+            if (position == 0) {
+                val scale = binding.sentenceLayout.resources.displayMetrics.density
+                (binding.sentenceLayout.layoutParams as ViewGroup.MarginLayoutParams).marginStart = (24 * scale).toInt()
+            } else if (position == dataSentenceList.size - 1) {
+                val scale = binding.sentenceLayout.resources.displayMetrics.density
+                (binding.sentenceLayout.layoutParams as ViewGroup.MarginLayoutParams).marginEnd = (24 * scale).toInt()
+            }
         }
     }
 
@@ -20,7 +27,7 @@ class DataSentenceRVAdapter(private var dataSentenceList: ArrayList<DataSentence
     }
 
     override fun onBindViewHolder(holder: DataSentenceViewHolder, position: Int) {
-        holder.bind(dataSentenceList[position])
+        holder.bind(dataSentenceList[position], position)
     }
 
     override fun getItemCount(): Int = dataSentenceList.size
