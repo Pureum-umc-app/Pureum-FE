@@ -10,7 +10,7 @@ class DataSentenceRVAdapter(private var dataSentenceList: ArrayList<DataSentence
 
     inner class DataSentenceViewHolder(private val binding: ItemSentenceBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(dataSentence: DataSentence) {
-            binding.itemKeywordTv.text = dataSentence.sentence
+            binding.keyword = dataSentence.sentence
         }
     }
 
