@@ -7,6 +7,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kr.co.domain.model.*
 import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
 class HomeDataSource @Inject constructor(
@@ -14,32 +15,46 @@ class HomeDataSource @Inject constructor(
 ){
     @RequiresApi(Build.VERSION_CODES.O)
     suspend fun getHomeInfo(): HomeResponse {
-        val homeResponse = HomeResponse(goalTime = -1,
-            prevUsageTime = List(5) { dateIdx ->
+        val homeResponse = HomeResponse(
+            code = 0,
+            isSuccess = true,
+            message = "",
+            result = List(5) { dateIdx ->
                 val tempDate = LocalDate.now().minusDays((5 - dateIdx).toLong())
-                UsageTimeDto(
-                    year = tempDate.year,
-                    month = tempDate.monthValue,
-                    day = tempDate.dayOfMonth,
-                    usageTime = 300 + dateIdx * 10,
-                    screenCount = dateIdx + 10,
-                    goalTime = 300 + dateIdx * 60,
-                    isSuccess = true
-                )
-            },
-            prevRank = List(5) { dateIdx ->
-                val tempDate = LocalDate.now().minusDays((5 - dateIdx).toLong())
-                RankDto(year = tempDate.year,
-                    month = tempDate.monthValue,
-                    day = tempDate.dayOfMonth,
-                    rank = List(5) { userIdx ->
-                        UserRankDto(
-                            nickname = "%d일의 User %d".format(tempDate.dayOfMonth, userIdx + 1),
-                            profileImage = "",
-                            usageTime = 300 + userIdx * 10,
-                            goalTime = 480
+                HomeInfo(
+                    count = 0,
+                    date = tempDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),
+                    purposeTime = TimeInfo(
+                        year = tempDate.year,
+                        month = tempDate.monthValue,
+                        day = tempDate.dayOfMonth,
+                        minutes = 300 + dateIdx * 60,
+                    ),
+                    rank = List(5) {
+                        Rank(
+                            image = "",
+                            nickname = "User %d".format(it + 1),
+                            rankNum = it + 1,
+                            useTime = TimeInfo(
+                                year = tempDate.year,
+                                month = tempDate.monthValue,
+                                day = tempDate.dayOfMonth,
+                                minutes = 300 + it * 10,
+                            ),
+                            purposeTime = TimeInfo(
+                                year = tempDate.year,
+                                month = tempDate.monthValue,
+                                day = tempDate.dayOfMonth,
+                                minutes = 480,
+                            ),
                         )
-                    }
+                    },
+                    useTime = TimeInfo(
+                        year = tempDate.year,
+                        month = tempDate.monthValue,
+                        day = tempDate.dayOfMonth,
+                        minutes = 300 + dateIdx * 10,
+                    )
                 )
             }
         )

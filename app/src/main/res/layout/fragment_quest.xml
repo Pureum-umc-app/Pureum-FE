@@ -4,6 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".views.quest.QuestFragment">
 
+    <data>
+        <variable
+            name="nickname"
+            type="java.lang.String" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -11,7 +17,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/quest_layout_one_cl"
             android:layout_width="match_parent"
-            android:layout_height="269dp"
+            android:layout_height="wrap_content"
             android:background="@drawable/bg_half_radius_bottom"
             android:backgroundTint="@null"
             app:layout_constraintEnd_toEndOf="parent"
@@ -106,7 +112,7 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="30dp"
                 android:fontFamily="@font/nanum_square_neo_regular"
-                android:text="@string/hello_text"
+                android:text="@{@string/hello_text(nickname), default=`반가워요요 김태우님!`}"
                 android:textColor="@color/text2"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -130,11 +136,13 @@
                 android:layout_height="60dp"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="40dp"
-                android:gravity="center"
+                android:layout_marginBottom="24dp"
                 android:background="@drawable/bg_rectangle_10dp"
                 android:backgroundTint="@null"
+                android:gravity="center"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView3" >
+                app:layout_constraintTop_toBottomOf="@+id/textView3">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -142,62 +150,60 @@
                     android:fontFamily="@font/nanum_square_neo_bold"
                     android:text="@string/check_go"
                     android:textColor="@color/main1"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp" />
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="12dp"
                     android:layout_height="16dp"
                     android:layout_marginStart="10dp"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/ic_arrow_right_main1"/>
-
-
+                    android:src="@drawable/ic_arrow_right_main1" />
             </LinearLayout>
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:id="@+id/quest_layout_two_cl"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:paddingHorizontal="24dp"
+            android:layout_marginBottom="60dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/quest_layout_one_cl" >
+            app:layout_constraintTop_toBottomOf="@+id/quest_layout_one_cl"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
 
             <TextView
                 android:id="@+id/quest_keyword_text_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
-                android:layout_marginTop="40dp"
+                android:layout_marginStart="24dp"
                 android:fontFamily="@font/nanum_square_neo_bold"
                 android:text="@string/today_keyword"
                 android:textColor="@color/text1"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:textSize="16sp"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/quest_keyword_view_rv"
                 android:layout_width="match_parent"
-                android:layout_height="140dp"
-                android:layout_marginTop="24dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/quest_keyword_text_tv" />
+                android:layout_height="wrap_content"/>
 
             <LinearLayout
                 android:id="@+id/quest_action_ll"
                 android:layout_width="173dp"
                 android:layout_height="24dp"
-                android:layout_marginEnd="8dp"
-                android:gravity="center_vertical"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/quest_keyword_view_rv">
+                android:layout_marginEnd="24dp"
+                android:layout_gravity="end"
+                android:gravity="center_vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -212,32 +218,35 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:src="@drawable/ic_arrow_right" />
-
-
             </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
 
             <TextView
                 android:id="@+id/textView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="40dp"
+                android:layout_marginStart="24dp"
                 android:fontFamily="@font/nanum_square_neo_bold"
                 android:text="@string/my_badge"
                 android:textColor="@color/text1"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/quest_action_ll" />
+                android:textSize="16sp"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/quest_badge_button"
                 android:layout_width="312dp"
                 android:layout_height="140dp"
-                android:layout_marginTop="25dp"
+                android:layout_gravity="center_horizontal"
                 android:background="@drawable/bg_rectangle_10dp"
-                android:backgroundTint="@color/main3"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView4" >
+                android:backgroundTint="@color/main3">
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/appCompatImageView"
@@ -289,7 +298,6 @@
                     app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
                 <androidx.appcompat.widget.AppCompatImageButton
-                    android:id="@+id/quest_go_badge_bt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="15dp"
@@ -298,11 +306,12 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
-
-
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+        </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
