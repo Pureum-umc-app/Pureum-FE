@@ -3,23 +3,39 @@ package ko.co.data.source.quest
 import ko.co.data.remote.PureumService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import kr.co.domain.model.SentenceCompleteResponse
 import kr.co.domain.model.SentencesDto
+import kr.co.domain.model.SentencesIncompleteResponse
 import javax.inject.Inject
 
 class QuestSentenceDataSource @Inject constructor(
     private val pureumService: PureumService
 ) {
-    suspend fun sentencesIncomplete(userId: Int): SentencesDto {
+    suspend fun sentencesIncomplete(userId: Int): SentencesIncompleteResponse {
+        val response = SentencesIncompleteResponse(
+            code = 0, isSuccess = true, message = "요청에 성공하였습니다", result = List<SentencesDto>(3) {
+                SentencesDto(
+                    date = "2022-02-08", keyword = "한탄", keywordId = 1, meaning = "원통하거나 뉘우치는 일이 있을 때 한숨을 쉬며 탄식함. 또는 그 한숨.", userId = 1
+                )
+            }
+        )
         withContext(Dispatchers.IO){
             Thread.sleep(1000)
         }
-        return sentencesIncomplete(1)
+        return response
     }
 
-    private suspend fun sentencesComplete(userId: Int): SentencesDto {
+    suspend fun sentencesComplete(userId: Int): SentenceCompleteResponse {
+        val response = SentenceCompleteResponse(
+            code = 0, isSuccess = true, message = "요청에 성공하였습니다", result = List<SentencesDto>(3) {
+                SentencesDto(
+                    date = "2022-02-08", keyword = "구현", keywordId = 1, meaning = "원통하거나 뉘우치는 일이 있을 때 한숨을 쉬며 탄식함. 또는 그 한숨.", userId = 1
+                )
+            }
+        )
         withContext(Dispatchers.IO){
             Thread.sleep(1000)
         }
-        return sentencesComplete(1)
+        return response
     }
 }

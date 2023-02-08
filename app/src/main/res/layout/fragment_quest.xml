@@ -5,9 +5,13 @@
     tools:context=".views.quest.QuestFragment">
 
     <data>
+        <import type="android.view.View"/>
         <variable
             name="nickname"
             type="java.lang.String" />
+        <variable
+            name="isLoading"
+            type="java.lang.Boolean" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -193,10 +197,24 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"/>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/quest_keyword_view_rv"
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/quest_keyword_view_rv"
+                    android:layout_width="match_parent"
+                    android:layout_height="106dp" />
+
+                <com.google.android.material.progressindicator.CircularProgressIndicator
+                    android:layout_width="wrap_content"
+                    android:layout_height="106dp"
+                    android:layout_gravity="center"
+                    app:trackColor="@color/progressbar_light_grey"
+                    app:indicatorColor="@color/main1"
+                    android:indeterminate="true"
+                    android:visibility="@{isLoading ? View.VISIBLE : View.GONE}"/>
+            </FrameLayout>
 
             <LinearLayout
                 android:id="@+id/quest_action_ll"
