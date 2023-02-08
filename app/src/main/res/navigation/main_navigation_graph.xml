@@ -48,6 +48,16 @@
         <action
             android:id="@+id/action_questFragment_to_questBadgeFragment"
             app:destination="@id/questBadgeFragment" />
+        <action
+            android:id="@+id/action_questFragment_to_questAttendanceFragment"
+            app:destination="@id/questAttendanceFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/questAttendanceFragment"
+        android:name="kr.co.pureum.views.quest.QuestAttendanceFragment"
+        android:label="QuestAttendanceFragment">
 
     </fragment>
 
