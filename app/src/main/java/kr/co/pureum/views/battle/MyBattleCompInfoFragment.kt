@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import kr.co.pureum.R
 import kr.co.pureum.base.BaseFragment
@@ -24,6 +25,7 @@ class MyBattleCompInfoFragment : BaseFragment<FragmentMyBattleCompInfoBinding>(R
         initView()
         initListener()
         observe()
+        initToolbar()
     }
 
     private fun initView() {
@@ -46,5 +48,16 @@ class MyBattleCompInfoFragment : BaseFragment<FragmentMyBattleCompInfoBinding>(R
             binding.myBattleCompMoreDto = it
         }
     }
+
+    private fun initToolbar() {
+        with(binding.mainToolbar){
+            logo = null
+            navigationIcon = androidx.core.content.ContextCompat.getDrawable(context, kr.co.pureum.R.drawable.ic_back)
+            setNavigationOnClickListener {
+                findNavController().navigateUp()
+            }
+        }
+    }
+
 
 }

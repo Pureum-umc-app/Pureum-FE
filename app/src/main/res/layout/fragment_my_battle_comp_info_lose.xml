@@ -26,6 +26,25 @@ tools:context=".views.battle.MyBattleCompInfoLoseFragment">
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/appbar_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:paddingHorizontal="8dp"
+                android:background="@color/bg"
+                android:backgroundTint="@color/main3"
+                app:elevation="0dp"
+                android:theme="@style/ThemeOverlay.AppCompat.ActionBar">
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/main_toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"/>
+            </com.google.android.material.appbar.AppBarLayout>
+
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -33,6 +52,7 @@ tools:context=".views.battle.MyBattleCompInfoLoseFragment">
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:scaleType="fitXY"
+            android:layout_marginTop="50dp"
             android:src="@drawable/bg_my_battle_comp"
             android:contentDescription="@string/bg_battle_final" />
 
@@ -43,7 +63,7 @@ tools:context=".views.battle.MyBattleCompInfoLoseFragment">
             android:src="@drawable/ic_battle_win"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/appbar_layout"
             android:layout_marginTop="14dp"/>
 
         <ImageView
@@ -95,7 +115,7 @@ tools:context=".views.battle.MyBattleCompInfoLoseFragment">
             android:layout_height="24dp"
             android:layout_marginEnd="20dp"
             android:button="@null"
-            android:backgroundTint="@color/black"
+            android:backgroundTint="@null"
             android:background="@drawable/custom_checkbox_heart"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -191,7 +211,7 @@ tools:context=".views.battle.MyBattleCompInfoLoseFragment">
                     android:layout_height="24dp"
                     android:layout_marginEnd="16dp"
                     android:button="@null"
-                    android:backgroundTint="@color/black"
+                    android:backgroundTint="@null"
                     android:background="@drawable/custom_checkbox_heart"
                     />
 
