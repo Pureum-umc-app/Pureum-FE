@@ -164,13 +164,19 @@
     <string name="battle_final_next_button">대결을 신청합니다!</string>
     <string name="battle_final_period_body">상대와 대결을 진행할 기간을 설정해주세요.\n기간 내에 많은 좋아요를 받은 친구가 승리합니다.</string>
     <string name="battle_final_period_tip">대결 신청 완료 시 문장 수정이 불가능합니다.</string>
+    <string name="battle_my_battle_like_many">대결 기간 내 더 많은 좋아요를 받은 친구가 승리합니다.</string>
+    <string name="battle_more_cool_sentence">더 멋진 문장에 마음을 남겨보세요!</string>
+    <string name="battle_my_cancellation">대결 취소하기</string>
     <string name="battle_request_dialog_title">대결 신청 완료</string>
     <string name="battle_request_keyword_label">키워드</string>
     <string name="battle_request_period_label">대결 기간</string>
     <string name="battle_request_period">%d일</string>
     <string name="battle_request_my_battle_button">내 대결 보러가기</string>
     <string name="battle_request_exit_button">나가기</string>
-    
+    <string name="battle_other_sentence">상대가 작성한 문장</string>
+    <string name="battle_my_sentence">내가 작성한 문장</string>
+    <string name="battle_the_end">이미 종료된 대결입니다.</string>
+
     <!-- ProfileFragment -->
     <string name="account_info">계정 정보</string>
     <string name="profile_setting">프로필 설정</string>

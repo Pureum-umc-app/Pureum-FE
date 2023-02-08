@@ -3,7 +3,10 @@ package ko.co.data.source.battle
 import ko.co.data.remote.PureumService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import kr.co.domain.model.MyBattleCompMore
+import kr.co.domain.model.MyBattleCompMoreDto
 import kr.co.domain.model.MyBattleCompletionDto
+import kr.co.domain.model.MyBattleProgMoreDto
 import kr.co.domain.model.MyBattleProgressDto
 import kr.co.domain.model.OpponentDto
 import kr.co.domain.model.WaitingBattleDto
@@ -46,7 +49,7 @@ class BattleDateSource @Inject constructor(
 
     suspend fun getMyBattleCompletion() : List<MyBattleCompletionDto>{
         val completionList = MutableList(8){
-            MyBattleCompletionDto(keyword = "구현", winnerProfile="", winnerNickname = "푸름")
+            MyBattleCompletionDto(keyword = "구현", winnerProfile="", winnerNickname = "푸름", type = 0)
         }
         withContext(Dispatchers.IO) {
             Thread.sleep(1000)
@@ -85,5 +88,27 @@ class BattleDateSource @Inject constructor(
             Thread.sleep(1000)
         }
         return opponentsList
+    }
+
+    suspend fun getMyBattleProgMoreInfo() : MyBattleProgMoreDto {
+        val progressMore = MyBattleProgMoreDto(keyword = "구현", nickname = "푸름", mySentence = "황폐화된 자연을 복구하였다.",
+            opponentNickname = "르미", day = 10, opponentSentence = "떨어진 내 성적을 복구하였다.", mySentenceLikeNum = 5, opSentenceLikeNum = 3,
+            mySentenceLike = true, opSentenceLike = false)
+        withContext(Dispatchers.IO) {
+            Thread.sleep(1000)
+        }
+        return progressMore
+    }
+
+    suspend fun getMyBattleCompMoreInfo() : MyBattleCompMore {
+        val compMore = MyBattleCompMore( code = 1000, isSuccess = true, message = "요청에 성공했습니다.", result = MyBattleCompMoreDto(battleId = 1, challengedId = 1, challengedImage = "",
+            challengedLikeCnt = 2, challengedNickname ="푸름", challengedSentence = "예시 문장입니다.", challengedSentenceId = 1, challengerId = 2, challengerImage = "", challengerLikeCnt = 5,
+            challengerNickname = "르미", challengerSentence ="예시 문장2 입니다.", challengerSentenceId = 2, duration = 10, oppLike = 0, userLike = 1, winnerUserId = 1)
+        )
+
+            withContext(Dispatchers.IO) {
+                Thread.sleep(1000)
+            }
+        return compMore
     }
 }

@@ -4,25 +4,32 @@ import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
+import kr.co.domain.model.MyBattleProgMoreDto
 import kr.co.pureum.R
 import kr.co.pureum.adapter.battle.MyBattleCompletionAdapter
 import kr.co.pureum.adapter.battle.MyBattleProgressAdapter
-import kr.co.pureum.adapter.battle.WaitingBattleAdapter
 import kr.co.pureum.base.BaseFragment
+import kr.co.pureum.databinding.FragmentMyBattleProgInfoBinding
 import kr.co.pureum.databinding.FragmentMyBattleProgressBinding
-import kr.co.pureum.databinding.FragmentQuestWritingBeforeBinding
-import kr.co.pureum.views.quest.QuestClickFragmentDirections
+import kr.co.pureum.views.MainActivity
+import kr.co.pureum.views.home.HomeFragment
 
 @AndroidEntryPoint
-class MyBattleProgressFragment : BaseFragment<FragmentMyBattleProgressBinding>(R.layout.fragment_my_battle_progress) {
+class MyBattleProgInfoFragment : BaseFragment<FragmentMyBattleProgInfoBinding>(R.layout.fragment_my_battle_prog_info) {
 
-    private val viewModel by viewModels<MyBattleProgressViewModel>()
+    private val viewModel by viewModels<MyBattleProgInfoViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -32,20 +39,9 @@ class MyBattleProgressFragment : BaseFragment<FragmentMyBattleProgressBinding>(R
     }
 
     private fun initView() {
-        Log.e("ScreenBuild", "MyBattleProgressFragment")
+        Log.e("ScreenBuild", "MyBattleProgInfoFragment")
+        viewModel.getMyBattleProgressInfo()
         with(binding) {
-            viewModel.getMyBattleProgressInfo()
-            myBattleProgressRv.apply {
-                adapter =  MyBattleProgressAdapter().apply {
-                    setListener(object : MyBattleProgressAdapter.Listener{
-                        override fun onItemClick(pos: Int) {
-                            val action = MyBattleFragmentDirections.actionMyBattleFragmentToMyBattleProgInfoFragment()
-                            findNavController().navigate(action)
-                        }
-                    })
-                }
-                layoutManager = LinearLayoutManager(requireContext())
-            }
         }
 
     }
@@ -58,7 +54,8 @@ class MyBattleProgressFragment : BaseFragment<FragmentMyBattleProgressBinding>(R
 
     private fun observe() {
         viewModel.myBattleProgressListLiveData.observe(viewLifecycleOwner) {
-            (binding.myBattleProgressRv.adapter as MyBattleProgressAdapter).setData(it)
+            binding.myBattleProgMoreDto = it
+
         }
     }
 
