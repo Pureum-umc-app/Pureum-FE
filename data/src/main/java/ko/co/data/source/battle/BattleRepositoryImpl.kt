@@ -1,5 +1,6 @@
 package ko.co.data.source.battle
 
+import kr.co.domain.model.MyBattleCompMore
 import kr.co.domain.model.MyBattleCompletionDto
 import kr.co.domain.model.MyBattleProgMoreDto
 import kr.co.domain.model.MyBattleProgressDto
@@ -34,4 +35,7 @@ class BattleRepositoryImpl @Inject constructor(
 
     override suspend fun getMyBattleProgMoreInfo(): MyBattleProgMoreDto =
         dataSource.getMyBattleProgMoreInfo()
+
+    override suspend fun getMyBattleCompMoreInfo(): MyBattleCompMore =
+        dataSource.getMyBattleCompMoreInfo()
 }

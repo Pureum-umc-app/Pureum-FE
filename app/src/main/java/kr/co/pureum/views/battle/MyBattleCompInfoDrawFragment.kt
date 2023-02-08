@@ -11,10 +11,10 @@ import dagger.hilt.android.AndroidEntryPoint
 import kr.co.pureum.R
 import kr.co.pureum.base.BaseFragment
 import kr.co.pureum.databinding.FragmentMyBattleCompInfoBinding
-import kr.co.pureum.databinding.FragmentMyBattleProgInfoBinding
+import kr.co.pureum.databinding.FragmentMyBattleCompInfoDrawBinding
 
 @AndroidEntryPoint
-class MyBattleCompInfoFragment : BaseFragment<FragmentMyBattleCompInfoBinding>(R.layout.fragment_my_battle_comp_info) {
+class MyBattleCompInfoDrawFragment : BaseFragment<FragmentMyBattleCompInfoDrawBinding>(R.layout.fragment_my_battle_comp_info_draw) {
 
     private val viewModel by viewModels<MyBattleCompInfoViewModel>()
 
@@ -27,7 +27,7 @@ class MyBattleCompInfoFragment : BaseFragment<FragmentMyBattleCompInfoBinding>(R
     }
 
     private fun initView() {
-        Log.e("ScreenBuild", "MyBattleCompInfoFragment")
+        Log.e("ScreenBuild", "MyBattleCompInfoDrawFragment")
         viewModel.getMyBattleCompInfo()
         with(binding) {
 

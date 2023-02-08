@@ -1,7 +1,6 @@
 package kr.co.pureum.adapter.battle
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -15,7 +14,7 @@ class MyBattleCompletionAdapter : RecyclerView.Adapter<MyBattleCompletionAdapter
     private var myBattleCompletionList = mutableListOf<MyBattleCompletionDto>()
 
     interface Listener {
-        fun onItemClick(pos: Int)
+        fun onItemClick(pos: Int, type: Int)
     }
 
     private lateinit var completionListener : Listener
@@ -32,10 +31,12 @@ class MyBattleCompletionAdapter : RecyclerView.Adapter<MyBattleCompletionAdapter
                 myBattleWinnerName.text = progressData.winnerNickname.toString()
                 myBattleWinnerProfile.setImageResource(R.drawable.ic_battle_basic_profile)
 
+
                 root.setOnClickListener {
-                    completionListener.onItemClick(position)
+                    completionListener.onItemClick(position, progressData.type)
                 }
             }
+
         }
     }
 

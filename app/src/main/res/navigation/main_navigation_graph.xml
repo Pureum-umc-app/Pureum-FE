@@ -35,6 +35,15 @@
         <action
             android:id="@+id/action_myBattleFragment_to_myBattleProgInfoFragment"
             app:destination="@id/myBattleProgInfoFragment" />
+        <action
+            android:id="@+id/action_myBattleFragment_to_myBattleCompInfoFragment"
+            app:destination="@id/myBattleCompInfoFragment" />
+        <action
+            android:id="@+id/action_myBattleFragment_to_myBattleCompInfoDrawFragment"
+            app:destination="@id/myBattleCompInfoDrawFragment" />
+        <action
+            android:id="@+id/action_myBattleFragment_to_myBattleCompInfoLoseFragment"
+            app:destination="@id/myBattleCompInfoLoseFragment" />
     </fragment>
 
     <fragment
@@ -119,6 +128,27 @@
         android:id="@+id/myBattleProgInfoFragment"
         android:name="kr.co.pureum.views.battle.MyBattleProgInfoFragment"
         android:label="MyBattleProgInfoFragment">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/myBattleCompInfoFragment"
+        android:name="kr.co.pureum.views.battle.MyBattleCompInfoFragment"
+        android:label="MyBattleCompInfoFragment">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/myBattleCompInfoLoseFragment"
+        android:name="kr.co.pureum.views.battle.MyBattleCompInfoLoseFragment"
+        android:label="MyBattleCompInfoLoseFragment">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/myBattleCompInfoDrawFragment"
+        android:name="kr.co.pureum.views.battle.MyBattleCompInfoDrawFragment"
+        android:label="MyBattleCompInfoDrawFragment">
 
     </fragment>
 

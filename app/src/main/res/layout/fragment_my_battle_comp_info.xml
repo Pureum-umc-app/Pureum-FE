@@ -10,27 +10,8 @@
             name="isLoading"
             type="java.lang.Boolean" />
         <variable
-            name="winnerNickname"
-            type="java.lang.String" />
-        <variable
-            name="winnerSentence"
-            type="java.lang.String" />
-        <variable
-            name="winnerSentenceLikeNum"
-            type="java.lang.String" />
-        <variable
-            name="loserNickname"
-            type="java.lang.String" />
-        <variable
-            name="loserSentenceLikeNum"
-            type="java.lang.String" />
-        <variable
-            name="loserSentence"
-            type="java.lang.String" />
-        <variable
-            name="day"
-            type="java.lang.String" />
-
+            name="myBattleCompMoreDto"
+            type="kr.co.domain.model.MyBattleCompMoreDto" />
 
     </data>
 
@@ -44,7 +25,7 @@
             android:id="@+id/my_battle_win_cl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="visible">
+            >
 
             <ImageView
                 android:layout_width="match_parent"
@@ -98,7 +79,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:fontFamily="@font/nanum_square_neo_bold"
-                    android:text="@{winnerNickname, default=`푸름`}"
+                    android:text="@{myBattleCompMoreDto.challengedNickname, default=`푸름`}"
                     android:textSize="14sp" />
 
             </LinearLayout>
@@ -107,7 +88,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="56dp"
-                android:text="@{winnerSentence, default=`황폐화된 자연을 복구하였다.`}"
+                android:text="@{myBattleCompMoreDto.challengedSentence, default=`황폐화된 자연을 복구하였다.`}"
                 android:fontFamily="@font/nanum_square_neo_regular"
                 android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -134,7 +115,7 @@
                 android:fontFamily="@font/nanum_square_neo_regular"
                 android:textSize="12sp"
                 android:textColor="@color/text1"
-                android:text="@{winnerSentenceLikeNum, default=`5`}"
+                android:text="@{Integer.toString(myBattleCompMoreDto.challengedLikeCnt), default=`5`}"
                 app:layout_constraintStart_toEndOf="@id/battle_winner_sentence_like"
                 app:layout_constraintTop_toTopOf="@id/battle_winner_sentence_like"
                 app:layout_constraintBottom_toBottomOf="@id/battle_winner_sentence_like"
@@ -194,7 +175,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@{loserNickname, default=`르미`}"
+                            android:text="@{myBattleCompMoreDto.challengerNickname, default=`르미`}"
                             android:fontFamily="@font/nanum_square_neo_bold"
                             android:textSize="14sp"/>
                     </LinearLayout>
@@ -211,14 +192,14 @@
                         android:layout_height="24dp"
                         android:layout_marginEnd="16dp"
                         android:button="@null"
-                        android:backgroundTint="@color/black"
+                        android:backgroundTint="@null"
                         android:background="@drawable/custom_checkbox_heart"
                         />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{loserSentenceLikeNum, default=`5`}"
+                        android:text="@{Integer.toString(myBattleCompMoreDto.challengerLikeCnt), default=`5`}"
                         android:fontFamily="@font/nanum_square_neo_bold"
                         android:layout_marginEnd="10dp"
                         android:textSize="14sp"/>
@@ -230,7 +211,7 @@
                     android:layout_marginTop="20dp"
                     android:layout_marginBottom="16dp"
                     android:layout_marginHorizontal="16dp"
-                    android:text="@{loserSentence, default=`황폐화된 자연을 복구하였다.`}"
+                    android:text="@{myBattleCompMoreDto.challengerSentence, default=`황폐화된 자연을 복구하였다.`}"
                     android:fontFamily="@font/nanum_square_neo_bold"
                     android:textSize="14sp"/>
             </LinearLayout>
@@ -274,7 +255,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="8dp"
-                        android:text="@{Integer.toString(day), default=10}"
+                        android:text="@{Integer.toString(myBattleCompMoreDto.duration), default=10}"
                         android:fontFamily="@font/nanum_square_neo_bold"
                         android:textSize="40sp"/>
 
@@ -308,535 +289,7 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/my_battle_lose_cl"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:scaleType="fitXY"
-                android:src="@drawable/bg_my_battle_comp"
-                android:contentDescription="@string/bg_battle_final" />
-
-            <ImageView
-                android:id="@+id/lose_battle_win_iv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_battle_win"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginTop="14dp"/>
-
-            <ImageView
-                android:id="@+id/lose_battle_winner_profile"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/lose_battle_win_iv"
-                android:src="@drawable/ic_battle_basic_profile"
-                android:layout_marginTop="17dp"/>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:orientation="horizontal"
-                android:gravity="center"
-                app:layout_constraintStart_toStartOf="@id/lose_battle_winner_profile"
-                app:layout_constraintEnd_toEndOf="@id/lose_battle_winner_profile"
-                app:layout_constraintTop_toBottomOf="@id/lose_battle_winner_profile">
-
-
-                <TextView
-                    android:id="@+id/lose_battle_final_nickname"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:fontFamily="@font/nanum_square_neo_bold"
-                    android:text="@{winnerNickname, default=`푸름`}"
-                    android:textSize="14sp" />
-
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="56dp"
-                android:text="@{winnerSentence, default=`황폐화된 자연을 복구하였다.`}"
-                android:fontFamily="@font/nanum_square_neo_regular"
-                android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/lose_battle_winner_profile"/>
-
-
-            <CheckBox
-                android:id="@+id/lose_battle_winner_sentence_like"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginEnd="20dp"
-                android:button="@null"
-                android:backgroundTint="@color/black"
-                android:background="@drawable/custom_checkbox_heart"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="92dp"
-                app:layout_constraintTop_toBottomOf="@id/lose_battle_winner_profile"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/nanum_square_neo_regular"
-                android:textSize="12sp"
-                android:textColor="@color/text1"
-                android:text="@{winnerSentenceLikeNum, default=`5`}"
-                app:layout_constraintStart_toEndOf="@id/lose_battle_winner_sentence_like"
-                app:layout_constraintTop_toTopOf="@id/lose_battle_winner_sentence_like"
-                app:layout_constraintBottom_toBottomOf="@id/lose_battle_winner_sentence_like"
-                android:layout_marginStart="12dp"/>
-
-
-            <TextView
-                android:id="@+id/lose_my_battle_final_sentence_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/lose_battle_winner_sentence_like"
-                android:layout_marginTop="36dp"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginStart="32dp"
-                android:textColor="@color/text1"
-                android:text="@string/battle_my_sentence"
-                android:fontFamily="@font/nanum_square_neo_bold"
-                android:textSize="14sp"/>
-
-            <LinearLayout
-                android:id="@+id/lose_my_battle_final_loser_sentence_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/lose_my_battle_final_sentence_label"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="36dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginHorizontal="32dp"
-                android:background="@drawable/bg_rectangle_10dp"
-                android:backgroundTint="@null"
-                android:elevation="2dp"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginHorizontal="16dp"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical">
-
-                    <ImageView
-                        android:layout_width="52dp"
-                        android:layout_height="52dp"
-                        android:src="@drawable/bg_default_profile_image"
-                        android:contentDescription="@string/home_rank_profile_image" />
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:orientation="horizontal"
-                        android:gravity="center">
-
-                        <ImageView
-                            android:layout_width="16dp"
-                            android:layout_height="16dp"
-                            android:src="@drawable/ic_me"
-                            android:layout_marginEnd="8dp"
-                            android:contentDescription="@string/me" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@{loserNickname, default=`르미`}"
-                            android:fontFamily="@font/nanum_square_neo_bold"
-                            android:textSize="14sp"/>
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:layout_weight="1" />
-
-
-                    <CheckBox
-                        android:id="@+id/lose_my_battle_sentence_like"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_marginEnd="16dp"
-                        android:button="@null"
-                        android:backgroundTint="@color/black"
-                        android:background="@drawable/custom_checkbox_heart"
-                        />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@{loserSentenceLikeNum, default=`5`}"
-                        android:fontFamily="@font/nanum_square_neo_bold"
-                        android:layout_marginEnd="10dp"
-                        android:textSize="14sp"/>
-
-                </LinearLayout>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="16dp"
-                    android:layout_marginHorizontal="16dp"
-                    android:text="@{loserSentence, default=`황폐화된 자연을 복구하였다.`}"
-                    android:fontFamily="@font/nanum_square_neo_bold"
-                    android:textSize="14sp"/>
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/lose_battle_final_period_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/lose_my_battle_final_loser_sentence_layout"
-                android:layout_marginTop="36dp"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginStart="32dp"
-                android:text="@string/battle_item_period_label"
-                android:fontFamily="@font/nanum_square_neo_bold"
-                android:textSize="14sp"/>
-
-            <LinearLayout
-                android:id="@+id/lose_battle_final_period_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/lose_battle_final_period_label"
-                android:layout_marginTop="16dp"
-                android:layout_marginHorizontal="32dp"
-                android:orientation="horizontal"
-                android:gravity="center">
-
-
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"/>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
-                        android:text="@{Integer.toString(day), default=10}"
-                        android:fontFamily="@font/nanum_square_neo_bold"
-                        android:textSize="40sp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/battle_period_day"
-                        android:fontFamily="@font/nanum_square_neo_bold"
-                        android:textSize="22sp"/>
-                </LinearLayout>
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"/>
-
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/lose_my_battle_final_period_body"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/lose_battle_final_period_layout"
-                android:layout_marginTop="24dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:text="@string/battle_the_end"
-                android:fontFamily="@font/nanum_square_neo_bold"
-                android:textSize="12sp"/>
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/my_battle_draw_cl"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone">
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:scaleType="fitXY"
-            android:src="@drawable/bg_my_battle_comp"
-            android:contentDescription="@string/bg_battle_final" />
-
-            <ImageView
-                android:id="@+id/draw_battle_iv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_battle_draw"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginTop="40dp"/>
-
-            <LinearLayout
-                android:id="@+id/my_battle_final_my_sentence_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/draw_battle_iv"
-                android:layout_marginTop="92dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginHorizontal="32dp"
-                android:background="@drawable/bg_rectangle_10dp"
-                android:backgroundTint="@null"
-                android:elevation="2dp"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginHorizontal="16dp"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical">
-
-                    <ImageView
-                        android:layout_width="52dp"
-                        android:layout_height="52dp"
-                        android:src="@drawable/bg_default_profile_image"
-                        android:contentDescription="@string/home_rank_profile_image" />
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:orientation="horizontal"
-                        android:gravity="center">
-
-                        <ImageView
-                            android:layout_width="16dp"
-                            android:layout_height="16dp"
-                            android:src="@drawable/ic_me"
-                            android:layout_marginEnd="8dp"
-                            android:contentDescription="@string/me" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@{winnerNickname, default=`푸름`}"
-                            android:fontFamily="@font/nanum_square_neo_bold"
-                            android:textSize="14sp"/>
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:layout_weight="1" />
-
-
-                    <CheckBox
-                        android:id="@+id/draw_my_battle_sentence_like"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_marginEnd="16dp"
-                        android:button="@null"
-                        android:backgroundTint="@color/black"
-                        android:background="@drawable/custom_checkbox_heart"
-                        />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@{winnerSentenceLikeNum, default=`5`}"
-                        android:fontFamily="@font/nanum_square_neo_bold"
-                        android:layout_marginEnd="10dp"
-                        android:textSize="14sp"/>
-
-                </LinearLayout>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="16dp"
-                    android:layout_marginHorizontal="16dp"
-                    android:text="@{winnerSentence, default=`황폐화된 자연을 복구하였다.`}"
-                    android:fontFamily="@font/nanum_square_neo_bold"
-                    android:textSize="14sp"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/draw_battle_final_draw_sentence_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/my_battle_final_my_sentence_layout"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="36dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginHorizontal="32dp"
-                android:background="@drawable/bg_rectangle_10dp"
-                android:backgroundTint="@null"
-                android:elevation="2dp"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:id="@+id/draw_battle_final_my_sentence_profile"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginHorizontal="16dp"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical">
-
-                    <ImageView
-                        android:layout_width="52dp"
-                        android:layout_height="52dp"
-                        android:src="@drawable/bg_default_profile_image"
-                        android:contentDescription="@string/home_rank_profile_image" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:text="@{loserNickname, default=`르미`}"
-                        android:fontFamily="@font/nanum_square_neo_bold"
-                        android:textSize="14sp"/>
-
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:layout_weight="1" />
-
-
-                    <CheckBox
-                        android:id="@+id/draw_my_battle_op_sentence_like"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_marginEnd="16dp"
-                        android:button="@null"
-                        android:backgroundTint="@color/black"
-                        android:background="@drawable/custom_checkbox_heart"
-                        />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@{loserSentenceLikeNum, default=`5`}"
-                        android:fontFamily="@font/nanum_square_neo_bold"
-                        android:layout_marginEnd="10dp"
-                        android:textSize="14sp"/>
-
-                </LinearLayout>
-
-                <TextView
-                    android:id="@+id/draw_battle_final_my_sentence"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="16dp"
-                    android:layout_marginHorizontal="16dp"
-                    android:text="@{loserSentence, default=`황폐화된 자연을 복구하였다.`}"
-                    android:fontFamily="@font/nanum_square_neo_bold"
-                    android:textSize="14sp"/>
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/draw_battle_final_period_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/draw_battle_final_draw_sentence_layout"
-                android:layout_marginTop="36dp"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginStart="32dp"
-                android:text="@string/battle_item_period_label"
-                android:fontFamily="@font/nanum_square_neo_bold"
-                android:textSize="14sp"/>
-
-            <LinearLayout
-                android:id="@+id/draw_battle_final_period_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/draw_battle_final_period_label"
-                android:layout_marginTop="16dp"
-                android:layout_marginHorizontal="32dp"
-                android:orientation="horizontal"
-                android:gravity="center">
-
-
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"/>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
-                        android:text="@{Integer.toString(day), default=10}"
-                        android:fontFamily="@font/nanum_square_neo_bold"
-                        android:textSize="40sp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/battle_period_day"
-                        android:fontFamily="@font/nanum_square_neo_bold"
-                        android:textSize="22sp"/>
-                </LinearLayout>
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"/>
-
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/draw_my_battle_final_period_body"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/draw_battle_final_period_layout"
-                android:layout_marginTop="24dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:text="@string/battle_the_end"
-                android:fontFamily="@font/nanum_square_neo_bold"
-                android:textSize="12sp"/>
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+     ..
 
     </ScrollView>
 </layout>

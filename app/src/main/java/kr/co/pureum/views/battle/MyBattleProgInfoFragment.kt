@@ -42,11 +42,6 @@ class MyBattleProgInfoFragment : BaseFragment<FragmentMyBattleProgInfoBinding>(R
         Log.e("ScreenBuild", "MyBattleProgInfoFragment")
         viewModel.getMyBattleProgressInfo()
         with(binding) {
-//            isLoading = false
-//            day = 3
-//            nickname = "푸름"
-
-
         }
 
     }
@@ -59,19 +54,7 @@ class MyBattleProgInfoFragment : BaseFragment<FragmentMyBattleProgInfoBinding>(R
 
     private fun observe() {
         viewModel.myBattleProgressListLiveData.observe(viewLifecycleOwner) {
-            with(binding) {
-                isLoading = false
-                keyword = it.keyword.toString()
-                nickname = it.nickname.toString()
-                mySentence = it.mySentence.toString()
-                opponentNickname = it.opponentNickname.toString()
-                day = it.day.toInt()
-                opponentSentence = it.opponentSentence.toString()
-                mySentenceLikeNum = it.mySentenceLikeNum
-                opSentenceLikeNum = it.opSentenceLikeNum.toInt()
-                mySentenceLike = it.mySentenceLike
-                opSentenceLike = it.opSentenceLike
-        }
+            binding.myBattleProgMoreDto = it
 
         }
     }

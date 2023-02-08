@@ -1,5 +1,6 @@
 package kr.co.domain.repository
 
+import kr.co.domain.model.MyBattleCompMore
 import kr.co.domain.model.MyBattleCompletionDto
 import kr.co.domain.model.MyBattleProgMoreDto
 import kr.co.domain.model.MyBattleProgressDto
@@ -15,4 +16,5 @@ interface BattleRepository {
     suspend fun getOpponentsList() : List<OpponentDto>
     suspend fun getAdditionalOpponents(position: Int, itemCount: Int) : List<OpponentDto>
     suspend fun getMyBattleProgMoreInfo() : MyBattleProgMoreDto
+    suspend fun getMyBattleCompMoreInfo() : MyBattleCompMore
 }
