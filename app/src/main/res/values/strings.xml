@@ -30,6 +30,7 @@
     <string name="thu">목</string>
     <string name="fri">금</string>
     <string name="sat">토</string>
+    <string name="home_goal_time_temp">10시간</string>
 
     <!--  RankingFragment  -->
     <string name="ranking_left_button">왼쪽</string>
@@ -174,5 +175,48 @@
     <string name="battle_final_next_button">대결을 신청합니다!</string>
     <string name="battle_final_period_body">상대와 대결을 진행할 기간을 설정해주세요.\n기간 내에 많은 좋아요를 받은 친구가 승리합니다.</string>
     <string name="battle_final_period_tip">대결 신청 완료 시 문장 수정이 불가능합니다.</string>
-    <string name="home_goal_time_temp">10시간</string>
+    <string name="battle_request_dialog_title">대결 신청 완료</string>
+    <string name="battle_request_keyword_label">키워드</string>
+    <string name="battle_request_period_label">대결 기간</string>
+    <string name="battle_request_period">%d일</string>
+    <string name="battle_request_my_battle_button">내 대결 보러가기</string>
+    <string name="battle_request_exit_button">나가기</string>
+
+
+    <!-- BadgeFragment -->
+    <string name="badge_toolbar_title">배지</string>
+    <string name="badge_recent">최근 획득 배지</string>
+    <string name="badge_no_badge">아직 획득한 배지가 없습니다.</string>
+    <string name="badge_count">획득한 배지 개수: %d개</string>
+    <string name="badge_name_locked">잠김</string>
+    <string name="badge_name_1">1번 배지</string>
+    <string name="badge_name_2">2번 배지</string>
+    <string name="badge_name_3">3번 배지</string>
+    <string name="badge_name_4">4번 배지</string>
+    <string name="badge_name_5">5번 배지</string>
+    <string name="badge_name_6">6번 배지</string>
+    <string name="badge_name_7">7번 배지</string>
+    <string name="badge_name_8">8번 배지</string>
+    <string name="badge_name_9">9번 배지</string>
+    <string name="badge_info_default">배지 설명</string>
+    <string name="badge_info_1_true">성실하게 푸름에 30일 누적 출석한\n당신에게 배지를 드려요.</string>
+    <string name="badge_info_1_false">성실하게 푸름에 30일 누적 출석 시\n배지를 획득할 수 있어요.</string>
+    <string name="badge_info_2_true">설정한 목표시간 첫 달성을 축하합니다!\n푸름과 계속 목표 달성 함께 해봐요.</string>
+    <string name="badge_info_2_false">친구들의 도전에 좋아요 30개를 달아주면\n배지를 획득할 수 있어요.</string>
+    <string name="badge_info_3_true">친구들의 도전에 좋아요를 30개나\n달아주었어요. 계속 친구들을 응원해주세요!</string>
+    <string name="badge_info_3_false">설정한 목표시간에 처음으로 달성하면\n배지를 획득할 수 있어요.</string>
+    <string name="badge_info_4_true">친구들과의 도전에서 3번이나 승리를\n거둔 당신을 칭찬합니다!</string>
+    <string name="badge_info_4_false">친구들과의 도전에서 3번 승리하면\n배지를 획득할 수 있어요.</string>
+    <string name="badge_info_5_true">벌써 친구들에게 10번 도전을 신청했어요.\n즐거운 도전을 응원합니다!</string>
+    <string name="badge_info_5_false">친구들에게 10번 도전을 신청하면\n배지를 획득할 수 있어요.</string>
+    <string name="badge_info_6_true">3일 동안 휴대폰을 5시간 이하로 사용한\n당신에게 배지를 드려요..</string>
+    <string name="badge_info_6_false">3일 동안 휴대폰을 5시간 이하로 사용하면\n배지를 획득할 수 있어요.</string>
+    <string name="badge_info_7_true">휴대폰 일일 사용시간을 줄여 전체 랭킹\n30위권 안에 진입을 성공했어요!</string>
+    <string name="badge_info_7_false">사용시간 랭킹 30위권 안에 들면\n배지를 획득할 수 있어요.</string>
+    <string name="badge_info_8_true">푸름 첫 방문을 환영합니다!\n당신의 시작을 응원할게요.</string>
+    <string name="badge_info_8_false">푸름에 처음 방분하시면\n배지를 획득할 수 있어요.</string>
+    <string name="badge_info_9_true">문장을 30개나 작성했어요.\n문해력 상승 성공!</string>
+    <string name="badge_info_9_false">한 문장 챌린지에서 문장을 30개 작성하면\n배지를 획득할 수 있어요.</string>
+    <string name="badge_dialog_button">획득 배지 보러 가기</string>
+    <string name="badge_dialog_achieve">획득!</string>
 </resources>

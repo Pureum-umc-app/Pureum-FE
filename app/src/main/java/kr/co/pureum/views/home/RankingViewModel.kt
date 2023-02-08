@@ -11,6 +11,7 @@ import ko.co.data.remote.PureumService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kr.co.domain.model.Rank
 import kr.co.domain.model.UserRankDto
 import kr.co.domain.repository.RankingRepository
 import java.time.LocalDate
@@ -26,11 +27,12 @@ class RankingViewModel @Inject constructor(
         const val PLUS = 2
     }
 
-    private var _myRankLiveData = MutableLiveData<UserRankDto>()
-    private var _prevRankList : MutableList<UserRankDto> = mutableListOf()
-    private var _prevRankListLiveData = MutableLiveData<List<UserRankDto>>()
-    val prevRankListLiveData: LiveData<List<UserRankDto>> = _prevRankListLiveData
-    val myRankLiveDate : LiveData<UserRankDto> = _myRankLiveData
+    private var _myRankLiveData = MutableLiveData<Rank>()
+    private var _prevRankList : MutableList<Rank> = mutableListOf()
+    private var _prevRankListLiveData = MutableLiveData<List<Rank>>()
+
+    val prevRankListLiveData: LiveData<List<Rank>> = _prevRankListLiveData
+    val myRankLiveDate : LiveData<Rank> = _myRankLiveData
 
     @RequiresApi(Build.VERSION_CODES.O)
     var localDate : LocalDate = LocalDate.now()
@@ -67,7 +69,7 @@ class RankingViewModel @Inject constructor(
 
     fun getAdditionalRankInfo() {
         viewModelScope.launch {
-            val res = repository.getMoreRankInfo()
+            val res = repository.getMoreRankInfo(_prevRankList.size)
 
             _prevRankList.addAll(res)
             _prevRankListLiveData.value = _prevRankList

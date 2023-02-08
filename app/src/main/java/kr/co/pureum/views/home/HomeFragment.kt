@@ -1,9 +1,11 @@
 package kr.co.pureum.views.home
 
 import android.app.Dialog
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
@@ -28,12 +30,14 @@ import kr.co.pureum.databinding.BottomSheetCalendarBinding
 import kr.co.pureum.databinding.BottomSheetSetGoalTimeBinding
 import kr.co.pureum.databinding.DialogDefaultBinding
 import kr.co.pureum.databinding.FragmentHomeBinding
+import kr.co.pureum.di.PureumApplication.Companion.spfManager
 import kr.co.pureum.views.MainActivity
 import java.time.LocalDate
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     private val viewModel by viewModels<HomeViewModel>()
+    private var _isLoading: Boolean = true
 
     @RequiresApi(Build.VERSION_CODES.O)
     private val today = LocalDate.now()
@@ -75,6 +79,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         }
         with(binding) {
             isLoading = true
+            _isLoading = true
             isToday = true
             homeUsageTimeViewPager.apply {
                 adapter = UsageTimeAdapter()
@@ -85,32 +90,33 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                 registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                     override fun onPageSelected(position: Int) {
                         super.onPageSelected(position)
-                        viewModel.usageTimeLiveData.value?.let {
-                            val date = LocalDate.of(it[position].year, it[position].month, it[position].day)
+                        viewModel.homeInfoListLiveData.value?.let {
+                            val dateValue = it[position].date.split("-").map { s -> s.toInt() }
+                            binding.dateValue = dateValue
+                            val date = LocalDate.of(dateValue[0], dateValue[1], dateValue[2])
                             isToday = when(date.isEqual(today)) {
                                 true -> {
                                     homeGoalTimeLayout.isClickable = true
-                                    homeGoalTime.text = if (it[position].goalTime == 0) "설정하기"
-                                    else "${it[position].goalTime}시간"
-                                    screenCount = it[position].screenCount
+                                    homeGoalTime.text = if (spfManager.checkPurposeTime()) "${spfManager.getPurposeTime() / 60}시간"
+                                    else "설정하기"
+                                    screenCount = it[position].count
                                     true
                                 }
                                 else -> {
                                     homeGoalTimeLayout.isClickable = false
-                                    viewModel.changeDate(date.year, date.monthValue, date.dayOfMonth)
-                                    homeGoalTime.text = if(it[position].isSuccess) "달성 성공!" else "시간 초과"
-                                    screenCount = it[position].screenCount
+                                    viewModel.changeDate(date)
+                                    homeGoalTime.text = if(it[position].purposeTime.minutes >= it[position].useTime.minutes) "달성 성공!" else "시간 초과"
+                                    screenCount = it[position].count
                                     false
                                 }
                             }
-                            usageTimeDto = it[position]
                         }
                     }
                 })
             }
             homeRankRecyclerView.apply {
                 adapter = RankingAdapter()
-                layoutManager = LinearLayoutManager(requireContext())
+                layoutManager = LinearLayoutManager(requireActivity())
                 isNestedScrollingEnabled = false
             }
         }
@@ -123,9 +129,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                 findNavController().navigate(action)
             }
             homeGoalTimeLayout.setOnClickListener {
-                showGoalTimeDialog( when(viewModel.homeResponseLiveData.value!!.goalTime) {
-                    -1 -> 1
-                    else -> viewModel.homeResponseLiveData.value!!.goalTime/60
+                showGoalTimeDialog( when(spfManager.checkPurposeTime()) {
+                    true -> spfManager.getPurposeTime() / 60
+                    else -> 1
                 })
             }
         }
@@ -133,15 +139,17 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun observe() {
-        viewModel.homeResponseLiveData.observe(viewLifecycleOwner) {
-            with(binding.homeUsageTimeViewPager) {
-                (adapter as UsageTimeAdapter).setData(it.prevUsageTime)
-                setCurrentItem(it.prevUsageTime.size, false)
+        viewModel.homeInfoListLiveData.observe(viewLifecycleOwner) {
+            if (_isLoading) {
+                with(binding.homeUsageTimeViewPager) {
+                    (adapter as UsageTimeAdapter).setData(it)
+                    // currentItem = adapter!!.itemCount - 1
+                    setCurrentItem(it.size, false)
+                }
+                viewModel.changeDate(today.minusDays(1))
+                binding.isLoading = false
+                _isLoading = false
             }
-            today.minusDays(1).apply {
-                viewModel.changeDate(year, monthValue, dayOfMonth)
-            }
-            binding.isLoading = false
         }
         viewModel.prevRankLiveData.observe(viewLifecycleOwner) {
             (binding.homeRankRecyclerView.adapter as RankingAdapter).setData(it, RankingAdapter.HOME)
@@ -149,13 +157,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         viewModel.updatedGoalTimeLiveData.observe(viewLifecycleOwner) {
             with(binding) {
                 (homeUsageTimeViewPager.adapter as UsageTimeAdapter)
-                    .updateData(
-                        viewModel.homeResponseLiveData.value!!.prevUsageTime,
-                        ContextCompat.getColor(requireContext(),
-                            if (it < viewModel.usageTimeLiveData.value!![viewModel.usageTimeLiveData.value!!.size - 1].usageTime) R.color.sub1
-                            else R.color.main1
-                        )
-                    )
+                    .updateData(viewModel.homeInfoListLiveData.value!!)
                 homeGoalTime.text = "${it/60}시간"
                 isLoading = false
             }

@@ -103,7 +103,7 @@ class RankingFragment : BaseFragment<FragmentRankingBinding>(R.layout.fragment_r
             binding.isLoading = false
         }
         viewModel.myRankLiveDate.observe(viewLifecycleOwner) {
-            binding.userRankDto = it
+            binding.rank = it
         }
     }
 
