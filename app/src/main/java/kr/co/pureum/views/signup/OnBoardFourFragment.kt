@@ -30,28 +30,34 @@ class OnBoardFourFragment : BaseFragment<FragmentOnBoardFourBinding>(R.layout.fr
         super.onViewCreated(view, savedInstanceState)
         initView()
         initListener()
+        observe()
     }
 
-    private fun initView() {
-        if (PureumApplication.spfManager.checkUserToken()) {
-            val intent = Intent(requireContext(), MainActivity::class.java).apply {
-                putExtra("screen", 1)
-            }
-            startActivity(intent)
-            requireActivity().finish()
-        } else {
-            binding.kakaoLoginIb.visibility = View.VISIBLE
-        }
-    }
+    private fun initView() {}
 
     private fun initListener() {
         with(binding) {
             kakaoLoginIb.setOnClickListener {
                 kakaoLogin()
-//                bottomSheetOpen()
             }
             kakaoTempButton.setOnClickListener {
                 kakaoLogout()
+            }
+        }
+    }
+
+    private fun observe() {
+        viewModel.userTokenLiveData.observe(viewLifecycleOwner) {
+            when (it) {
+                "error" -> bottomSheetOpen()
+                else -> {
+                    PureumApplication.spfManager.setUserToken(it)
+                    val intent = Intent(requireContext(), MainActivity::class.java).apply {
+                        putExtra("screen", 1)
+                    }
+                    startActivity(intent)
+                    requireActivity().finish()
+                }
             }
         }
     }
@@ -83,6 +89,7 @@ class OnBoardFourFragment : BaseFragment<FragmentOnBoardFourBinding>(R.layout.fr
         } else if (token != null) {
             Log.i(TAG, "카카오계정으로 로그인 성공 ${token.accessToken}")
             startLogin()
+            viewModel.login(token.accessToken)
         }
     }
 
@@ -157,6 +164,7 @@ class OnBoardFourFragment : BaseFragment<FragmentOnBoardFourBinding>(R.layout.fr
                 bottomSheetDialog?.dismiss()
                 val intent = Intent(activity?.applicationContext, SignUpProfileActivity::class.java)
                 startActivity(intent)
+                requireActivity().finish()
                 activity?.overridePendingTransition(R.anim.rightin_activity,R.anim.not_move_activity)
 
 //                finish()
