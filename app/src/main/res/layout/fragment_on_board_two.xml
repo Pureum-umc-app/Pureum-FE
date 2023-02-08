@@ -4,63 +4,46 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".views.signup.OnBoardTwoFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
 
         <TextView
-            android:id="@+id/on_board_ddingdong"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text=""
             android:textColor="@color/main1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             android:textAlignment="center"
             android:fontFamily="@font/nanum_square_neo_bold"
             android:textSize="22sp"/>
 
         <TextView
-            android:id="@+id/on_board_badge_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
             android:text="@string/onboard_badge"
             android:fontFamily="@font/nanum_square_neo_bold"
             android:textSize="22sp"
             android:textColor="@color/text1"
-            android:textAlignment="center"
-            android:layout_marginTop="5dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/on_board_ddingdong"/>
+            android:textAlignment="center"/>
 
         <ImageView
-            android:id="@+id/on_board_badge_iv"
             android:layout_width="match_parent"
             android:layout_height="322dp"
-            android:src="@drawable/ic_onboard_badge"
+            android:layout_marginTop="32dp"
             android:layout_marginHorizontal="32dp"
-            android:layout_marginTop="100dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/on_board_badge_tv"/>
+            android:src="@drawable/ic_onboard_badge"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
             android:text="@string/onboard_sec"
             android:textColor="@color/text1"
             android:textSize="16sp"
             android:textAlignment="center"
-            android:layout_marginTop="100dp"
-            android:fontFamily="@font/nanum_square_neo_bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/on_board_badge_iv"
-            app:layout_constraintEnd_toEndOf="parent"/>
-
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
+            android:fontFamily="@font/nanum_square_neo_bold"/>
+    </LinearLayout>
 </layout>

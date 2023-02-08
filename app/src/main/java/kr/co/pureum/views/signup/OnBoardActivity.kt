@@ -1,14 +1,13 @@
 package kr.co.pureum.views.signup
 
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import androidx.viewpager2.widget.ViewPager2
+import dagger.hilt.android.AndroidEntryPoint
 import kr.co.pureum.R
 import kr.co.pureum.adapter.signup.OnBoardVPFragmentAdapter
 import kr.co.pureum.base.BaseActivity
 import kr.co.pureum.databinding.ActivityOnBoardBinding
 
+@AndroidEntryPoint
 class OnBoardActivity : BaseActivity<ActivityOnBoardBinding>(R.layout.activity_on_board) {
 
     override fun initView() {
@@ -17,7 +16,7 @@ class OnBoardActivity : BaseActivity<ActivityOnBoardBinding>(R.layout.activity_o
 
     }
 
-    fun setViewPager(){
+    private fun  setViewPager(){
         // 1) ViewPager2 참조
         val viewPager: ViewPager2 = findViewById(R.id.on_board_viewPager)
 
