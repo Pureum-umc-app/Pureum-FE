@@ -7,7 +7,6 @@ import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import kr.co.domain.model.DataSentence
@@ -77,6 +76,10 @@ class QuestFragment : BaseFragment<FragmentQuestBinding>(R.layout.fragment_quest
             }
             questBadgeButton.setOnClickListener {
                 val action = QuestFragmentDirections.actionQuestFragmentToQuestBadgeFragment()
+                findNavController().navigate(action)
+            }
+            questAttendanceGoLl.setOnClickListener {
+                val action = QuestFragmentDirections.actionQuestFragmentToQuestAttendanceFragment()
                 findNavController().navigate(action)
             }
         }
