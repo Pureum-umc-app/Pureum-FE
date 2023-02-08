@@ -1,19 +1,28 @@
 package kr.co.pureum.views.signup
 
+import android.content.Intent
 import androidx.viewpager2.widget.ViewPager2
 import dagger.hilt.android.AndroidEntryPoint
 import kr.co.pureum.R
 import kr.co.pureum.adapter.signup.OnBoardVPFragmentAdapter
 import kr.co.pureum.base.BaseActivity
 import kr.co.pureum.databinding.ActivityOnBoardBinding
+import kr.co.pureum.di.PureumApplication
+import kr.co.pureum.views.MainActivity
 
 @AndroidEntryPoint
 class OnBoardActivity : BaseActivity<ActivityOnBoardBinding>(R.layout.activity_on_board) {
 
     override fun initView() {
-
+        // 자동 로그인 ( 디버깅을 위해 꺼둠 )
+//        if (PureumApplication.spfManager.checkUserToken()) {
+//            val intent = Intent(this, MainActivity::class.java).apply {
+//                putExtra("screen", 1)
+//            }
+//            startActivity(intent)
+//            finish()
+//        }
         setViewPager()
-
     }
 
     private fun  setViewPager(){
