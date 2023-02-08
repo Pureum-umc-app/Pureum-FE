@@ -129,17 +129,6 @@
     <string name="battle_waiting_label">대기 중인 대결</string>
     <string name="battle_more"><u>전체 보기</u> ></string>
     <string name="text_letter_challenge">리사이클러뷰를 구현했습니다.</string>
-
-    <!-- ProfileFragment -->
-    <string name="account_info">계정 정보</string>
-    <string name="profile_setting">프로필 설정</string>
-    <string name="logout">로그아웃</string>
-    <string name="membership_withdrawal">회원탈퇴</string>
-    <string name="set_nickname">닉네임</string>
-    <string name="edit_nickname">닉네임 입력 (최대 10자)</string>
-    <string name="set_ok">완료</string>
-    <string name="present_nickname">현재 닉네임: 르미</string>
-    <string name="my_text">MY</string>
     <string name="battle_item_period_label">대결 기간</string>
     <string name="battle_item_period">%d일</string>
     <string name="battle_fragment_indicator">BattleFragmentIndicator</string>
@@ -181,7 +170,17 @@
     <string name="battle_request_period">%d일</string>
     <string name="battle_request_my_battle_button">내 대결 보러가기</string>
     <string name="battle_request_exit_button">나가기</string>
-
+    
+    <!-- ProfileFragment -->
+    <string name="account_info">계정 정보</string>
+    <string name="profile_setting">프로필 설정</string>
+    <string name="logout">로그아웃</string>
+    <string name="membership_withdrawal">회원탈퇴</string>
+    <string name="set_nickname">닉네임</string>
+    <string name="edit_nickname">닉네임 입력 (최대 10자)</string>
+    <string name="set_ok">완료</string>
+    <string name="present_nickname">현재 닉네임: 르미</string>
+    <string name="my_text">MY</string>
 
     <!-- BadgeFragment -->
     <string name="badge_toolbar_title">배지</string>
