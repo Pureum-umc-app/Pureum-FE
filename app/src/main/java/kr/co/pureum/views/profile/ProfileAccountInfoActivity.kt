@@ -1,7 +1,6 @@
 package kr.co.pureum.views.profile
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
+import android.content.Intent
 import android.view.MenuItem
 import kr.co.pureum.R
 import kr.co.pureum.base.BaseActivity
@@ -10,6 +9,16 @@ import kr.co.pureum.databinding.ActivityProfileAccountInfoBinding
 class ProfileAccountInfoActivity : BaseActivity<ActivityProfileAccountInfoBinding>(R.layout.activity_profile_account_info) {
     override fun initView() {
         initToolbar()
+        initListener()
+    }
+
+    private fun initListener() {
+        with(binding) {
+            profileSettingButton.setOnClickListener {
+                val intent = Intent(this@ProfileAccountInfoActivity, ProfileSettingActivity::class.java)
+                startActivity(intent)
+            }
+        }
     }
 
     private fun initToolbar() {
