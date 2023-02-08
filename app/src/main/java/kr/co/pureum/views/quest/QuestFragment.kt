@@ -1,26 +1,27 @@
 package kr.co.pureum.views.quest
 
 import android.app.Activity
+import android.content.ContentValues.TAG
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import dagger.hilt.android.AndroidEntryPoint
 import kr.co.domain.model.DataSentence
 import kr.co.pureum.R
 import kr.co.pureum.adapter.quest.DataSentenceRVAdapter
 import kr.co.pureum.base.BaseFragment
 import kr.co.pureum.databinding.FragmentQuestBinding
-import kr.co.pureum.views.profile.ProfileFragmentDirections
 
-
+@AndroidEntryPoint
 class QuestFragment : BaseFragment<FragmentQuestBinding>(R.layout.fragment_quest) {
-    //private val viewModel by viewModels<QuestViewModel>()
+    private val viewModel by viewModels<QuestViewModel>()
     private val dataSentenceList : ArrayList<DataSentence> = arrayListOf()
-    private val dataSentenceAdapter = DataSentenceRVAdapter(dataSentenceList)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -28,6 +29,7 @@ class QuestFragment : BaseFragment<FragmentQuestBinding>(R.layout.fragment_quest
         initView()
         initApplySentenceView()
         initListener()
+        observe()
         activity?.let { updateStatusBarColor(it, "#D8ECFF") }
         if (requireActivity().intent.hasExtra("badge")){
             activity?.let { updateStatusBarColor(it, "#F8F8F8") }
@@ -58,6 +60,8 @@ class QuestFragment : BaseFragment<FragmentQuestBinding>(R.layout.fragment_quest
 
     private fun initView() {
         Log.e("ScreenBuild", "QuestFragment")
+        binding.isLoading = true
+        viewModel.getSentencesIncomplete()
         binding.nickname = "태우"
     }
 
@@ -92,21 +96,15 @@ class QuestFragment : BaseFragment<FragmentQuestBinding>(R.layout.fragment_quest
         managerSentence.stackFromEnd = true
         binding.questKeywordViewRv.layoutManager = managerSentence
         binding.questKeywordViewRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        binding.questKeywordViewRv.adapter = dataSentenceAdapter
-
-        dataSentenceList.clear()
-        dataSentenceList.apply {
-            add(DataSentence("구현"))
-            add(DataSentence("바보"))
-            add(DataSentence( "호구"))
-        }
+        binding.questKeywordViewRv.adapter = DataSentenceRVAdapter()
     }
-    /*
+
     private fun observe() {
         viewModel.todayKeywordLiveData.observe(viewLifecycleOwner) {
-            (binding.questKeywordViewRv.adapter as DataSentenceRVAdapter)
+            (binding.questKeywordViewRv.adapter as DataSentenceRVAdapter).setData(it)
+            binding.isLoading = false
+            Log.e(TAG, it.toString())
         }
     }
-    */
 
 }

@@ -3,14 +3,14 @@ package kr.co.pureum.adapter.quest
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import kr.co.domain.model.DataSentence
 import kr.co.pureum.databinding.ItemSentenceBinding
 
-class DataSentenceRVAdapter(private var dataSentenceList: ArrayList<DataSentence>) : RecyclerView.Adapter<DataSentenceRVAdapter.DataSentenceViewHolder>() {
+class DataSentenceRVAdapter : RecyclerView.Adapter<DataSentenceRVAdapter.DataSentenceViewHolder>() {
+    private var dataSentenceList = mutableListOf<String>()
 
     inner class DataSentenceViewHolder(private val binding: ItemSentenceBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(dataSentence: DataSentence, position: Int) {
-            binding.keyword = dataSentence.sentence
+        fun bind(keyword: String, position: Int) {
+            binding.keyword = keyword
             if (position == 0) {
                 val scale = binding.sentenceLayout.resources.displayMetrics.density
                 (binding.sentenceLayout.layoutParams as ViewGroup.MarginLayoutParams).marginStart = (24 * scale).toInt()
@@ -32,7 +32,7 @@ class DataSentenceRVAdapter(private var dataSentenceList: ArrayList<DataSentence
 
     override fun getItemCount(): Int = dataSentenceList.size
 
-    fun setData(data: ArrayList<DataSentence>) {
+    fun setData(data: List<String>) {
         dataSentenceList.clear()
         dataSentenceList.addAll(data)
         notifyDataSetChanged()

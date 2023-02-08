@@ -12,13 +12,11 @@ import ko.co.data.source.home.HomeDataSource
 import ko.co.data.source.home.HomeRepositoryImpl
 import ko.co.data.source.login.LoginDataSource
 import ko.co.data.source.login.LoginRepositoryImpl
+import ko.co.data.source.quest.QuestSentenceDataSource
+import ko.co.data.source.quest.QuestSentenceRepositoryImpl
 import ko.co.data.source.ranking.RankingDataSource
 import ko.co.data.source.ranking.RankingRepositoryImpl
-import kr.co.domain.repository.BadgeRepository
-import kr.co.domain.repository.BattleRepository
-import kr.co.domain.repository.HomeRepository
-import kr.co.domain.repository.LoginRepository
-import kr.co.domain.repository.RankingRepository
+import kr.co.domain.repository.*
 import javax.inject.Singleton
 
 @Module
@@ -48,4 +46,9 @@ object RepositoryModule {
     @Singleton
     fun providesBadgeRepository(badgeDataSource: BadgeDataSource) : BadgeRepository =
         BadgeRepositoryImpl(badgeDataSource)
+
+    @Provides
+    @Singleton
+    fun providesQuestRepository(questSentenceDataSource: QuestSentenceDataSource) : QuestRepository =
+        QuestSentenceRepositoryImpl(questSentenceDataSource)
 }
