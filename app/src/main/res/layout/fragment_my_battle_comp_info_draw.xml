@@ -27,6 +27,25 @@ tools:context=".views.battle.MyBattleCompInfoDrawFragment">
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:paddingHorizontal="8dp"
+            android:background="@color/bg"
+            android:backgroundTint="@color/main3"
+            app:elevation="0dp"
+            android:theme="@style/ThemeOverlay.AppCompat.ActionBar">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/main_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"/>
+        </com.google.android.material.appbar.AppBarLayout>
+
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -35,6 +54,7 @@ tools:context=".views.battle.MyBattleCompInfoDrawFragment">
             app:layout_constraintEnd_toEndOf="parent"
             android:scaleType="fitXY"
             android:src="@drawable/bg_my_battle_comp"
+            android:layout_marginTop="50dp"
             android:contentDescription="@string/bg_battle_final" />
 
         <ImageView
@@ -45,7 +65,7 @@ tools:context=".views.battle.MyBattleCompInfoDrawFragment">
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="40dp"/>
+            android:layout_marginTop="50dp"/>
 
         <LinearLayout
             android:id="@+id/my_battle_final_my_sentence_layout"
@@ -92,7 +112,7 @@ tools:context=".views.battle.MyBattleCompInfoDrawFragment">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{myBattleCompMoreDto.challengedNickname, default=`푸름`}"
+                        android:text="@{myBattleCompMoreDto.winnerNickname, default=`푸름`}"
                         android:fontFamily="@font/nanum_square_neo_bold"
                         android:textSize="14sp"/>
                 </LinearLayout>
@@ -109,14 +129,14 @@ tools:context=".views.battle.MyBattleCompInfoDrawFragment">
                     android:layout_height="24dp"
                     android:layout_marginEnd="16dp"
                     android:button="@null"
-                    android:backgroundTint="@color/black"
+                    android:backgroundTint="@null"
                     android:background="@drawable/custom_checkbox_heart"
                     />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{myBattleCompMoreDto.challengedLikeCnt, default=`5`}"
+                    android:text="@{myBattleCompMoreDto.winnerLikeCnt, default=`5`}"
                     android:fontFamily="@font/nanum_square_neo_bold"
                     android:layout_marginEnd="10dp"
                     android:textSize="14sp"/>
@@ -129,7 +149,7 @@ tools:context=".views.battle.MyBattleCompInfoDrawFragment">
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="16dp"
                 android:layout_marginHorizontal="16dp"
-                android:text="@{myBattleCompMoreDto.challengedSentence, default=`황폐화된 자연을 복구하였다.`}"
+                android:text="@{myBattleCompMoreDto.winnerSentence, default=`황폐화된 자연을 복구하였다.`}"
                 android:fontFamily="@font/nanum_square_neo_bold"
                 android:textSize="14sp"/>
         </LinearLayout>
@@ -168,7 +188,7 @@ tools:context=".views.battle.MyBattleCompInfoDrawFragment">
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:text="@{myBattleCompMoreDto.challengerNickname, default=`르미`}"
+                    android:text="@{myBattleCompMoreDto.loserNickname, default=`르미`}"
                     android:fontFamily="@font/nanum_square_neo_bold"
                     android:textSize="14sp"/>
 
@@ -184,14 +204,14 @@ tools:context=".views.battle.MyBattleCompInfoDrawFragment">
                     android:layout_height="24dp"
                     android:layout_marginEnd="16dp"
                     android:button="@null"
-                    android:backgroundTint="@color/black"
+                    android:backgroundTint="@null"
                     android:background="@drawable/custom_checkbox_heart"
                     />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{myBattleCompMoreDto.challengerLikeCnt, default=`5`}"
+                    android:text="@{myBattleCompMoreDto.loserLikeCnt, default=`5`}"
                     android:fontFamily="@font/nanum_square_neo_bold"
                     android:layout_marginEnd="10dp"
                     android:textSize="14sp"/>
@@ -205,7 +225,7 @@ tools:context=".views.battle.MyBattleCompInfoDrawFragment">
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="16dp"
                 android:layout_marginHorizontal="16dp"
-                android:text="@{myBattleCompMoreDto.challengerSentence, default=`황폐화된 자연을 복구하였다.`}"
+                android:text="@{myBattleCompMoreDto.loserSentence, default=`황폐화된 자연을 복구하였다.`}"
                 android:fontFamily="@font/nanum_square_neo_bold"
                 android:textSize="14sp"/>
         </LinearLayout>

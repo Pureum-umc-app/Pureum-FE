@@ -26,6 +26,9 @@
         <action
             android:id="@+id/action_battleFragment_to_myBattleFragment"
             app:destination="@id/myBattleFragment" />
+        <action
+            android:id="@+id/action_battleFragment_to_allBattleFragment"
+            app:destination="@id/allBattleFragment" />
     </fragment>
 
     <fragment
@@ -149,6 +152,13 @@
         android:id="@+id/myBattleCompInfoDrawFragment"
         android:name="kr.co.pureum.views.battle.MyBattleCompInfoDrawFragment"
         android:label="MyBattleCompInfoDrawFragment">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/allBattleFragment"
+        android:name="kr.co.pureum.views.battle.AllBattleFragment"
+        android:label="AllBattleFragment">
 
     </fragment>
 

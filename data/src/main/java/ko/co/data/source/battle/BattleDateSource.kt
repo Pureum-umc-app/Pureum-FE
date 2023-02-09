@@ -3,6 +3,10 @@ package ko.co.data.source.battle
 import ko.co.data.remote.PureumService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import kr.co.domain.model.AllBattleCompletion
+import kr.co.domain.model.AllBattleCompletionDto
+import kr.co.domain.model.AllBattleProgress
+import kr.co.domain.model.AllBattleProgressDto
 import kr.co.domain.model.MyBattleCompMore
 import kr.co.domain.model.MyBattleCompMoreDto
 import kr.co.domain.model.MyBattleCompletionDto
@@ -101,9 +105,19 @@ class BattleDateSource @Inject constructor(
     }
 
     suspend fun getMyBattleCompMoreInfo() : MyBattleCompMore {
-        val compMore = MyBattleCompMore( code = 1000, isSuccess = true, message = "요청에 성공했습니다.", result = MyBattleCompMoreDto(battleId = 1, challengedId = 1, challengedImage = "",
-            challengedLikeCnt = 2, challengedNickname ="푸름", challengedSentence = "예시 문장입니다.", challengedSentenceId = 1, challengerId = 2, challengerImage = "", challengerLikeCnt = 5,
-            challengerNickname = "르미", challengerSentence ="예시 문장2 입니다.", challengerSentenceId = 2, duration = 10, oppLike = 0, userLike = 1, winnerUserId = 1)
+        val compMore = MyBattleCompMore( code = 1000, isSuccess = true, message = "요청에 성공했습니다.", result = MyBattleCompMoreDto(battleId = 1,
+            duration = 10, loserId = 0, loserImage = "", loserLikeCnt = 3, loserNickname = "르미", loserSentence= "떨어진 내 성적을 복구하였다.",
+        loserSentenceId = 1,
+        oppLike = 0,
+        situation = 0,
+        userLike= 0,
+        winnerId= 0,
+        winnerImage= "",
+        winnerLikeCnt= 10,
+        winnerNickname= "푸름",
+        winnerSentence = "황폐화된 자연을 복구하였다.",
+        winnerSentenceId = 10,
+        winnerUserId = 2)
         )
 
             withContext(Dispatchers.IO) {
@@ -111,4 +125,51 @@ class BattleDateSource @Inject constructor(
             }
         return compMore
     }
+
+    suspend fun getAllBattleProgressInfo() : AllBattleProgress {
+        val allBattleProg = AllBattleProgress( code = 1000, isSuccess = true, message = "요청에 성공했습니다.",
+            result = List(8) { AllBattleProgressDto(
+                battleId = 1,
+                challengedId = 1,
+                challengedLikeCnt = 4,
+                challengedNickname = "소다",
+                challengedProfileImg = "",
+                challengerId = 2,
+                challengerLikeCnt = 7,
+                challengerNickname = "보리",
+                challengerProfileImg = "",
+                isChallengedLike = 0,
+                isChallengerLike = 1,
+                keyword = "낭만",
+                keywordId = 4,
+                duration = "D-5"
+            )
+        })
+            withContext(Dispatchers.IO) {
+                Thread.sleep(1000)
+            }
+        return allBattleProg
+    }
+
+    suspend fun getAllBattleCompletionInfo() : AllBattleCompletion {
+        val allBattleComp = AllBattleCompletion( code = 1000, isSuccess = true, message = "요청에 성공했습니다.",
+            result = List(8) {
+                AllBattleCompletionDto(
+                    battleId = 4,
+                    otherProfileImg = "",
+                    type = 0,
+                    winnerId = 1,
+                    winnerNickname = "푸름",
+                    winnerProfileImg = "",
+                    word = "마힘",
+                    wordId = 4
+                )
+            })
+        withContext(Dispatchers.IO) {
+            Thread.sleep(1000)
+        }
+        return allBattleComp
+    }
+
+
 }
