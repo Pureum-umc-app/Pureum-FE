@@ -27,7 +27,6 @@
             android:text="@string/signup_welcome"/>
 
         <TextView
-            android:id="@+id/signup_setting"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
@@ -75,7 +74,8 @@
                 android:textColorHint="@color/text2"
                 android:fontFamily="@font/nanum_square_neo_regular"
                 android:textSize="14sp"
-                android:maxLength="10" />
+                android:maxLength="10"
+                android:maxLines="1"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <View

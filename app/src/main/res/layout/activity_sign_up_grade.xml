@@ -1,79 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".views.signup.SignUpGradeActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
+        android:layout_height="match_parent"
+        android:paddingHorizontal="32dp"
+        android:orientation="vertical">
 
         <ImageView
-            android:id="@+id/signup_logo_iv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="80dp"
-            android:layout_marginStart="40dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="40dp"
+            android:layout_marginStart="4dp"
             android:src="@drawable/ic_pureum_logo"/>
 
         <TextView
-            android:id="@+id/signup_welcome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
             android:textSize="16sp"
             android:textColor="@color/main1"
             android:fontFamily="@font/nanum_square_neo_bold"
-            android:text="@string/signup_last"
-            android:layout_marginTop="8dp"
-            app:layout_constraintStart_toStartOf="@+id/signup_logo_iv"
-            app:layout_constraintTop_toBottomOf="@id/signup_logo_iv"/>
+            android:text="@string/signup_last"/>
 
         <TextView
-            android:id="@+id/signup_setting"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
             android:text="@string/check_grade"
             android:fontFamily="@font/nanum_square_neo_bold"
             android:textColor="@color/text1"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="@id/signup_logo_iv"
-            app:layout_constraintTop_toBottomOf="@id/signup_welcome"
-            android:layout_marginTop="12dp"/>
+            android:textSize="14sp"/>
 
-        <androidx.appcompat.widget.AppCompatSpinner
-            android:id="@+id/spinner"
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:spinnerMode="dropdown"
-            android:layout_marginHorizontal="40dp"
             android:layout_marginTop="20dp"
-            android:entries="@array/grade"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/signup_setting" />
+            android:hint="@string/grade_hint">
 
+            <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                android:id="@+id/grade_dropdown"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:cursorVisible="false"
+                android:focusable="false"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/signup_agree_next_bt"
-            android:layout_width="296dp"
-            android:layout_height="65dp"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="70dp"
             android:text="@string/signup_end"
             android:textSize="16sp"
             android:background="@drawable/signup_next_button_not_fill"
             android:backgroundTint="@color/main3"
             android:textColor="@color/text2"
-            android:layout_marginBottom="70dp"
-            android:fontFamily="@font/nanum_square_neo_regular"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
-
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
+            android:fontFamily="@font/nanum_square_neo_regular"/>
+    </LinearLayout>
 </layout>

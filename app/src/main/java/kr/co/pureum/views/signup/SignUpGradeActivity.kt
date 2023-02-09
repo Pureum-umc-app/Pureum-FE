@@ -1,96 +1,44 @@
 package kr.co.pureum.views.signup
 
+import android.content.ContentValues.TAG
 import android.content.res.ColorStateList
 import android.graphics.Color
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
-import android.widget.Spinner
-import android.widget.TextView
+import android.widget.ArrayAdapter
+import androidx.appcompat.widget.ListPopupWindow
+import com.google.android.material.R.*
+import kr.co.pureum.R
 import kr.co.pureum.base.BaseActivity
 import kr.co.pureum.databinding.ActivitySignUpGradeBinding
 
-
-class SignUpGradeActivity : BaseActivity<ActivitySignUpGradeBinding>(kr.co.pureum.R.layout.activity_sign_up_grade) {
+class SignUpGradeActivity : BaseActivity<ActivitySignUpGradeBinding>(R.layout.activity_sign_up_grade) {
 
     override fun initView() {
-        gradeDropdown()
+        initDropDown()
     }
 
-    fun gradeDropdown(){
-        with(binding){
-
-            var grade = ""
-
-            spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                override fun onNothingSelected(parent: AdapterView<*>?) {
-
-                }
-
-                override fun onItemSelected(
-                    parent: AdapterView<*>?,
-                    view: View?,
-                    position: Int,
-                    id: Long
-                ) {
-                    when (position) {
-                        // 선택안함
-                        0 -> {
-                            grade = ""
-                            buttonOnOff(0)
-                        }
-                        // 초등학생
-                        1 -> {
-                            grade = spinner.selectedItem.toString()
-                            buttonOnOff(1)
-                        }
-                        // 중학교 1학년
-                        2 -> {
-                            grade = spinner.selectedItem.toString()
-                            buttonOnOff(1)
-                        }
-                        // 중학교 2학년
-                        3 -> {
-                            grade = spinner.selectedItem.toString()
-                            buttonOnOff(1)
-                        }
-                        // 중학교 3학년
-                        4 -> {
-                            grade = spinner.selectedItem.toString()
-                            buttonOnOff(1)
-                        }
-                        // 고등학교 1학년
-                        5 -> {
-                            grade = spinner.selectedItem.toString()
-                            buttonOnOff(1)
-                        }
-                        // 고등학교 2학년
-                        6 -> {
-                            grade = spinner.selectedItem.toString()
-                            buttonOnOff(1)
-                        }
-                        // 고등학교 3학년, N수생
-                        7 -> {
-                            grade = spinner.selectedItem.toString()
-                            buttonOnOff(1)
-                        }
-                        // 대학생
-                        8 -> {
-                            grade = spinner.selectedItem.toString()
-                            buttonOnOff(1)
-                        }
-                        //일치하는게 없는 경우
-                        else -> {
-                            grade = ""
-                            buttonOnOff(0)
-                        }
-                    }
+    private fun initDropDown() {
+        with(binding) {
+            val listFoodPopupWindow = ListPopupWindow(this@SignUpGradeActivity, null, attr.listPopupWindowStyle)
+            listFoodPopupWindow.apply {
+                anchorView = gradeDropdown
+                val items = listOf("초등학생", "중학교 1학년", "중학교 2학년", "중학교 3학년", "고등학교 1학년", "고등학교 2학년", "고등학교 3학년, N수생", "대학생")
+                val adapter = ArrayAdapter(this@SignUpGradeActivity, R.layout.item_dropdown, items)
+                setAdapter(adapter)
+                setOnItemClickListener { _, _, position, _ ->
+                    gradeDropdown.setText(items[position])
+                    buttonOnOff(1)
+                    dismiss()
                 }
             }
-        }
 
+            gradeDropdown.setOnClickListener { listFoodPopupWindow.show() }
+        }
     }
 
-    fun buttonOnOff(flag: Int){
+    private fun buttonOnOff(flag: Int){
         with(binding) {
 
             if(flag == 0){
