@@ -65,7 +65,7 @@ tools:context=".views.battle.MyBattleCompInfoDrawFragment">
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="60dp"/>
+            android:layout_marginTop="50dp"/>
 
         <LinearLayout
             android:id="@+id/my_battle_final_my_sentence_layout"
@@ -112,7 +112,7 @@ tools:context=".views.battle.MyBattleCompInfoDrawFragment">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{myBattleCompMoreDto.challengedNickname, default=`푸름`}"
+                        android:text="@{myBattleCompMoreDto.winnerNickname, default=`푸름`}"
                         android:fontFamily="@font/nanum_square_neo_bold"
                         android:textSize="14sp"/>
                 </LinearLayout>
@@ -136,7 +136,7 @@ tools:context=".views.battle.MyBattleCompInfoDrawFragment">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{myBattleCompMoreDto.challengedLikeCnt, default=`5`}"
+                    android:text="@{myBattleCompMoreDto.winnerLikeCnt, default=`5`}"
                     android:fontFamily="@font/nanum_square_neo_bold"
                     android:layout_marginEnd="10dp"
                     android:textSize="14sp"/>
@@ -149,7 +149,7 @@ tools:context=".views.battle.MyBattleCompInfoDrawFragment">
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="16dp"
                 android:layout_marginHorizontal="16dp"
-                android:text="@{myBattleCompMoreDto.challengedSentence, default=`황폐화된 자연을 복구하였다.`}"
+                android:text="@{myBattleCompMoreDto.winnerSentence, default=`황폐화된 자연을 복구하였다.`}"
                 android:fontFamily="@font/nanum_square_neo_bold"
                 android:textSize="14sp"/>
         </LinearLayout>
@@ -188,7 +188,7 @@ tools:context=".views.battle.MyBattleCompInfoDrawFragment">
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:text="@{myBattleCompMoreDto.challengerNickname, default=`르미`}"
+                    android:text="@{myBattleCompMoreDto.loserNickname, default=`르미`}"
                     android:fontFamily="@font/nanum_square_neo_bold"
                     android:textSize="14sp"/>
 
@@ -211,7 +211,7 @@ tools:context=".views.battle.MyBattleCompInfoDrawFragment">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{myBattleCompMoreDto.challengerLikeCnt, default=`5`}"
+                    android:text="@{myBattleCompMoreDto.loserLikeCnt, default=`5`}"
                     android:fontFamily="@font/nanum_square_neo_bold"
                     android:layout_marginEnd="10dp"
                     android:textSize="14sp"/>
@@ -225,7 +225,7 @@ tools:context=".views.battle.MyBattleCompInfoDrawFragment">
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="16dp"
                 android:layout_marginHorizontal="16dp"
-                android:text="@{myBattleCompMoreDto.challengerSentence, default=`황폐화된 자연을 복구하였다.`}"
+                android:text="@{myBattleCompMoreDto.loserSentence, default=`황폐화된 자연을 복구하였다.`}"
                 android:fontFamily="@font/nanum_square_neo_bold"
                 android:textSize="14sp"/>
         </LinearLayout>

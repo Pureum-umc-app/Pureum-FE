@@ -101,9 +101,20 @@ class BattleDateSource @Inject constructor(
     }
 
     suspend fun getMyBattleCompMoreInfo() : MyBattleCompMore {
-        val compMore = MyBattleCompMore( code = 1000, isSuccess = true, message = "요청에 성공했습니다.", result = MyBattleCompMoreDto(battleId = 1, challengedId = 1, challengedImage = "",
-            challengedLikeCnt = 2, challengedNickname ="푸름", challengedSentence = "예시 문장입니다.", challengedSentenceId = 1, challengerId = 2, challengerImage = "", challengerLikeCnt = 5,
-            challengerNickname = "르미", challengerSentence ="예시 문장2 입니다.", challengerSentenceId = 2, duration = 10, oppLike = 0, userLike = 1, winnerUserId = 1)
+        val compMore = MyBattleCompMore( code = 1000, isSuccess = true, message = "요청에 성공했습니다.", result = MyBattleCompMoreDto(battleId = 1,
+            duration = 10, loserId = 0, loserImage = "", loserLikeCnt = 3, loserNickname = "르미",
+        loserSentence= "떨어진 내 성적을 복구하였다.",
+        loserSentenceId = 1,
+        oppLike = 0,
+        situation = 0,
+        userLike= 0,
+        winnerId= 0,
+        winnerImage= "",
+        winnerLikeCnt= 10,
+        winnerNickname= "푸름",
+        winnerSentence = "황폐화된 자연을 복구하였다.",
+        winnerSentenceId = 10,
+        winnerUserId = 2)
         )
 
             withContext(Dispatchers.IO) {
