@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="grade">
-        <item>학년을 입력해주세요.</item>
+        <item>학년을 선택해주세요.</item>
         <item>초등학생</item>
         <item>중학교 1학년</item>
         <item>중학교 2학년</item>

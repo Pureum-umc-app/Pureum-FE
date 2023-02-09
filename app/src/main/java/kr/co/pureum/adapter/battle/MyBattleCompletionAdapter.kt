@@ -5,13 +5,23 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import kr.co.domain.model.MyBattleCompletionDto
-import kr.co.domain.model.MyBattleProgressDto
 import kr.co.pureum.R
 import kr.co.pureum.databinding.ItemBattleMyCompletionBinding
+
 
 class MyBattleCompletionAdapter : RecyclerView.Adapter<MyBattleCompletionAdapter.ViewHolder>() {
     private lateinit var binding: ItemBattleMyCompletionBinding
     private var myBattleCompletionList = mutableListOf<MyBattleCompletionDto>()
+
+    interface Listener {
+        fun onItemClick(pos: Int, type: Int)
+    }
+
+    private lateinit var completionListener : Listener
+
+    fun setListener(listener: Listener){
+        completionListener = listener
+    }
 
     inner class ViewHolder(val binding: ItemBattleMyCompletionBinding) : RecyclerView.ViewHolder(binding.root) {
 
@@ -22,7 +32,11 @@ class MyBattleCompletionAdapter : RecyclerView.Adapter<MyBattleCompletionAdapter
                 myBattleWinnerProfile.setImageResource(R.drawable.ic_battle_basic_profile)
 
 
+                root.setOnClickListener {
+                    completionListener.onItemClick(position, progressData.type)
+                }
             }
+
         }
     }
 
@@ -43,4 +57,5 @@ class MyBattleCompletionAdapter : RecyclerView.Adapter<MyBattleCompletionAdapter
         myBattleCompletionList.addAll(data)
         notifyDataSetChanged()
     }
+
 }

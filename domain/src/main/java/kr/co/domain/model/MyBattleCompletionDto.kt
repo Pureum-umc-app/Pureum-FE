@@ -4,5 +4,6 @@ data class MyBattleCompletionDto (
 
     var keyword: String,
     var winnerProfile: String,
-    var winnerNickname: String
+    var winnerNickname: String,
+    var type: Int
     )

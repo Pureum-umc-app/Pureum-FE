@@ -33,8 +33,7 @@
             android:layout_marginTop="8dp"
             android:src="@drawable/kakao_login_large_wide"
             android:background="@null"
-            android:scaleType="fitCenter"
-            android:visibility="invisible"/>
+            android:scaleType="fitCenter"/>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/kakao_temp_button"
