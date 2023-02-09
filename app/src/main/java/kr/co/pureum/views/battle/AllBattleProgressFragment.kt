@@ -30,15 +30,15 @@ class AllBattleProgressFragment : BaseFragment<FragmentAllBattleProgressBinding>
     }
 
     private fun initView() {
-        Log.e("ScreenBuild", "MyBattleProgressFragment")
+        Log.e("ScreenBuild", "AllBattleProgressFragment")
         with(binding) {
             viewModel.getAllBattleProgressInfo()
             allBattleProgressRv.apply {
                 adapter =  AllBattleProgressAdapter().apply {
                     setListener(object : AllBattleProgressAdapter.Listener{
                         override fun onItemClick(pos: Int) {
-//                            val action = AllBattleFragmentDirections.actionAllBattleFragmentToAllBattleProgInfoFragment()
-//                            findNavController().navigate(action)
+                            val action = AllBattleFragmentDirections.actionAllBattleFragmentToAllBattleProgInfoFragment()
+                            findNavController().navigate(action)
                         }
                     })
                 }

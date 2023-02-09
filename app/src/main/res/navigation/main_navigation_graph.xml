@@ -160,6 +160,35 @@
         android:name="kr.co.pureum.views.battle.AllBattleFragment"
         android:label="AllBattleFragment">
 
+        <action
+            android:id="@+id/action_allBattleFragment_to_allBattleProgInfoFragment"
+            app:destination="@id/allBattleProgInfoFragment" />
+        <action
+            android:id="@+id/action_allBattleFragment_to_allBattleCompInfoFragment"
+            app:destination="@id/allBattleCompInfoFragment" />
+        <action
+            android:id="@+id/action_allBattleFragment_to_allBattleCompInfoDrawFragment"
+            app:destination="@id/allBattleCompInfoDrawFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/allBattleProgInfoFragment"
+        android:name="kr.co.pureum.views.battle.AllBattleProgInfoFragment"
+        android:label="AllBattleProgInfoFragment">
+    </fragment>
+
+    <fragment
+        android:id="@+id/allBattleCompInfoFragment"
+        android:name="kr.co.pureum.views.battle.AllBattleCompInfoFragment"
+        android:label="AllBattleCompInfoFragment">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/allBattleCompInfoDrawFragment"
+        android:name="kr.co.pureum.views.battle.AllBattleCompInfoDrawFragment"
+        android:label="AllBattleCompInfoDrawFragment">
+
     </fragment>
 
 </navigation>
