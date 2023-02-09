@@ -37,16 +37,16 @@ class AllBattleCompletionFragment : BaseFragment<FragmentAllBattleCompletionBind
                 adapter = AllBattleCompletionAdapter().apply {
                     setListener(object : AllBattleCompletionAdapter.Listener{
                         override fun onItemClick(pos: Int, type: Int) {
-//                            when (type) {
-//                                0 -> {
-//                                    val action = AllBattleFragmentDirections.actionAllBattleFragmentToAllBattleCompInfoFragment()
-//                                    findNavController().navigate(action)
-//                                }
-//                                else -> {
-//                                    val action = AllBattleFragmentDirections.actionAllBattleFragmentToAllBattleCompInfoDrawFragment()
-//                                    findNavController().navigate(action)
-//                                }
-//                            }
+                            when (type) {
+                                1 -> {
+                                    val action = AllBattleFragmentDirections.actionAllBattleFragmentToAllBattleCompInfoDrawFragment()
+                                    findNavController().navigate(action)
+                                }
+                                else -> {
+                                    val action = AllBattleFragmentDirections.actionAllBattleFragmentToAllBattleCompInfoFragment()
+                                    findNavController().navigate(action)
+                                }
+                            }
 
                         }
                     })
