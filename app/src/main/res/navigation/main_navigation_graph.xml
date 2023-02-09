@@ -160,6 +160,15 @@
         android:name="kr.co.pureum.views.battle.AllBattleFragment"
         android:label="AllBattleFragment">
 
+        <action
+            android:id="@+id/action_allBattleFragment_to_allBattleProgInfoFragment"
+            app:destination="@id/allBattleProgInfoFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/allBattleProgInfoFragment"
+        android:name="kr.co.pureum.views.battle.AllBattleProgInfoFragment"
+        android:label="AllBattleProgInfoFragment">
     </fragment>
 
 </navigation>

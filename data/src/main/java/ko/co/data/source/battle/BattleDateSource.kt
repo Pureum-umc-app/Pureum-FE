@@ -5,6 +5,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kr.co.domain.model.AllBattleCompletion
 import kr.co.domain.model.AllBattleCompletionDto
+import kr.co.domain.model.AllBattleProgMore
+import kr.co.domain.model.AllBattleProgMoreDto
 import kr.co.domain.model.AllBattleProgress
 import kr.co.domain.model.AllBattleProgressDto
 import kr.co.domain.model.MyBattleCompMore
@@ -169,6 +171,19 @@ class BattleDateSource @Inject constructor(
             Thread.sleep(1000)
         }
         return allBattleComp
+    }
+
+    suspend fun getAllBattleProgMoreInfo() : AllBattleProgMore {
+        val allBattleProgMore = AllBattleProgMore( code = 1000, isSuccess = true, message = "요청에 성공했습니다.", result = AllBattleProgMoreDto( battleId = 1,
+            challengedId = 1, challengedImage = "", challengedLikeCnt = 3, challengedNickname = "푸름", challengedSentence = "황폐화된 자연을 복구하였다.",
+            challengedSentenceId = 2, challengerId = 3, challengerImage = "", challengerLikeCnt = 4, challengerNickname = "르미",
+            challengerSentence = "떨어진 내 성적을 복구하였다.", challengerSentenceId = 4, duration = 10, keyword = "복구", keywordId = 1,
+            oppLike = 0, remainDuration = "D-10", selfLike = 1, status = "A")
+        )
+        withContext(Dispatchers.IO) {
+            Thread.sleep(1000)
+        }
+        return allBattleProgMore
     }
 
 
