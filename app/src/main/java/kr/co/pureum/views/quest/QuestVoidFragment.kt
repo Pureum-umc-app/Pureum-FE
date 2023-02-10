@@ -24,7 +24,7 @@ class QuestVoidFragment : BaseFragment<FragmentQuestVoidBinding>(R.layout.fragme
         super.onViewCreated(view, savedInstanceState)
         initView()
         initToolbar()
-        initLayoutExamination()
+        //initLayoutExamination()
         initClickListener()
         initViewPager()
     }
@@ -34,7 +34,7 @@ class QuestVoidFragment : BaseFragment<FragmentQuestVoidBinding>(R.layout.fragme
 
     override fun onResume() {
         super.onResume()
-        initLayoutExamination()
+        //initLayoutExamination()
     }
 
     private fun initClickListener() {

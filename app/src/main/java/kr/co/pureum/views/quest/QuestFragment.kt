@@ -100,10 +100,10 @@ class QuestFragment : BaseFragment<FragmentQuestBinding>(R.layout.fragment_quest
     }
 
     private fun observe() {
-        viewModel.todayKeywordLiveData.observe(viewLifecycleOwner) {
+        viewModel.todayKeywordListLiveData.observe(viewLifecycleOwner) {
             (binding.questKeywordViewRv.adapter as DataSentenceRVAdapter).setData(it)
             binding.isLoading = false
-            Log.e(TAG, it.toString())
+            Log.d(TAG, it.toString())
         }
     }
 
