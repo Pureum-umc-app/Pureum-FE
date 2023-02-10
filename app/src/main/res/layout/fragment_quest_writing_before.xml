@@ -3,6 +3,14 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+        <import type="java.util.List"/>
+        <import type="android.view.View"/>
+        <variable
+            name="keywords"
+            type="List&lt;java.lang.String>" />
+
+    </data>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -43,6 +51,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/nanum_square_neo_extrabold"
                     android:textSize="22sp"
+                    android:text="@{keywords[0], default=`복구`}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -87,6 +96,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/nanum_square_neo_extrabold"
                     android:textSize="22sp"
+                    android:text="@{keywords[1], default=`계기`}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -129,6 +139,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/nanum_square_neo_extrabold"
                     android:textSize="22sp"
+                    android:text="@{keywords[2], default=`수단`}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
