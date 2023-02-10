@@ -224,4 +224,5 @@
     <string name="badge_info_9_false">한 문장 챌린지에서 문장을 30개 작성하면\n배지를 획득할 수 있어요.</string>
     <string name="badge_dialog_button">획득 배지 보러 가기</string>
     <string name="badge_dialog_achieve">획득!</string>
+    <string name="clause_notify_text">개인정보 수집\n목적: 회원 가입 및 관리, 재화 또는 서비스 이용 및 제공\n항목: 이름, 아이디, 비밀번호, 휴대전화번호, 이메일\n보유기간: 회원 탈퇴 3개월 후 파기</string>
 </resources>
