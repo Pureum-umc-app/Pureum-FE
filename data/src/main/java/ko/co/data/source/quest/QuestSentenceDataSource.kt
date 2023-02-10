@@ -3,9 +3,7 @@ package ko.co.data.source.quest
 import ko.co.data.remote.PureumService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import kr.co.domain.model.SentenceCompleteResponse
-import kr.co.domain.model.SentencesDto
-import kr.co.domain.model.SentencesIncompleteResponse
+import kr.co.domain.model.*
 import javax.inject.Inject
 
 class QuestSentenceDataSource @Inject constructor(
@@ -29,13 +27,26 @@ class QuestSentenceDataSource @Inject constructor(
         val response = SentenceCompleteResponse(
             code = 0, isSuccess = true, message = "요청에 성공하였습니다", result = List<SentencesDto>(3) {
                 SentencesDto(
-                    date = "2022-02-08", keyword = "구현", keywordId = 1, meaning = "원통하거나 뉘우치는 일이 있을 때 한숨을 쉬며 탄식함. 또는 그 한숨.", userId = 1
+                    date = "2022-02-08", keyword = "구현", keywordId = 1,
+                    meaning = "원통하거나 뉘우치는 일이 있을 때 한숨을 쉬며 탄식함. 또는 그 한숨.", userId = 1
                 )
             }
         )
         withContext(Dispatchers.IO){
             Thread.sleep(1000)
         }
+        return response
+    }
+
+    fun sentencesList(limit: Int, page: Int, sort: String, userId: Int, word_id: Int): SentencesListResponse {
+        val response = SentencesListResponse(
+            code = 0, isSuccess = true, message = "요청에 성공하였습니다", result = List<SentencesListDto>(1) {
+                SentencesListDto(
+                    image = "기본", keyword = "한탄", keywordId = 1, likeNum = 0, nickname = "르미",
+                    selfLike = false, sentence = "나는 한숨 쉬는 것을 한탄해", sentenceId = 1, time = "2022-02-09", userId = 1
+                )
+            }
+        )
         return response
     }
 }
