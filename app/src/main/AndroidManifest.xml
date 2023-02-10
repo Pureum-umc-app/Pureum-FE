@@ -3,10 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="co.kr.pureum">
     <!-- 인터넷 사용 권한 설정 -->
-    <uses-permission android:name="android.permission.INTERNET" /> <!-- 휴대폰 사용 시간 트래킹 권한 설정 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- 휴대폰 사용 시간 트래킹 권한 설정 -->
     <uses-permission
         android:name="android.permission.PACKAGE_USAGE_STATS"
         tools:ignore="ProtectedPermissions" />
+    <!-- 저장소 사용 권한 설정 -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:name="kr.co.pureum.di.PureumApplication"

@@ -9,6 +9,13 @@ import kr.co.domain.model.LoginDto
 import kr.co.domain.model.LoginJwtToken
 import kr.co.domain.model.LoginResponse
 import kr.co.domain.model.NicknameValidationResponse
+import kr.co.domain.model.SignupResponse
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
+import java.io.File
 import javax.inject.Inject
 
 class LoginDataSource @Inject constructor(
@@ -45,5 +52,28 @@ class LoginDataSource @Inject constructor(
             }
         }
         return nicknameValidationResponse
+    }
+
+    suspend fun signup(imagePath: String, grade: Int, nickname: String, kakaoToken: String) : SignupResponse {
+        val file = File(imagePath)
+        val requestFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
+        val image = MultipartBody.Part.createFormData("image", file.name, requestFile)
+
+        val hashMap = hashMapOf<String, RequestBody>()
+        hashMap["grade"] = grade.toString().toRequestBody("text/plain".toMediaTypeOrNull())
+        hashMap["nickname"] = nickname.toRequestBody("text/plain".toMediaTypeOrNull())
+        hashMap["kakaoToken"] = kakaoToken.toRequestBody("text/plain".toMediaTypeOrNull())
+
+        var signupResponse = SignupResponse(0, false, "failure", "failure")
+        withContext(Dispatchers.IO) {
+            runCatching {
+                pureumLoginService.signup(image, hashMap)
+            }.onSuccess {
+                signupResponse = it
+            }.onFailure {
+                Log.e(TAG, "Signup Failed")
+            }
+        }
+        return signupResponse
     }
 }

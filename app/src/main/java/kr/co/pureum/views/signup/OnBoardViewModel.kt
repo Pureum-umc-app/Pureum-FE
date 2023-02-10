@@ -16,9 +16,11 @@ class OnBoardViewModel @Inject constructor(
 ) : ViewModel() {
     private val _userTokenLiveData = MutableLiveData<String>()
     private val _nicknameValidationLiveData = MutableLiveData<String>()
+    private val _signupResponseLiveData = MutableLiveData<String>()
 
     val userTokenLiveData: LiveData<String> = _userTokenLiveData
     val nicknameValidationLiveData: LiveData<String> = _nicknameValidationLiveData
+    val signupResponseLiveData: LiveData<String> = _signupResponseLiveData
 
     fun login(kakaoToken: String) {
         viewModelScope.launch {
@@ -31,6 +33,13 @@ class OnBoardViewModel @Inject constructor(
         viewModelScope.launch {
             val res = repository.nicknameValidate(nickname)
             _nicknameValidationLiveData.value = res.result
+        }
+    }
+
+    fun signup(imagePath: String, grade: Int, nickname: String, kakaoToken: String) {
+        viewModelScope.launch {
+            val res = repository.signup(imagePath, grade, nickname, kakaoToken)
+            _signupResponseLiveData.value = res.result
         }
     }
 }

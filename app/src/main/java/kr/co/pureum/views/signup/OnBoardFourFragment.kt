@@ -29,6 +29,7 @@ import kr.co.pureum.views.MainActivity
 @AndroidEntryPoint
 class OnBoardFourFragment : BaseFragment<FragmentOnBoardFourBinding>(R.layout.fragment_on_board_four) {
     private val viewModel by viewModels<OnBoardViewModel>()
+    lateinit var kakaoToken : String
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -72,7 +73,7 @@ class OnBoardFourFragment : BaseFragment<FragmentOnBoardFourBinding>(R.layout.fr
     private var userGender: Boolean = true
 
     private fun startLogin() {
-        UserApiClient.instance.me { user, error ->
+        UserApiClient.instance.me { user, _ ->
             if (user != null) {
                 userName = user.kakaoAccount?.profile?.nickname.toString()
                 userProfile = user.kakaoAccount?.profile?.thumbnailImageUrl.toString()
@@ -91,9 +92,10 @@ class OnBoardFourFragment : BaseFragment<FragmentOnBoardFourBinding>(R.layout.fr
         if (error != null) {
             Log.e(TAG, "카카오계정으로 로그인 실패", error)
         } else if (token != null) {
-            Log.i(TAG, "카카오계정으로 로그인 성공 ${token.accessToken}")
+            kakaoToken = token.accessToken
+            Log.i(TAG, "카카오계정으로 로그인 성공 $kakaoToken")
             startLogin()
-            viewModel.login(token.accessToken)
+            viewModel.login(kakaoToken)
         }
     }
 
@@ -181,8 +183,9 @@ class OnBoardFourFragment : BaseFragment<FragmentOnBoardFourBinding>(R.layout.fr
             }
 
             clauseNextButton.setOnClickListener {
-                val intent = Intent(requireContext(), SignUpProfileActivity::class.java)
-                startActivity(intent)
+                startActivity(Intent(requireContext(), SignUpProfileActivity::class.java).apply {
+                    putExtra("kakaoToken", kakaoToken)
+                })
                 requireActivity().finish()
                 requireActivity().overridePendingTransition(R.anim.rightin_activity,R.anim.not_move_activity)
                 dialog.dismiss()
