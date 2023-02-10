@@ -245,6 +245,8 @@
             android:scrollHorizontally="false"
             android:fontFamily="@font/nanum_square_neo_regular"
             android:textSize="16sp"
+            android:textColor="@color/text1"
+            android:textColorHint="@color/text2"
             android:gravity="top"
             android:autofillHints="name"
             android:visibility="@{isLoading ? View.GONE : View.VISIBLE}"/>
