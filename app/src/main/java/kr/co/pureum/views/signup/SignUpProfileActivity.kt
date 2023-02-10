@@ -6,6 +6,9 @@ import android.content.res.ColorStateList
 import android.graphics.Color
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.KeyEvent
+import android.view.KeyEvent.KEYCODE_ENTER
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
@@ -24,21 +27,24 @@ class SignUpProfileActivity : BaseActivity<ActivitySignUpProfileBinding>(R.layou
     var agree = 0
 
     override fun initView() {
+        initListener()
         checkNickname()
         profileImgToAlbum()
         observe()
     }
 
-    fun buttonOnOff(flag: Int){
+    private fun initListener() {
         with(binding) {
-            if(flag == 0){
-                signupAgreeNextBt.backgroundTintList = ColorStateList.valueOf(Color.rgb(216,236,255))
-                signupAgreeNextBt.setTextColor(Color.parseColor("#6E6D73"))
+            signupAgreeNextBt.setOnClickListener {
+                if(signupNicknameTextLayout.error == null || signupNicknameTextLayout.error == ""){
+                    viewModel.nicknameValidation(signupNicknameEditText.text.toString().trim())
+                }
             }
-
-            else if(flag == 1){
-                signupAgreeNextBt.backgroundTintList = ColorStateList.valueOf(Color.rgb(133,181,255))
-                signupAgreeNextBt.setTextColor(Color.parseColor("#FFFFFF"))
+            signupNicknameEditText.setOnKeyListener { _, keyCode, event ->
+                if (event.action == KeyEvent.ACTION_DOWN && keyCode == KEYCODE_ENTER) {
+                    signupAgreeNextBt.performClick()
+                }
+                true
             }
         }
     }
@@ -53,20 +59,15 @@ class SignUpProfileActivity : BaseActivity<ActivitySignUpProfileBinding>(R.layou
                 override fun afterTextChanged(s: Editable?) {
                     if (s.toString().isEmpty()) {
                         signupNicknameTextLayout.error = "공백은 허용하지 않습니다."
-                        buttonOnOff(0)
+                        signupAgreeNextBt.isEnabled = false
 
                     } else if (s.toString().length > 10){
                         signupNicknameTextLayout.error = "닉네임은 최대 10자까지 입력 가능합니다."
-                        buttonOnOff(0)
+                        signupAgreeNextBt.isEnabled = false
                     }
                     else {
                         signupNicknameTextLayout.error = null
-                        buttonOnOff(1)
-                        signupAgreeNextBt.setOnClickListener {
-                            if(signupNicknameTextLayout.error == null || signupNicknameTextLayout.error == ""){
-                                viewModel.nicknameValidation(signupNicknameEditText.text.toString())
-                            }
-                        }
+                        signupAgreeNextBt.isEnabled = true
                     }
                 }
             })
@@ -115,7 +116,7 @@ class SignUpProfileActivity : BaseActivity<ActivitySignUpProfileBinding>(R.layou
                 }
                 else -> {
                     binding.signupNicknameTextLayout.error = it
-                    buttonOnOff(0)
+                    binding.signupAgreeNextBt.isEnabled = false
                 }
             }
         }
