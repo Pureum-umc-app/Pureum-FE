@@ -5,6 +5,7 @@ import android.util.Log
 import ko.co.data.remote.PureumLoginService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import kr.co.domain.model.CreateUserDto
 import kr.co.domain.model.LoginDto
 import kr.co.domain.model.LoginJwtToken
 import kr.co.domain.model.LoginResponse
@@ -55,23 +56,36 @@ class LoginDataSource @Inject constructor(
     }
 
     suspend fun signup(imagePath: String, grade: Int, nickname: String, kakaoToken: String) : SignupResponse {
-        val file = File(imagePath)
-        val requestFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
-        val image = MultipartBody.Part.createFormData("image", file.name, requestFile)
+        val image = if (imagePath != "null") {
+            val file = File(imagePath)
+            val requestFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
+            MultipartBody.Part.createFormData("image", file.name, requestFile)
+        } else {
+            null
+        }
 
-        val hashMap = hashMapOf<String, RequestBody>()
-        hashMap["grade"] = grade.toString().toRequestBody("text/plain".toMediaTypeOrNull())
-        hashMap["nickname"] = nickname.toRequestBody("text/plain".toMediaTypeOrNull())
-        hashMap["kakaoToken"] = kakaoToken.toRequestBody("text/plain".toMediaTypeOrNull())
+        val createUserDto = CreateUserDto(grade.toString(), nickname, kakaoToken).toString()
+            .toRequestBody("application/json".toMediaTypeOrNull())
 
-        var signupResponse = SignupResponse(0, false, "failure", "failure")
+        val hashMap = hashMapOf<String, String>()
+        hashMap["grade"] = grade.toString()
+        hashMap["nickname"] = nickname
+        hashMap["kakaoToken"] = kakaoToken
+
+//        val hashMap = hashMapOf<String, RequestBody>()
+//        hashMap["grade"] = grade.toString().toRequestBody("text/plain".toMediaTypeOrNull())
+//        hashMap["nickname"] = nickname.toRequestBody("text/plain".toMediaTypeOrNull())
+//        hashMap["kakaoToken"] = kakaoToken.toRequestBody("text/plain".toMediaTypeOrNull())
+
+        var signupResponse = SignupResponse(0, false, "", "")
         withContext(Dispatchers.IO) {
+//            signupResponse = pureumLoginService.signup(image, createUserDto)
             runCatching {
-                pureumLoginService.signup(image, hashMap)
+                pureumLoginService.signup(image, hashMap.toString().toRequestBody("application/json".toMediaTypeOrNull()))
             }.onSuccess {
                 signupResponse = it
             }.onFailure {
-                Log.e(TAG, "Signup Failed")
+                Log.e(TAG, "Signup Failed: $it")
             }
         }
         return signupResponse

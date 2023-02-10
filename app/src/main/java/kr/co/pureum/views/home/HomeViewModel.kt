@@ -35,7 +35,12 @@ class HomeViewModel @Inject constructor(
         val today = LocalDate.now()
         val todayInfo = HomeInfo(
             count = screenCount,
-            date = today.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),
+            date = TimeInfo(
+                year = today.year,
+                month = today.monthValue,
+                day = today.dayOfMonth,
+                minutes = spfManager.getPurposeTime(),
+            ),
             purposeTime = TimeInfo(
                 year = today.year,
                 month = today.monthValue,
@@ -51,7 +56,7 @@ class HomeViewModel @Inject constructor(
             ),
         )
         viewModelScope.launch {
-            val res = repository.getHomeInfo()
+            val res = repository.getHomeInfo(spfManager.getUserId())
             _homeInfoListLiveData.value = (res.result as MutableList<HomeInfo>).apply { add(todayInfo) }
         }
     }
@@ -60,7 +65,7 @@ class HomeViewModel @Inject constructor(
     fun changeDate(date: LocalDate) {
         viewModelScope.launch {
             for (homeInfo in _homeInfoListLiveData.value!!) {
-                if (homeInfo.date == date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))) {
+                if (homeInfo.date.year == date.year && homeInfo.date.month == date.monthValue && homeInfo.date.day == date.dayOfMonth) {
                     _prevRankLiveData.value = homeInfo.rank
                     break
                 }

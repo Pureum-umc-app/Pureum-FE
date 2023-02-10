@@ -17,6 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kr.co.pureum.R
 import kr.co.pureum.base.BaseActivity
 import kr.co.pureum.databinding.ActivityMainBinding
+import kr.co.pureum.di.PureumApplication
 import java.time.LocalDate
 import java.time.ZoneId
 import java.util.Calendar
@@ -29,6 +30,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     var screenCount: Int = 0
 
     override fun initView() {
+        // TODO: 임시
+        PureumApplication.spfManager.spfClear()
+        PureumApplication.spfManager.setUserToken("Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxOSIsInRva2VuX3R5cGUiOiJhY2Nlc3NfdG9rZW4iLCJpYXQiOjE2NzQ4MzYzMjAsImV4cCI6MTY3NzQyODMyMH0.IFZyqJw8NLsXA7pH616VQRon99T_ttUpgPJaGMKLSiw")
+        PureumApplication.spfManager.setUserId(19)
+
         getUsageStats()
         initBottomNavigation()
     }
