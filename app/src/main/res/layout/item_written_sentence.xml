@@ -57,14 +57,15 @@
                 app:layout_constraintStart_toEndOf="@+id/item_profile_image_ib"
                 app:layout_constraintTop_toBottomOf="@+id/item_user_nickname_tv" />
 
-            <androidx.appcompat.widget.AppCompatImageButton
+            <CheckBox
                 android:id="@+id/item_like_icon_ib"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:layout_marginTop="23dp"
                 android:layout_marginEnd="38dp"
-                android:background="#00FF0000"
-                android:src="@drawable/ic_like"
+                android:backgroundTint="@null"
+                android:button="@null"
+                android:background="@drawable/selector_like_background"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
