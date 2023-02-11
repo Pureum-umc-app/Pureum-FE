@@ -78,11 +78,17 @@ class HomeDataSource @Inject constructor(
         return homeResponse
     }
 
-    suspend fun updateGoalTime(goalTime: Int): DefaultResponse {
-        val defaultResponse = DefaultResponse(0, true, "", "")
+    suspend fun setPurposeTime(userId: Long, purposeTime: Int): DefaultResponse {
+        var response = DefaultResponse(0, true, "", "")
         withContext(Dispatchers.IO) {
-            Thread.sleep(1000)
+            runCatching {
+                pureumService.setPurposeTime(userId, SetUsageTimeReq((purposeTime / 60).toString(), (purposeTime % 60).toString()))
+            }.onSuccess {
+                response = it
+            }.onFailure {
+                Log.e(TAG, "setPurposeTime Failed: $it")
+            }
         }
-        return defaultResponse
+        return response
     }
 }

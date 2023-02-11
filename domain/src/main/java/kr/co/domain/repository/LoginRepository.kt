@@ -9,5 +9,5 @@ import java.io.File
 interface LoginRepository {
     suspend fun login(loginDto: LoginDto) : LoginResponse
     suspend fun nicknameValidate(nickname: String) : NicknameValidationResponse
-    suspend fun signup(imagePath: String, grade: Int, nickname: String, kakaoToken: String) : SignupResponse
+    suspend fun signup(imageFile: File?, grade: Int, nickname: String, kakaoToken: String) : SignupResponse
 }

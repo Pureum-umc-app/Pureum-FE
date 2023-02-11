@@ -8,6 +8,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import kr.co.domain.model.LoginDto
 import kr.co.domain.repository.LoginRepository
+import java.io.File
 import javax.inject.Inject
 
 @HiltViewModel
@@ -36,9 +37,9 @@ class OnBoardViewModel @Inject constructor(
         }
     }
 
-    fun signup(imagePath: String, grade: Int, nickname: String, kakaoToken: String) {
+    fun signup(imageFile: File?, grade: Int, nickname: String, kakaoToken: String) {
         viewModelScope.launch {
-            val res = repository.signup(imagePath, grade, nickname, kakaoToken)
+            val res = repository.signup(imageFile, grade, nickname, kakaoToken)
             _signupResponseLiveData.value = res.result
         }
     }

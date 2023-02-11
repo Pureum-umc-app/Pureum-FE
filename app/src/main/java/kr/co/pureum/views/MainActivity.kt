@@ -50,7 +50,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             Log.e(TAG, "The user allowed the access to apps usage.")
             totalUsageTime = (calculateTotalUsageTime(getAppUsageStats()) / 60).toInt()
             screenCount = calculateScreenCount(getAppEventStats())
-            showAppEventStats(getAppEventStats())
+//            showAppEventStats(getAppEventStats())
             Log.e(TAG, "일일 사용 시간: ${totalUsageTime}, 휴대폰 화면 켠 횟수: $screenCount")
         }
     }
@@ -107,9 +107,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             val startDate = LocalDate.now().atStartOfDay(ZoneId.systemDefault())
             val start = startDate.toInstant().toEpochMilli()
             val end = startDate.plusDays(1).toInstant().toEpochMilli()
-            Log.e(TAG, "startDate: $startDate")
-            Log.e(TAG, "start: $start")
-            Log.e(TAG, "end: $end")
             return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
                 val usageStatsManager = getSystemService(USAGE_STATS_SERVICE) as UsageStatsManager
                 usageStatsManager.queryUsageStats(UsageStatsManager.INTERVAL_DAILY, start, end)

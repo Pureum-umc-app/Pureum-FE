@@ -17,6 +17,6 @@ class LoginRepositoryImpl @Inject constructor(
     override suspend fun nicknameValidate(nickname: String): NicknameValidationResponse =
         dataSource.nicknameValidate(nickname)
 
-    override suspend fun signup(imagePath: String, grade: Int, nickname: String, kakaoToken: String) : SignupResponse =
-        dataSource.signup(imagePath, grade, nickname, kakaoToken)
+    override suspend fun signup(imageFile: File?, grade: Int, nickname: String, kakaoToken: String) : SignupResponse =
+        dataSource.signup(imageFile, grade, nickname, kakaoToken)
 }

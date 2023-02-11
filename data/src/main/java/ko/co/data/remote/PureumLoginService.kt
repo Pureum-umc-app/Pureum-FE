@@ -28,7 +28,7 @@ interface PureumLoginService {
     // 회원가입 API
     @Multipart
     @POST("/users/signup")
-//    @Headers("Content-Type: application/json")
+    @Headers("Content-Type: multipart/form-data")
     suspend fun signup(
         @Part image: MultipartBody.Part?,
         @Part("data") data: RequestBody

@@ -76,7 +76,7 @@ class HomeViewModel @Inject constructor(
     fun updateGoalTime(purposeTime: Int) {
         // TODO: 서버로 전송
         viewModelScope.launch {
-            repository.updateGoalTime(purposeTime)
+            repository.setPurposeTime(spfManager.getUserId(), purposeTime)
             spfManager.setPurposeTime(purposeTime)
             _homeInfoListLiveData.value!![_homeInfoListLiveData.value!!.size - 1].purposeTime.minutes = purposeTime
             _updatedGoalTimeLiveData.value = purposeTime
