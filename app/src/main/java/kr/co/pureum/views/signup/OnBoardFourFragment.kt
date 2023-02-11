@@ -45,9 +45,6 @@ class OnBoardFourFragment : BaseFragment<FragmentOnBoardFourBinding>(R.layout.fr
             kakaoLoginIb.setOnClickListener {
                 kakaoLogin()
             }
-            kakaoTempButton.setOnClickListener {
-                kakaoLogout()
-            }
         }
     }
 
