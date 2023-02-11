@@ -11,9 +11,9 @@ class HomeRepositoryImpl @Inject constructor(
     private val dataSource: HomeDataSource
 ) : HomeRepository{
     @RequiresApi(Build.VERSION_CODES.O)
-    override suspend fun getHomeInfo(): HomeResponse =
-        dataSource.getHomeInfo()
+    override suspend fun getHomeInfo(userId: Long): HomeResponse =
+        dataSource.getHomeInfo(userId)
 
-    override suspend fun updateGoalTime(goalTime: Int): DefaultResponse =
-        dataSource.updateGoalTime(goalTime)
+    override suspend fun setPurposeTime(userId: Long, purposeTime: Int): DefaultResponse =
+        dataSource.setPurposeTime(userId, purposeTime)
 }

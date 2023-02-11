@@ -91,7 +91,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                     override fun onPageSelected(position: Int) {
                         super.onPageSelected(position)
                         viewModel.homeInfoListLiveData.value?.let {
-                            val dateValue = it[position].date.split("-").map { s -> s.toInt() }
+                            val dateValue = listOf(it[position].date.year, it[position].date.month, it[position].date.day)
                             binding.dateValue = dateValue
                             val date = LocalDate.of(dateValue[0], dateValue[1], dateValue[2])
                             isToday = when(date.isEqual(today)) {

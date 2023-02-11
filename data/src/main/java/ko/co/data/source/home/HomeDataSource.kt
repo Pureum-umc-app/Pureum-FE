@@ -1,6 +1,8 @@
 package ko.co.data.source.home
 
+import android.content.ContentValues.TAG
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresApi
 import ko.co.data.remote.PureumService
 import kotlinx.coroutines.Dispatchers
@@ -14,8 +16,8 @@ class HomeDataSource @Inject constructor(
     private val pureumService: PureumService
 ){
     @RequiresApi(Build.VERSION_CODES.O)
-    suspend fun getHomeInfo(): HomeResponse {
-        val homeResponse = HomeResponse(
+    suspend fun getHomeInfo(userId: Long): HomeResponse {
+        var homeResponse = HomeResponse(
             code = 0,
             isSuccess = true,
             message = "",
@@ -23,7 +25,12 @@ class HomeDataSource @Inject constructor(
                 val tempDate = LocalDate.now().minusDays((5 - dateIdx).toLong())
                 HomeInfo(
                     count = 0,
-                    date = tempDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),
+                    date = TimeInfo(
+                        year = tempDate.year,
+                        month = tempDate.monthValue,
+                        day = tempDate.dayOfMonth,
+                        minutes = 300 + dateIdx * 60,
+                    ),
                     purposeTime = TimeInfo(
                         year = tempDate.year,
                         month = tempDate.monthValue,
@@ -59,16 +66,29 @@ class HomeDataSource @Inject constructor(
             }
         )
         withContext(Dispatchers.IO) {
-            Thread.sleep(1000)
+//            homeResponse = pureumService.getHomeInfo(userId)
+            runCatching {
+                pureumService.getHomeInfo(userId)
+            }.onSuccess {
+                homeResponse = it
+            }.onFailure {
+                Log.e(TAG, "Home Info Get Failed: $it")
+            }
         }
         return homeResponse
     }
 
-    suspend fun updateGoalTime(goalTime: Int): DefaultResponse {
-        val defaultResponse = DefaultResponse(0, true, "", "")
+    suspend fun setPurposeTime(userId: Long, purposeTime: Int): DefaultResponse {
+        var response = DefaultResponse(0, true, "", "")
         withContext(Dispatchers.IO) {
-            Thread.sleep(1000)
+            runCatching {
+                pureumService.setPurposeTime(userId, SetUsageTimeReq((purposeTime / 60).toString(), (purposeTime % 60).toString()))
+            }.onSuccess {
+                response = it
+            }.onFailure {
+                Log.e(TAG, "setPurposeTime Failed: $it")
+            }
         }
-        return defaultResponse
+        return response
     }
 }
