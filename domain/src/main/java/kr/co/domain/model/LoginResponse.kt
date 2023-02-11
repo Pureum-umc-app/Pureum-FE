@@ -4,5 +4,5 @@ data class LoginResponse(
     val code: Int,
     val isSuccess: Boolean,
     val message: String,
-    val result: LoginJwtToken
+    val result: UserInfo
 )

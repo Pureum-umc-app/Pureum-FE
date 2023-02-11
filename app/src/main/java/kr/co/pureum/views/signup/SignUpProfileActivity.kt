@@ -17,6 +17,7 @@ import android.view.KeyEvent.KEYCODE_ENTER
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+import androidx.core.net.toUri
 import coil.load
 import coil.transform.RoundedCornersTransformation
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,6 +26,7 @@ import kr.co.pureum.base.BaseActivity
 import kr.co.pureum.databinding.ActivitySignUpProfileBinding
 import kr.co.pureum.utils.UriParser
 import java.io.File
+import java.net.URI
 
 @AndroidEntryPoint
 class SignUpProfileActivity : BaseActivity<ActivitySignUpProfileBinding>(R.layout.activity_sign_up_profile) {
@@ -37,29 +39,20 @@ class SignUpProfileActivity : BaseActivity<ActivitySignUpProfileBinding>(R.layou
         )
     }
 
-    var imageFile : File? = null
+    var imageUri: Uri? = null
     var nickname: String = ""
 
     // 사진 받기
     private lateinit var activityResultLauncher : ActivityResultLauncher<Intent>
     // 저장소 권한
-    private val requestPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { isGranted ->
-        isGranted.forEach {
-            if (it.value){
-                Log.e(TAG, "외부 저장소 읽기")
-            } else {
-                showToast("권한 동의 후 다시 한번 클릭해주세요.")
-            }
-        }
-    }
+    private val requestPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { }
 
-    private fun showDialog(imgUri: Uri?){
+    private fun extractImagePath(imgUri: Uri?){
         imgUri?.let {
+            imageUri = imgUri
             binding.signupProfileImage.load(imgUri) {
                 transformations(RoundedCornersTransformation(10F, 10F, 10F, 10F))
             }
-            imageFile = File(UriParser().getPath(this@SignUpProfileActivity, imgUri).toString())
-            Log.e(TAG, "${imageFile!!.name}, $imageFile, $imgUri")
         }
     }
 
@@ -79,7 +72,7 @@ class SignUpProfileActivity : BaseActivity<ActivitySignUpProfileBinding>(R.layou
 
         activityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             if(it.resultCode == RESULT_OK){
-                showDialog(it.data?.data)
+                extractImagePath(it.data?.data)
             }
         }
     }
@@ -95,6 +88,7 @@ class SignUpProfileActivity : BaseActivity<ActivitySignUpProfileBinding>(R.layou
                         setCustomListener(object : AccessDialog.AccessDialogListener {
                             override fun onConfirm() {
                                 agree = true
+                                signupChangeProfileButton.performClick()
                             }
                         })
                         show(supportFragmentManager, "이미지 접근 권한 허용")
@@ -147,7 +141,7 @@ class SignUpProfileActivity : BaseActivity<ActivitySignUpProfileBinding>(R.layou
                 "유효한 닉네임입니다." -> {
                     startActivity(Intent(this, SignUpGradeActivity::class.java).apply {
                         putExtra("kakaoToken", intent.getStringExtra("kakaoToken"))
-                        putExtra("imageFile", imageFile.toString())
+                        imageUri?.let{ uri -> putExtra("imageUri", uri.toString()) }
                         putExtra("nickname", nickname)
                     })
                     this.overridePendingTransition(R.anim.rightin_activity, R.anim.not_move_activity)

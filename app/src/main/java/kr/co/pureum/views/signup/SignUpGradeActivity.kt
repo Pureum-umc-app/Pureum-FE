@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.widget.ListPopupWindow
+import androidx.core.net.toUri
 import coil.load
 import coil.transform.RoundedCornersTransformation
 import com.google.android.material.R.*
@@ -15,6 +16,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import kr.co.pureum.R
 import kr.co.pureum.base.BaseActivity
 import kr.co.pureum.databinding.ActivitySignUpGradeBinding
+import kr.co.pureum.di.PureumApplication
+import kr.co.pureum.utils.UriParser
 import kr.co.pureum.views.MainActivity
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -45,14 +48,7 @@ class SignUpGradeActivity : BaseActivity<ActivitySignUpGradeBinding>(R.layout.ac
 
     override fun initView() {
         with(binding) {
-            // TODO: 임시로 이미지 로드해보기
-            requestPermissionLauncher.launch(REQUIRED_EXTERNAL_STORAGE_PERMISSIONS)
             signupGradeNextButton.isEnabled = false
-            val imageFile = File(intent.getStringExtra("imageFile").toString())
-            Log.e(TAG, "$imageFile, ${imageFile.name}")
-            signupProfileImage.load(imageFile) {
-                transformations(RoundedCornersTransformation(10F, 10F, 10F, 10F))
-            }
         }
         initListener()
         initDropDown()
@@ -61,13 +57,13 @@ class SignUpGradeActivity : BaseActivity<ActivitySignUpGradeBinding>(R.layout.ac
 
     private fun initListener() {
         with(binding) {
+            requestPermissionLauncher.launch(REQUIRED_EXTERNAL_STORAGE_PERMISSIONS)
             signupGradeNextButton.setOnClickListener {
-                requestPermissionLauncher.launch(REQUIRED_EXTERNAL_STORAGE_PERMISSIONS)
-                val imageFile = File(intent.getStringExtra("imageFile").toString())
-                Log.e(TAG, "$imageFile, ${imageFile.name}")
                 val nickname = intent.getStringExtra("nickname").toString()
+                val imageUri = intent.getStringExtra("imageUri")?.toUri()
                 val kakaoToken = intent.getStringExtra("kakaoToken").toString()
-                viewModel.signup(imageFile, grade, nickname, kakaoToken)
+//                UriParser().getPath(this@SignUpGradeActivity, imageUri)
+                viewModel.signup(this@SignUpGradeActivity, imageUri, grade, nickname, kakaoToken)
             }
         }
     }
@@ -93,11 +89,23 @@ class SignUpGradeActivity : BaseActivity<ActivitySignUpGradeBinding>(R.layout.ac
 
     private fun observe() {
         viewModel.signupResponseLiveData.observe(this) {
-            Log.e(TAG, it)
-            startActivity(Intent(this, MainActivity::class.java).apply {
-                putExtra("screen", 1)
-            })
-            finish()
+            viewModel.login(intent.getStringExtra("kakaoToken").toString())
+        }
+        viewModel.userInfoLiveData.observe(this) {
+            when (it.jwt) {
+                "error" -> {
+                    Log.e(TAG, "로그인 실패")
+                    finishAffinity()
+                }
+                else -> {
+                    PureumApplication.spfManager.setUserToken(it.jwt)
+                    PureumApplication.spfManager.setUserId(it.userId)
+                    startActivity(Intent(this, MainActivity::class.java).apply {
+                        putExtra("screen", 1)
+                    })
+                    finish()
+                }
+            }
         }
     }
 }

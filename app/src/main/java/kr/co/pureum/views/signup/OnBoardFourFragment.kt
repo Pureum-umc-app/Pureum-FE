@@ -52,11 +52,12 @@ class OnBoardFourFragment : BaseFragment<FragmentOnBoardFourBinding>(R.layout.fr
     }
 
     private fun observe() {
-        viewModel.userTokenLiveData.observe(viewLifecycleOwner) {
-            when (it) {
+        viewModel.userInfoLiveData.observe(viewLifecycleOwner) {
+            when (it.jwt) {
                 "error" -> openClauseBottomSheet()
                 else -> {
-                    PureumApplication.spfManager.setUserToken(it)
+                    PureumApplication.spfManager.setUserToken(it.jwt)
+                    PureumApplication.spfManager.setUserId(it.userId)
                     val intent = Intent(requireContext(), MainActivity::class.java).apply {
                         putExtra("screen", 1)
                     }

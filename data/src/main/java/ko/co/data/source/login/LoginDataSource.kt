@@ -1,31 +1,38 @@
 package ko.co.data.source.login
 
 import android.content.ContentValues.TAG
+import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.ImageDecoder
+import android.net.Uri
+import android.os.Build
+import android.os.Environment
+import android.provider.MediaStore
 import android.util.Log
 import ko.co.data.remote.PureumLoginService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kr.co.domain.model.CreateUserDto
 import kr.co.domain.model.LoginDto
-import kr.co.domain.model.LoginJwtToken
+import kr.co.domain.model.UserInfo
 import kr.co.domain.model.LoginResponse
 import kr.co.domain.model.NicknameValidationResponse
 import kr.co.domain.model.SignupResponse
-import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
 import java.io.File
+import java.io.FileOutputStream
+import java.io.InputStream
 import javax.inject.Inject
 
 class LoginDataSource @Inject constructor(
     private val pureumLoginService: PureumLoginService
 ) {
     suspend fun login(loginDto: LoginDto) : LoginResponse {
-        var loginResponse = LoginResponse(0, false, "", LoginJwtToken("error"))
+        var loginResponse = LoginResponse(0, false, "", UserInfo("error", 0L))
         withContext(Dispatchers.IO) {
             runCatching {
                 pureumLoginService.login(loginDto)
@@ -52,30 +59,27 @@ class LoginDataSource @Inject constructor(
         return nicknameValidationResponse
     }
 
-    suspend fun signup(imageFile: File?, grade: Int, nickname: String, kakaoToken: String) : SignupResponse {
-        val image = if (imageFile != null) {
-            val requestFile = imageFile.asRequestBody("image/jpeg".toMediaTypeOrNull())
-            MultipartBody.Part.createFormData("image", imageFile.name, requestFile)
-        } else {
-            null
-        }
-
+    suspend fun signup(context: Context, imageUri: Uri?, grade: Int, nickname: String, kakaoToken: String) : SignupResponse {
         val createUserDto = CreateUserDto(grade.toString(), nickname, kakaoToken)
-
-        val mediaType = "text/plain".toMediaTypeOrNull()
-//        val body = MultipartBody.Builder().setType(MultipartBody.FORM)
-//            .addFormDataPart("image", imagePath, File(imagePath).asRequestBody("application/octet-stream".toMediaTypeOrNull()))
-//            .addFormDataPart("data", null, createUserDto.toString().toRequestBody("application/json".toMediaTypeOrNull()))
-//            .build()
+        val body = imageUri?.let {
+            val file = setImgFromUri(context, it)
+            MultipartBody.Builder().setType(MultipartBody.FORM)
+                .addFormDataPart("image", file.name, file.asRequestBody("application/octet-stream".toMediaTypeOrNull()))
+                .addFormDataPart("data", null, createUserDto.toString().toRequestBody("application/json".toMediaTypeOrNull()))
+                .build()
+        }
 
         val json = JSONObject("{\"grade\":\"$grade\",\"kakaoToken\":\"$kakaoToken\",\"nickname\":\"$nickname\"}").toString()
         val jsonBody = json.toRequestBody("application/json".toMediaTypeOrNull())
 
         var signupResponse = SignupResponse(0, false, "", "")
         withContext(Dispatchers.IO) {
-//            signupResponse = pureumLoginService.signup(image, createUserDto)
             runCatching {
-                pureumLoginService.signup(image, jsonBody)
+                body?.let {
+                    pureumLoginService.signup(it.part(0), jsonBody)
+                }.run {
+                    pureumLoginService.signup(null, jsonBody)
+                }
             }.onSuccess {
                 signupResponse = it
             }.onFailure {
@@ -83,5 +87,47 @@ class LoginDataSource @Inject constructor(
             }
         }
         return signupResponse
+    }
+
+    // URI -> File
+    private fun toFile(context: Context, imageUri: Uri): File {
+        val fileName = getFileName(context, imageUri)
+
+        val storageDir: File? = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        val file = File(storageDir, fileName)
+
+        val inputStream: InputStream? = context.contentResolver.openInputStream(imageUri)
+        val outputStream = FileOutputStream(file)
+        val buffer = ByteArray(4 * 1024)
+        while (true) {
+            val byteCount = inputStream!!.read(buffer)
+            if (byteCount < 0) break
+            outputStream.write(buffer, 0, byteCount)
+        }
+        outputStream.flush()
+
+        return File(file.absolutePath)
+    }
+
+    // get file name & extension
+    private fun getFileName(context: Context, imageUri: Uri): String {
+        val name = imageUri.toString().split("/").last()
+        val ext = context.contentResolver.getType(imageUri)!!.split("/").last()
+
+        return "$name.$ext"
+    }
+
+    private fun setImgFromUri(context: Context, imageUri: Uri): File {
+        val bitmap: Bitmap
+        if (Build.VERSION.SDK_INT < 28) {
+            bitmap = MediaStore.Images.Media.getBitmap(
+                context.contentResolver,
+                imageUri
+            )
+        } else {
+            val source = ImageDecoder.createSource(context.contentResolver, imageUri)
+            bitmap = ImageDecoder.decodeBitmap(source)
+        }
+        return toFile(context, imageUri)
     }
 }

@@ -15,7 +15,7 @@ class SharedPreferenceUtil(context: Context) {
     fun checkUserToken(): Boolean = spfManager.contains("user_token")
     fun getUserToken(): String = spfManager.getString("user_token", "").toString()
     fun setUserToken(token: String) {
-        spfManager.edit().putString("user_token", token).apply()
+        spfManager.edit().putString("user_token", "Bearer $token").apply()
     }
 
     // userId 메서드
