@@ -1,7 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
+<layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="java.util.List"/>
+        <import type="android.view.View"/>
+        <variable
+            name="keywords"
+            type="List&lt;java.lang.String>" />
+        <variable
+            name="isLoading"
+            type="java.lang.Boolean" />
+
+    </data>
 
 
     <LinearLayout
@@ -9,6 +21,14 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:gravity="center_horizontal">
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:layout_width="wrap_content"
+            android:layout_height="106dp"
+            android:layout_gravity="center"
+            app:trackColor="@color/progressbar_light_grey"
+            app:indicatorColor="@color/main1"
+            android:indeterminate="true"
+            android:visibility="@{isLoading ? View.VISIBLE : View.GONE}"/>
 
         <androidx.cardview.widget.CardView
             android:id="@+id/quest_today_sentence_one_cv"
@@ -43,6 +63,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/nanum_square_neo_extrabold"
                     android:textSize="22sp"
+                    android:text="@{keywords[0], default=`복구`}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -87,6 +108,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/nanum_square_neo_extrabold"
                     android:textSize="22sp"
+                    android:text="@{keywords[1], default=`계기`}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -129,6 +151,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/nanum_square_neo_extrabold"
                     android:textSize="22sp"
+                    android:text="@{keywords[2], default=`수단`}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

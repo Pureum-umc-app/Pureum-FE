@@ -2,8 +2,10 @@ package kr.co.domain.repository
 
 import kr.co.domain.model.SentenceCompleteResponse
 import kr.co.domain.model.SentencesIncompleteResponse
+import kr.co.domain.model.SentencesListResponse
 
 interface QuestRepository {
     suspend fun sentencesIncomplete(userId: Int): SentencesIncompleteResponse
     suspend fun sentencesComplete(userId: Int): SentenceCompleteResponse
+    fun sentencesList(limit: Int, page: Int, sort: String, userId: Int, word_id: Int): SentencesListResponse
 }

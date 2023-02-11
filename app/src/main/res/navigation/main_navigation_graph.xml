@@ -26,6 +26,9 @@
         <action
             android:id="@+id/action_battleFragment_to_myBattleFragment"
             app:destination="@id/myBattleFragment" />
+        <action
+            android:id="@+id/action_battleFragment_to_allBattleFragment"
+            app:destination="@id/allBattleFragment" />
     </fragment>
 
     <fragment
@@ -91,6 +94,9 @@
         android:id="@+id/questVoidFragment"
         android:name="kr.co.pureum.views.quest.QuestVoidFragment"
         android:label="QuestVoidFragment" >
+        <argument
+            android:name="todayKeyword"
+            app:argType="string" />
 
     </fragment>
 
@@ -149,6 +155,42 @@
         android:id="@+id/myBattleCompInfoDrawFragment"
         android:name="kr.co.pureum.views.battle.MyBattleCompInfoDrawFragment"
         android:label="MyBattleCompInfoDrawFragment">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/allBattleFragment"
+        android:name="kr.co.pureum.views.battle.AllBattleFragment"
+        android:label="AllBattleFragment">
+
+        <action
+            android:id="@+id/action_allBattleFragment_to_allBattleProgInfoFragment"
+            app:destination="@id/allBattleProgInfoFragment" />
+        <action
+            android:id="@+id/action_allBattleFragment_to_allBattleCompInfoFragment"
+            app:destination="@id/allBattleCompInfoFragment" />
+        <action
+            android:id="@+id/action_allBattleFragment_to_allBattleCompInfoDrawFragment"
+            app:destination="@id/allBattleCompInfoDrawFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/allBattleProgInfoFragment"
+        android:name="kr.co.pureum.views.battle.AllBattleProgInfoFragment"
+        android:label="AllBattleProgInfoFragment">
+    </fragment>
+
+    <fragment
+        android:id="@+id/allBattleCompInfoFragment"
+        android:name="kr.co.pureum.views.battle.AllBattleCompInfoFragment"
+        android:label="AllBattleCompInfoFragment">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/allBattleCompInfoDrawFragment"
+        android:name="kr.co.pureum.views.battle.AllBattleCompInfoDrawFragment"
+        android:label="AllBattleCompInfoDrawFragment">
 
     </fragment>
 

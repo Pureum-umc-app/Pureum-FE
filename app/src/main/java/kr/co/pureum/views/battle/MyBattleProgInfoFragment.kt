@@ -1,5 +1,6 @@
 package kr.co.pureum.views.battle
 
+import android.app.Dialog
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -15,12 +16,14 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import dagger.hilt.android.AndroidEntryPoint
 import kr.co.domain.model.MyBattleProgMoreDto
 import kr.co.pureum.R
 import kr.co.pureum.adapter.battle.MyBattleCompletionAdapter
 import kr.co.pureum.adapter.battle.MyBattleProgressAdapter
 import kr.co.pureum.base.BaseFragment
+import kr.co.pureum.databinding.DialogDefaultBinding
 import kr.co.pureum.databinding.FragmentMyBattleProgInfoBinding
 import kr.co.pureum.databinding.FragmentMyBattleProgressBinding
 import kr.co.pureum.views.MainActivity
@@ -36,6 +39,7 @@ class MyBattleProgInfoFragment : BaseFragment<FragmentMyBattleProgInfoBinding>(R
         initView()
         initListener()
         observe()
+        initToolbar()
     }
 
     private fun initView() {
@@ -48,7 +52,9 @@ class MyBattleProgInfoFragment : BaseFragment<FragmentMyBattleProgInfoBinding>(R
 
     private fun initListener() {
         with(binding) {
-
+            myBattleCancelButton.setOnClickListener{
+                showDeleteDialog()
+            }
         }
     }
 
@@ -58,5 +64,36 @@ class MyBattleProgInfoFragment : BaseFragment<FragmentMyBattleProgInfoBinding>(R
 
         }
     }
+
+    private fun showDeleteDialog() {
+        val dialog = Dialog(requireContext())
+        val dialogBinding = DialogDefaultBinding.inflate(LayoutInflater.from(requireContext()))
+        with(dialog) {
+            window!!.setBackgroundDrawableResource(R.drawable.bg_rectangle_20dp)
+            setContentView(dialogBinding.root)
+        }
+        with(dialogBinding) {
+            titleText = "대결을 취소하시겠습니까?"
+            cancelText = "아니오"
+            confirmText = "네"
+            dialogCancelButton.setOnClickListener { dialog.dismiss() }
+            dialogConfirmButton.setOnClickListener {
+                dialog.dismiss()
+            }
+            dialog.show()
+        }
+    }
+
+    private fun initToolbar() {
+        with(binding.mainToolbar){
+            logo = null
+            navigationIcon = androidx.core.content.ContextCompat.getDrawable(context, kr.co.pureum.R.drawable.ic_back)
+            setNavigationOnClickListener {
+                findNavController().navigateUp()
+            }
+        }
+    }
+
+
 
 }

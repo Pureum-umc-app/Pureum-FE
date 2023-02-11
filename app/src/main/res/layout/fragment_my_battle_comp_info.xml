@@ -27,10 +27,29 @@
             android:layout_height="wrap_content"
             >
 
+            <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/appbar_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:paddingHorizontal="8dp"
+                android:background="@color/bg"
+                android:backgroundTint="@color/main3"
+                app:elevation="0dp"
+                android:theme="@style/ThemeOverlay.AppCompat.ActionBar">
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/main_toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"/>
+            </com.google.android.material.appbar.AppBarLayout>
+
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/appbar_layout"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:scaleType="fitXY"
@@ -44,8 +63,7 @@
                 android:src="@drawable/ic_battle_win"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginTop="14dp"/>
+                app:layout_constraintTop_toBottomOf="@id/appbar_layout" />
 
             <ImageView
                 android:id="@+id/battle_winner_profile"
@@ -79,7 +97,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:fontFamily="@font/nanum_square_neo_bold"
-                    android:text="@{myBattleCompMoreDto.challengedNickname, default=`푸름`}"
+                    android:text="@{myBattleCompMoreDto.winnerNickname, default=`푸름`}"
                     android:textSize="14sp" />
 
             </LinearLayout>
@@ -87,8 +105,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="56dp"
-                android:text="@{myBattleCompMoreDto.challengedSentence, default=`황폐화된 자연을 복구하였다.`}"
+                android:layout_marginTop="64dp"
+                android:text="@{myBattleCompMoreDto.winnerSentence, default=`황폐화된 자연을 복구하였다.`}"
                 android:fontFamily="@font/nanum_square_neo_regular"
                 android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -102,7 +120,7 @@
                 android:layout_height="24dp"
                 android:layout_marginEnd="20dp"
                 android:button="@null"
-                android:backgroundTint="@color/black"
+                android:backgroundTint="@null"
                 android:background="@drawable/custom_checkbox_heart"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -115,7 +133,7 @@
                 android:fontFamily="@font/nanum_square_neo_regular"
                 android:textSize="12sp"
                 android:textColor="@color/text1"
-                android:text="@{Integer.toString(myBattleCompMoreDto.challengedLikeCnt), default=`5`}"
+                android:text="@{Integer.toString(myBattleCompMoreDto.winnerLikeCnt), default=`5`}"
                 app:layout_constraintStart_toEndOf="@id/battle_winner_sentence_like"
                 app:layout_constraintTop_toTopOf="@id/battle_winner_sentence_like"
                 app:layout_constraintBottom_toBottomOf="@id/battle_winner_sentence_like"
@@ -127,7 +145,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/battle_winner_sentence_like"
-                android:layout_marginTop="36dp"
+                android:layout_marginTop="54dp"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginStart="32dp"
                 android:textColor="@color/text1"
@@ -175,7 +193,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@{myBattleCompMoreDto.challengerNickname, default=`르미`}"
+                            android:text="@{myBattleCompMoreDto.loserNickname, default=`르미`}"
                             android:fontFamily="@font/nanum_square_neo_bold"
                             android:textSize="14sp"/>
                     </LinearLayout>
@@ -199,7 +217,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{Integer.toString(myBattleCompMoreDto.challengerLikeCnt), default=`5`}"
+                        android:text="@{Integer.toString(myBattleCompMoreDto.loserLikeCnt), default=`5`}"
                         android:fontFamily="@font/nanum_square_neo_bold"
                         android:layout_marginEnd="10dp"
                         android:textSize="14sp"/>
@@ -211,7 +229,7 @@
                     android:layout_marginTop="20dp"
                     android:layout_marginBottom="16dp"
                     android:layout_marginHorizontal="16dp"
-                    android:text="@{myBattleCompMoreDto.challengerSentence, default=`황폐화된 자연을 복구하였다.`}"
+                    android:text="@{myBattleCompMoreDto.loserSentence, default=`황폐화된 자연을 복구하였다.`}"
                     android:fontFamily="@font/nanum_square_neo_bold"
                     android:textSize="14sp"/>
             </LinearLayout>

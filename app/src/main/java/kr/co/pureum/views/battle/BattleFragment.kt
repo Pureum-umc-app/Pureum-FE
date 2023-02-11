@@ -60,6 +60,8 @@ class BattleFragment : BaseFragment<FragmentBattleBinding>(R.layout.fragment_bat
             }
             battleAllBattleButton.setOnClickListener {
                 // TODO: 전체 대결 화면으로 이동
+                val action = BattleFragmentDirections.actionBattleFragmentToAllBattleFragment()
+                findNavController().navigate(action)
             }
             battleMoreButton.setOnClickListener {
                 // TODO: 대기 중인 대결 전체 보기 화면으로 이동

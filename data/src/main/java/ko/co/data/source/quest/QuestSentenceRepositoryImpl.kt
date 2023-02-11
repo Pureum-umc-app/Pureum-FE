@@ -2,6 +2,7 @@ package ko.co.data.source.quest
 
 import kr.co.domain.model.SentenceCompleteResponse
 import kr.co.domain.model.SentencesIncompleteResponse
+import kr.co.domain.model.SentencesListResponse
 import kr.co.domain.repository.QuestRepository
 import javax.inject.Inject
 
@@ -14,5 +15,9 @@ class QuestSentenceRepositoryImpl @Inject constructor(
 
     override suspend fun sentencesComplete(userId: Int): SentenceCompleteResponse {
         return dataSource.sentencesComplete(userId)
+    }
+
+    override fun sentencesList(limit: Int, page: Int, sort: String, userId: Int, word_id: Int): SentencesListResponse {
+        return dataSource.sentencesList(limit, page, sort, userId, word_id)
     }
 }

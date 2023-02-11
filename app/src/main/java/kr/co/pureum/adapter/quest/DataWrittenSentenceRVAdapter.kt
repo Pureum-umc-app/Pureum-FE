@@ -10,11 +10,13 @@ import kr.co.pureum.databinding.ItemWrittenSentenceBinding
 class DataWrittenSentenceRVAdapter(private val dataWrittenSentenceList: ArrayList<DataWrittenSentence>) : RecyclerView.Adapter<DataWrittenSentenceRVAdapter.DataWrittenSentenceViewHolder>() {
     inner class DataWrittenSentenceViewHolder(private val binding: ItemWrittenSentenceBinding) : RecyclerView.ViewHolder(binding.root){
         fun bind(dataWrittenSentence: DataWrittenSentence) {
-            binding.itemProfileImageIb.setImageResource(R.drawable.ic_appicon_round)
-            binding.itemUserNicknameTv.text = dataWrittenSentence.userNickname
-            binding.itemUploadTimeTv.text = dataWrittenSentence.uploadTime
-            binding.itemLikeNumberTv.text = dataWrittenSentence.likeNumber
-            binding.itemWrittenSentenceTv.text = dataWrittenSentence.writtenSentence
+            with(binding) {
+                itemProfileImageIb.setImageResource(R.drawable.ic_appicon_round)
+                itemUserNicknameTv.text = dataWrittenSentence.userNickname
+                itemUploadTimeTv.text = dataWrittenSentence.uploadTime
+                itemLikeNumberTv.text = dataWrittenSentence.likeNumber
+                itemWrittenSentenceTv.text = dataWrittenSentence.writtenSentence
+            }
         }
     }
 

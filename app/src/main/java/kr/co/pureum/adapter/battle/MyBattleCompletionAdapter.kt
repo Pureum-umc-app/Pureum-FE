@@ -25,15 +25,15 @@ class MyBattleCompletionAdapter : RecyclerView.Adapter<MyBattleCompletionAdapter
 
     inner class ViewHolder(val binding: ItemBattleMyCompletionBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(progressData: MyBattleCompletionDto, position: Int) {
+        fun bind(compData: MyBattleCompletionDto, position: Int) {
             with(binding) {
-                myBattleKeywordComTv.text = progressData.keyword.toString()
-                myBattleWinnerName.text = progressData.winnerNickname.toString()
+                myBattleKeywordComTv.text = compData.keyword.toString()
+                myBattleWinnerName.text = compData.winnerNickname.toString()
                 myBattleWinnerProfile.setImageResource(R.drawable.ic_battle_basic_profile)
 
 
                 root.setOnClickListener {
-                    completionListener.onItemClick(position, progressData.type)
+                    completionListener.onItemClick(position, compData.type)
                 }
             }
 
