@@ -1,6 +1,5 @@
 package kr.co.pureum.views.quest
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -25,12 +24,6 @@ class QuestLatestSentenceFragment : BaseFragment<FragmentQuestLatestSentenceBind
     }
 
     private fun initClickListener() {
-        binding.questLatestSentenceAddBt.setOnClickListener{
-            val intent = Intent(activity, QuestWriteSentenceActivity::class.java)
-            startActivity(intent)
-
-
-        }
     }
 
     private fun initApplyRecyclerView() {

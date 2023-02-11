@@ -36,11 +36,11 @@ class QuestViewModel @Inject constructor(
     val todaySentenceListLiveData
         get() = _todaySentenceListLiveData
 
-    fun getSentencesIncomplete() {
+    fun getSentencesIncomplete(userId: Int) {
         viewModelScope.launch {
-            val res = repository.sentencesIncomplete(userId = 1)
-            _todayKeywordListLiveData.value = res.result.map { it.keyword }
-            Log.e(TAG, res.result.toString())
+            val res = repository.sentencesIncomplete(userId).result
+            _todayKeywordListLiveData.value = res.map { it.keyword }
+            Log.e(TAG, _todayKeywordListLiveData.value.toString())
             //_todayKeywordMeaningLiveData.value = res.result.map { it.meaning }.toString()
         }
     }
@@ -54,12 +54,8 @@ class QuestViewModel @Inject constructor(
         }
     }
 
-    fun setKeyword() {
-        viewModelScope.launch {
-            val res = repository.sentencesIncomplete(1)
-            _keywordLiveData.value = res.result.map { it.keyword }.toString()
-        }
-
+    fun setKeyword(keyword: String) {
+        _keywordLiveData.value = keyword
     }
 
 }
