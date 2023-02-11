@@ -61,7 +61,7 @@ class QuestFragment : BaseFragment<FragmentQuestBinding>(R.layout.fragment_quest
     private fun initView() {
         Log.e("ScreenBuild", "QuestFragment")
         binding.isLoading = true
-        viewModel.getSentencesIncomplete()
+        viewModel.getSentencesIncomplete(userId = 1)
         binding.nickname = "태우"
     }
 

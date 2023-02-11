@@ -94,6 +94,9 @@
         android:id="@+id/questVoidFragment"
         android:name="kr.co.pureum.views.quest.QuestVoidFragment"
         android:label="QuestVoidFragment" >
+        <argument
+            android:name="todayKeyword"
+            app:argType="string" />
 
     </fragment>
 

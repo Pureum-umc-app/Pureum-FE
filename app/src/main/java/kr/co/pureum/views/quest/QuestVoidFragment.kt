@@ -8,7 +8,9 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.google.android.material.tabs.TabLayoutMediator
+import dagger.hilt.android.AndroidEntryPoint
 import kr.co.domain.model.DataWrittenSentence
 import kr.co.pureum.R
 import kr.co.pureum.adapter.quest.DataWrittenSentenceRVAdapter
@@ -16,13 +18,17 @@ import kr.co.pureum.adapter.quest.QuestVoidVPAdapter
 import kr.co.pureum.base.BaseFragment
 import kr.co.pureum.databinding.FragmentQuestVoidBinding
 
+@AndroidEntryPoint
 class QuestVoidFragment : BaseFragment<FragmentQuestVoidBinding>(R.layout.fragment_quest_void) {
+    private val arg : QuestVoidFragmentArgs by navArgs()
+    private lateinit var viewModel: QuestViewModel
+    private lateinit var _keyword: String
     private val dataWrittenSentenceList : ArrayList<DataWrittenSentence> = arrayListOf()
     private val dataWrittenSentenceAdapter = DataWrittenSentenceRVAdapter(dataWrittenSentenceList)
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
+        observe()
         initToolbar()
         //initLayoutExamination()
         initClickListener()
@@ -30,6 +36,11 @@ class QuestVoidFragment : BaseFragment<FragmentQuestVoidBinding>(R.layout.fragme
     }
 
     private fun initView() {
+        val todayKeyword = arg.todayKeyword
+        with(binding) {
+            isLoading = true
+            keyword = todayKeyword
+        }
     }
 
     override fun onResume() {
@@ -37,10 +48,20 @@ class QuestVoidFragment : BaseFragment<FragmentQuestVoidBinding>(R.layout.fragme
         //initLayoutExamination()
     }
 
+    private fun observe() {
+        binding.isLoading = false
+    }
+
     private fun initClickListener() {
-        binding.questWritingSentenceBt.setOnClickListener() {
-            val intent = Intent(activity, QuestWriteSentenceActivity::class.java)
-            startActivity(intent)
+        with(binding) {
+            questWritingSentenceBt.setOnClickListener() {
+                val intent = Intent(activity, QuestWriteSentenceActivity::class.java)
+                startActivity(intent)
+        }
+            questExistWriteSentenceBt.setOnClickListener {
+                val intent = Intent(activity, QuestWriteSentenceActivity::class.java)
+                startActivity(intent)
+            }
         }
     }
 
@@ -77,7 +98,5 @@ class QuestVoidFragment : BaseFragment<FragmentQuestVoidBinding>(R.layout.fragme
             binding.questVoidCl.isGone = true
             binding.questVoidExistCl.isVisible = true
         }
-
-
     }
 }
