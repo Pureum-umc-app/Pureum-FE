@@ -3,21 +3,17 @@ package kr.co.pureum.views.profile
 import android.app.Dialog
 import android.content.Intent
 import android.view.LayoutInflater
-import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
-import androidx.navigation.fragment.findNavController
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import dagger.hilt.android.AndroidEntryPoint
 import kr.co.pureum.R
 import kr.co.pureum.base.BaseActivity
-import kr.co.pureum.databinding.ActivityProfileAccountInfoBinding
+import kr.co.pureum.databinding.ActivityProfileInfoBinding
 import kr.co.pureum.databinding.DialogDefaultBinding
 import kr.co.pureum.di.PureumApplication
-import kr.co.pureum.views.MainActivity
 
 @AndroidEntryPoint
-class ProfileAccountInfoActivity : BaseActivity<ActivityProfileAccountInfoBinding>(R.layout.activity_profile_account_info) {
+class ProfileInfoActivity : BaseActivity<ActivityProfileInfoBinding>(R.layout.activity_profile_info) {
     private val viewModel by viewModels<ProfileViewModel>()
 
     override fun initView() {
@@ -37,8 +33,9 @@ class ProfileAccountInfoActivity : BaseActivity<ActivityProfileAccountInfoBindin
     private fun initListener() {
         with(binding) {
             profileSettingButton.setOnClickListener {
-                startActivity(Intent(this@ProfileAccountInfoActivity, ProfileSettingActivity::class.java).apply {
+                startActivity(Intent(this@ProfileInfoActivity, ProfileSettingActivity::class.java).apply {
                     putExtra("nickname", intent.getStringExtra("nickname"))
+                    putExtra("profileUrl", intent.getStringExtra("profileUrl"))
                 })
             }
 

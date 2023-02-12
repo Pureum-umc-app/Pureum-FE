@@ -77,8 +77,9 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_p
             }
 
             profileInfoButton.setOnClickListener {
-                startActivity(Intent(requireActivity(), ProfileAccountInfoActivity::class.java).apply {
+                startActivity(Intent(requireActivity(), ProfileInfoActivity::class.java).apply {
                     putExtra("nickname", binding.profileInfo!!.nickname)
+                    putExtra("profileUrl", binding.profileInfo!!.profileUrl)
                 })
             }
 

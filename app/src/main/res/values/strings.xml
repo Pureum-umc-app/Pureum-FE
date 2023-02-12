@@ -235,4 +235,6 @@
     <string name="personal_info">개인정보 처리방침</string>
     <string name="app_version_title">앱 버전</string>
     <string name="profile_info_toolbar_title">계정 정보</string>
+    <string name="profile_setting_current_nickname">현재 닉네임: %s</string>
+    <string name="profile_setting_finish_button">완료</string>
 </resources>

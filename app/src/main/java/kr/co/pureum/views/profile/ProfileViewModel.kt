@@ -1,5 +1,7 @@
 package kr.co.pureum.views.profile
 
+import android.content.Context
+import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -19,9 +21,13 @@ class ProfileViewModel @Inject constructor(
 ) : ViewModel() {
     private val _profileInfoLiveData = MutableLiveData<ProfileInfo>()
     private val _withdrawalResponseLiveData = MutableLiveData<String>()
+    private val _nicknameValidationLiveData = MutableLiveData<String>()
+    private val _editProfileResponseLiveData = MutableLiveData<String>()
 
     val profileInfoLiveData: LiveData<ProfileInfo> = _profileInfoLiveData
     val withdrawalResponseLiveData: LiveData<String> = _withdrawalResponseLiveData
+    val nicknameValidationLiveData: LiveData<String> = _nicknameValidationLiveData
+    val editProfileResponseLiveData: LiveData<String> = _editProfileResponseLiveData
 
     fun getProfileInfo() {
         viewModelScope.launch {
@@ -34,6 +40,20 @@ class ProfileViewModel @Inject constructor(
         viewModelScope.launch {
             val res = repository.withdrawal(PureumApplication.spfManager.getUserId())
             _withdrawalResponseLiveData.value = res.result
+        }
+    }
+
+    fun nicknameValidation(nickname: String) {
+        viewModelScope.launch {
+            val res = repository.nicknameValidate(nickname)
+            _nicknameValidationLiveData.value = res.result
+        }
+    }
+
+    fun editProfile(context: Context, imageUri: Uri?, nickname: String) {
+        viewModelScope.launch {
+            val res = repository.editProfile(PureumApplication.spfManager.getUserId(), context, imageUri, nickname)
+            _editProfileResponseLiveData.value = res.result
         }
     }
 }

@@ -2,17 +2,14 @@ package ko.co.data.source.login
 
 import android.content.ContentValues.TAG
 import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.ImageDecoder
 import android.net.Uri
-import android.os.Build
 import android.os.Environment
-import android.provider.MediaStore
 import android.util.Log
 import ko.co.data.remote.PureumLoginService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kr.co.domain.model.CreateUserDto
+import kr.co.domain.model.DefaultResponse
 import kr.co.domain.model.LoginDto
 import kr.co.domain.model.UserInfo
 import kr.co.domain.model.LoginResponse
@@ -45,24 +42,24 @@ class LoginDataSource @Inject constructor(
         return loginResponse
     }
 
-    suspend fun nicknameValidate(nickname: String) : NicknameValidationResponse {
-        var nicknameValidationResponse = NicknameValidationResponse(0, false, "", "")
+    suspend fun nicknameValidate(nickname: String) : DefaultResponse {
+        var response = DefaultResponse(0, false, "", "중복된 닉네임입니다.")
         withContext(Dispatchers.IO) {
             runCatching {
                 pureumLoginService.nicknameValidate(nickname)
             }.onSuccess {
-                nicknameValidationResponse = it
+                response = it
             }.onFailure {
                 Log.e(TAG, "Nickname Validation Failed")
             }
         }
-        return nicknameValidationResponse
+        return response
     }
 
     suspend fun signup(context: Context, imageUri: Uri?, grade: Int, nickname: String, kakaoToken: String) : SignupResponse {
         val createUserDto = CreateUserDto(grade.toString(), nickname, kakaoToken)
         val body = imageUri?.let {
-            val file = setImgFromUri(context, it)
+            val file = toFile(context, it)
             MultipartBody.Builder().setType(MultipartBody.FORM)
                 .addFormDataPart("image", file.name, file.asRequestBody("application/octet-stream".toMediaTypeOrNull()))
                 .addFormDataPart("data", null, createUserDto.toString().toRequestBody("application/json".toMediaTypeOrNull()))
