@@ -59,4 +59,11 @@ interface PureumService {
         @Part image: MultipartBody.Part?,
         @Part("nickname") nickname: RequestBody
     ) : DefaultResponse
+
+    // 진행 중인 대결 리스트 반환 API
+    @GET("/battles/list")
+    suspend fun getAllBattleProgressInfo(
+        @Query("limit")limit: Int,
+        @Query("page")page: Int
+    ) : AllBattleProgress
 }
