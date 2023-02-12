@@ -1,5 +1,6 @@
 package ko.co.data.remote
 
+import kr.co.domain.model.AllBattleProgress
 import kr.co.domain.model.DailyRecord
 import kr.co.domain.model.DailyRecordResponse
 import kr.co.domain.model.SentenceCompleteResponse
@@ -11,6 +12,8 @@ import kr.co.domain.model.RankResponse
 import kr.co.domain.model.SentencesIncompleteResponse
 import kr.co.domain.model.SetUsageTimeReq
 import kr.co.domain.model.SentencesListResponse
+import kr.co.domain.model.WriteSentencesReq
+import kr.co.domain.model.WriteSentencesResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.http.Body

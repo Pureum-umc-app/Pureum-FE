@@ -111,7 +111,7 @@ class BattleDateSource @Inject constructor(
     }
 
     suspend fun getMyBattleCompMoreInfo() : MyBattleCompMore {
-        val compMore = MyBattleCompMore( code = 1000, isSuccess = true, message = "요청에 성공했습니다.",
+        val compMore = MyBattleCompMore(code = 1000, isSuccess = true, message = "요청에 성공했습니다.",
             result = MyBattleCompMoreDto(battleId = 1, duration = 10, loserId = 0, loserImage = "", loserLikeCnt = 3, loserNickname = "르미", loserSentence= "떨어진 내 성적을 복구하였다.",
             loserSentenceId = 1,
             oppLike = 0,
@@ -135,7 +135,8 @@ class BattleDateSource @Inject constructor(
     suspend fun getAllBattleProgressInfo() : AllBattleProgress {
 
         var response = AllBattleProgress(0, false, "getAllBattleProgressInfo Failed",
-            result = List(5) { AllBattleProgressDto(battleId = 1,
+            result = List(5) {
+                AllBattleProgressDto(battleId = 1,
                 challengedId = 1,
                 challengedLikeCnt = 4,
                 challengedNickname = "소다",
@@ -153,7 +154,7 @@ class BattleDateSource @Inject constructor(
         )
         withContext(Dispatchers.IO) {
             runCatching {
-                pureumService.getAllBattleProgressInfo( 20, 0)
+                pureumService.getAllBattleProgressInfo(20, 0)
             }.onSuccess {
                 response = it
             }.onFailure {
