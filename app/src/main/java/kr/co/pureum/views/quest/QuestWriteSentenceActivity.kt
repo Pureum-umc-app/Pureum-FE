@@ -29,7 +29,7 @@ class QuestWriteSentenceActivity : BaseActivity<ActivityQuestWriteSentenceBindin
         observe()
         initToolbar()
         initClickListener()
-        viewModel.getSentencesIncomplete(userId = 1)
+        viewModel.getSentencesIncomplete()
         with(binding) {
             isLoading = true
             keyword = _keyword

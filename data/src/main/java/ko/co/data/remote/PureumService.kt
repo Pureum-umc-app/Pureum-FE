@@ -1,9 +1,13 @@
 package ko.co.data.remote
 
+import kr.co.domain.model.DailyRecord
+import kr.co.domain.model.DailyRecordResponse
 import kr.co.domain.model.SentenceCompleteResponse
 import kr.co.domain.model.DefaultResponse
+import kr.co.domain.model.GradeResponse
 import kr.co.domain.model.HomeResponse
 import kr.co.domain.model.ProfileInfoResponse
+import kr.co.domain.model.RankResponse
 import kr.co.domain.model.SentencesIncompleteResponse
 import kr.co.domain.model.SetUsageTimeReq
 import kr.co.domain.model.SentencesListResponse
@@ -25,12 +29,25 @@ interface PureumService {
     // 목표 사용 시간 설정 API
     @POST("/uses/{userId}/set-usage-time")
     suspend fun setPurposeTime(@Path("userId") userId: Long, @Body setUsageTimeReq: SetUsageTimeReq) : DefaultResponse
+    // 일일 사용 시간, 휴대폰 켠 횟수 저장
+    @POST("/uses/{userId}/use-time-and-count")
+    suspend fun commitDailyRecord(@Path("userId") userId: Long, @Body postUseTimeAndCountReq: DailyRecord) : DailyRecordResponse
+
+    // 나의 학년 카테고리 반환 API
+    @GET("/uses/{userId}/grade")
+    suspend fun getMyGrade(@Path("userId") userId: Long) : GradeResponse
+    // 날짜 별 랭킹(전체) 조회 API
+    @GET("/uses/rank-all-grade")
+    suspend fun getAllRankList(@Query("date") date: String, @Query("page") page: Int): RankResponse
+    // 날짜 별 랭킹(같은 카테고리) 조회 API
+    @GET("/uses/rank-same-grade")
+    suspend fun getSameRankList(@Query("date") date: String, @Query("page") page: Int): RankResponse
 
     // 오늘의 작성 전 단어 반환
     @GET("/sentences/incomplete/{userId}")
     suspend fun sentencesIncomplete(@Path("userId")userId: Long) : SentencesIncompleteResponse
     @GET("/sentences/complete/{userId}")
-    suspend fun sentencesComplete(@Path("userId")userId: Long) : SentencesIncompleteResponse
+    suspend fun sentencesComplete(@Path("userId")userId: Long) : SentenceCompleteResponse
     @GET("/sentences/{userId}")
     suspend fun sentencesList(
         @Query("limit")limit: Int,
