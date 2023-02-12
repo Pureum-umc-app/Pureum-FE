@@ -18,6 +18,9 @@
         <variable
             name="isLoading"
             type="java.lang.Boolean" />
+        <variable
+            name="grade"
+            type="java.lang.String" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -209,7 +212,7 @@
                 style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_width="64dp"
                 android:layout_height="32dp"
-                android:text="@string/ranking_type_univ"
+                android:text="@{@string/ranking_type_univ(grade), default=`대학생`}"
                 android:fontFamily="@font/nanum_square_neo_bold"
                 android:textSize="14sp"
                 android:textColor="@color/text2"

@@ -61,23 +61,23 @@ class RankingFragment : BaseFragment<FragmentRankingBinding>(R.layout.fragment_r
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun initView() {
-        viewModel.getRankInfo()
+        viewModel.getMyGrade()
+        viewModel.getAllRankList()
         setDate(RankingViewModel.INIT)
-        with(binding) {
-            rankingRecyclerView.apply {
-                adapter = RankingAdapter().apply {
-                    addOnScrollListener(object : RecyclerView.OnScrollListener() {
-                        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                            super.onScrolled(recyclerView, dx, dy)
-                            if (isLoading == false && (recyclerView.layoutManager as LinearLayoutManager?)!!.findLastCompletelyVisibleItemPosition() == itemCount - 1) {
-                                isLoading = true
-                                viewModel.getAdditionalRankInfo()
-                            }
+        binding.rankingRecyclerView.apply {
+            adapter = RankingAdapter().apply {
+                addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                    override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                        super.onScrolled(recyclerView, dx, dy)
+                        if (binding.isLoading == false && (recyclerView.layoutManager as LinearLayoutManager?)!!.findLastCompletelyVisibleItemPosition() == itemCount - 1) {
+                            binding.isLoading = true
+                            if (viewModel.isSame) viewModel.getSameRankList()
+                            else viewModel.getAllRankList()
                         }
-                    })
-                }
-                layoutManager = LinearLayoutManager(requireContext())
+                    }
+                })
             }
+            layoutManager = LinearLayoutManager(requireContext())
         }
     }
 
@@ -91,14 +91,18 @@ class RankingFragment : BaseFragment<FragmentRankingBinding>(R.layout.fragment_r
                 setDate(RankingViewModel.PLUS)
             }
             rankingTypeButton.setOnClickListener {
-
+                viewModel.switchCategory()
+                binding.grade = if(viewModel.isSame) viewModel.gradeLiveData.value else "전체"
             }
         }
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun observe() {
-        viewModel.prevRankListLiveData.observe(viewLifecycleOwner) {
+        viewModel.gradeLiveData.observe(viewLifecycleOwner) {
+            binding.grade = it
+        }
+        viewModel.rankListLiveData.observe(viewLifecycleOwner) {
             (binding.rankingRecyclerView.adapter as RankingAdapter).setData(it, RankingAdapter.RANK)
             binding.isLoading = false
         }
@@ -113,8 +117,7 @@ class RankingFragment : BaseFragment<FragmentRankingBinding>(R.layout.fragment_r
             with(viewModel) {
                 setDate(option)
                 isLoading = true
-                getMyRank()
-                getRankInfo()
+                if (isSame) getSameRankList() else getAllRankList()
                 date = localDate
                 isToday = isToday()
             }
