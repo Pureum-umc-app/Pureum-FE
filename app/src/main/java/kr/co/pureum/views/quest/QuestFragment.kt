@@ -10,6 +10,7 @@ import android.view.WindowManager
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import kr.co.domain.model.DataSentence
@@ -21,10 +22,13 @@ import kr.co.pureum.databinding.FragmentQuestBinding
 @AndroidEntryPoint
 class QuestFragment : BaseFragment<FragmentQuestBinding>(R.layout.fragment_quest) {
     private val viewModel by viewModels<QuestViewModel>()
+    private val questNavArgs by navArgs<QuestFragmentArgs>()
     private val dataSentenceList : ArrayList<DataSentence> = arrayListOf()
 
+    private var _init = true
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        if (_init) checkNavArgs()
         initToolbar()
         initView()
         initApplySentenceView()
@@ -51,6 +55,14 @@ class QuestFragment : BaseFragment<FragmentQuestBinding>(R.layout.fragment_quest
         activity?.let { updateStatusBarColor(it, "#F8F8F8") }
     }
 
+    private fun checkNavArgs() {
+        when (questNavArgs.toBadge) {
+            true -> findNavController().navigate(QuestFragmentDirections.actionQuestFragmentToQuestBadgeFragment())
+            else -> {}
+        }
+        _init = false
+    }
+
     private fun initToolbar() {
         with(binding.mainToolbar){
             logo = ContextCompat.getDrawable(context, R.drawable.ic_pureum_logo)
@@ -61,7 +73,7 @@ class QuestFragment : BaseFragment<FragmentQuestBinding>(R.layout.fragment_quest
     private fun initView() {
         Log.e("ScreenBuild", "QuestFragment")
         binding.isLoading = true
-        viewModel.getSentencesIncomplete(userId = 1)
+        viewModel.getSentencesIncomplete()
         binding.nickname = "태우"
     }
 

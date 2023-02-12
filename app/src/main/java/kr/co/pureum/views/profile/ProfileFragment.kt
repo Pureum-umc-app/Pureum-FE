@@ -1,19 +1,19 @@
 package kr.co.pureum.views.profile
 
-import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.MenuItem
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import dagger.hilt.android.AndroidEntryPoint
 import kr.co.pureum.R
 import kr.co.pureum.base.BaseFragment
 import kr.co.pureum.databinding.FragmentProfileBinding
-import kr.co.pureum.views.signup.OnBoardActivity
 
 @AndroidEntryPoint
 class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_profile) {
@@ -31,8 +31,6 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_p
             findNavController().navigate(action)
             requireActivity().intent.removeExtra("mySentence")
         }
-
-
     }
 
     override fun onResume() {
@@ -58,39 +56,45 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_p
     }
 
     private fun initView() {
-        Log.e("ScreenBuild", "ProfileFragment")
+        viewModel.getProfileInfo()
     }
+
     private fun initListener() {
         with(binding) {
-            profileButton.setOnClickListener {
-                val action = ProfileFragmentDirections.actionProfileFragmentToProfileTempFragment()
+            profileMyBadgeButton.setOnClickListener {
+                // QuestFragment를 거쳐 내 Badge 확인 페이지로 이동
+                val action = ProfileFragmentDirections.actionProfileFragmentToQuestFragment(toBadge = true)
                 findNavController().navigate(action)
             }
-
-            profileOnboardButton.setOnClickListener {
-                val intent = Intent(activity, OnBoardActivity::class.java)
-                startActivity(intent)
-            }
-
-            profileApiButton.setOnClickListener {
-                viewModel.nicknameValidation("nickname")
-            }
-
-            profileMySentenceIb.setOnClickListener {
+            profileMySentenceButton.setOnClickListener {
                 val action = ProfileFragmentDirections.actionProfileFragmentToProfileMySentenceFragment()
                 findNavController().navigate(action)
             }
-
-            profileAccountInfoTv.setOnClickListener{
-                val intent = Intent(activity, ProfileAccountInfoActivity::class.java)
-                startActivity(intent)
+            profileMyChallengeButton.setOnClickListener {
+                // BattleFragment를 거쳐 내 Challenge 확인 페이지로 이동
+                val action = ProfileFragmentDirections.actionProfileFragmentToBattleFragment(toAllBattle = true)
+                findNavController().navigate(action)
             }
+
+            profileInfoButton.setOnClickListener {
+                startActivity(Intent(requireActivity(), ProfileAccountInfoActivity::class.java).apply {
+                    putExtra("nickname", binding.profileInfo!!.nickname)
+                })
+            }
+
+            // TODO: 추가 항목 리스너 구현 필요
         }
     }
 
     private fun observe() {
-        viewModel.responseMessage.observe(viewLifecycleOwner) {
-            Log.e(TAG, it)
+        viewModel.profileInfoLiveData.observe(viewLifecycleOwner) {
+            with(binding) {
+                profileInfo = it
+                Glide.with(requireContext())
+                    .load(it.profileUrl)
+                    .transform(CenterCrop(), RoundedCorners(10))
+                    .into(profileImage)
+            }
         }
     }
 }

@@ -10,6 +10,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import kr.co.domain.model.SentencesDto
 import kr.co.domain.repository.QuestRepository
+import kr.co.pureum.di.PureumApplication
 import javax.inject.Inject
 
 @HiltViewModel
@@ -36,9 +37,9 @@ class QuestViewModel @Inject constructor(
     val todaySentenceListLiveData
         get() = _todaySentenceListLiveData
 
-    fun getSentencesIncomplete(userId: Int) {
+    fun getSentencesIncomplete() {
         viewModelScope.launch {
-            val res = repository.sentencesIncomplete(userId).result
+            val res = repository.sentencesIncomplete(PureumApplication.spfManager.getUserId()).result
             _todayKeywordListLiveData.value = res.map { it.keyword }
             Log.e(TAG, _todayKeywordListLiveData.value.toString())
             //_todayKeywordMeaningLiveData.value = res.result.map { it.meaning }.toString()

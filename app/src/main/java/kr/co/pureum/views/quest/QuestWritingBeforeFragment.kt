@@ -24,7 +24,7 @@ class QuestWritingBeforeFragment : BaseFragment<FragmentQuestWritingBeforeBindin
     private fun initView() {
         viewModel = (requireParentFragment() as QuestClickFragment).viewModel
         binding.isLoading = true
-        viewModel.getSentencesIncomplete(userId = 1)
+        viewModel.getSentencesIncomplete()
     }
 
     override fun onPause() {

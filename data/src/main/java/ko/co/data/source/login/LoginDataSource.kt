@@ -118,16 +118,12 @@ class LoginDataSource @Inject constructor(
     }
 
     private fun setImgFromUri(context: Context, imageUri: Uri): File {
-        val bitmap: Bitmap
-        if (Build.VERSION.SDK_INT < 28) {
-            bitmap = MediaStore.Images.Media.getBitmap(
-                context.contentResolver,
-                imageUri
-            )
-        } else {
-            val source = ImageDecoder.createSource(context.contentResolver, imageUri)
-            bitmap = ImageDecoder.decodeBitmap(source)
-        }
+//        if (Build.VERSION.SDK_INT < 28) {
+//            MediaStore.Images.Media.getBitmap(context.contentResolver, imageUri)
+//        } else {
+//            val source = ImageDecoder.createSource(context.contentResolver, imageUri)
+//            ImageDecoder.decodeBitmap(source)
+//        }
         return toFile(context, imageUri)
     }
 }
