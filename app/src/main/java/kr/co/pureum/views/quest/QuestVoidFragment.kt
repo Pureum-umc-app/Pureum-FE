@@ -59,7 +59,10 @@ class QuestVoidFragment : BaseFragment<FragmentQuestVoidBinding>(R.layout.fragme
                 startActivity(intent)
         }
             questExistWriteSentenceBt.setOnClickListener {
-                val intent = Intent(activity, QuestWriteSentenceActivity::class.java)
+                val intent = Intent(activity, QuestWriteSentenceActivity::class.java).apply {
+                    putExtra("keyword", keyword)
+                    putExtra("index", arg.index)
+                }
                 startActivity(intent)
             }
         }
