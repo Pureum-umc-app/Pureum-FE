@@ -1,6 +1,8 @@
 package ko.co.data.source.quest
 
 import android.content.ContentValues
+import android.os.IBinder
+import android.provider.ContactsContract.Data
 import android.util.Log
 import ko.co.data.remote.PureumService
 import kotlinx.coroutines.Dispatchers
@@ -11,7 +13,7 @@ import javax.inject.Inject
 class QuestSentenceDataSource @Inject constructor(
     private val pureumService: PureumService
 ) {
-    suspend fun sentencesIncomplete(userId: Int): SentencesIncompleteResponse {
+    suspend fun sentencesIncomplete(userId: Long): SentencesIncompleteResponse {
         var sentencesIncompleteResponse = SentencesIncompleteResponse(
             code = 0, isSuccess = true, message = "요청에 성공하였습니다", result = List<SentencesDto>(3) {
                 SentencesDto(
@@ -35,7 +37,7 @@ class QuestSentenceDataSource @Inject constructor(
         return sentencesIncompleteResponse
     }
 
-    suspend fun sentencesComplete(userId: Int): SentenceCompleteResponse {
+    suspend fun sentencesComplete(userId: Long): SentenceCompleteResponse {
         var sentencesCompleteResponse = SentenceCompleteResponse(
             code = 0, isSuccess = true, message = "요청에 성공하였습니다", result = List<SentencesDto>(3) {
                 SentencesDto(
@@ -57,7 +59,7 @@ class QuestSentenceDataSource @Inject constructor(
         return sentencesCompleteResponse
     }
 
-    fun sentencesList(limit: Int, page: Int, sort: String, userId: Int, word_id: Int): SentencesListResponse {
+    fun sentencesList(limit: Int, page: Int, sort: String, userId: Long, word_id: Int): SentencesListResponse {
         val response = SentencesListResponse(
             code = 0, isSuccess = true, message = "요청에 성공하였습니다", result = List<SentencesListDto>(1) {
                 SentencesListDto(
@@ -67,5 +69,11 @@ class QuestSentenceDataSource @Inject constructor(
             }
         )
         return response
+    }
+    fun writeSentences(keywordId: Int, sentence: String, status: String, userId: Long, SentenceId: Int) : WriteSentencesResponse {
+        var writeSentencesResponse = WriteSentencesResponse(
+            code = 0, isSuccess = true, message = "요청에 성공하였습니다", result = WriteSentencesDto(1)
+        )
+        return writeSentencesResponse
     }
 }
