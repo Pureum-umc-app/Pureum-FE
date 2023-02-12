@@ -1,5 +1,6 @@
 package ko.co.data.remote
 
+import kr.co.domain.model.*
 import kr.co.domain.model.SentenceCompleteResponse
 import kr.co.domain.model.DefaultResponse
 import kr.co.domain.model.HomeResponse
@@ -29,8 +30,10 @@ interface PureumService {
     // 오늘의 작성 전 단어 반환
     @GET("/sentences/incomplete/{userId}")
     suspend fun sentencesIncomplete(@Path("userId")userId: Long) : SentencesIncompleteResponse
+    // 오늘의 작성 후 단어 반환 API
     @GET("/sentences/complete/{userId}")
-    suspend fun sentencesComplete(@Path("userId")userId: Long) : SentencesIncompleteResponse
+    suspend fun sentencesComplete(@Path("userId")userId: Long) : SentenceCompleteResponse
+    // 단어별 문장 리스트 반환 API
     @GET("/sentences/{userId}")
     suspend fun sentencesList(
         @Query("limit")limit: Int,
@@ -39,6 +42,8 @@ interface PureumService {
         @Path("userId")userId: Long,
         @Query("word_id")word_id: Int
     ) : SentencesListResponse
+    @POST("/sentences/write")
+    suspend fun sentencesWrite(@Body writeSentencesReq: WriteSentencesReq) : WriteSentencesResponse
 
     // 프로필 조회 API
     @GET("/mypages/{userId}")

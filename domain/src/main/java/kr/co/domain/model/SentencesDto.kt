@@ -5,5 +5,5 @@ data class SentencesDto(
     var keyword: String,
     var keywordId: Int,
     var meaning: String,
-    var userId: Int
+    var userId: Long
 )

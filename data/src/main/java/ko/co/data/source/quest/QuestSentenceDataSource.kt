@@ -35,7 +35,7 @@ class QuestSentenceDataSource @Inject constructor(
         return sentencesIncompleteResponse
     }
     suspend fun sentencesComplete(userId: Long): SentenceCompleteResponse {
-        val response = SentenceCompleteResponse(
+        var sentencesCompleteResponse = SentenceCompleteResponse(
             code = 0, isSuccess = true, message = "요청에 성공하였습니다", result = List<SentencesDto>(3) {
                 SentencesDto(
                     date = "2022-02-08", keyword = "구현", keywordId = 1,
@@ -66,5 +66,11 @@ class QuestSentenceDataSource @Inject constructor(
             }
         )
         return response
+    }
+    fun writeSentences(keywordId: Int, sentence: String, status: String, userId: Long, SentenceId: Int) : WriteSentencesResponse {
+        var writeSentencesResponse = WriteSentencesResponse(
+            code = 0, isSuccess = true, message = "요청에 성공하였습니다", result = WriteSentencesDto(1)
+        )
+        return writeSentencesResponse
     }
 }
