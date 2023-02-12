@@ -4,28 +4,38 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import kr.co.pureum.R
 import kr.co.pureum.adapter.battle.WaitingBattleAdapter
 import kr.co.pureum.base.BaseFragment
 import kr.co.pureum.databinding.FragmentBattleBinding
-import kr.co.pureum.views.home.HomeFragmentDirections
 
 @AndroidEntryPoint
 class BattleFragment : BaseFragment<FragmentBattleBinding>(R.layout.fragment_battle) {
     private val viewModel by viewModels<BattleViewModel>()
+    private val battleNavArgs by navArgs<BattleFragmentArgs>()
 
+    private var _init = true
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        if (_init) checkNavArgs()
         initToolbar()
         initView()
         initListener()
         observe()
+    }
+
+    private fun checkNavArgs() {
+        when(battleNavArgs.toAllBattle) {
+            true -> findNavController().navigate(BattleFragmentDirections.actionBattleFragmentToMyBattleFragment())
+            else -> {}
+        }
+        _init = false
     }
 
     private fun initToolbar() {

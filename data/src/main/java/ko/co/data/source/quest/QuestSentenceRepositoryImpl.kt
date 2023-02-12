@@ -9,15 +9,15 @@ import javax.inject.Inject
 class QuestSentenceRepositoryImpl @Inject constructor(
     private val dataSource: QuestSentenceDataSource
 ) : QuestRepository {
-    override suspend fun sentencesIncomplete(userId: Int): SentencesIncompleteResponse {
+    override suspend fun sentencesIncomplete(userId: Long): SentencesIncompleteResponse {
         return dataSource.sentencesIncomplete(userId)
     }
 
-    override suspend fun sentencesComplete(userId: Int): SentenceCompleteResponse {
+    override suspend fun sentencesComplete(userId: Long): SentenceCompleteResponse {
         return dataSource.sentencesComplete(userId)
     }
 
-    override fun sentencesList(limit: Int, page: Int, sort: String, userId: Int, word_id: Int): SentencesListResponse {
+    override fun sentencesList(limit: Int, page: Int, sort: String, userId: Long, word_id: Int): SentencesListResponse {
         return dataSource.sentencesList(limit, page, sort, userId, word_id)
     }
 }

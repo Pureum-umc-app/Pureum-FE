@@ -2,6 +2,7 @@ package ko.co.data.source.login
 
 import android.content.Context
 import android.net.Uri
+import kr.co.domain.model.DefaultResponse
 import kr.co.domain.model.LoginDto
 import kr.co.domain.model.LoginResponse
 import kr.co.domain.model.NicknameValidationResponse
@@ -16,7 +17,7 @@ class LoginRepositoryImpl @Inject constructor(
     override suspend fun login(loginDto: LoginDto): LoginResponse =
         dataSource.login(loginDto)
 
-    override suspend fun nicknameValidate(nickname: String): NicknameValidationResponse =
+    override suspend fun nicknameValidate(nickname: String): DefaultResponse =
         dataSource.nicknameValidate(nickname)
 
     override suspend fun signup(context: Context, imageUri: Uri?, grade: Int, nickname: String, kakaoToken: String) : SignupResponse =

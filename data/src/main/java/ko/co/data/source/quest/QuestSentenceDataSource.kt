@@ -11,7 +11,7 @@ import javax.inject.Inject
 class QuestSentenceDataSource @Inject constructor(
     private val pureumService: PureumService
 ) {
-    suspend fun sentencesIncomplete(userId: Int): SentencesIncompleteResponse {
+    suspend fun sentencesIncomplete(userId: Long): SentencesIncompleteResponse {
         var sentencesIncompleteResponse = SentencesIncompleteResponse(
             code = 0, isSuccess = true, message = "요청에 성공하였습니다", result = List<SentencesDto>(3) {
                 SentencesDto(
@@ -34,9 +34,8 @@ class QuestSentenceDataSource @Inject constructor(
         }
         return sentencesIncompleteResponse
     }
-
-    suspend fun sentencesComplete(userId: Int): SentenceCompleteResponse {
-        var sentencesCompleteResponse = SentenceCompleteResponse(
+    suspend fun sentencesComplete(userId: Long): SentenceCompleteResponse {
+        val response = SentenceCompleteResponse(
             code = 0, isSuccess = true, message = "요청에 성공하였습니다", result = List<SentencesDto>(3) {
                 SentencesDto(
                     date = "2022-02-08", keyword = "구현", keywordId = 1,
@@ -57,7 +56,7 @@ class QuestSentenceDataSource @Inject constructor(
         return sentencesCompleteResponse
     }
 
-    fun sentencesList(limit: Int, page: Int, sort: String, userId: Int, word_id: Int): SentencesListResponse {
+    fun sentencesList(limit: Int, page: Int, sort: String, userId: Long, word_id: Int): SentencesListResponse {
         val response = SentencesListResponse(
             code = 0, isSuccess = true, message = "요청에 성공하였습니다", result = List<SentencesListDto>(1) {
                 SentencesListDto(

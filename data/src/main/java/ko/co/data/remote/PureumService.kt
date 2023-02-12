@@ -3,12 +3,18 @@ package ko.co.data.remote
 import kr.co.domain.model.SentenceCompleteResponse
 import kr.co.domain.model.DefaultResponse
 import kr.co.domain.model.HomeResponse
+import kr.co.domain.model.ProfileInfoResponse
 import kr.co.domain.model.SentencesIncompleteResponse
 import kr.co.domain.model.SetUsageTimeReq
 import kr.co.domain.model.SentencesListResponse
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.http.Body
 import retrofit2.http.POST
 import retrofit2.http.GET
+import retrofit2.http.Multipart
+import retrofit2.http.PATCH
+import retrofit2.http.Part
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -22,15 +28,30 @@ interface PureumService {
 
     // 오늘의 작성 전 단어 반환
     @GET("/sentences/incomplete/{userId}")
-    suspend fun sentencesIncomplete(@Path("userId")userId: Int) : SentencesIncompleteResponse
+    suspend fun sentencesIncomplete(@Path("userId")userId: Long) : SentencesIncompleteResponse
     @GET("/sentences/complete/{userId}")
-    suspend fun sentencesComplete(@Path("userId")userId: Int) : SentenceCompleteResponse
+    suspend fun sentencesComplete(@Path("userId")userId: Long) : SentencesIncompleteResponse
     @GET("/sentences/{userId}")
     suspend fun sentencesList(
         @Query("limit")limit: Int,
         @Query("page")page: Int,
         @Query("sort")sort: String,
-        @Path("userId")userId: Int,
+        @Path("userId")userId: Long,
         @Query("word_id")word_id: Int
     ) : SentencesListResponse
+
+    // 프로필 조회 API
+    @GET("/mypages/{userId}")
+    suspend fun getProfileInfo(@Path("userId") userId: Long) : ProfileInfoResponse
+    // 회원 탈퇴 API
+    @PATCH("/users/resign/{userId}")
+    suspend fun withdrawal(@Path("userId") userId: Long) : DefaultResponse
+    // 프로필 수정 API
+    @Multipart
+    @PATCH("/mypages/{userId}")
+    suspend fun editProfile(
+        @Path("userId") userId: Long,
+        @Part image: MultipartBody.Part?,
+        @Part("nickname") nickname: RequestBody
+    ) : DefaultResponse
 }

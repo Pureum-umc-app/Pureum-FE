@@ -29,6 +29,11 @@
         <action
             android:id="@+id/action_battleFragment_to_allBattleFragment"
             app:destination="@id/allBattleFragment" />
+
+        <argument
+            android:name="toAllBattle"
+            app:argType="boolean"
+            android:defaultValue="false"/>
     </fragment>
 
     <fragment
@@ -63,6 +68,11 @@
         <action
             android:id="@+id/action_questFragment_to_questAttendanceFragment"
             app:destination="@id/questAttendanceFragment" />
+
+        <argument
+            android:name="toBadge"
+            app:argType="boolean"
+            android:defaultValue="false"/>
 
     </fragment>
 
@@ -108,13 +118,18 @@
         android:name="kr.co.pureum.views.profile.ProfileFragment"
         android:label="ProfileFragment">
         <action
-            android:id="@+id/action_profileFragment_to_profileTempFragment"
-            app:destination="@id/profileTempFragment" >
-
-        </action>
-        <action
             android:id="@+id/action_profileFragment_to_profileMySentenceFragment"
             app:destination="@id/profileMySentenceFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_questFragment"
+            app:destination="@id/questFragment"
+            app:popUpTo="@id/profileFragment"
+            app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_profileFragment_to_battleFragment"
+            app:destination="@id/battleFragment"
+            app:popUpTo="@id/profileFragment"
+            app:popUpToInclusive="true"/>
     </fragment>
 
     <fragment
@@ -125,12 +140,6 @@
         <action
             android:id="@+id/action_profileMySentenceFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/profileTempFragment"
-        android:name="kr.co.pureum.views.profile.ProfileTempFragment"
-        android:label="ProfileTempFragment">
     </fragment>
 
     <fragment
