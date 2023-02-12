@@ -17,11 +17,13 @@ import dagger.hilt.android.AndroidEntryPoint
 import kr.co.pureum.R
 import kr.co.pureum.base.BaseActivity
 import kr.co.pureum.databinding.ActivityQuestWriteSentenceBinding
+import kr.co.pureum.di.PureumApplication
 import kr.co.pureum.views.MainActivity
 
 @AndroidEntryPoint
 class QuestWriteSentenceActivity : BaseActivity<ActivityQuestWriteSentenceBinding>(R.layout.activity_quest_write_sentence) {
     private lateinit var _keyword: String
+    private var userId = PureumApplication.spfManager.getUserId()
     private val viewModel by viewModels<QuestViewModel>()
     override fun initView() {
         _keyword = intent.getStringExtra("keyword").toString()
@@ -29,7 +31,7 @@ class QuestWriteSentenceActivity : BaseActivity<ActivityQuestWriteSentenceBindin
         observe()
         initToolbar()
         initClickListener()
-        viewModel.getSentencesIncomplete(userId = 1)
+        viewModel.getSentencesIncomplete()
         with(binding) {
             isLoading = true
             keyword = _keyword

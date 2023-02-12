@@ -49,7 +49,7 @@ class QuestViewModel @Inject constructor(
         }
     }
 
-    fun getSentencesComplete(userId: Int) {
+    fun getSentencesComplete(userId: Long) {
         viewModelScope.launch {
             val res = repository.sentencesComplete(userId)
             //_todayKeywordLiveData.value = res.keyword.toString()
