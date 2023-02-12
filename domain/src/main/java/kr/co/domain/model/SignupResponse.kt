@@ -1,8 +1,8 @@
 package kr.co.domain.model
 
-data class LoginResponse(
+data class SignupResponse(
     val code: Int,
     val isSuccess: Boolean,
     val message: String,
-    val result: UserInfo
+    val result: String
 )

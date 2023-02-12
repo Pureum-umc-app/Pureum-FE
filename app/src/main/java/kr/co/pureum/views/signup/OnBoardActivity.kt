@@ -14,14 +14,13 @@ import kr.co.pureum.views.MainActivity
 class OnBoardActivity : BaseActivity<ActivityOnBoardBinding>(R.layout.activity_on_board) {
 
     override fun initView() {
-        // 자동 로그인 ( 디버깅을 위해 꺼둠 )
-//        if (PureumApplication.spfManager.checkUserToken()) {
-//            val intent = Intent(this, MainActivity::class.java).apply {
-//                putExtra("screen", 1)
-//            }
-//            startActivity(intent)
-//            finish()
-//        }
+        // 자동 로그인
+        if (PureumApplication.spfManager.checkUserToken()) {
+            startActivity(Intent(this, MainActivity::class.java).apply {
+                putExtra("screen", 1)
+            })
+            finish()
+        }
         setViewPager()
     }
 

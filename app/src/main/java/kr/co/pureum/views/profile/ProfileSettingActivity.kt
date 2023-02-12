@@ -50,17 +50,17 @@ class ProfileSettingActivity : BaseActivity<ActivityProfileSettingBinding>(R.lay
             checkPermission.launch(permissionList)
 
             // 앨범 버튼 클릭 리스너 구현
-            profileImageSetBt.setOnClickListener{
-
-                if(agree == 0){
-                    val dlg = AccessDialog(this@ProfileSettingActivity)
-                    dlg.show()
-                    agree++
-                }
-                else{
-                    readImage.launch("image/*")
-                }
-            }
+//            profileImageSetBt.setOnClickListener{
+//
+//                if(agree == 0){
+//                    val dlg = AccessDialog(this@ProfileSettingActivity)
+//                    dlg.show()
+//                    agree++
+//                }
+//                else{
+//                    readImage.launch("image/*")
+//                }
+//            }
         }
     }
 }

@@ -19,7 +19,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="140dp"
+            android:layout_marginTop="160dp"
             android:text="@string/login_simple"
             android:textSize="12sp"
             android:textColor="@color/text2"
@@ -34,14 +34,5 @@
             android:src="@drawable/kakao_login_large_wide"
             android:background="@null"
             android:scaleType="fitCenter"/>
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/kakao_temp_button"
-            android:layout_width="match_parent"
-            android:layout_height="52dp"
-            android:background="@drawable/bg_rectangle_10dp"
-            android:backgroundTint="@color/main1"
-            android:text="카카오톡 탈퇴"
-            android:textColor="@color/white"/>
     </LinearLayout>
 </layout>

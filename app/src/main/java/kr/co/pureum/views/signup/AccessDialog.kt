@@ -1,43 +1,40 @@
 package kr.co.pureum.views.signup
 
-import android.app.Dialog
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.view.Window
-import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.DialogFragment
 import kr.co.pureum.databinding.DialogAccessRightsPhotoBinding
 
-class AccessDialog (private val context : AppCompatActivity) {
-
+class AccessDialog: DialogFragment() {
     private lateinit var binding : DialogAccessRightsPhotoBinding
-    private val dlg = Dialog(context)   //부모 액티비티의 context 가 들어감
-    private lateinit var listener : DialogOKClickedListener
 
-    fun show() {
-        binding = DialogAccessRightsPhotoBinding.inflate(context.layoutInflater)
+    interface AccessDialogListener {
+        fun onConfirm()
+    }
 
-        dlg.requestWindowFeature(Window.FEATURE_NO_TITLE)   //타이틀바 제거
-        dlg.setContentView(binding.root)     //다이얼로그에 사용할 xml 파일을 불러옴
-        dlg.setCancelable(false)    //다이얼로그의 바깥 화면을 눌렀을 때 다이얼로그가 닫히지 않도록 함
+    private lateinit var accessDialogListener: AccessDialogListener
 
+    fun setCustomListener(listener: AccessDialogListener){
+        accessDialogListener = listener
+    }
 
-//        binding.content.text = content //부모 액티비티에서 전달 받은 텍스트 세팅
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        binding = DialogAccessRightsPhotoBinding.inflate(inflater)
+        dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
+        isCancelable = false
+        return binding.root
+    }
 
-        //ok 버튼 동작
-        binding.accessDialogOkBt.setOnClickListener {
-
-            dlg.dismiss()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        with(binding){
+            accessDialogOkBt.setOnClickListener {
+                accessDialogListener.onConfirm()
+                dismiss()
+            }
         }
-
-        //cancel 버튼 동작
-//        binding.cancel.setOnClickListener {
-//            dlg.dismiss()
-//        }
-
-        dlg.show()
     }
-
-    interface DialogOKClickedListener {
-        fun onOKClicked(content : String)
-    }
-
-
 }
