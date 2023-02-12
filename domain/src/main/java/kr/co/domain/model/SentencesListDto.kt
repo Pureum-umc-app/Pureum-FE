@@ -10,5 +10,5 @@ data class SentencesListDto(
     var sentence: String,
     var sentenceId: Int,
     var time: String,
-    var userId: Int
+    var userId: Long
 )

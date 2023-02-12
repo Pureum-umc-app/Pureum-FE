@@ -73,6 +73,7 @@ class OnBoardFourFragment : BaseFragment<FragmentOnBoardFourBinding>(R.layout.fr
     private fun startLogin() {
         UserApiClient.instance.me { user, _ ->
             if (user != null) {
+
                 userName = user.kakaoAccount?.profile?.nickname.toString()
                 userProfile = user.kakaoAccount?.profile?.thumbnailImageUrl.toString()
                 userGender = user.kakaoAccount?.gender.toString() == "MALE"
@@ -80,6 +81,7 @@ class OnBoardFourFragment : BaseFragment<FragmentOnBoardFourBinding>(R.layout.fr
                     userId = it
                 }
                 Log.e(TAG, user.toString())
+                viewModel.login(kakaoToken)
             }
         }
     }
@@ -93,7 +95,7 @@ class OnBoardFourFragment : BaseFragment<FragmentOnBoardFourBinding>(R.layout.fr
             kakaoToken = token.accessToken
             Log.i(TAG, "카카오계정으로 로그인 성공 $kakaoToken")
             startLogin()
-            viewModel.login(kakaoToken)
+
         }
     }
 
@@ -115,6 +117,7 @@ class OnBoardFourFragment : BaseFragment<FragmentOnBoardFourBinding>(R.layout.fr
                 } else if (token != null) {
                     Log.i(TAG, "카카오톡으로 로그인 성공 ${token.accessToken}")
                     startLogin()
+                    kakaoToken = token.accessToken
                 }
             }
         } else {

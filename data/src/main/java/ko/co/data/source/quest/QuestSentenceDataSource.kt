@@ -67,4 +67,10 @@ class QuestSentenceDataSource @Inject constructor(
         )
         return response
     }
+    fun writeSentences(keywordId: Int, sentence: String, status: String, userId: Long, SentenceId: Int) : WriteSentencesResponse {
+        var writeSentencesResponse = WriteSentencesResponse(
+            code = 0, isSuccess = true, message = "요청에 성공하였습니다", result = WriteSentencesDto(1)
+        )
+        return writeSentencesResponse
+    }
 }
