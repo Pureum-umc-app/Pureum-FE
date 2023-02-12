@@ -1,5 +1,6 @@
 package ko.co.data.remote
 
+import kr.co.domain.model.SentenceCompleteResponse
 import kr.co.domain.model.DefaultResponse
 import kr.co.domain.model.HomeResponse
 import kr.co.domain.model.SentencesIncompleteResponse
@@ -23,7 +24,7 @@ interface PureumService {
     @GET("/sentences/incomplete/{userId}")
     suspend fun sentencesIncomplete(@Path("userId")userId: Int) : SentencesIncompleteResponse
     @GET("/sentences/complete/{userId}")
-    suspend fun sentencesComplete(@Path("userId")userId: Int) : SentencesIncompleteResponse
+    suspend fun sentencesComplete(@Path("userId")userId: Int) : SentenceCompleteResponse
     @GET("/sentences/{userId}")
     suspend fun sentencesList(
         @Query("limit")limit: Int,

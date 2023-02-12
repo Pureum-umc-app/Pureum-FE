@@ -1,5 +1,6 @@
 package kr.co.pureum.views.quest
 
+import android.content.ContentValues
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -57,7 +58,9 @@ class QuestWritingBeforeFragment : BaseFragment<FragmentQuestWritingBeforeBindin
         // 뒤로가기 이슈 (수정해야함)
         viewModel.keywordLiveData.observe(viewLifecycleOwner) {
             Log.e("TAG", it)
-            val action = QuestClickFragmentDirections.actionQuestClickFragmentToQuestVoidFragment(it)
+            val index = _keywords.indexOf(it)
+            Log.e(ContentValues.TAG, index.toString())
+            val action = QuestClickFragmentDirections.actionQuestClickFragmentToQuestVoidFragment(it, index)
             findNavController().navigate(action)
         }
     }

@@ -24,9 +24,13 @@ class QuestViewModel @Inject constructor(
     val keywordLiveData: LiveData<String>
         get() = _keywordLiveData
 
-    private var _todayKeywordMeaningLiveData = MutableLiveData<String>()
-    val todayKeywordMeaningLiveData: LiveData<String>
-        get() = _todayKeywordMeaningLiveData
+    private var _todayKeywordMeaningListLiveData = MutableLiveData<List<String>>()
+    val todayKeywordMeaningListLiveData: LiveData<List<String>>
+        get() = _todayKeywordMeaningListLiveData
+
+    private var _keywordMeaningLiveData = MutableLiveData<String>()
+    val keywordMeaningLiveData: LiveData<String>
+        get() = _keywordMeaningLiveData
 
     private var _todaySentenceDate = MutableLiveData<String>()
     val todaySentenceDate: LiveData<String>
@@ -40,14 +44,13 @@ class QuestViewModel @Inject constructor(
         viewModelScope.launch {
             val res = repository.sentencesIncomplete(userId).result
             _todayKeywordListLiveData.value = res.map { it.keyword }
-            Log.e(TAG, _todayKeywordListLiveData.value.toString())
-            //_todayKeywordMeaningLiveData.value = res.result.map { it.meaning }.toString()
+            _todayKeywordMeaningListLiveData.value = res.map { it.meaning }
         }
     }
 
-    fun getSentencesComplete() {
+    fun getSentencesComplete(userId: Int) {
         viewModelScope.launch {
-            val res = repository.sentencesComplete(1)
+            val res = repository.sentencesComplete(userId)
             //_todayKeywordLiveData.value = res.keyword.toString()
             //_todayKeywordMeaningLiveData.value = res.meaning
             //_todaySentenceDate.value = res.date
@@ -57,5 +60,4 @@ class QuestViewModel @Inject constructor(
     fun setKeyword(keyword: String) {
         _keywordLiveData.value = keyword
     }
-
 }
