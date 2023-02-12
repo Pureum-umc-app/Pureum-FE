@@ -17,6 +17,7 @@ tools:context=".views.battle.AllBattleProgInfoFragment">
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:scrollbars="none"
+    android:layout_marginBottom="80dp"
     android:overScrollMode="never">
 
 

@@ -1,5 +1,7 @@
 package ko.co.data.source.battle
 
+import android.content.ContentValues
+import android.util.Log
 import ko.co.data.remote.PureumService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -109,19 +111,19 @@ class BattleDateSource @Inject constructor(
     }
 
     suspend fun getMyBattleCompMoreInfo() : MyBattleCompMore {
-        val compMore = MyBattleCompMore( code = 1000, isSuccess = true, message = "요청에 성공했습니다.", result = MyBattleCompMoreDto(battleId = 1,
-            duration = 10, loserId = 0, loserImage = "", loserLikeCnt = 3, loserNickname = "르미", loserSentence= "떨어진 내 성적을 복구하였다.",
-        loserSentenceId = 1,
-        oppLike = 0,
-        situation = 0,
-        userLike= 0,
-        winnerId= 0,
-        winnerImage= "",
-        winnerLikeCnt= 10,
-        winnerNickname= "푸름",
-        winnerSentence = "황폐화된 자연을 복구하였다.",
-        winnerSentenceId = 10,
-        winnerUserId = 2)
+        val compMore = MyBattleCompMore(code = 1000, isSuccess = true, message = "요청에 성공했습니다.",
+            result = MyBattleCompMoreDto(battleId = 1, duration = 10, loserId = 0, loserImage = "", loserLikeCnt = 3, loserNickname = "르미", loserSentence= "떨어진 내 성적을 복구하였다.",
+            loserSentenceId = 1,
+            oppLike = 0,
+            situation = 0,
+            userLike= 0,
+            winnerId= 0,
+            winnerImage= "",
+            winnerLikeCnt= 10,
+            winnerNickname= "푸름",
+            winnerSentence = "황폐화된 자연을 복구하였다.",
+            winnerSentenceId = 10,
+            winnerUserId = 2)
         )
 
             withContext(Dispatchers.IO) {
@@ -131,9 +133,10 @@ class BattleDateSource @Inject constructor(
     }
 
     suspend fun getAllBattleProgressInfo() : AllBattleProgress {
-        val allBattleProg = AllBattleProgress( code = 1000, isSuccess = true, message = "요청에 성공했습니다.",
-            result = List(8) { AllBattleProgressDto(
-                battleId = 1,
+
+        var response = AllBattleProgress(0, false, "getAllBattleProgressInfo Failed",
+            result = List(5) {
+                AllBattleProgressDto(battleId = 1,
                 challengedId = 1,
                 challengedLikeCnt = 4,
                 challengedNickname = "소다",
@@ -146,13 +149,19 @@ class BattleDateSource @Inject constructor(
                 isChallengerLike = 1,
                 keyword = "낭만",
                 keywordId = 4,
-                duration = "D-5"
-            )
-        })
-            withContext(Dispatchers.IO) {
-                Thread.sleep(1000)
+                duration = "D-5")
             }
-        return allBattleProg
+        )
+        withContext(Dispatchers.IO) {
+            runCatching {
+                pureumService.getAllBattleProgressInfo(20, 0)
+            }.onSuccess {
+                response = it
+            }.onFailure {
+                Log.e(ContentValues.TAG, "getAllBattleProgressInfo Failed: $it")
+            }
+        }
+        return response
     }
 
     suspend fun getAllBattleCompletionInfo() : AllBattleCompletion {
