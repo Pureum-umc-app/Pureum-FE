@@ -1,8 +1,8 @@
 package ko.co.data.remote
 
+import kr.co.domain.model.DefaultResponse
 import kr.co.domain.model.LoginDto
 import kr.co.domain.model.LoginResponse
-import kr.co.domain.model.NicknameValidationResponse
 import kr.co.domain.model.SignupResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -20,12 +20,11 @@ interface PureumLoginService {
 
     // 닉네임 유효성 체크 API
     @GET("/users/nickname/{nickname}/validation")
-    suspend fun nicknameValidate(@Path("nickname") nickname: String) : NicknameValidationResponse
+    suspend fun nicknameValidate(@Path("nickname") nickname: String) : DefaultResponse
 
     // 회원가입 API
     @Multipart
     @POST("/users/signup")
-//    @Headers("Content-Type: multipart/form-data")
     suspend fun signup(
         @Part image: MultipartBody.Part?,
         @Part("data") data: RequestBody

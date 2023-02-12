@@ -225,4 +225,16 @@
     <string name="badge_dialog_button">획득 배지 보러 가기</string>
     <string name="badge_dialog_achieve">획득!</string>
     <string name="clause_notify_text">개인정보 수집\n목적: 회원 가입 및 관리, 재화 또는 서비스 이용 및 제공\n항목: 이름, 아이디, 비밀번호, 휴대전화번호, 이메일\n보유기간: 회원 탈퇴 3개월 후 파기</string>
+    <string name="app_version">2.0</string>
+    <string name="service_info">서비스 정보</string>
+    <string name="my_info">내 정보</string>
+    <string name="profile_info">계정 정보</string>
+    <string name="challenge_notify">도전 초대 알림</string>
+    <string name="notice">공지사항</string>
+    <string name="service_clause">서비스 이용 약관</string>
+    <string name="personal_info">개인정보 처리방침</string>
+    <string name="app_version_title">앱 버전</string>
+    <string name="profile_info_toolbar_title">계정 정보</string>
+    <string name="profile_setting_current_nickname">현재 닉네임: %s</string>
+    <string name="profile_setting_finish_button">완료</string>
 </resources>

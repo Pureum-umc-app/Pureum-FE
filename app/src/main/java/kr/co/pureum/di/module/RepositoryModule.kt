@@ -12,6 +12,8 @@ import ko.co.data.source.home.HomeDataSource
 import ko.co.data.source.home.HomeRepositoryImpl
 import ko.co.data.source.login.LoginDataSource
 import ko.co.data.source.login.LoginRepositoryImpl
+import ko.co.data.source.profile.ProfileDataSource
+import ko.co.data.source.profile.ProfileRepositoryImpl
 import ko.co.data.source.quest.QuestSentenceDataSource
 import ko.co.data.source.quest.QuestSentenceRepositoryImpl
 import ko.co.data.source.ranking.RankingDataSource
@@ -51,4 +53,9 @@ object RepositoryModule {
     @Singleton
     fun providesQuestRepository(questSentenceDataSource: QuestSentenceDataSource) : QuestRepository =
         QuestSentenceRepositoryImpl(questSentenceDataSource)
+
+    @Provides
+    @Singleton
+    fun providesProfileRepository(profileDataSource: ProfileDataSource) : ProfileRepository =
+        ProfileRepositoryImpl(profileDataSource)
 }

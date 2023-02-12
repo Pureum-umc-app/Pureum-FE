@@ -20,6 +20,9 @@ import androidx.activity.viewModels
 import androidx.core.net.toUri
 import coil.load
 import coil.transform.RoundedCornersTransformation
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import dagger.hilt.android.AndroidEntryPoint
 import kr.co.pureum.R
 import kr.co.pureum.base.BaseActivity
@@ -49,10 +52,11 @@ class SignUpProfileActivity : BaseActivity<ActivitySignUpProfileBinding>(R.layou
 
     private fun extractImagePath(imgUri: Uri?){
         imgUri?.let {
-            imageUri = imgUri
-            binding.signupProfileImage.load(imgUri) {
-                transformations(RoundedCornersTransformation(10F, 10F, 10F, 10F))
-            }
+            imageUri = it
+            Glide.with(this)
+                .load(it)
+                .transform(CenterCrop(), RoundedCorners(10))
+                .into(binding.signupProfileImage)
         }
     }
 
@@ -147,7 +151,7 @@ class SignUpProfileActivity : BaseActivity<ActivitySignUpProfileBinding>(R.layou
                     this.overridePendingTransition(R.anim.rightin_activity, R.anim.not_move_activity)
                 }
                 else -> {
-                    showToast(it)
+                    binding.signupNicknameTextLayout.error = it
                     binding.signupAgreeNextBt.isEnabled = false
                 }
             }

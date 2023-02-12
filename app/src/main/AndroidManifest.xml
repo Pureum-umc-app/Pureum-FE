@@ -43,7 +43,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name="kr.co.pureum.views.profile.ProfileAccountInfoActivity"
+            android:name="kr.co.pureum.views.profile.ProfileInfoActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

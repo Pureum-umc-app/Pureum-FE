@@ -1,4 +1,4 @@
-package ko.co.data.source.login
+package ko.co.data.source.profile
 
 import android.content.ContentValues.TAG
 import android.content.Context
@@ -6,14 +6,14 @@ import android.net.Uri
 import android.os.Environment
 import android.util.Log
 import ko.co.data.remote.PureumLoginService
+import ko.co.data.remote.PureumService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kr.co.domain.model.CreateUserDto
 import kr.co.domain.model.DefaultResponse
-import kr.co.domain.model.LoginDto
-import kr.co.domain.model.UserInfo
-import kr.co.domain.model.LoginResponse
 import kr.co.domain.model.NicknameValidationResponse
+import kr.co.domain.model.ProfileInfo
+import kr.co.domain.model.ProfileInfoResponse
 import kr.co.domain.model.SignupResponse
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -25,21 +25,38 @@ import java.io.FileOutputStream
 import java.io.InputStream
 import javax.inject.Inject
 
-class LoginDataSource @Inject constructor(
+class ProfileDataSource @Inject constructor(
+    private val pureumService: PureumService,
     private val pureumLoginService: PureumLoginService
 ) {
-    suspend fun login(loginDto: LoginDto) : LoginResponse {
-        var loginResponse = LoginResponse(0, false, "", UserInfo("error", 0L))
+    suspend fun getProfileInfo(userId: Long) : ProfileInfoResponse {
+        var response = ProfileInfoResponse(0, false, "getProfileInfo Failed",
+            ProfileInfo(0, "nickname error", "profileUrl error")
+        )
         withContext(Dispatchers.IO) {
             runCatching {
-                pureumLoginService.login(loginDto)
+                pureumService.getProfileInfo(userId)
             }.onSuccess {
-                loginResponse = it
+                response = it
             }.onFailure {
-                Log.e(TAG, "Login Failure")
+                Log.e(TAG, "getProfileInfo Failed: $it")
             }
         }
-        return loginResponse
+        return response
+    }
+
+    suspend fun withdrawal(userId: Long) : DefaultResponse {
+        var response = DefaultResponse(0, false, "withdrawal Failed", "error")
+        withContext(Dispatchers.IO) {
+            runCatching {
+                pureumService.withdrawal(userId)
+            }.onSuccess {
+                response = it
+            }.onFailure {
+                Log.e(TAG, "withdrawal Failed: $it")
+            }
+        }
+        return response
     }
 
     suspend fun nicknameValidate(nickname: String) : DefaultResponse {
@@ -56,34 +73,31 @@ class LoginDataSource @Inject constructor(
         return response
     }
 
-    suspend fun signup(context: Context, imageUri: Uri?, grade: Int, nickname: String, kakaoToken: String) : SignupResponse {
-        val createUserDto = CreateUserDto(grade.toString(), nickname, kakaoToken)
+    suspend fun editProfile(userId: Long, context: Context, imageUri: Uri?, nickname: String) : DefaultResponse {
         val body = imageUri?.let {
             val file = toFile(context, it)
             MultipartBody.Builder().setType(MultipartBody.FORM)
                 .addFormDataPart("image", file.name, file.asRequestBody("application/octet-stream".toMediaTypeOrNull()))
-                .addFormDataPart("data", null, createUserDto.toString().toRequestBody("application/json".toMediaTypeOrNull()))
+                .addFormDataPart("data", null, nickname.toRequestBody("application/json".toMediaTypeOrNull()))
                 .build()
         }
+        val nicknameRequestBody = nickname.toRequestBody("text/plain".toMediaTypeOrNull())
 
-        val json = JSONObject("{\"grade\":\"$grade\",\"kakaoToken\":\"$kakaoToken\",\"nickname\":\"$nickname\"}").toString()
-        val jsonBody = json.toRequestBody("application/json".toMediaTypeOrNull())
-
-        var signupResponse = SignupResponse(0, false, "", "")
+        var response = DefaultResponse(0, false, "", "")
         withContext(Dispatchers.IO) {
             runCatching {
                 body?.let {
-                    pureumLoginService.signup(it.part(0), jsonBody)
+                    pureumService.editProfile(userId, it.part(0), nicknameRequestBody)
                 }.run {
-                    pureumLoginService.signup(null, jsonBody)
+                    pureumService.editProfile(userId, null, nicknameRequestBody)
                 }
             }.onSuccess {
-                signupResponse = it
+                response = it
             }.onFailure {
-                Log.e(TAG, "Signup Failed: $it")
+                Log.e(TAG, "Edit Profile Failed: $it")
             }
         }
-        return signupResponse
+        return response
     }
 
     // URI -> File
@@ -112,15 +126,5 @@ class LoginDataSource @Inject constructor(
         val ext = context.contentResolver.getType(imageUri)!!.split("/").last()
 
         return "$name.$ext"
-    }
-
-    private fun setImgFromUri(context: Context, imageUri: Uri): File {
-//        if (Build.VERSION.SDK_INT < 28) {
-//            MediaStore.Images.Media.getBitmap(context.contentResolver, imageUri)
-//        } else {
-//            val source = ImageDecoder.createSource(context.contentResolver, imageUri)
-//            ImageDecoder.decodeBitmap(source)
-//        }
-        return toFile(context, imageUri)
     }
 }

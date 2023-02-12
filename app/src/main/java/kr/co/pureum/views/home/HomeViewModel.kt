@@ -1,8 +1,6 @@
 package kr.co.pureum.views.home
 
-import android.content.ContentValues.TAG
 import android.os.Build
-import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -10,12 +8,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import kr.co.domain.model.*
+import kr.co.domain.model.HomeInfo
+import kr.co.domain.model.Rank
+import kr.co.domain.model.TimeInfo
 import kr.co.domain.repository.HomeRepository
 import kr.co.pureum.di.PureumApplication.Companion.spfManager
-import okhttp3.internal.notify
 import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
 @HiltViewModel
@@ -74,13 +72,11 @@ class HomeViewModel @Inject constructor(
     }
 
     fun updateGoalTime(purposeTime: Int) {
-        // TODO: 서버로 전송
         viewModelScope.launch {
             repository.setPurposeTime(spfManager.getUserId(), purposeTime)
             spfManager.setPurposeTime(purposeTime)
             _homeInfoListLiveData.value!![_homeInfoListLiveData.value!!.size - 1].purposeTime.minutes = purposeTime
             _updatedGoalTimeLiveData.value = purposeTime
-            Log.e(TAG, "휴대폰 사용 목표 시간 $purposeTime 시간으로 설정")
         }
     }
 }

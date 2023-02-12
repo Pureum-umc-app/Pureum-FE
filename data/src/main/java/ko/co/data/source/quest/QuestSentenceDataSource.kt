@@ -1,8 +1,6 @@
 package ko.co.data.source.quest
 
 import android.content.ContentValues
-import android.os.IBinder
-import android.provider.ContactsContract.Data
 import android.util.Log
 import ko.co.data.remote.PureumService
 import kotlinx.coroutines.Dispatchers
@@ -36,9 +34,8 @@ class QuestSentenceDataSource @Inject constructor(
         }
         return sentencesIncompleteResponse
     }
-
     suspend fun sentencesComplete(userId: Long): SentenceCompleteResponse {
-        var sentencesCompleteResponse = SentenceCompleteResponse(
+        val response = SentenceCompleteResponse(
             code = 0, isSuccess = true, message = "요청에 성공하였습니다", result = List<SentencesDto>(3) {
                 SentencesDto(
                     date = "2022-02-08", keyword = "구현", keywordId = 1,
