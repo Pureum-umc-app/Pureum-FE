@@ -21,14 +21,11 @@ import kr.co.pureum.databinding.FragmentQuestVoidBinding
 @AndroidEntryPoint
 class QuestVoidFragment : BaseFragment<FragmentQuestVoidBinding>(R.layout.fragment_quest_void) {
     private val arg : QuestVoidFragmentArgs by navArgs()
-    private lateinit var viewModel: QuestViewModel
-    private lateinit var _keyword: String
     private val dataWrittenSentenceList : ArrayList<DataWrittenSentence> = arrayListOf()
     private val dataWrittenSentenceAdapter = DataWrittenSentenceRVAdapter(dataWrittenSentenceList)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
-        observe()
         initToolbar()
         //initLayoutExamination()
         initClickListener()
@@ -38,7 +35,6 @@ class QuestVoidFragment : BaseFragment<FragmentQuestVoidBinding>(R.layout.fragme
     private fun initView() {
         val todayKeyword = arg.todayKeyword
         with(binding) {
-            isLoading = true
             keyword = todayKeyword
         }
     }
@@ -48,10 +44,6 @@ class QuestVoidFragment : BaseFragment<FragmentQuestVoidBinding>(R.layout.fragme
         //initLayoutExamination()
     }
 
-    private fun observe() {
-        binding.isLoading = false
-    }
-
     private fun initClickListener() {
         with(binding) {
             questWritingSentenceBt.setOnClickListener() {
@@ -59,7 +51,10 @@ class QuestVoidFragment : BaseFragment<FragmentQuestVoidBinding>(R.layout.fragme
                 startActivity(intent)
         }
             questExistWriteSentenceBt.setOnClickListener {
-                val intent = Intent(activity, QuestWriteSentenceActivity::class.java)
+                val intent = Intent(activity, QuestWriteSentenceActivity::class.java).apply {
+                    putExtra("keyword", keyword)
+                    putExtra("index", arg.index)
+                }
                 startActivity(intent)
             }
         }

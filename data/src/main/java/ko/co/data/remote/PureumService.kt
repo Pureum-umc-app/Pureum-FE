@@ -1,5 +1,6 @@
 package ko.co.data.remote
 
+import kr.co.domain.model.SentenceCompleteResponse
 import kr.co.domain.model.DefaultResponse
 import kr.co.domain.model.HomeResponse
 import kr.co.domain.model.ProfileInfoResponse
