@@ -4,7 +4,9 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import kr.co.pureum.di.AuthInterceptor
 import kr.co.pureum.utils.Utils.BASE_URL
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -24,6 +26,10 @@ object NetworkModule {
     @Qualifier
     @Retention(AnnotationRetention.BINARY)
     annotation class PureumRetrofit
+
+    @Provides
+    @Singleton
+    fun provideAuthInterceptor(authInterceptor: AuthInterceptor) : Interceptor = authInterceptor
 
     @Provides
     @Singleton
@@ -56,9 +62,10 @@ object NetworkModule {
     @Provides
     @Singleton
     @PureumRetrofit
-    fun provideOkHttpClient(interceptor: HttpLoggingInterceptor): OkHttpClient =
+    fun provideOkHttpClient(interceptor: HttpLoggingInterceptor, authInterceptor: AuthInterceptor): OkHttpClient =
         OkHttpClient.Builder()
             .addInterceptor(interceptor)
+            .addInterceptor(authInterceptor)
             .build()
 
 

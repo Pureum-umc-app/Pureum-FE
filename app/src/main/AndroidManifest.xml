@@ -3,10 +3,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="co.kr.pureum">
     <!-- 인터넷 사용 권한 설정 -->
-    <uses-permission android:name="android.permission.INTERNET" /> <!-- 휴대폰 사용 시간 트래킹 권한 설정 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- 휴대폰 사용 시간 트래킹 권한 설정 -->
     <uses-permission
         android:name="android.permission.PACKAGE_USAGE_STATS"
         tools:ignore="ProtectedPermissions" />
+    <!-- 저장소 사용 권한 설정 -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
+
+    <uses-permission android:name="android.permission.ACCESS_MEDIA_LOCATION" />
 
     <application
         android:name="kr.co.pureum.di.PureumApplication"
@@ -17,6 +24,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:requestLegacyExternalStorage="true"
+        android:preserveLegacyExternalStorage="true"
         android:theme="@style/Theme.Pureum"
         tools:targetApi="31">
         <activity
@@ -77,10 +86,16 @@
         </activity>
         <activity
             android:name="kr.co.pureum.views.signup.OnBoardActivity"
-            android:exported="false">
+            android:exported="true">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
@@ -103,12 +118,6 @@
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
-
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 

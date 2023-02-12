@@ -27,7 +27,6 @@
             android:text="@string/signup_welcome"/>
 
         <TextView
-            android:id="@+id/signup_setting"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
@@ -75,7 +74,9 @@
                 android:textColorHint="@color/text2"
                 android:fontFamily="@font/nanum_square_neo_regular"
                 android:textSize="14sp"
-                android:maxLength="10" />
+                android:maxLength="10"
+                android:inputType="text"
+                android:maxLines="1" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <View
@@ -83,17 +84,15 @@
             android:layout_height="0dp"
             android:layout_weight="1"/>
 
-        <androidx.appcompat.widget.AppCompatButton
+        <Button
             android:id="@+id/signup_agree_next_bt"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="70dp"
+            android:background="@drawable/bg_rectangle_10dp"
             android:text="@string/signup_follow"
-            android:textSize="16sp"
-            android:background="@drawable/signup_next_button_not_fill"
-            android:backgroundTint="@color/main3"
-            android:textColor="@color/text2"
-            android:fontFamily="@font/nanum_square_neo_regular"/>
+            android:fontFamily="@font/nanum_square_neo_regular"
+            android:textSize="16sp"/>
     </LinearLayout>
 </layout>

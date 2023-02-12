@@ -1,44 +1,113 @@
 package kr.co.pureum.views.signup
 
 import android.Manifest
+import android.content.ContentValues.TAG
 import android.content.Intent
-import android.content.res.ColorStateList
-import android.graphics.Color
+import android.database.Cursor
+import android.graphics.Bitmap
+import android.graphics.ImageDecoder
+import android.net.Uri
+import android.os.Build
+import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
-import android.widget.Toast
+import android.util.Log
+import android.view.KeyEvent
+import android.view.KeyEvent.KEYCODE_ENTER
+import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
+import androidx.core.net.toUri
 import coil.load
 import coil.transform.RoundedCornersTransformation
 import dagger.hilt.android.AndroidEntryPoint
 import kr.co.pureum.R
 import kr.co.pureum.base.BaseActivity
 import kr.co.pureum.databinding.ActivitySignUpProfileBinding
-import java.util.logging.Logger
+import kr.co.pureum.utils.UriParser
+import java.io.File
+import java.net.URI
 
 @AndroidEntryPoint
 class SignUpProfileActivity : BaseActivity<ActivitySignUpProfileBinding>(R.layout.activity_sign_up_profile) {
     private val viewModel by viewModels<OnBoardViewModel>()
-    var agree = 0
 
-    override fun initView() {
-        checkNickname()
-        profileImgToAlbum()
-        observe()
+    companion object{
+        private val REQUIRED_EXTERNAL_STORAGE_PERMISSIONS = arrayOf(
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.READ_EXTERNAL_STORAGE
+        )
     }
 
-    fun buttonOnOff(flag: Int){
-        with(binding) {
-            if(flag == 0){
-                signupAgreeNextBt.backgroundTintList = ColorStateList.valueOf(Color.rgb(216,236,255))
-                signupAgreeNextBt.setTextColor(Color.parseColor("#6E6D73"))
-            }
+    var imageUri: Uri? = null
+    var nickname: String = ""
 
-            else if(flag == 1){
-                signupAgreeNextBt.backgroundTintList = ColorStateList.valueOf(Color.rgb(133,181,255))
-                signupAgreeNextBt.setTextColor(Color.parseColor("#FFFFFF"))
+    // 사진 받기
+    private lateinit var activityResultLauncher : ActivityResultLauncher<Intent>
+    // 저장소 권한
+    private val requestPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { }
+
+    private fun extractImagePath(imgUri: Uri?){
+        imgUri?.let {
+            imageUri = imgUri
+            binding.signupProfileImage.load(imgUri) {
+                transformations(RoundedCornersTransformation(10F, 10F, 10F, 10F))
+            }
+        }
+    }
+
+    private fun openStorage() {
+        activityResultLauncher.launch(
+            Intent(Intent.ACTION_PICK).apply {
+                setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, MediaStore.Images.Media.CONTENT_TYPE)
+                type = "image/*"
+            }
+        )
+    }
+
+    override fun initView() {
+        initListener()
+        checkNickname()
+        observe()
+
+        activityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            if(it.resultCode == RESULT_OK){
+                extractImagePath(it.data?.data)
+            }
+        }
+    }
+
+    private fun initListener() {
+        with(binding) {
+            // 앨범 버튼 클릭 리스너 구현
+            var agree = false
+            signupChangeProfileButton.setOnClickListener{
+                if (!agree){
+                    requestPermissionLauncher.launch(REQUIRED_EXTERNAL_STORAGE_PERMISSIONS)
+                    AccessDialog().apply {
+                        setCustomListener(object : AccessDialog.AccessDialogListener {
+                            override fun onConfirm() {
+                                agree = true
+                                signupChangeProfileButton.performClick()
+                            }
+                        })
+                        show(supportFragmentManager, "이미지 접근 권한 허용")
+                    }
+                } else {
+                    openStorage()
+                }
+            }
+            signupNicknameEditText.setOnKeyListener { _, keyCode, event ->
+                if (event.action == KeyEvent.ACTION_DOWN && keyCode == KEYCODE_ENTER) {
+                    signupAgreeNextBt.performClick()
+                }
+                true
+            }
+            signupAgreeNextBt.setOnClickListener {
+                if(signupNicknameTextLayout.error == null || signupNicknameTextLayout.error == ""){
+                    nickname = signupNicknameEditText.text.toString().trim()
+                    viewModel.nicknameValidation(nickname)
+                }
             }
         }
     }
@@ -47,61 +116,22 @@ class SignUpProfileActivity : BaseActivity<ActivitySignUpProfileBinding>(R.layou
         with(binding) {
             signupNicknameEditText.addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-
                 override fun afterTextChanged(s: Editable?) {
                     if (s.toString().isEmpty()) {
                         signupNicknameTextLayout.error = "공백은 허용하지 않습니다."
-                        buttonOnOff(0)
+                        signupAgreeNextBt.isEnabled = false
 
                     } else if (s.toString().length > 10){
                         signupNicknameTextLayout.error = "닉네임은 최대 10자까지 입력 가능합니다."
-                        buttonOnOff(0)
+                        signupAgreeNextBt.isEnabled = false
                     }
                     else {
                         signupNicknameTextLayout.error = null
-                        buttonOnOff(1)
-                        signupAgreeNextBt.setOnClickListener {
-                            if(signupNicknameTextLayout.error == null || signupNicknameTextLayout.error == ""){
-                                viewModel.nicknameValidation(signupNicknameEditText.text.toString())
-                            }
-                        }
+                        signupAgreeNextBt.isEnabled = true
                     }
                 }
             })
-        }
-    }
-
-    private fun profileImgToAlbum(){
-        with(binding) {
-            val permissionList = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
-            val checkPermission = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { result ->
-                result.forEach {
-                    if(!it.value) {
-//                            Toast.makeText(applicationContext, "권한 동의 필요!", Toast.LENGTH_SHORT).show()
-//                        finish()
-                    }
-                }
-            }
-            val readImage = registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
-                signupProfileImage.load(uri){
-                    transformations(RoundedCornersTransformation(10F,10F,10F,10F))
-                }
-            }
-
-            checkPermission.launch(permissionList)
-
-            // 앨범 버튼 클릭 리스너 구현
-            signupChangeProfileButton.setOnClickListener{
-                if(agree == 0){
-                    val dlg = AccessDialog(this@SignUpProfileActivity)
-                    dlg.show()
-                    agree++
-                } else {
-                    readImage.launch("image/*")
-                }
-            }
         }
     }
 
@@ -109,13 +139,16 @@ class SignUpProfileActivity : BaseActivity<ActivitySignUpProfileBinding>(R.layou
         viewModel.nicknameValidationLiveData.observe(this) {
             when (it) {
                 "유효한 닉네임입니다." -> {
-                    val intent = Intent(this, SignUpGradeActivity::class.java)
-                    startActivity(intent)
+                    startActivity(Intent(this, SignUpGradeActivity::class.java).apply {
+                        putExtra("kakaoToken", intent.getStringExtra("kakaoToken"))
+                        imageUri?.let{ uri -> putExtra("imageUri", uri.toString()) }
+                        putExtra("nickname", nickname)
+                    })
                     this.overridePendingTransition(R.anim.rightin_activity, R.anim.not_move_activity)
                 }
                 else -> {
-                    binding.signupNicknameTextLayout.error = it
-                    buttonOnOff(0)
+                    showToast(it)
+                    binding.signupAgreeNextBt.isEnabled = false
                 }
             }
         }
