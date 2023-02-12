@@ -1,34 +1,39 @@
 package kr.co.pureum.views.quest
 
 import android.app.Dialog
+import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.text.Editable
+import android.util.Log
 import android.view.KeyEvent
 import android.view.MenuItem
 import android.view.WindowManager
 import android.widget.Button
 import android.widget.TextView
-import androidx.fragment.app.commit
-import androidx.navigation.ActivityNavigator
-import androidx.navigation.findNavController
+import androidx.activity.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import kr.co.pureum.R
 import kr.co.pureum.base.BaseActivity
 import kr.co.pureum.databinding.ActivityQuestWriteSentenceBinding
 import kr.co.pureum.views.MainActivity
-import kr.co.pureum.views.home.HomeFragment
-import kr.co.pureum.views.home.HomeFragmentDirections
-import kr.co.pureum.views.profile.ProfileFragment
-import kr.co.pureum.views.profile.ProfileFragmentDirections
-import kr.co.pureum.views.profile.ProfileMySentenceFragment
 
 @AndroidEntryPoint
 class QuestWriteSentenceActivity : BaseActivity<ActivityQuestWriteSentenceBinding>(R.layout.activity_quest_write_sentence) {
+    private lateinit var _keyword: String
+    private val viewModel by viewModels<QuestViewModel>()
     override fun initView() {
+        _keyword = intent.getStringExtra("keyword").toString()
+        Log.d(ContentValues.TAG, _keyword)
+        observe()
         initToolbar()
         initClickListener()
+        viewModel.getSentencesIncomplete(userId = 1)
+        with(binding) {
+            isLoading = true
+            keyword = _keyword
+        }
     }
     // 뒤로가기 버튼 or 스와이프 시 dialog
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
@@ -72,6 +77,17 @@ class QuestWriteSentenceActivity : BaseActivity<ActivityQuestWriteSentenceBindin
             }
         }
         privatePublicButton()
+    }
+
+    private fun observe() {
+        val index = intent.getIntExtra("index", 1)
+        Log.e(ContentValues.TAG, index.toString())
+        viewModel.todayKeywordMeaningListLiveData.observe(this) {
+            with(binding) {
+                definition = it[index]
+                isLoading = false
+            }
+        }
     }
 
     // 작성완료 클릭 시 dialog
