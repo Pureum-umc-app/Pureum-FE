@@ -77,7 +77,7 @@ class BattleDateSource @Inject constructor(
     }
 
     suspend fun getMyProfileImage(userId: Long): ProfileImageResponse {
-        var response = ProfileImageResponse(0, false, "", ProfileImage("", 0))
+        var response = ProfileImageResponse(0, false, "", ProfileImage("", "", 0))
         withContext(Dispatchers.IO) {
             runCatching {
                 pureumService.getMyProfileImage(userId)

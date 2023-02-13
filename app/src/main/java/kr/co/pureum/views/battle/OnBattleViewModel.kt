@@ -23,7 +23,7 @@ class OnBattleViewModel @Inject constructor(
     private val _sentenceLiveData = MutableLiveData<String>()
     private val _opponentsLiveData = MutableLiveData<List<Opponent>>()
     private val _opponentLiveData = MutableLiveData<Opponent>()
-    private val _profileImageLiveData = MutableLiveData<String>()
+    private val _profileImageLiveData = MutableLiveData<ProfileImage>()
     private val _requestLiveData = MutableLiveData<Long>()
 
     val keywordsLiveData: LiveData<List<Keyword>> = _keywordsLiveData
@@ -31,7 +31,7 @@ class OnBattleViewModel @Inject constructor(
     val sentenceLiveData: LiveData<String> = _sentenceLiveData
     val opponentSLiveDate: LiveData<List<Opponent>> = _opponentsLiveData
     val opponentLiveData: LiveData<Opponent> = _opponentLiveData
-    val profileImageLiveData: LiveData<String> = _profileImageLiveData
+    val profileImageLiveData: LiveData<ProfileImage> = _profileImageLiveData
     val requestLiveData: LiveData<Long> = _requestLiveData
 
     fun getThreeKeywords() {
@@ -63,7 +63,7 @@ class OnBattleViewModel @Inject constructor(
     fun getMyProfileImage() {
         viewModelScope.launch {
             val res = repository.getMyProfileImage(PureumApplication.spfManager.getUserId())
-            _profileImageLiveData.value = res.result.image
+            _profileImageLiveData.value = res.result
         }
     }
 

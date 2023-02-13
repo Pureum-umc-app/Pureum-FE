@@ -33,7 +33,6 @@ class OnBattleFourthFragment : BaseFragment<FragmentOnBattleFourthBinding>(R.lay
         (requireActivity() as OnBattleActivity).changeToolbarColor()
         with(binding) {
             keyword = viewModel.keywordLiveData.value!!.word
-            nickname = "푸름"
             mySentence = viewModel.sentenceLiveData.value
             opponentNickname = viewModel.opponentLiveData.value!!.nickname
             day = 3
@@ -61,13 +60,15 @@ class OnBattleFourthFragment : BaseFragment<FragmentOnBattleFourthBinding>(R.lay
     private fun observe() {
         viewModel.profileImageLiveData.observe(viewLifecycleOwner) {
             with(binding) {
+                nickname = it.nickname
+
                 Glide.with(requireContext())
-                    .load(it)
+                    .load(it.image)
                     .transform(CenterCrop(), RoundedCorners(10))
                     .into(userProfileImage1)
 
                 Glide.with(requireContext())
-                    .load(it)
+                    .load(it.image)
                     .transform(CenterCrop(), RoundedCorners(10))
                     .into(userProfileImage2)
 
