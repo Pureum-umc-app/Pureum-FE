@@ -1,5 +1,7 @@
 package ko.co.data.remote
 
+import kr.co.domain.model.BattleRequest
+import kr.co.domain.model.BattleRequestResponse
 import kr.co.domain.model.DailyRecord
 import kr.co.domain.model.DailyRecordResponse
 import kr.co.domain.model.SentenceCompleteResponse
@@ -8,6 +10,7 @@ import kr.co.domain.model.GradeResponse
 import kr.co.domain.model.HomeResponse
 import kr.co.domain.model.KeywordsResponse
 import kr.co.domain.model.OpponentsResponse
+import kr.co.domain.model.ProfileImageResponse
 import kr.co.domain.model.ProfileInfoResponse
 import kr.co.domain.model.RankResponse
 import kr.co.domain.model.SentencesIncompleteResponse
@@ -57,6 +60,12 @@ interface PureumService {
     // 대결 상대 리스트 반환 API
     @GET("/battles/{userId}/fighters")
     suspend fun getOpponentsList(@Path("userId") userId: Long): OpponentsResponse
+    // 대결 신청 시 내 사진 조회
+    @GET("/battles/apply/photo/{userId}")
+    suspend fun getMyProfileImage(@Path("userId") userId: Long): ProfileImageResponse
+    // 대결 신청 API
+    @POST("/battles")
+    suspend fun sendBattleRequest(@Body battleRequest: BattleRequest): BattleRequestResponse
 
     // 오늘의 작성 전 단어 반환
     @GET("/sentences/incomplete/{userId}")

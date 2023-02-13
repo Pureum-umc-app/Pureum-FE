@@ -4,12 +4,15 @@ import kr.co.domain.model.AllBattleCompMore
 import kr.co.domain.model.AllBattleCompletion
 import kr.co.domain.model.AllBattleProgMore
 import kr.co.domain.model.AllBattleProgress
+import kr.co.domain.model.BattleRequest
+import kr.co.domain.model.BattleRequestResponse
 import kr.co.domain.model.KeywordsResponse
 import kr.co.domain.model.MyBattleCompMore
 import kr.co.domain.model.MyBattleCompletionDto
 import kr.co.domain.model.MyBattleProgMoreDto
 import kr.co.domain.model.MyBattleProgressDto
 import kr.co.domain.model.OpponentsResponse
+import kr.co.domain.model.ProfileImageResponse
 import kr.co.domain.model.WaitingBattleResponse
 import kr.co.domain.repository.BattleRepository
 import javax.inject.Inject
@@ -25,6 +28,12 @@ class BattleRepositoryImpl @Inject constructor(
 
     override suspend fun getOpponentsList(userId: Long): OpponentsResponse =
         dataSource.getOpponentsList(userId)
+
+    override suspend fun getMyProfileImage(userId: Long): ProfileImageResponse =
+        dataSource.getMyProfileImage(userId)
+
+    override suspend fun sendBattleRequest(userId: Long, opponentId: Long, wordId: Long, sentence: String, duration: Int): BattleRequestResponse =
+        dataSource.sendBattleRequest(userId, opponentId, wordId, sentence, duration)
 
     override suspend fun getMyBattleProgressInfo(): List<MyBattleProgressDto> =
         dataSource.getMyBattleProgressInfo()

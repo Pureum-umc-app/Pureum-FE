@@ -13,6 +13,8 @@ import kr.co.domain.model.AllBattleProgMore
 import kr.co.domain.model.AllBattleProgMoreDto
 import kr.co.domain.model.AllBattleProgress
 import kr.co.domain.model.AllBattleProgressDto
+import kr.co.domain.model.BattleRequest
+import kr.co.domain.model.BattleRequestResponse
 import kr.co.domain.model.Keyword
 import kr.co.domain.model.KeywordsResponse
 import kr.co.domain.model.MyBattleCompMore
@@ -21,7 +23,10 @@ import kr.co.domain.model.MyBattleCompletionDto
 import kr.co.domain.model.MyBattleProgMoreDto
 import kr.co.domain.model.MyBattleProgressDto
 import kr.co.domain.model.OpponentsResponse
+import kr.co.domain.model.ProfileImage
+import kr.co.domain.model.ProfileImageResponse
 import kr.co.domain.model.WaitingBattleResponse
+import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Path
 import javax.inject.Inject
@@ -66,6 +71,35 @@ class BattleDateSource @Inject constructor(
                 response = it
             }.onFailure {
                 Log.e(TAG, "getOpponentsList failed: $it")
+            }
+        }
+        return response
+    }
+
+    suspend fun getMyProfileImage(userId: Long): ProfileImageResponse {
+        var response = ProfileImageResponse(0, false, "", ProfileImage("", 0))
+        withContext(Dispatchers.IO) {
+            runCatching {
+                pureumService.getMyProfileImage(userId)
+            }.onSuccess {
+                response = it
+            }.onFailure {
+                Log.e(TAG, "getMyProfileImage failed: $it")
+            }
+        }
+        return response
+    }
+
+    suspend fun sendBattleRequest(userId: Long, opponentId: Long, wordId: Long, sentence: String, duration: Int): BattleRequestResponse {
+        val battleRequest = BattleRequest(opponentId, userId, duration, sentence, wordId)
+        var response = BattleRequestResponse(0, false, "", 0)
+        withContext(Dispatchers.IO) {
+            runCatching {
+                pureumService.sendBattleRequest(battleRequest)
+            }.onSuccess {
+                response = it
+            }.onFailure {
+                Log.e(TAG, "sendBattleRequest failed: $it")
             }
         }
         return response
