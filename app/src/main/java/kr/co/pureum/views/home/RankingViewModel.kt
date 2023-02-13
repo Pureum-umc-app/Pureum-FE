@@ -82,7 +82,7 @@ class RankingViewModel @Inject constructor(
     fun getAllRankList() {
         viewModelScope.launch {
             val date = localDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
-            val res = repository.getAllRankList(date, _rankList.size)
+            val res = repository.getAllRankList(date, _rankList.size / 25)
 
             _myRankLiveData.value = res.result.myRank
 
@@ -95,7 +95,7 @@ class RankingViewModel @Inject constructor(
     fun getSameRankList() {
         viewModelScope.launch {
             val date = localDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
-            val res = repository.getSameRankList(date, _rankList.size)
+            val res = repository.getSameRankList(date, _rankList.size / 25)
 
             _myRankLiveData.value = res.result.myRank
 

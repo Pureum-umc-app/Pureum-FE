@@ -237,4 +237,5 @@
     <string name="profile_info_toolbar_title">계정 정보</string>
     <string name="profile_setting_current_nickname">현재 닉네임: %s</string>
     <string name="profile_setting_finish_button">완료</string>
+    <string name="battle_no_waiting_battle">현재 수락 대기 중인 대결이 없습니다.</string>
 </resources>

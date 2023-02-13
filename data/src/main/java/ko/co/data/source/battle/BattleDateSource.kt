@@ -1,5 +1,7 @@
 package ko.co.data.source.battle
 
+import android.content.ContentValues.TAG
+import android.util.Log
 import ko.co.data.remote.PureumService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -17,20 +19,23 @@ import kr.co.domain.model.MyBattleCompletionDto
 import kr.co.domain.model.MyBattleProgMoreDto
 import kr.co.domain.model.MyBattleProgressDto
 import kr.co.domain.model.OpponentDto
-import kr.co.domain.model.WaitingBattleDto
+import kr.co.domain.model.WaitingBattle
+import kr.co.domain.model.WaitingBattleResponse
 import javax.inject.Inject
 
 class BattleDateSource @Inject constructor(
     private val pureumService: PureumService
 ) {
-    suspend fun getWaitingBattleInfo() : List<WaitingBattleDto> {
-        // TODO: 임시
-        val battleList = MutableList(3) {
-            WaitingBattleDto(word = "구현", period = 10, message = "대결 수락 대기 중",
-                opponentNickname = "%d 번째 상대".format(it + 1), opponentProfile = "")
-        }
+    suspend fun getWaitingBattleInfo(userId: Long, limit: Int, page: Int) : WaitingBattleResponse {
+        var battleList = WaitingBattleResponse(0, false, "", listOf())
         withContext(Dispatchers.IO) {
-            Thread.sleep(1000)
+            runCatching {
+                pureumService.getWaitingBattleInfo(userId, limit, page)
+            }.onSuccess {
+                battleList = it
+            }.onFailure {
+                Log.e(TAG, "getWaitingBattleInfo Failed: $it")
+            }
         }
         return battleList
     }

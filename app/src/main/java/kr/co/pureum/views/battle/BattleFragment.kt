@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import kr.co.pureum.R
 import kr.co.pureum.adapter.battle.WaitingBattleAdapter
@@ -46,11 +47,21 @@ class BattleFragment : BaseFragment<FragmentBattleBinding>(R.layout.fragment_bat
     }
 
     private fun initView() {
-        Log.e("ScreenBuild", "BattleFragment")
         viewModel.getWaitingBattleInfo()
         with(binding) {
+            isLoading = true
             battleWaitingRecyclerView.apply {
-                adapter = WaitingBattleAdapter()
+                adapter = WaitingBattleAdapter(requireContext()).apply {
+                    addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                            super.onScrolled(recyclerView, dx, dy)
+                            if (isLoading == false && (recyclerView.layoutManager as LinearLayoutManager?)!!.findLastCompletelyVisibleItemPosition() == itemCount - 1) {
+                                isLoading = true
+                                viewModel.getWaitingBattleInfo()
+                            }
+                        }
+                    })
+                }
                 layoutManager = LinearLayoutManager(requireContext())
                 isNestedScrollingEnabled = false;
             }
@@ -60,28 +71,29 @@ class BattleFragment : BaseFragment<FragmentBattleBinding>(R.layout.fragment_bat
     private fun initListener() {
         with(binding) {
             battleStartButton.setOnClickListener {
-                // TODO: 대결 시작 화면으로 이동
                 startActivity(Intent(requireContext(), OnBattleActivity::class.java))
             }
             battleMyBattleButton.setOnClickListener {
                 val action = BattleFragmentDirections.actionBattleFragmentToMyBattleFragment()
                 findNavController().navigate(action)
-
             }
             battleAllBattleButton.setOnClickListener {
-                // TODO: 전체 대결 화면으로 이동
                 val action = BattleFragmentDirections.actionBattleFragmentToAllBattleFragment()
                 findNavController().navigate(action)
             }
             battleMoreButton.setOnClickListener {
-                // TODO: 대기 중인 대결 전체 보기 화면으로 이동
+
             }
         }
     }
 
     private fun observe() {
         viewModel.waitingBattleListLiveData.observe(viewLifecycleOwner) {
-            (binding.battleWaitingRecyclerView.adapter as WaitingBattleAdapter).setData(it)
+            with(binding) {
+                (battleWaitingRecyclerView.adapter as WaitingBattleAdapter).setData(it)
+                battleNoWaitingBattle.visibility = if (it.isEmpty()) View.VISIBLE else View.GONE
+                isLoading = false
+            }
         }
     }
 }

@@ -9,15 +9,15 @@ import kr.co.domain.model.MyBattleCompletionDto
 import kr.co.domain.model.MyBattleProgMoreDto
 import kr.co.domain.model.MyBattleProgressDto
 import kr.co.domain.model.OpponentDto
-import kr.co.domain.model.WaitingBattleDto
+import kr.co.domain.model.WaitingBattleResponse
 import kr.co.domain.repository.BattleRepository
 import javax.inject.Inject
 
 class BattleRepositoryImpl @Inject constructor(
     private val dataSource: BattleDateSource
 ) : BattleRepository{
-    override suspend fun getWaitingBattleInfo() : List<WaitingBattleDto> =
-        dataSource.getWaitingBattleInfo()
+    override suspend fun getWaitingBattleInfo(userId: Long, limit: Int, page: Int) : WaitingBattleResponse =
+        dataSource.getWaitingBattleInfo(userId, limit, page)
 
     override suspend fun getThreeKeywords(): List<String> =
         dataSource.getThreeKeywords()

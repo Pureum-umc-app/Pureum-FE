@@ -11,6 +11,9 @@ import kr.co.domain.model.RankResponse
 import kr.co.domain.model.SentencesIncompleteResponse
 import kr.co.domain.model.SetUsageTimeReq
 import kr.co.domain.model.SentencesListResponse
+import kr.co.domain.model.WaitingBattleResponse
+import kr.co.domain.model.WriteSentencesReq
+import kr.co.domain.model.WriteSentencesResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.http.Body
@@ -42,6 +45,9 @@ interface PureumService {
     // 날짜 별 랭킹(같은 카테고리) 조회 API
     @GET("/uses/rank-same-grade")
     suspend fun getSameRankList(@Query("date") date: String, @Query("page") page: Int): RankResponse
+
+    @GET("/battles/wait-list/{userId}")
+    suspend fun getWaitingBattleInfo(@Path("userId") userId: Long, @Query("limit") limit: Int, @Query("page") page: Int): WaitingBattleResponse
 
     // 오늘의 작성 전 단어 반환
     @GET("/sentences/incomplete/{userId}")
