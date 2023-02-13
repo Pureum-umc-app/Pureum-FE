@@ -17,6 +17,7 @@ import kr.co.domain.model.MyBattleCompMore
 import kr.co.domain.model.MyBattleCompMoreDto
 import kr.co.domain.model.MyBattleCompletionDto
 import kr.co.domain.model.MyBattleProgMoreDto
+import kr.co.domain.model.MyBattleProgress
 import kr.co.domain.model.MyBattleProgressDto
 import kr.co.domain.model.OpponentDto
 import kr.co.domain.model.WaitingBattleDto
@@ -46,15 +47,35 @@ class BattleDateSource @Inject constructor(
         return keywords
     }
 
-    suspend fun getMyBattleProgressInfo() : List<MyBattleProgressDto> {
-        val progressList = MutableList(8){
-            MyBattleProgressDto(keyword = "구현", firstUserName = "소다", firstUserProfile = "", secondUserName = "물댕", secondUserProfile = "",
-                day = "D-2", firstLike = "", firstLikeNum = 4, secondLike ="", secondLikeNum = 2)
-        }
+    suspend fun getMyBattleProgressInfo(userId: Long) : MyBattleProgress {
+        var response = MyBattleProgress(0, false, "getMyBattleProgressInfo Failed",
+            result = List(5) {
+                MyBattleProgressDto(battleId = 1,
+                    challengedId = 1,
+                    challengedLikeCnt = 4,
+                    challengedNickname = "소다",
+                    challengedProfileImg = "",
+                    challengerId = 2,
+                    challengerLikeCnt = 7,
+                    challengerNickname = "보리",
+                    challengerProfileImg = "",
+                    isChallengedLike = 0,
+                    isChallengerLike = 1,
+                    keyword = "낭만",
+                    keywordId = 4,
+                    duration = "D-5")
+            }
+        )
         withContext(Dispatchers.IO) {
-            Thread.sleep(1000)
+            runCatching {
+                pureumService.getMyBattleProgressInfo(userId, 20, 0)
+            }.onSuccess {
+                response = it
+            }.onFailure {
+                Log.e(ContentValues.TAG, "getMyBattleProgressInfo Failed: $it")
+            }
         }
-        return progressList
+        return response
     }
 
     suspend fun getMyBattleCompletion() : List<MyBattleCompletionDto>{

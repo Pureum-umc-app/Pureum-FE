@@ -4,8 +4,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import kr.co.domain.model.AllBattleProgressDto
-import kr.co.domain.model.MyBattleProgressDto
 import kr.co.pureum.R
 import kr.co.pureum.databinding.ItemBattleMyProgressBinding
 
@@ -30,12 +32,18 @@ class AllBattleProgressAdapter : RecyclerView.Adapter<AllBattleProgressAdapter.V
                 myBattleKeywordTv.text = progressData.keyword
                 myBattleDay.text = progressData.duration
                 myBattleFirstNameTv.text = progressData.challengerNickname
-//                myBattleFirstProfileIv.setImageResource(progressData.firstUserProfile.toInt())
+                Glide.with(myBattleFirstProfileIv.context)
+                    .load(progressData.challengerProfileImg)
+                    .transform(CenterCrop(), RoundedCorners(10))
+                    .into(myBattleFirstProfileIv)
                 myBattleFirstLikeNum.text = progressData.challengerLikeCnt.toString()
                 myBattleSecondLikeIv.setImageResource(R.drawable.ic_battle_heart_fill)
                 myBattleSecondLikeNum.text = progressData.challengedLikeCnt.toString()
                 myBattleSecondNameTv.text = progressData.challengedNickname
-//                myBattleSecondProfileIv.setImageResource(progressData.secondUserProfile.toInt())
+                Glide.with(myBattleSecondProfileIv.context)
+                    .load(progressData.challengedProfileImg)
+                    .transform(CenterCrop(), RoundedCorners(10))
+                    .into(myBattleSecondProfileIv)
 
                 when (progressData.isChallengerLike) {
                     1 -> {

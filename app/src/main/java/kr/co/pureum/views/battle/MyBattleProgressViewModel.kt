@@ -8,6 +8,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import kr.co.domain.model.MyBattleProgressDto
 import kr.co.domain.repository.BattleRepository
+import kr.co.pureum.di.PureumApplication
 import javax.inject.Inject
 
 @HiltViewModel
@@ -20,8 +21,8 @@ class MyBattleProgressViewModel @Inject constructor(
 
     fun getMyBattleProgressInfo() {
         viewModelScope.launch {
-            val res = repository.getMyBattleProgressInfo()
-            _myBattleProgressListLiveData.value = res
+            val res = repository.getMyBattleProgressInfo(PureumApplication.spfManager.getUserId())
+            _myBattleProgressListLiveData.value = res.result
         }
     }
 

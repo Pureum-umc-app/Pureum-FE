@@ -7,6 +7,7 @@ import kr.co.domain.model.AllBattleProgress
 import kr.co.domain.model.MyBattleCompMore
 import kr.co.domain.model.MyBattleCompletionDto
 import kr.co.domain.model.MyBattleProgMoreDto
+import kr.co.domain.model.MyBattleProgress
 import kr.co.domain.model.MyBattleProgressDto
 import kr.co.domain.model.OpponentDto
 import kr.co.domain.model.WaitingBattleDto
@@ -22,8 +23,8 @@ class BattleRepositoryImpl @Inject constructor(
     override suspend fun getThreeKeywords(): List<String> =
         dataSource.getThreeKeywords()
 
-    override suspend fun getMyBattleProgressInfo(): List<MyBattleProgressDto> =
-        dataSource.getMyBattleProgressInfo()
+    override suspend fun getMyBattleProgressInfo(userId: Long): MyBattleProgress =
+        dataSource.getMyBattleProgressInfo(userId)
 
     override suspend fun getMyBattleCompletionInfo(): List<MyBattleCompletionDto> =
         dataSource.getMyBattleCompletion()
