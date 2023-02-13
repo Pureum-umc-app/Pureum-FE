@@ -23,6 +23,8 @@ import kr.co.pureum.views.MainActivity
 @AndroidEntryPoint
 class QuestWriteSentenceActivity : BaseActivity<ActivityQuestWriteSentenceBinding>(R.layout.activity_quest_write_sentence) {
     private lateinit var _keyword: String
+    private var status: String = "P"
+    private var keywordId: Long = 0
     private var userId = PureumApplication.spfManager.getUserId()
     private val viewModel by viewModels<QuestViewModel>()
     override fun initView() {
@@ -75,6 +77,8 @@ class QuestWriteSentenceActivity : BaseActivity<ActivityQuestWriteSentenceBindin
                 errorDidaLog(this, sentence, keyword)
             }
             else if (sentence.length >= 10 && sentence.contains(keyword)) {
+                Log.e(ContentValues.TAG, "${keywordId}, $status")
+                viewModel.getSentenceWrite(keywordId, sentence.toString(), status)
                 completionDialog(this, keyword)
             }
         }
@@ -84,6 +88,9 @@ class QuestWriteSentenceActivity : BaseActivity<ActivityQuestWriteSentenceBindin
     private fun observe() {
         val index = intent.getIntExtra("index", 1)
         Log.e(ContentValues.TAG, index.toString())
+        viewModel.todayKeywordIdListLiveData.observe(this) {
+            keywordId = it[index]
+        }
         viewModel.todayKeywordMeaningListLiveData.observe(this) {
             with(binding) {
                 definition = it[index]
@@ -141,6 +148,7 @@ class QuestWriteSentenceActivity : BaseActivity<ActivityQuestWriteSentenceBindin
         dialog.setContentView(R.layout.dialog_completion_msg)
         dialog.findViewById<TextView>(R.id.dialog_today_keyword_tv).text = keyword
         dialog.findViewById<TextView>(R.id.dialog_public_private_tv).text = binding.questSentencePublicPrivateBt.text.toString()
+        dialog.setCancelable(false)
         val mySentenceButton = dialog.findViewById<Button>(R.id.dialog_go_my_sentence_bt)
         val anotherSentenceButton = dialog.findViewById<Button>(R.id.dialog_go_another_sentence_bt)
 
@@ -155,9 +163,6 @@ class QuestWriteSentenceActivity : BaseActivity<ActivityQuestWriteSentenceBindin
         anotherSentenceButton.setOnClickListener {
             finish()
         }
-
-
-
         dialog.window?.setBackgroundDrawableResource(R.drawable.bg_home_goal_time)
         dialog.window!!.setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT)
         dialog.show()
@@ -171,11 +176,13 @@ class QuestWriteSentenceActivity : BaseActivity<ActivityQuestWriteSentenceBindin
                     binding.questSentencePublicPrivateBt.isSelected = false
                     binding.questSentencePublicPrivateBt.text = "비공개"
                     binding.questSentencePublicPrivateBt.setTextColor(Color.parseColor("#85B5FF"))
+                    status = "P"
                 }
                 false -> {
                     binding.questSentencePublicPrivateBt.isSelected = true
                     binding.questSentencePublicPrivateBt.text = "공개"
                     binding.questSentencePublicPrivateBt.setTextColor(Color.parseColor("#ffffff"))
+                    status = "O"
                 }
             }
         }

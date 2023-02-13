@@ -1,8 +1,8 @@
 package kr.co.domain.model
 
 data class WriteSentencesReq (
-    var keywordId: Int,
-    var sentences: String,
+    var keywordId: Long,
+    var sentence: String,
     var status: String,
     var userId: Long
 )
