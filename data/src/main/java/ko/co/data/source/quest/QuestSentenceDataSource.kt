@@ -35,7 +35,7 @@ class QuestSentenceDataSource @Inject constructor(
         return sentencesIncompleteResponse
     }
     suspend fun sentencesComplete(userId: Long): SentenceCompleteResponse {
-        var sentencesCompleteResponse = SentenceCompleteResponse(
+        var response = SentenceCompleteResponse(
             code = 0, isSuccess = true, message = "요청에 성공하였습니다", result = List<SentencesDto>(3) {
                 SentencesDto(
                     date = "2022-02-08", keyword = "구현", keywordId = 1,
@@ -48,12 +48,12 @@ class QuestSentenceDataSource @Inject constructor(
             runCatching {
                 pureumService.sentencesComplete(userId)
             }.onSuccess {
-                sentencesCompleteResponse = it
+                response = it
             }.onFailure {
                 Log.e(ContentValues.TAG, "Sentences Complete Failed")
             }
         }
-        return sentencesCompleteResponse
+        return response
     }
 
     fun sentencesList(limit: Int, page: Int, sort: String, userId: Long, word_id: Int): SentencesListResponse {

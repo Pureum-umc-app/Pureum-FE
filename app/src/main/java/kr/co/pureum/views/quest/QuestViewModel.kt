@@ -49,9 +49,9 @@ class QuestViewModel @Inject constructor(
         }
     }
 
-    fun getSentencesComplete(userId: Long) {
+    fun getSentencesComplete() {
         viewModelScope.launch {
-            val res = repository.sentencesComplete(userId)
+            val res = repository.sentencesComplete(PureumApplication.spfManager.getUserId())
             //_todayKeywordLiveData.value = res.keyword.toString()
             //_todayKeywordMeaningLiveData.value = res.meaning
             //_todaySentenceDate.value = res.date

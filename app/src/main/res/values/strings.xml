@@ -38,7 +38,7 @@
     <string name="ranking_date">%d년 %d월 %d일</string>
     <string name="ranking_my_rank">MY 순위</string>
     <string name="ranking_total_rank">전체 순위</string>
-    <string name="ranking_type_univ"><u>대학생</u></string>
+    <string name="ranking_type_univ"><u>%s</u></string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

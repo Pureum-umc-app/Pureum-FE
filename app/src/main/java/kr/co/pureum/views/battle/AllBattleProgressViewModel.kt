@@ -9,6 +9,7 @@ import kotlinx.coroutines.launch
 import kr.co.domain.model.AllBattleProgressDto
 import kr.co.domain.model.MyBattleProgressDto
 import kr.co.domain.repository.BattleRepository
+import kr.co.pureum.di.PureumApplication
 import javax.inject.Inject
 
 @HiltViewModel
