@@ -5,17 +5,17 @@ import kr.co.domain.model.AllBattleCompletion
 import kr.co.domain.model.AllBattleProgMore
 import kr.co.domain.model.AllBattleProgress
 import kr.co.domain.model.MyBattleCompMore
-import kr.co.domain.model.MyBattleCompletionDto
+import kr.co.domain.model.MyBattleCompletion
 import kr.co.domain.model.MyBattleProgMoreDto
-import kr.co.domain.model.MyBattleProgressDto
+import kr.co.domain.model.MyBattleProgress
 import kr.co.domain.model.OpponentDto
 import kr.co.domain.model.WaitingBattleDto
 
 interface BattleRepository {
     suspend fun getWaitingBattleInfo() : List<WaitingBattleDto>
     suspend fun getThreeKeywords() : List<String>
-    suspend fun getMyBattleProgressInfo() : List<MyBattleProgressDto>
-    suspend fun getMyBattleCompletionInfo() : List<MyBattleCompletionDto>
+    suspend fun getMyBattleProgressInfo(userId: Long) : MyBattleProgress
+    suspend fun getMyBattleCompletionInfo(userId: Long) : MyBattleCompletion
     suspend fun getDefinition(keyword: String) : String
     suspend fun getOpponentsList() : List<OpponentDto>
     suspend fun getAdditionalOpponents(position: Int, itemCount: Int) : List<OpponentDto>

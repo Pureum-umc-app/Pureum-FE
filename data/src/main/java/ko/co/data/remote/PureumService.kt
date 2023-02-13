@@ -1,5 +1,6 @@
 package ko.co.data.remote
 
+import kr.co.domain.model.AllBattleCompletion
 import kr.co.domain.model.AllBattleProgress
 import kr.co.domain.model.DailyRecord
 import kr.co.domain.model.DailyRecordResponse
@@ -7,6 +8,8 @@ import kr.co.domain.model.SentenceCompleteResponse
 import kr.co.domain.model.DefaultResponse
 import kr.co.domain.model.GradeResponse
 import kr.co.domain.model.HomeResponse
+import kr.co.domain.model.MyBattleCompletion
+import kr.co.domain.model.MyBattleProgress
 import kr.co.domain.model.ProfileInfoResponse
 import kr.co.domain.model.RankResponse
 import kr.co.domain.model.SentencesIncompleteResponse
@@ -85,4 +88,27 @@ interface PureumService {
         @Query("limit")limit: Int,
         @Query("page")page: Int
     ) : AllBattleProgress
+
+    // 종료된 대결 리스트 반환 API
+    @GET("/battles/complete-list")
+    suspend fun getAllBattleCompletionInfo(
+        @Query("limit")limit: Int,
+        @Query("page")page: Int
+    ) : AllBattleCompletion
+
+    // MY 진행 중인 대결 리스트 반환 API
+    @GET("/battles/list/{userId}")
+    suspend fun getMyBattleProgressInfo(
+        @Path("userId") userId: Long,
+        @Query("limit")limit: Int,
+        @Query("page")page: Int
+    ) : MyBattleProgress
+
+    // MY 종료된 대결 리스트 반환 API
+    @GET("/battles/complete-list/{userId}")
+    suspend fun getMyBattleCompletionInfo(
+        @Path("userId") userId: Long,
+        @Query("limit")limit: Int,
+        @Query("page")page: Int
+    ) : MyBattleCompletion
 }
