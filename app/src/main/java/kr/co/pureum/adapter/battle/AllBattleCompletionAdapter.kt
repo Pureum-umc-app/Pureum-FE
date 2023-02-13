@@ -4,6 +4,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import kr.co.domain.model.AllBattleCompletionDto
 import kr.co.domain.model.MyBattleCompletionDto
 import kr.co.pureum.R
@@ -28,12 +31,16 @@ class AllBattleCompletionAdapter : RecyclerView.Adapter<AllBattleCompletionAdapt
         fun bind(compData: AllBattleCompletionDto, position: Int) {
             with(binding) {
                 myBattleKeywordComTv.text = compData.word
-                myBattleWinnerName.text = compData.winnerNickname.toString()
-                myBattleWinnerProfile.setImageResource(R.drawable.ic_battle_basic_profile)
+                myBattleWinnerName.text = compData.winnerNickname
+                Glide.with(myBattleWinnerProfile.context)
+                    .load(compData.winnerProfileImg)
+                    .transform(CenterCrop(), RoundedCorners(10))
+                    .into(myBattleWinnerProfile)
+
 
 
                 root.setOnClickListener {
-                    completionListener.onItemClick(position, compData.type)
+                    completionListener.onItemClick(position, compData.hasResult)
                 }
             }
 

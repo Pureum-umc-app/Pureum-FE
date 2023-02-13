@@ -165,23 +165,29 @@ class BattleDateSource @Inject constructor(
     }
 
     suspend fun getAllBattleCompletionInfo() : AllBattleCompletion {
-        val allBattleComp = AllBattleCompletion( code = 1000, isSuccess = true, message = "요청에 성공했습니다.",
-            result = List(8) {
+        var response = AllBattleCompletion(0, false, "getAllBattleProgressInfo Failed",
+            result = List(5) {
                 AllBattleCompletionDto(
                     battleId = 4,
                     otherProfileImg = "",
-                    type = 0,
+                    hasResult = 0,
                     winnerId = 1,
                     winnerNickname = "푸름",
                     winnerProfileImg = "",
                     word = "마힘",
-                    wordId = 4
-                )
-            })
+                    wordId = 4)
+            }
+        )
         withContext(Dispatchers.IO) {
-            Thread.sleep(1000)
+            runCatching {
+                pureumService.getAllBattleCompletionInfo(20, 0)
+            }.onSuccess {
+                response = it
+            }.onFailure {
+                Log.e(ContentValues.TAG, "getAllBattleCompletionInfo Failed: $it")
+            }
         }
-        return allBattleComp
+        return response
     }
 
     suspend fun getAllBattleProgMoreInfo() : AllBattleProgMore {

@@ -1,5 +1,6 @@
 package ko.co.data.remote
 
+import kr.co.domain.model.AllBattleCompletion
 import kr.co.domain.model.AllBattleProgress
 import kr.co.domain.model.DailyRecord
 import kr.co.domain.model.DailyRecordResponse
@@ -85,4 +86,11 @@ interface PureumService {
         @Query("limit")limit: Int,
         @Query("page")page: Int
     ) : AllBattleProgress
+
+    // 종료된 대결 리스트 반환 API
+    @GET("/battles/complete-list")
+    suspend fun getAllBattleCompletionInfo(
+        @Query("limit")limit: Int,
+        @Query("page")page: Int
+    ) : AllBattleCompletion
 }
