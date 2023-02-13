@@ -1,7 +1,7 @@
 package kr.co.domain.model
 
 data class MyBattleProgressDto(
-    val battleId: Int,
+    val battleId: Long,
     val challengedId: Int,
     val challengedLikeCnt: Int,
     val challengedNickname: String,

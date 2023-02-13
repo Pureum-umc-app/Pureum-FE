@@ -17,7 +17,7 @@ class MyBattleProgressAdapter : RecyclerView.Adapter<MyBattleProgressAdapter.Vie
     private var myBattleProgressList = mutableListOf<MyBattleProgressDto>()
 
     interface Listener {
-        fun onItemClick(pos: Int)
+        fun onItemClick(pos: Int, itemIdx: Long)
     }
 
     private lateinit var progressListener : Listener
@@ -70,7 +70,7 @@ class MyBattleProgressAdapter : RecyclerView.Adapter<MyBattleProgressAdapter.Vie
                 }
 
                 root.setOnClickListener {
-                    progressListener.onItemClick(position)
+                    progressListener.onItemClick(position, progressData.battleId)
                 }
             }
         }

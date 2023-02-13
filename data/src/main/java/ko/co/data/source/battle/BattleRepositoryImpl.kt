@@ -6,7 +6,6 @@ import kr.co.domain.model.AllBattleProgMore
 import kr.co.domain.model.AllBattleProgress
 import kr.co.domain.model.MyBattleCompMore
 import kr.co.domain.model.MyBattleCompletion
-import kr.co.domain.model.MyBattleCompletionDto
 import kr.co.domain.model.MyBattleProgMoreDto
 import kr.co.domain.model.MyBattleProgress
 import kr.co.domain.model.OpponentDto
@@ -50,8 +49,8 @@ class BattleRepositoryImpl @Inject constructor(
     override suspend fun getAllBattleCompletionInfo(): AllBattleCompletion =
         dataSource.getAllBattleCompletionInfo()
 
-    override suspend fun getAllBattleProgMoreInfo(): AllBattleProgMore =
-        dataSource.getAllBattleProgMoreInfo()
+    override suspend fun getAllBattleProgMoreInfo(itemIdx: Long): AllBattleProgMore =
+        dataSource.getAllBattleProgMoreInfo(itemIdx)
 
     override suspend fun getAllBattleCompMoreInfo(): AllBattleCompMore =
         dataSource.getAllBattleCompMoreInfo()
