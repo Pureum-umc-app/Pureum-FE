@@ -6,70 +6,51 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import kr.co.domain.model.OpponentDto
+import kr.co.domain.model.Keyword
+import kr.co.domain.model.Opponent
 import kr.co.domain.repository.BattleRepository
+import kr.co.pureum.di.PureumApplication
 import javax.inject.Inject
 
 @HiltViewModel
 class OnBattleViewModel @Inject constructor(
     private val repository: BattleRepository
 ) : ViewModel() {
-    private val _keywordsLiveData = MutableLiveData<List<String>>()
-    private val _keywordLiveData = MutableLiveData<String>()
-    private val _definitionLiveData = MutableLiveData<String>()
+    private val _keywordsLiveData = MutableLiveData<List<Keyword>>()
+    private val _keywordLiveData = MutableLiveData<Keyword>()
     private val _sentenceLiveData = MutableLiveData<String>()
-    private val _opponentsLiveData = MutableLiveData<List<OpponentDto>>()
-    private val _opponentsList: MutableList<OpponentDto> = mutableListOf()
-    private val _opponentLiveData = MutableLiveData<OpponentDto>()
+    private val _opponentsLiveData = MutableLiveData<List<Opponent>>()
+    private val _opponentLiveData = MutableLiveData<Opponent>()
 
-    val keywordsLiveData: LiveData<List<String>> = _keywordsLiveData
-    val keywordLiveData: LiveData<String> = _keywordLiveData
-    val definitionLiveData: LiveData<String> = _definitionLiveData
+    val keywordsLiveData: LiveData<List<Keyword>> = _keywordsLiveData
+    val keywordLiveData: LiveData<Keyword> = _keywordLiveData
     val sentenceLiveData: LiveData<String> = _sentenceLiveData
-    val opponentSLiveDate: LiveData<List<OpponentDto>> = _opponentsLiveData
-    val opponentLiveData: LiveData<OpponentDto> = _opponentLiveData
+    val opponentSLiveDate: LiveData<List<Opponent>> = _opponentsLiveData
+    val opponentLiveData: LiveData<Opponent> = _opponentLiveData
 
     fun getThreeKeywords() {
         viewModelScope.launch {
-            val res = repository.getThreeKeywords()
-            _keywordsLiveData.value = res
+            val res = repository.getThreeKeywords(PureumApplication.spfManager.getUserId())
+            _keywordsLiveData.value = res.result
         }
-    }
-
-    fun setKeyword(keyword: String) {
-        _keywordLiveData.value = keyword
-        // TODO: 서버로 전송?
-    }
-
-    fun getDefinition(keyword: String) {
-        viewModelScope.launch {
-            val res = repository.getDefinition(keyword)
-            _definitionLiveData.value = res
-        }
-    }
-
-    fun setSentence(sentence: String) {
-        _sentenceLiveData.value = sentence
-        // TODO: 서버로 전송?
     }
 
     fun getOpponentsList() {
         viewModelScope.launch {
-            val res = repository.getOpponentsList()
-            _opponentsList.addAll(res)
-            _opponentsLiveData.value = _opponentsList
+            val res = repository.getOpponentsList(PureumApplication.spfManager.getUserId())
+            _opponentsLiveData.value = res.result
         }
     }
 
-    fun getAdditionalOpponents() {
-        viewModelScope.launch {
-            val res = repository.getAdditionalOpponents(_opponentsLiveData.value!!.size, 10)
-            _opponentsList.addAll(res)
-            _opponentsLiveData.value = _opponentsList
-        }
+    fun setKeyword(keyword: String) {
+        _keywordLiveData.value = _keywordsLiveData.value!!.find { it.word == keyword }
+    }
+
+    fun setSentence(sentence: String) {
+        _sentenceLiveData.value = sentence
     }
 
     fun setOpponentWithIndex(index: Int) {
-        _opponentLiveData.value = _opponentsList[index]
+        _opponentLiveData.value = _opponentsLiveData.value!![index]
     }
 }

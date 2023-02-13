@@ -19,7 +19,7 @@ import kr.co.pureum.databinding.FragmentOnBattleSecondBinding
 @AndroidEntryPoint
 class OnBattleSecondFragment : BaseFragment<FragmentOnBattleSecondBinding>(R.layout.fragment_on_battle_second) {
     private lateinit var viewModel: OnBattleViewModel
-    private lateinit var _keyword: String
+    private var myKeyword = ""
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -30,11 +30,10 @@ class OnBattleSecondFragment : BaseFragment<FragmentOnBattleSecondBinding>(R.lay
 
     private fun initView() {
         viewModel = (requireActivity() as OnBattleActivity).viewModel
-        _keyword = viewModel.keywordLiveData.value.toString()
-        viewModel.getDefinition(_keyword)
+        myKeyword = viewModel.keywordLiveData.value!!.word
         with(binding) {
-            isLoading = true
-            keyword = _keyword
+            keyword = myKeyword
+            definition = viewModel.keywordLiveData.value!!.meaning
         }
     }
 
@@ -56,12 +55,6 @@ class OnBattleSecondFragment : BaseFragment<FragmentOnBattleSecondBinding>(R.lay
     }
 
     private fun observe() {
-        viewModel.definitionLiveData.observe(viewLifecycleOwner) {
-            with(binding) {
-                definition = it
-                isLoading = false
-            }
-        }
         viewModel.sentenceLiveData.observe(viewLifecycleOwner) {
             Log.e(TAG, it)
             (requireActivity() as OnBattleActivity).navigate(OnBattleThirdFragment())
@@ -70,7 +63,7 @@ class OnBattleSecondFragment : BaseFragment<FragmentOnBattleSecondBinding>(R.lay
 
     private fun validateSentence(sentence: String): String =
         if (sentence.isNotBlank())
-            if (sentence.contains(_keyword)) ""
+            if (sentence.contains(myKeyword)) ""
             else "키워드를 포함하여 작성해주세요."
         else "내용을 입력해주세요."
 

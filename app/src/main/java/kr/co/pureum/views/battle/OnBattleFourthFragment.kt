@@ -29,7 +29,7 @@ class OnBattleFourthFragment : BaseFragment<FragmentOnBattleFourthBinding>(R.lay
         (requireActivity() as OnBattleActivity).changeToolbarColor()
         with(binding) {
             isLoading = false
-            keyword = viewModel.keywordLiveData.value
+            keyword = viewModel.keywordLiveData.value!!.word
             nickname = "푸름"
             mySentence = viewModel.sentenceLiveData.value
             opponentNickname = viewModel.opponentLiveData.value!!.nickname
@@ -49,7 +49,7 @@ class OnBattleFourthFragment : BaseFragment<FragmentOnBattleFourthBinding>(R.lay
                 day = days
             }
             battleFinalNextButton.setOnClickListener {
-                showBattleRequestDialog(viewModel.keywordLiveData.value!!, days)
+                showBattleRequestDialog(viewModel.keywordLiveData.value!!.word, days)
             }
         }
     }
