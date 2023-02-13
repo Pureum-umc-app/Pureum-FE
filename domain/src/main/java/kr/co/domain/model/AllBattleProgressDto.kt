@@ -3,7 +3,7 @@ package kr.co.domain.model
 import java.time.Duration
 
 data class AllBattleProgressDto(
-    val battleId: Int,
+    val battleId: Long,
     val challengedId: Int,
     val challengedLikeCnt: Int,
     val challengedNickname: String,

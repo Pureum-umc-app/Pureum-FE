@@ -6,8 +6,8 @@ tools:context=".views.battle.MyBattleProgInfoFragment">
 <data>
     <import type="android.view.View"/>
     <variable
-        name="myBattleProgMoreDto"
-        type="kr.co.domain.model.MyBattleProgMoreDto" />
+        name="allBattleProgMoreDto"
+        type="kr.co.domain.model.AllBattleProgMoreDto" />
     <variable
         name="isLoading"
         type="java.lang.Boolean" />
@@ -62,7 +62,7 @@ tools:context=".views.battle.MyBattleProgInfoFragment">
             app:layout_constraintTop_toBottomOf="@id/appbar_layout"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:text="@{myBattleProgMoreDto.keyword, default=`복구`}"
+            android:text="@{allBattleProgMoreDto.keyword, default=`복구`}"
             android:fontFamily="@font/nanum_square_neo_extrabold"
             android:textSize="22sp"
             android:visibility="@{isLoading ? View.GONE : View.VISIBLE}"/>
@@ -115,7 +115,7 @@ tools:context=".views.battle.MyBattleProgInfoFragment">
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:fontFamily="@font/nanum_square_neo_bold"
-                        android:text="@{myBattleProgMoreDto.nickname, default=`푸름`}"
+                        android:text="@{allBattleProgMoreDto.challengerNickname, default=`푸름`}"
                         android:textSize="14sp" />
                 </LinearLayout>
             </LinearLayout>
@@ -152,7 +152,7 @@ tools:context=".views.battle.MyBattleProgInfoFragment">
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="@{myBattleProgMoreDto.opponentNickname, default=`르미`}"
+                    android:text="@{allBattleProgMoreDto.challengedNickname, default=`르미`}"
                     android:fontFamily="@font/nanum_square_neo_bold"
                     android:textSize="14sp"/>
             </LinearLayout>
@@ -217,7 +217,7 @@ tools:context=".views.battle.MyBattleProgInfoFragment">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{myBattleProgMoreDto.nickname, default=`푸름`}"
+                        android:text="@{allBattleProgMoreDto.challengerNickname, default=`푸름`}"
                         android:fontFamily="@font/nanum_square_neo_bold"
                         android:textSize="14sp"/>
                 </LinearLayout>
@@ -241,7 +241,7 @@ tools:context=".views.battle.MyBattleProgInfoFragment">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{Integer.toString(myBattleProgMoreDto.mySentenceLikeNum), default=`5`}"
+                    android:text="@{Integer.toString(allBattleProgMoreDto.challengerLikeCnt), default=`5`}"
                     android:fontFamily="@font/nanum_square_neo_bold"
                     android:layout_marginEnd="10dp"
                     android:textSize="14sp"/>
@@ -254,7 +254,7 @@ tools:context=".views.battle.MyBattleProgInfoFragment">
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="16dp"
                 android:layout_marginHorizontal="16dp"
-                android:text="@{myBattleProgMoreDto.mySentence, default=`황폐화된 자연을 복구하였다.`}"
+                android:text="@{allBattleProgMoreDto.challengerSentence, default=`황폐화된 자연을 복구하였다.`}"
                 android:fontFamily="@font/nanum_square_neo_bold"
                 android:textSize="14sp"/>
         </LinearLayout>
@@ -293,7 +293,7 @@ tools:context=".views.battle.MyBattleProgInfoFragment">
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:text="@{myBattleProgMoreDto.opponentNickname, default=`르미`}"
+                    android:text="@{allBattleProgMoreDto.challengedNickname, default=`르미`}"
                     android:fontFamily="@font/nanum_square_neo_bold"
                     android:textSize="14sp"/>
 
@@ -316,7 +316,7 @@ tools:context=".views.battle.MyBattleProgInfoFragment">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{Integer.toString(myBattleProgMoreDto.opSentenceLikeNum), default=`5`}"
+                    android:text="@{Integer.toString(allBattleProgMoreDto.challengedLikeCnt), default=`5`}"
                     android:fontFamily="@font/nanum_square_neo_bold"
                     android:layout_marginEnd="10dp"
                     android:textSize="14sp"/>
@@ -330,7 +330,7 @@ tools:context=".views.battle.MyBattleProgInfoFragment">
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="16dp"
                 android:layout_marginHorizontal="16dp"
-                android:text="@{myBattleProgMoreDto.opponentSentence, default=`황폐화된 자연을 복구하였다.`}"
+                android:text="@{allBattleProgMoreDto.challengedSentence, default=`황폐화된 자연을 복구하였다.`}"
                 android:fontFamily="@font/nanum_square_neo_bold"
                 android:textSize="14sp"/>
         </LinearLayout>
@@ -374,7 +374,7 @@ tools:context=".views.battle.MyBattleProgInfoFragment">
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
-                    android:text="@{Integer.toString(myBattleProgMoreDto.day), default=10}"
+                    android:text="@{Integer.toString(allBattleProgMoreDto.duration), default=10}"
                     android:fontFamily="@font/nanum_square_neo_bold"
                     android:textSize="40sp"/>
 

@@ -1,7 +1,7 @@
 package kr.co.domain.model
 
 data class AllBattleCompletionDto(
-    val battleId: Int,
+    val battleId: Long,
     val hasResult: Int,
     val otherProfileImg: String,
     val winnerId: Int,
