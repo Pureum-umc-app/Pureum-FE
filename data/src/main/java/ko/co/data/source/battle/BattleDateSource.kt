@@ -15,6 +15,7 @@ import kr.co.domain.model.AllBattleProgress
 import kr.co.domain.model.AllBattleProgressDto
 import kr.co.domain.model.MyBattleCompMore
 import kr.co.domain.model.MyBattleCompMoreDto
+import kr.co.domain.model.MyBattleCompletion
 import kr.co.domain.model.MyBattleCompletionDto
 import kr.co.domain.model.MyBattleProgMoreDto
 import kr.co.domain.model.MyBattleProgress
@@ -78,14 +79,30 @@ class BattleDateSource @Inject constructor(
         return response
     }
 
-    suspend fun getMyBattleCompletion() : List<MyBattleCompletionDto>{
-        val completionList = MutableList(8){
-            MyBattleCompletionDto(keyword = "구현", winnerProfile="", winnerNickname = "푸름", type = 0)
-        }
+    suspend fun getMyBattleCompletion(userId: Long) : MyBattleCompletion {
+        var response = MyBattleCompletion(0, false, "getMyBattleCompletionInfo Failed",
+            result = List(5) {
+                MyBattleCompletionDto(
+                    battleId = 4,
+                    otherProfileImg = "",
+                    situation = 0,
+                    winnerId = 1,
+                    winnerNickname = "푸름",
+                    winnerProfileImg = "",
+                    word = "마힘",
+                    wordId = 4)
+            }
+        )
         withContext(Dispatchers.IO) {
-            Thread.sleep(1000)
+            runCatching {
+                pureumService.getMyBattleCompletionInfo(userId, 20, 0)
+            }.onSuccess {
+                response = it
+            }.onFailure {
+                Log.e(ContentValues.TAG, "getMyBattleCompletionInfo Failed: $it")
+            }
         }
-        return completionList
+        return response
     }
 
     suspend fun getDefinition(keyword: String) : String {

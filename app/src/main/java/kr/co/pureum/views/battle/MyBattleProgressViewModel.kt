@@ -1,5 +1,7 @@
 package kr.co.pureum.views.battle
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -19,6 +21,7 @@ class MyBattleProgressViewModel @Inject constructor(
     val myBattleProgressListLiveData: LiveData<List<MyBattleProgressDto>>
         get() = _myBattleProgressListLiveData
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun getMyBattleProgressInfo() {
         viewModelScope.launch {
             val res = repository.getMyBattleProgressInfo(PureumApplication.spfManager.getUserId())

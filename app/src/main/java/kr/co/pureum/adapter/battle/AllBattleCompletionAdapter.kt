@@ -8,7 +8,6 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import kr.co.domain.model.AllBattleCompletionDto
-import kr.co.domain.model.MyBattleCompletionDto
 import kr.co.pureum.R
 import kr.co.pureum.databinding.ItemBattleMyCompletionBinding
 

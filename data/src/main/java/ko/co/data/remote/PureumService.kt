@@ -8,6 +8,7 @@ import kr.co.domain.model.SentenceCompleteResponse
 import kr.co.domain.model.DefaultResponse
 import kr.co.domain.model.GradeResponse
 import kr.co.domain.model.HomeResponse
+import kr.co.domain.model.MyBattleCompletion
 import kr.co.domain.model.MyBattleProgress
 import kr.co.domain.model.ProfileInfoResponse
 import kr.co.domain.model.RankResponse
@@ -102,4 +103,12 @@ interface PureumService {
         @Query("limit")limit: Int,
         @Query("page")page: Int
     ) : MyBattleProgress
+
+    // MY 종료된 대결 리스트 반환 API
+    @GET("/battles/complete-list/{userId}")
+    suspend fun getMyBattleCompletionInfo(
+        @Path("userId") userId: Long,
+        @Query("limit")limit: Int,
+        @Query("page")page: Int
+    ) : MyBattleCompletion
 }
