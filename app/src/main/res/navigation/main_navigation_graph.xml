@@ -158,6 +158,10 @@
         android:name="kr.co.pureum.views.battle.MyBattleCompInfoFragment"
         android:label="MyBattleCompInfoFragment">
 
+        <argument
+            android:name="itemId"
+            app:argType="long" />
+
     </fragment>
 
     <fragment
@@ -165,12 +169,20 @@
         android:name="kr.co.pureum.views.battle.MyBattleCompInfoLoseFragment"
         android:label="MyBattleCompInfoLoseFragment">
 
+        <argument
+            android:name="itemId"
+            app:argType="long" />
+
     </fragment>
 
     <fragment
         android:id="@+id/myBattleCompInfoDrawFragment"
         android:name="kr.co.pureum.views.battle.MyBattleCompInfoDrawFragment"
         android:label="MyBattleCompInfoDrawFragment">
+
+        <argument
+            android:name="itemId"
+            app:argType="long" />
 
     </fragment>
 

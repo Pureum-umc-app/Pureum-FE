@@ -55,8 +55,8 @@ class BattleRepositoryImpl @Inject constructor(
     override suspend fun getMyBattleProgMoreInfo(itemIdx: Long): MyBattleProgMore =
         dataSource.getMyBattleProgMoreInfo(itemIdx)
 
-    override suspend fun getMyBattleCompMoreInfo(): MyBattleCompMore =
-        dataSource.getMyBattleCompMoreInfo()
+    override suspend fun getMyBattleCompMoreInfo(itemIdx: Long): MyBattleCompMore =
+        dataSource.getMyBattleCompMoreInfo(itemIdx)
 
     override suspend fun getAllBattleProgressInfo(): AllBattleProgress =
         dataSource.getAllBattleProgressInfo()

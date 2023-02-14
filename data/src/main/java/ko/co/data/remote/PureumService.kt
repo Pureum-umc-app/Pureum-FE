@@ -15,6 +15,7 @@ import kr.co.domain.model.DefaultResponse
 import kr.co.domain.model.GradeResponse
 import kr.co.domain.model.HomeResponse
 import kr.co.domain.model.KeywordsResponse
+import kr.co.domain.model.MyBattleCompMore
 import kr.co.domain.model.OpponentsResponse
 import kr.co.domain.model.ProfileImageResponse
 import kr.co.domain.model.MyBattleCompletion
@@ -171,4 +172,10 @@ interface PureumService {
     suspend fun getMyBattleProgMoreInfo(
         @Path("battleIdx") battleId: Long
     ) : MyBattleProgMore
+
+    // MY 대결 정보 반환 (완료)
+    @GET("/battles/finish/my/{battleIdx}")
+    suspend fun getMyBattleCompMoreInfo(
+        @Path("battleIdx") battleId: Long
+    ) : MyBattleCompMore
 }
