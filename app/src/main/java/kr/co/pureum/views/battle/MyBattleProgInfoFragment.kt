@@ -127,7 +127,10 @@ class MyBattleProgInfoFragment : BaseFragment<FragmentMyBattleProgInfoBinding>(R
             confirmText = "네"
             dialogCancelButton.setOnClickListener { dialog.dismiss() }
             dialogConfirmButton.setOnClickListener {
+                viewModel.cancelBattle(args.itemIdx)
                 dialog.dismiss()
+                findNavController().navigateUp()
+
             }
             dialog.show()
         }
