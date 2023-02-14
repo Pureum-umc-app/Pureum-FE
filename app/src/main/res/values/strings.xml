@@ -241,4 +241,5 @@
     <string name="waiting_battle_refuse_button">거절</string>
     <string name="waiting_battle_accept_button">수락</string>
     <string name="waiting_battle_cancel_button">대결 취소</string>
+    <string name="waiting_battle_write_button">문장 작성</string>
 </resources>
