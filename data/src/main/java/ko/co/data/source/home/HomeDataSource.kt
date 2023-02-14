@@ -91,4 +91,18 @@ class HomeDataSource @Inject constructor(
         }
         return response
     }
+
+    suspend fun commitDailyRecord(userId: Long, postUseTimeAndCountReq: DailyRecord) : DailyRecordResponse {
+        var response = DailyRecordResponse(0, false, "", UserId(0))
+        withContext(Dispatchers.IO) {
+            runCatching {
+                pureumService.commitDailyRecord(userId, postUseTimeAndCountReq)
+            }.onSuccess {
+                response = it
+            }.onFailure {
+                Log.e(TAG, "commitDailyRecord failed: $it")
+            }
+        }
+        return response
+    }
 }
