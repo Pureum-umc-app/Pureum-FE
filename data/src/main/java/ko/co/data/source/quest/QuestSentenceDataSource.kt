@@ -56,7 +56,7 @@ class QuestSentenceDataSource @Inject constructor(
         return response
     }
 
-    fun sentencesList(limit: Int, page: Int, sort: String, userId: Long, word_id: Int): SentencesListResponse {
+    fun sentencesList(limit: Int, page: Int, sort: String, userId: Long, word_id: Long): SentencesListResponse {
         val response = SentencesListResponse(
             code = 0, isSuccess = true, message = "요청에 성공하였습니다", result = List<SentencesListDto>(1) {
                 SentencesListDto(
@@ -67,10 +67,19 @@ class QuestSentenceDataSource @Inject constructor(
         )
         return response
     }
-    fun writeSentences(keywordId: Int, sentence: String, status: String, userId: Long, SentenceId: Int) : WriteSentencesResponse {
-        var writeSentencesResponse = WriteSentencesResponse(
+    suspend fun writeSentences(keywordId: Long, sentence: String, status: String, userId: Long) : WriteSentencesResponse {
+        var response = WriteSentencesResponse(
             code = 0, isSuccess = true, message = "요청에 성공하였습니다", result = WriteSentencesDto(1)
         )
-        return writeSentencesResponse
+        withContext(Dispatchers.IO) {
+            runCatching {
+                pureumService.sentencesWrite(WriteSentencesReq(keywordId, sentence, status, userId))
+            }.onSuccess {
+                response = it
+            }.onFailure {
+                Log.e(ContentValues.TAG, "Sentences Write Failed")
+            }
+        }
+        return response
     }
 }

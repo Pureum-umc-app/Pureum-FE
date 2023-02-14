@@ -1,15 +1,18 @@
 package kr.co.domain.model
 
 data class MyBattleProgressDto(
-    var keyword: String,
-    var firstUserName: String,
-    var firstUserProfile: String,
-    var secondUserName: String,
-    var secondUserProfile: String,
-    var day: String,
-    var firstLike: String,
-    var firstLikeNum: Int,
-    var secondLike: String,
-    var secondLikeNum: Int
-
+    val battleId: Long,
+    val challengedId: Int,
+    val challengedLikeCnt: Int,
+    val challengedNickname: String,
+    val challengedProfileImg: String,
+    val challengerId: Int,
+    val challengerLikeCnt: Int,
+    val challengerNickname: String,
+    val challengerProfileImg: String,
+    val duration: String,
+    val isChallengedLike: Int,
+    val isChallengerLike: Int,
+    val keyword: String,
+    val keywordId: Int
 )

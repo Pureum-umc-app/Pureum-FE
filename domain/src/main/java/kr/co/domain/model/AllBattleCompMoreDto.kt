@@ -1,7 +1,7 @@
 package kr.co.domain.model
 
 data class AllBattleCompMoreDto(
-    val battleId: Int,
+    val battleId: Long,
     val duration: Int,
     val loserId: Int,
     val loserImage: String,

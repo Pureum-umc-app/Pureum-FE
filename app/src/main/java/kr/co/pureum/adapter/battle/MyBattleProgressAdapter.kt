@@ -1,9 +1,13 @@
 package kr.co.pureum.adapter.battle
 
 import android.view.LayoutInflater
+import android.view.ViewDebug.IntToString
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import kr.co.domain.model.MyBattleProgressDto
 import kr.co.pureum.R
 import kr.co.pureum.databinding.ItemBattleMyProgressBinding
@@ -13,7 +17,7 @@ class MyBattleProgressAdapter : RecyclerView.Adapter<MyBattleProgressAdapter.Vie
     private var myBattleProgressList = mutableListOf<MyBattleProgressDto>()
 
     interface Listener {
-        fun onItemClick(pos: Int)
+        fun onItemClick(pos: Int, itemIdx: Long)
     }
 
     private lateinit var progressListener : Listener
@@ -27,18 +31,46 @@ class MyBattleProgressAdapter : RecyclerView.Adapter<MyBattleProgressAdapter.Vie
         fun bind(progressData: MyBattleProgressDto, position: Int) {
             with(binding) {
                 myBattleKeywordTv.text = progressData.keyword
-                myBattleDay.text = progressData.day
-                myBattleFirstNameTv.text = progressData.firstUserName
-//                myBattleFirstProfileIv.setImageResource(progressData.firstUserProfile.toInt())
-                myBattleFirstLikeIv.setImageResource(R.drawable.ic_battle_heart_not_fill)
-                myBattleFirstLikeNum.text = progressData.firstLikeNum.toString()
-                myBattleSecondLikeIv.setImageResource(R.drawable.ic_battle_heart_fill)
-                myBattleSecondLikeNum.text = progressData.secondLikeNum.toString()
-                myBattleSecondNameTv.text = progressData.secondUserName
-//                myBattleSecondProfileIv.setImageResource(progressData.secondUserProfile.toInt())
+                myBattleDay.text = progressData.duration
+                myBattleFirstNameTv.text = progressData.challengerNickname
+                Glide.with(myBattleFirstProfileIv.context)
+                    .load(progressData.challengerProfileImg)
+                    .transform(CenterCrop(), RoundedCorners(10))
+                    .into(myBattleFirstProfileIv)
+                myBattleFirstLikeNum.text = progressData.challengerLikeCnt.toString()
+                myBattleSecondLikeNum.text = progressData.challengedLikeCnt.toString()
+                myBattleSecondNameTv.text = progressData.challengedNickname
+                Glide.with(myBattleSecondProfileIv.context)
+                    .load(progressData.challengedProfileImg)
+                    .transform(CenterCrop(), RoundedCorners(10))
+                    .into(myBattleSecondProfileIv)
+
+                when (progressData.isChallengerLike) {
+                    1 -> {
+                        myBattleFirstLikeIv.setImageResource(R.drawable.ic_battle_heart_fill)
+                    }
+                    0 -> {
+                        myBattleFirstLikeIv.setImageResource(R.drawable.ic_battle_heart_not_fill)
+                    }
+                    else -> {
+                        myBattleFirstLikeIv.setImageResource(R.drawable.ic_battle_heart_not_fill)
+                    }
+                }
+
+                when (progressData.isChallengedLike) {
+                    1 -> {
+                        myBattleSecondLikeIv.setImageResource(R.drawable.ic_battle_heart_fill)
+                    }
+                    0 -> {
+                        myBattleSecondLikeIv.setImageResource(R.drawable.ic_battle_heart_not_fill)
+                    }
+                    else -> {
+                        myBattleSecondLikeIv.setImageResource(R.drawable.ic_battle_heart_not_fill)
+                    }
+                }
 
                 root.setOnClickListener {
-                    progressListener.onItemClick(position)
+                    progressListener.onItemClick(position, progressData.battleId)
                 }
             }
         }

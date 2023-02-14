@@ -1,5 +1,5 @@
 package kr.co.domain.model
 
 data class WriteSentencesDto(
-    var sentencesId: Int
+    var sentence_id: Long
 )
