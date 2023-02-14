@@ -1,22 +1,6 @@
 package ko.co.data.remote
 
-import kr.co.domain.model.AllBattleCompletion
-import kr.co.domain.model.AllBattleProgress
-import kr.co.domain.model.DailyRecord
-import kr.co.domain.model.DailyRecordResponse
-import kr.co.domain.model.SentenceCompleteResponse
-import kr.co.domain.model.DefaultResponse
-import kr.co.domain.model.GradeResponse
-import kr.co.domain.model.HomeResponse
-import kr.co.domain.model.MyBattleCompletion
-import kr.co.domain.model.MyBattleProgress
-import kr.co.domain.model.ProfileInfoResponse
-import kr.co.domain.model.RankResponse
-import kr.co.domain.model.SentencesIncompleteResponse
-import kr.co.domain.model.SetUsageTimeReq
-import kr.co.domain.model.SentencesListResponse
-import kr.co.domain.model.WriteSentencesReq
-import kr.co.domain.model.WriteSentencesResponse
+import kr.co.domain.model.*
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.http.Body
@@ -49,6 +33,9 @@ interface PureumService {
     @GET("/uses/rank-same-grade")
     suspend fun getSameRankList(@Query("date") date: String, @Query("page") page: Int): RankResponse
 
+    //오늘의 키워드 반환
+    @GET("/sentences/word/{userId}")
+    suspend fun todayKeyword(@Path("userId")userId: Long) : TodayKeywordResponse
     // 오늘의 작성 전 단어 반환
     @GET("/sentences/incomplete/{userId}")
     suspend fun sentencesIncomplete(@Path("userId")userId: Long) : SentencesIncompleteResponse
@@ -62,7 +49,7 @@ interface PureumService {
         @Query("page")page: Int,
         @Query("sort")sort: String,
         @Path("userId")userId: Long,
-        @Query("word_id")word_id: Int
+        @Query("word_id")word_id: Long
     ) : SentencesListResponse
     @POST("/sentences/write")
     suspend fun sentencesWrite(@Body writeSentencesReq: WriteSentencesReq) : WriteSentencesResponse
