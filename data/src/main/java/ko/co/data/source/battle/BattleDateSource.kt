@@ -13,6 +13,9 @@ import kr.co.domain.model.AllBattleProgMore
 import kr.co.domain.model.AllBattleProgMoreDto
 import kr.co.domain.model.AllBattleProgress
 import kr.co.domain.model.AllBattleProgressDto
+import kr.co.domain.model.BattleControlResponse
+import kr.co.domain.model.BattleId
+import kr.co.domain.model.BattleInfo
 import kr.co.domain.model.BattleRequest
 import kr.co.domain.model.BattleRequestResponse
 import kr.co.domain.model.Keyword
@@ -45,6 +48,48 @@ class BattleDateSource @Inject constructor(
             }
         }
         return battleList
+    }
+
+    suspend fun acceptBattle(battleId: BattleId): BattleControlResponse {
+        var response = BattleControlResponse(0, false, "", BattleInfo(0, ""))
+        withContext(Dispatchers.IO) {
+            runCatching {
+                pureumService.acceptBattle(battleId)
+            }.onSuccess {
+                response = it
+            }.onFailure {
+                Log.e(TAG, "acceptBattle failed: $it")
+            }
+        }
+        return response
+    }
+
+    suspend fun refuseBattle(battleId: BattleId): BattleControlResponse {
+        var response = BattleControlResponse(0, false, "", BattleInfo(0, ""))
+        withContext(Dispatchers.IO) {
+            runCatching {
+                pureumService.refuseBattle(battleId)
+            }.onSuccess {
+                response = it
+            }.onFailure {
+                Log.e(TAG, "acceptBattle failed: $it")
+            }
+        }
+        return response
+    }
+
+    suspend fun cancelBattle(battleId: BattleId): BattleControlResponse {
+        var response = BattleControlResponse(0, false, "", BattleInfo(0, ""))
+        withContext(Dispatchers.IO) {
+            runCatching {
+                pureumService.cancelBattle(battleId)
+            }.onSuccess {
+                response = it
+            }.onFailure {
+                Log.e(TAG, "cancelBattle failed: $it")
+            }
+        }
+        return response
     }
 
     suspend fun getThreeKeywords(userId: Long): KeywordsResponse {

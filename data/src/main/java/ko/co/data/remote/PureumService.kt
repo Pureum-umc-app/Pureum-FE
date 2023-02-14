@@ -6,6 +6,8 @@ import kr.co.domain.model.BattleRequestResponse
 import kr.co.domain.model.AllBattleCompletion
 import kr.co.domain.model.AllBattleProgMore
 import kr.co.domain.model.AllBattleProgress
+import kr.co.domain.model.BattleControlResponse
+import kr.co.domain.model.BattleId
 import kr.co.domain.model.DailyRecord
 import kr.co.domain.model.DailyRecordResponse
 import kr.co.domain.model.SentenceCompleteResponse
@@ -59,6 +61,16 @@ interface PureumService {
     // 대기 중인 대결 리스트 반환
     @GET("/battles/wait-list/{userId}")
     suspend fun getWaitingBattleInfo(@Path("userId") userId: Long, @Query("limit") limit: Int, @Query("page") page: Int): WaitingBattleResponse
+    // 대결 수락 API
+    @POST("/battles/accept")
+    suspend fun acceptBattle(@Body battleId: BattleId): BattleControlResponse
+    // 대결 거절 API
+    @POST("battles/reject")
+    suspend fun refuseBattle(@Body battleId: BattleId): BattleControlResponse
+    // 대결 취소 API
+    @POST("battles/cancel")
+    suspend fun cancelBattle(@Body battleId: BattleId): BattleControlResponse
+
     // 대결 키워드 3개 반환 API
     @GET("/battles/{userId}/battle-word")
     suspend fun getThreeKeywords(@Path("userId") userId: Long): KeywordsResponse
