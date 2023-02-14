@@ -23,7 +23,7 @@ import kr.co.pureum.databinding.FragmentQuestBinding
 class QuestFragment : BaseFragment<FragmentQuestBinding>(R.layout.fragment_quest) {
     private val viewModel by viewModels<QuestViewModel>()
     private val questNavArgs by navArgs<QuestFragmentArgs>()
-    private val dataSentenceList : ArrayList<DataSentence> = arrayListOf()
+    private val dataSentenceList: ArrayList<DataSentence> = arrayListOf()
 
     private var _init = true
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -35,7 +35,7 @@ class QuestFragment : BaseFragment<FragmentQuestBinding>(R.layout.fragment_quest
         initListener()
         observe()
         activity?.let { updateStatusBarColor(it, "#D8ECFF") }
-        if (requireActivity().intent.hasExtra("badge")){
+        if (requireActivity().intent.hasExtra("badge")) {
             activity?.let { updateStatusBarColor(it, "#F8F8F8") }
             val action = QuestFragmentDirections.actionQuestFragmentToQuestBadgeFragment()
             findNavController().navigate(action)
@@ -64,7 +64,7 @@ class QuestFragment : BaseFragment<FragmentQuestBinding>(R.layout.fragment_quest
     }
 
     private fun initToolbar() {
-        with(binding.mainToolbar){
+        with(binding.mainToolbar) {
             logo = ContextCompat.getDrawable(context, R.drawable.ic_pureum_logo)
             navigationIcon = null
         }
@@ -73,7 +73,7 @@ class QuestFragment : BaseFragment<FragmentQuestBinding>(R.layout.fragment_quest
     private fun initView() {
         Log.e("ScreenBuild", "QuestFragment")
         binding.isLoading = true
-        viewModel.getSentencesIncomplete()
+        viewModel.getTodayKeyword()
         binding.nickname = "태우"
     }
 
@@ -107,7 +107,8 @@ class QuestFragment : BaseFragment<FragmentQuestBinding>(R.layout.fragment_quest
         managerSentence.reverseLayout = true
         managerSentence.stackFromEnd = true
         binding.questKeywordViewRv.layoutManager = managerSentence
-        binding.questKeywordViewRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        binding.questKeywordViewRv.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         binding.questKeywordViewRv.adapter = DataSentenceRVAdapter()
     }
 
@@ -116,7 +117,7 @@ class QuestFragment : BaseFragment<FragmentQuestBinding>(R.layout.fragment_quest
             (binding.questKeywordViewRv.adapter as DataSentenceRVAdapter).setData(it)
             binding.isLoading = false
             Log.d(TAG, it.toString())
+
         }
     }
-
 }

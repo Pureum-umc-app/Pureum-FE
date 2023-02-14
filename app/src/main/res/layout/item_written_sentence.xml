@@ -2,6 +2,13 @@
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="writtenSentence"
+            type="kr.co.domain.model.SentencesListDto" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="195dp">
@@ -39,7 +46,7 @@
                 android:layout_marginStart="14dp"
                 android:layout_marginTop="23dp"
                 android:fontFamily="@font/nanum_square_neo_regular"
-                android:text="@string/app_name"
+                android:text="@{writtenSentence.nickname, default=르미}"
                 android:textColor="@color/text1"
                 android:textSize="14sp"
                 app:layout_constraintStart_toEndOf="@+id/item_profile_image_ib"
@@ -51,6 +58,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="14dp"
                 android:layout_marginTop="10dp"
+                android:text="@{writtenSentence.time, default=방금}"
                 android:fontFamily="@font/nanum_square_neo_regular"
                 android:textColor="@color/text2"
                 android:textSize="12sp"
@@ -76,6 +84,7 @@
                 android:layout_marginStart="4dp"
                 android:layout_marginTop="26dp"
                 android:textColor="@color/text1"
+                android:text="@{Integer.toString(writtenSentence.likeNum), default=0}"
                 android:textSize="12sp"
                 app:layout_constraintStart_toEndOf="@+id/item_like_icon_ib"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -88,7 +97,7 @@
                 android:layout_marginTop="15dp"
                 android:layout_marginEnd="12dp"
                 android:fontFamily="@font/nanum_square_neo_regular"
-                android:text="@string/text_letter_challenge"
+                android:text="@{writtenSentence.sentence, default=리사이클러뷰구현}"
                 android:textColor="@color/text1"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"

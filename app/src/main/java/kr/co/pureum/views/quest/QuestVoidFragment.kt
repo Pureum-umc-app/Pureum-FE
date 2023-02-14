@@ -7,11 +7,11 @@ import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
-import kr.co.domain.model.DataWrittenSentence
 import kr.co.pureum.R
 import kr.co.pureum.adapter.quest.DataWrittenSentenceRVAdapter
 import kr.co.pureum.adapter.quest.QuestVoidVPAdapter
@@ -21,8 +21,9 @@ import kr.co.pureum.databinding.FragmentQuestVoidBinding
 @AndroidEntryPoint
 class QuestVoidFragment : BaseFragment<FragmentQuestVoidBinding>(R.layout.fragment_quest_void) {
     private val arg : QuestVoidFragmentArgs by navArgs()
-    private val dataWrittenSentenceList : ArrayList<DataWrittenSentence> = arrayListOf()
-    private val dataWrittenSentenceAdapter = DataWrittenSentenceRVAdapter(dataWrittenSentenceList)
+    private lateinit var _keyword: String
+    val viewModel by viewModels<QuestViewModel>()
+    private val dataWrittenSentenceAdapter = DataWrittenSentenceRVAdapter()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
@@ -30,12 +31,22 @@ class QuestVoidFragment : BaseFragment<FragmentQuestVoidBinding>(R.layout.fragme
         //initLayoutExamination()
         initClickListener()
         initViewPager()
+        observe()
     }
 
     private fun initView() {
         val todayKeyword = arg.todayKeyword
-        with(binding) {
-            keyword = todayKeyword
+        viewModel.setKeyword(todayKeyword)
+        binding.isLoading = true
+    }
+
+    private fun observe() {
+        viewModel.keywordLiveData.observe(viewLifecycleOwner) {
+            _keyword = it
+            with(binding) {
+                keyword =it
+                isLoading = false
+            }
         }
     }
 
@@ -47,7 +58,10 @@ class QuestVoidFragment : BaseFragment<FragmentQuestVoidBinding>(R.layout.fragme
     private fun initClickListener() {
         with(binding) {
             questWritingSentenceBt.setOnClickListener() {
-                val intent = Intent(activity, QuestWriteSentenceActivity::class.java)
+                val intent = Intent(activity, QuestWriteSentenceActivity::class.java).apply {
+                    putExtra("keyword", keyword)
+                    putExtra("index", arg.index)
+                }
                 startActivity(intent)
         }
             questExistWriteSentenceBt.setOnClickListener {

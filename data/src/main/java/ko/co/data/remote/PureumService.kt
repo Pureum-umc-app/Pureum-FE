@@ -1,5 +1,6 @@
 package ko.co.data.remote
 
+import kr.co.domain.model.*
 import kr.co.domain.model.BattleRequest
 import kr.co.domain.model.BattleRequestResponse
 import kr.co.domain.model.AllBattleCompletion
@@ -55,7 +56,6 @@ interface PureumService {
     // 날짜 별 랭킹(같은 카테고리) 조회 API
     @GET("/uses/rank-same-grade")
     suspend fun getSameRankList(@Query("date") date: String, @Query("page") page: Int): RankResponse
-
     // 대기 중인 대결 리스트 반환
     @GET("/battles/wait-list/{userId}")
     suspend fun getWaitingBattleInfo(@Path("userId") userId: Long, @Query("limit") limit: Int, @Query("page") page: Int): WaitingBattleResponse
@@ -72,6 +72,10 @@ interface PureumService {
     @POST("/battles")
     suspend fun sendBattleRequest(@Body battleRequest: BattleRequest): BattleRequestResponse
 
+
+    //오늘의 키워드 반환
+    @GET("/sentences/word/{userId}")
+    suspend fun todayKeyword(@Path("userId")userId: Long) : TodayKeywordResponse
     // 오늘의 작성 전 단어 반환
     @GET("/sentences/incomplete/{userId}")
     suspend fun sentencesIncomplete(@Path("userId")userId: Long) : SentencesIncompleteResponse
@@ -85,7 +89,7 @@ interface PureumService {
         @Query("page")page: Int,
         @Query("sort")sort: String,
         @Path("userId")userId: Long,
-        @Query("word_id")word_id: Int
+        @Query("word_id")word_id: Long
     ) : SentencesListResponse
     @POST("/sentences/write")
     suspend fun sentencesWrite(@Body writeSentencesReq: WriteSentencesReq) : WriteSentencesResponse
