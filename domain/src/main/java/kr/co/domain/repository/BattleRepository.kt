@@ -1,11 +1,14 @@
 package kr.co.domain.repository
 
+import android.media.tv.SectionRequest
 import kr.co.domain.model.AllBattleCompMore
 import kr.co.domain.model.AllBattleCompletion
 import kr.co.domain.model.AllBattleProgMore
 import kr.co.domain.model.AllBattleProgress
 import kr.co.domain.model.BattleControlResponse
 import kr.co.domain.model.BattleId
+import kr.co.domain.model.BattleLike
+import kr.co.domain.model.BattleLikeReq
 import kr.co.domain.model.BattleRequestResponse
 import kr.co.domain.model.KeywordsResponse
 import kr.co.domain.model.MyBattleCompMore
@@ -36,4 +39,6 @@ interface BattleRepository {
     suspend fun getAllBattleCompletionInfo() : AllBattleCompletion
     suspend fun getAllBattleProgMoreInfo(itemIdx: Long) : AllBattleProgMore
     suspend fun getAllBattleCompMoreInfo(itemIdx: Long) : AllBattleCompMore
+
+    suspend fun postBattleLike(sentenceId: Long, userId: Long) : BattleLike
 }

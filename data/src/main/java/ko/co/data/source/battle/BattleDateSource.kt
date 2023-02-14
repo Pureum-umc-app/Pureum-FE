@@ -16,6 +16,9 @@ import kr.co.domain.model.AllBattleProgressDto
 import kr.co.domain.model.BattleControlResponse
 import kr.co.domain.model.BattleId
 import kr.co.domain.model.BattleInfo
+import kr.co.domain.model.BattleLike
+import kr.co.domain.model.BattleLikeDto
+import kr.co.domain.model.BattleLikeReq
 import kr.co.domain.model.BattleRequest
 import kr.co.domain.model.BattleRequestResponse
 import kr.co.domain.model.Keyword
@@ -390,6 +393,24 @@ class BattleDateSource @Inject constructor(
                 response = it
             }.onFailure {
                 Log.e(TAG, "getAllBattleCompMoreInfo Failed: $it")
+            }
+        }
+        return response
+    }
+
+    suspend fun postBattleLike(sentenceId: Long, userId: Long) : BattleLike {
+        val request = BattleLikeReq(sentenceId = sentenceId, userId = userId)
+
+        var response = BattleLike(0, false, "postBattleLike Failed",
+            result = BattleLikeDto(battle_like_id = 1, status = "A")
+            )
+        withContext(Dispatchers.IO) {
+            runCatching {
+                pureumService.postBattleLike(request)
+            }.onSuccess {
+                response = it
+            }.onFailure {
+                Log.e(TAG, "postBattleLike Failed: $it")
             }
         }
         return response
