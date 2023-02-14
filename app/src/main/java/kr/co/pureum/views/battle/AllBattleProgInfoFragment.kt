@@ -20,7 +20,6 @@ class AllBattleProgInfoFragment : BaseFragment<FragmentAllBattleProgInfoBinding>
     private val viewModel by viewModels<AllBattleProgInfoViewModel>()
     private val args : AllBattleProgInfoFragmentArgs by navArgs()
 
-//    private var itemId : Long = args.itemIdx
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()

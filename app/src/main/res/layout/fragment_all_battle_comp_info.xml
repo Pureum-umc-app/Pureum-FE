@@ -108,14 +108,12 @@ tools:context=".views.battle.AllBattleCompInfoFragment">
             app:layout_constraintTop_toBottomOf="@id/battle_winner_profile"/>
 
 
-        <CheckBox
+        <ImageView
             android:id="@+id/battle_winner_sentence_like"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_marginEnd="20dp"
-            android:button="@null"
-            android:backgroundTint="@null"
-            android:background="@drawable/custom_checkbox_heart"
+            android:src="@drawable/ic_battle_heart_fill"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="92dp"
@@ -199,14 +197,12 @@ tools:context=".views.battle.AllBattleCompInfoFragment">
                     android:layout_weight="1" />
 
 
-                <CheckBox
+                <ImageView
                     android:id="@+id/my_battle_sentence_like"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_marginEnd="16dp"
-                    android:button="@null"
-                    android:backgroundTint="@null"
-                    android:background="@drawable/custom_checkbox_heart"
+                    android:src="@drawable/ic_battle_heart_fill"
                     />
 
                 <TextView

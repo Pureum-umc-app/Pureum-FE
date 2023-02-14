@@ -10,6 +10,7 @@ import kr.co.domain.model.BattleRequestResponse
 import kr.co.domain.model.KeywordsResponse
 import kr.co.domain.model.MyBattleCompMore
 import kr.co.domain.model.MyBattleCompletion
+import kr.co.domain.model.MyBattleProgMore
 import kr.co.domain.model.MyBattleProgMoreDto
 import kr.co.domain.model.OpponentsResponse
 import kr.co.domain.model.ProfileImageResponse
@@ -29,7 +30,7 @@ interface BattleRepository {
 
     suspend fun getMyBattleProgressInfo(userId: Long) : MyBattleProgress
     suspend fun getMyBattleCompletionInfo(userId: Long) : MyBattleCompletion
-    suspend fun getMyBattleProgMoreInfo() : MyBattleProgMoreDto
+    suspend fun getMyBattleProgMoreInfo(itemIdx: Long) : MyBattleProgMore
     suspend fun getMyBattleCompMoreInfo() : MyBattleCompMore
     suspend fun getAllBattleProgressInfo() : AllBattleProgress
     suspend fun getAllBattleCompletionInfo() : AllBattleCompletion

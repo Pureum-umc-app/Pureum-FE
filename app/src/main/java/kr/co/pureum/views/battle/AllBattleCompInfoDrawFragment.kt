@@ -9,6 +9,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import dagger.hilt.android.AndroidEntryPoint
 import kr.co.pureum.R
 import kr.co.pureum.base.BaseFragment
@@ -47,6 +50,40 @@ class AllBattleCompInfoDrawFragment : BaseFragment<FragmentAllBattleCompInfoDraw
     private fun observe() {
         viewModel.allBattleCompListLiveData.observe(viewLifecycleOwner) {
             binding.allBattleCompMoreDto = it
+
+            Glide.with(binding.battleFirstProfile.context)
+                .load(it.winnerImage)
+                .transform(CenterCrop(), RoundedCorners(10))
+                .into(binding.battleFirstProfile)
+
+            Glide.with(binding.battleSecondProfile.context)
+                .load(it.loserImage)
+                .transform(CenterCrop(), RoundedCorners(10))
+                .into(binding.battleSecondProfile)
+
+            when (it.userLike) {
+                1 -> {
+                    binding.drawMyBattleSentenceLike.setImageResource(R.drawable.ic_battle_heart_fill)
+                }
+                0 -> {
+                    binding.drawMyBattleSentenceLike.setImageResource(R.drawable.ic_battle_heart_not_fill)
+                }
+                else -> {
+                    binding.drawMyBattleSentenceLike.setImageResource(R.drawable.ic_battle_heart_not_fill)
+                }
+            }
+
+            when (it.oppLike) {
+                1 -> {
+                    binding.drawMyBattleOpSentenceLike.setImageResource(R.drawable.ic_battle_heart_fill)
+                }
+                0 -> {
+                    binding.drawMyBattleOpSentenceLike.setImageResource(R.drawable.ic_battle_heart_not_fill)
+                }
+                else -> {
+                    binding.drawMyBattleOpSentenceLike.setImageResource(R.drawable.ic_battle_heart_not_fill)
+                }
+            }
         }
     }
 

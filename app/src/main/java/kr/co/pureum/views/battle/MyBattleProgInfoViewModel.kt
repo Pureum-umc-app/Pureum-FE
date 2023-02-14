@@ -6,6 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import kr.co.domain.model.BattleId
+import kr.co.domain.model.BattleInfo
 import kr.co.domain.model.MyBattleProgMoreDto
 import kr.co.domain.repository.BattleRepository
 import javax.inject.Inject
@@ -15,13 +17,22 @@ class MyBattleProgInfoViewModel @Inject constructor(
     private val repository: BattleRepository
 ) : ViewModel() {
     private val _myBattleProgInfoListLiveData = MutableLiveData<MyBattleProgMoreDto>()
+    private val _battleControlResponseLiveData = MutableLiveData<BattleInfo>()
+
     val myBattleProgressListLiveData: LiveData<MyBattleProgMoreDto>
         get() = _myBattleProgInfoListLiveData
 
-    fun getMyBattleProgressInfo() {
+    fun getMyBattleProgMoreInfo(itemId: Long) {
         viewModelScope.launch {
-            val res = repository.getMyBattleProgMoreInfo()
-            _myBattleProgInfoListLiveData.value = res
+            val res = repository.getMyBattleProgMoreInfo(itemId)
+            _myBattleProgInfoListLiveData.value = res.result
+        }
+    }
+
+    fun cancelBattle(battleId: Long) {
+        viewModelScope.launch {
+            val res = repository.cancelBattle(BattleId(battleId))
+            _battleControlResponseLiveData.value = res.result
         }
     }
 
