@@ -37,7 +37,7 @@ class HomeViewModel @Inject constructor(
                 year = today.year,
                 month = today.monthValue,
                 day = today.dayOfMonth,
-                minutes = spfManager.getPurposeTime(),
+                minutes = 0,
             ),
             purposeTime = TimeInfo(
                 year = today.year,

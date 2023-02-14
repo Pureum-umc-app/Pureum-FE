@@ -1,6 +1,8 @@
 package kr.co.pureum.views
 
+import android.app.AlarmManager
 import android.app.AppOpsManager
+import android.app.PendingIntent
 import android.app.usage.EventStats
 import android.app.usage.UsageStats
 import android.app.usage.UsageStatsManager
@@ -8,8 +10,10 @@ import android.content.ContentValues.TAG
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
+import android.os.SystemClock
 import android.provider.Settings
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
@@ -18,10 +22,10 @@ import kr.co.pureum.R
 import kr.co.pureum.base.BaseActivity
 import kr.co.pureum.databinding.ActivityMainBinding
 import kr.co.pureum.di.PureumApplication
+import kr.co.pureum.utils.PureumBroadcastReceiver
 import java.time.LocalDate
 import java.time.ZoneId
-import java.util.Calendar
-import java.util.Date
+import java.util.*
 import java.util.concurrent.TimeUnit
 
 @AndroidEntryPoint
@@ -29,10 +33,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     var totalUsageTime: Int = 0
     var screenCount: Int = 0
 
+    @RequiresApi(Build.VERSION_CODES.S)
     override fun initView() {
         // PureumApplication.spfManager.spfClear()
         getUsageStats()
         initBottomNavigation()
+        if (!isToday(PureumApplication.spfManager.getAlarmTime())) startAlarm()
     }
 
     private fun getUsageStats() {
@@ -206,5 +212,57 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 }
             }
         }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.S)
+    private fun startAlarm() {
+        val alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
+        val alarmIntent = Intent(this, PureumBroadcastReceiver::class.java).apply {
+            putExtra("count", screenCount)
+            putExtra("time", totalUsageTime)
+        }
+        val pendingIntent = PendingIntent.getBroadcast(
+            this,
+            0,
+            alarmIntent,
+            PendingIntent.FLAG_CANCEL_CURRENT or PendingIntent.FLAG_MUTABLE
+        )
+
+        // Set the alarm to start at 12:00am
+        val calendar = Calendar.getInstance().apply {
+            timeInMillis = System.currentTimeMillis()
+            set(Calendar.HOUR_OF_DAY, 23)
+            set(Calendar.MINUTE, 58)
+            set(Calendar.SECOND, 0)
+        }
+        alarmManager.set(
+            AlarmManager.RTC_WAKEUP,
+            calendar.timeInMillis,
+            pendingIntent
+        )
+//        alarmManager.cancel(pendingIntent)
+//        val triggerTime = System.currentTimeMillis() + 10 * 1000
+//        alarmManager.set(
+//            AlarmManager.RTC_WAKEUP,
+//            calendar.timeInMillis,
+//            pendingIntent
+//        )
+//        alarmManager.setRepeating(
+//            AlarmManager.RTC_WAKEUP,
+//            calendar.timeInMillis,
+//            AlarmManager.INTERVAL_DAY,
+//            pendingIntent
+//        )
+
+        // Store the current time as the last alarm time
+        PureumApplication.spfManager.setAlarmTime(calendar.timeInMillis)
+    }
+
+    private fun isToday(timeInMillis: Long): Boolean {
+        val calendar = Calendar.getInstance()
+        val today = calendar.get(Calendar.DAY_OF_YEAR)
+        calendar.timeInMillis = timeInMillis
+        val otherDay = calendar.get(Calendar.DAY_OF_YEAR)
+        return today == otherDay
     }
 }
