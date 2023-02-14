@@ -55,7 +55,7 @@ interface PureumService {
     @GET("/battles/wait-list/{userId}")
     suspend fun getWaitingBattleInfo(@Path("userId") userId: Long, @Query("limit") limit: Int, @Query("page") page: Int): WaitingBattleResponse
     // 대결 키워드 3개 반환 API
-    @GET("/battles/{userId}/battleWords")
+    @GET("/battles/{userId}/battle-word")
     suspend fun getThreeKeywords(@Path("userId") userId: Long): KeywordsResponse
     // 대결 상대 리스트 반환 API
     @GET("/battles/{userId}/fighters")
