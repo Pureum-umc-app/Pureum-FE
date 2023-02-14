@@ -63,25 +63,25 @@ class AllBattleCompInfoFragment : BaseFragment<FragmentAllBattleCompInfoBinding>
 
             when (it.userLike) {
                 1 -> {
-                    binding.myBattleSentenceLike.isChecked = true
+                    binding.battleWinnerSentenceLike.setImageResource(R.drawable.ic_battle_heart_fill)
                 }
                 0 -> {
-                    binding.myBattleSentenceLike.isChecked = false
+                    binding.battleWinnerSentenceLike.setImageResource(R.drawable.ic_battle_heart_not_fill)
                 }
                 else -> {
-                    binding.myBattleSentenceLike.isChecked = false
+                    binding.battleWinnerSentenceLike.setImageResource(R.drawable.ic_battle_heart_not_fill)
                 }
             }
 
             when (it.oppLike) {
                 1 -> {
-                    binding.myBattleSentenceLike.isChecked = true
+                    binding.myBattleSentenceLike.setImageResource(R.drawable.ic_battle_heart_fill)
                 }
                 0 -> {
-                    binding.myBattleSentenceLike.isChecked = false
+                    binding.myBattleSentenceLike.setImageResource(R.drawable.ic_battle_heart_not_fill)
                 }
                 else -> {
-                    binding.myBattleSentenceLike.isChecked = false
+                    binding.myBattleSentenceLike.setImageResource(R.drawable.ic_battle_heart_not_fill)
                 }
             }
         }
