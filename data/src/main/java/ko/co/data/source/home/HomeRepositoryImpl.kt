@@ -2,6 +2,8 @@ package ko.co.data.source.home
 
 import android.os.Build
 import androidx.annotation.RequiresApi
+import kr.co.domain.model.DailyRecord
+import kr.co.domain.model.DailyRecordResponse
 import kr.co.domain.model.DefaultResponse
 import kr.co.domain.model.HomeResponse
 import kr.co.domain.repository.HomeRepository
@@ -16,4 +18,7 @@ class HomeRepositoryImpl @Inject constructor(
 
     override suspend fun setPurposeTime(userId: Long, purposeTime: Int): DefaultResponse =
         dataSource.setPurposeTime(userId, purposeTime)
+
+    override suspend fun commitDailyRecord(userId: Long, postUseTimeAndCountReq: DailyRecord): DailyRecordResponse =
+        dataSource.commitDailyRecord(userId, postUseTimeAndCountReq)
 }
