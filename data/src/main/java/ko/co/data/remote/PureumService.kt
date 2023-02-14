@@ -8,6 +8,8 @@ import kr.co.domain.model.AllBattleProgMore
 import kr.co.domain.model.AllBattleProgress
 import kr.co.domain.model.BattleControlResponse
 import kr.co.domain.model.BattleId
+import kr.co.domain.model.BattleLike
+import kr.co.domain.model.BattleLikeReq
 import kr.co.domain.model.DailyRecord
 import kr.co.domain.model.DailyRecordResponse
 import kr.co.domain.model.SentenceCompleteResponse
@@ -15,6 +17,7 @@ import kr.co.domain.model.DefaultResponse
 import kr.co.domain.model.GradeResponse
 import kr.co.domain.model.HomeResponse
 import kr.co.domain.model.KeywordsResponse
+import kr.co.domain.model.MyBattleCompMore
 import kr.co.domain.model.OpponentsResponse
 import kr.co.domain.model.ProfileImageResponse
 import kr.co.domain.model.MyBattleCompletion
@@ -171,4 +174,16 @@ interface PureumService {
     suspend fun getMyBattleProgMoreInfo(
         @Path("battleIdx") battleId: Long
     ) : MyBattleProgMore
+
+    // MY 대결 정보 반환 (완료)
+    @GET("/battles/finish/my/{battleIdx}")
+    suspend fun getMyBattleCompMoreInfo(
+        @Path("battleIdx") battleId: Long
+    ) : MyBattleCompMore
+
+    // 대결 문장 좋아요 API
+    @POST("/battles/like")
+    suspend fun postBattleLike(
+        @Body request: BattleLikeReq
+    ) : BattleLike
 }

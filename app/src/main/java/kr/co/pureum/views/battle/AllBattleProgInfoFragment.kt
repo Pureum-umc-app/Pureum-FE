@@ -26,14 +26,14 @@ class AllBattleProgInfoFragment : BaseFragment<FragmentAllBattleProgInfoBinding>
         initListener()
         observe()
         initToolbar()
+        battleLike()
     }
 
     private fun initView() {
         Log.e("ScreenBuild", "AllBattleProgInfoFragment")
         viewModel.getAllBattleProgMoreInfo(args.itemIdx)
-        with(binding) {
 
-        }
+
 
     }
 
@@ -100,6 +100,17 @@ class AllBattleProgInfoFragment : BaseFragment<FragmentAllBattleProgInfoBinding>
             setNavigationOnClickListener {
                 findNavController().navigateUp()
             }
+        }
+    }
+
+    private fun battleLike(){
+        val firstSentenceId : Long = viewModel.allBattleProgressListLiveData.value?.challengerSentenceId ?: 0
+        val secSentenceId : Long = viewModel.allBattleProgressListLiveData.value?.challengerSentenceId ?: 0
+        binding.myBattleSentenceLike.setOnClickListener{
+            viewModel.postBattleLike(firstSentenceId)
+        }
+        binding.myBattleOpSentenceLike.setOnClickListener{
+            viewModel.postBattleLike(secSentenceId)
         }
     }
 

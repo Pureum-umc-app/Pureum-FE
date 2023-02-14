@@ -6,6 +6,8 @@ import kr.co.domain.model.AllBattleProgMore
 import kr.co.domain.model.AllBattleProgress
 import kr.co.domain.model.BattleControlResponse
 import kr.co.domain.model.BattleId
+import kr.co.domain.model.BattleLike
+import kr.co.domain.model.BattleLikeReq
 import kr.co.domain.model.BattleRequestResponse
 import kr.co.domain.model.KeywordsResponse
 import kr.co.domain.model.MyBattleCompMore
@@ -55,8 +57,8 @@ class BattleRepositoryImpl @Inject constructor(
     override suspend fun getMyBattleProgMoreInfo(itemIdx: Long): MyBattleProgMore =
         dataSource.getMyBattleProgMoreInfo(itemIdx)
 
-    override suspend fun getMyBattleCompMoreInfo(): MyBattleCompMore =
-        dataSource.getMyBattleCompMoreInfo()
+    override suspend fun getMyBattleCompMoreInfo(itemIdx: Long): MyBattleCompMore =
+        dataSource.getMyBattleCompMoreInfo(itemIdx)
 
     override suspend fun getAllBattleProgressInfo(): AllBattleProgress =
         dataSource.getAllBattleProgressInfo()
@@ -69,4 +71,7 @@ class BattleRepositoryImpl @Inject constructor(
 
     override suspend fun getAllBattleCompMoreInfo(itemIdx: Long): AllBattleCompMore =
         dataSource.getAllBattleCompMoreInfo(itemIdx)
+
+    override suspend fun postBattleLike(sentenceId: Long, userId: Long): BattleLike =
+        dataSource.postBattleLike(sentenceId, userId)
 }
