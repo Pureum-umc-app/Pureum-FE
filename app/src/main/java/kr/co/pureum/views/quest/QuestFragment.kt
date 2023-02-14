@@ -18,12 +18,12 @@ import kr.co.pureum.R
 import kr.co.pureum.adapter.quest.DataSentenceRVAdapter
 import kr.co.pureum.base.BaseFragment
 import kr.co.pureum.databinding.FragmentQuestBinding
+import kr.co.pureum.di.PureumApplication
 
 @AndroidEntryPoint
 class QuestFragment : BaseFragment<FragmentQuestBinding>(R.layout.fragment_quest) {
     private val viewModel by viewModels<QuestViewModel>()
     private val questNavArgs by navArgs<QuestFragmentArgs>()
-    private val dataSentenceList: ArrayList<DataSentence> = arrayListOf()
 
     private var _init = true
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -117,6 +117,7 @@ class QuestFragment : BaseFragment<FragmentQuestBinding>(R.layout.fragment_quest
             (binding.questKeywordViewRv.adapter as DataSentenceRVAdapter).setData(it)
             binding.isLoading = false
             Log.d(TAG, it.toString())
+            Log.e(TAG, PureumApplication.spfManager.getUserId().toString())
 
         }
     }

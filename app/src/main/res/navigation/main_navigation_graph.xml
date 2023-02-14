@@ -108,6 +108,9 @@
             android:name="todayKeyword"
             app:argType="string" />
         <argument
+            android:name="wordId"
+            app:argType="long" />
+        <argument
             android:name="index"
             app:argType="integer" />
 

@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import kr.co.domain.model.Keyword
 import kr.co.domain.model.SentencesListDto
 import kr.co.domain.model.WriteSentencesDto
 import kr.co.domain.repository.QuestRepository
@@ -52,9 +53,17 @@ class QuestViewModel @Inject constructor(
     val completeKeywordIdListLiveData: LiveData<List<Long>>
         get() = _completeKeywordIdListLiveData
 
+    private var _completeKeywordLiveData = MutableLiveData<String>()
+    val completeKeywordLiveData: LiveData<String>
+        get() = _completeKeywordLiveData
+
     private var _keywordLiveData = MutableLiveData<String>()
     val keywordLiveData: LiveData<String>
         get() = _keywordLiveData
+
+    private var _keywordIdLiveData = MutableLiveData<Long>()
+    val keywordIdLiveData: LiveData<Long>
+        get() = _keywordIdLiveData
 
     private var _todayWriteSentencesResponseLiveData = MutableLiveData<WriteSentencesDto>()
     val todayWriteSentencesResponseLiveData: LiveData<WriteSentencesDto>
@@ -94,8 +103,16 @@ class QuestViewModel @Inject constructor(
         }
     }
 
+    fun setWordId(wordId: Long) {
+        _keywordIdLiveData.value = wordId
+    }
+
     fun setKeyword(keyword: String) {
         _keywordLiveData.value = keyword
+    }
+
+    fun setCompleteKeyword(keyword: String) {
+        _completeKeywordLiveData.value = keyword
     }
 
     fun sentencesList(limit: Int, page: Int, sort: String, word_id: Long) {
@@ -121,5 +138,10 @@ class QuestViewModel @Inject constructor(
             )
             _todayWriteSentencesResponseLiveData.value = res.result
         }
+    }
+    //왜 안돼...
+    fun getMySentenceList() {
+        val res = repository
+
     }
 }

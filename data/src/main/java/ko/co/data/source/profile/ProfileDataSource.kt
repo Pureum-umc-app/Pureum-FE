@@ -1,5 +1,6 @@
 package ko.co.data.source.profile
 
+import android.content.ContentValues
 import android.content.ContentValues.TAG
 import android.content.Context
 import android.net.Uri
@@ -9,12 +10,7 @@ import ko.co.data.remote.PureumLoginService
 import ko.co.data.remote.PureumService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import kr.co.domain.model.CreateUserDto
-import kr.co.domain.model.DefaultResponse
-import kr.co.domain.model.NicknameValidationResponse
-import kr.co.domain.model.ProfileInfo
-import kr.co.domain.model.ProfileInfoResponse
-import kr.co.domain.model.SignupResponse
+import kr.co.domain.model.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
@@ -127,4 +123,24 @@ class ProfileDataSource @Inject constructor(
 
         return "$name.$ext"
     }
+    /*
+    suspend fun getMySentenceList() {
+        var res = MySentencesListResponse(code = 0, isSuccess = false, message = "문장 반환 실패", result = GetMySentenceRes(
+            count = 3, countOpen = 2, List<MySentenceList>(3) {
+                MySentenceList(sentenceId = 35, word = "사랑", sentence = "사랑에 빠지고 싶다", countLike = 5, "O")
+            }
+        )
+        )
+        withContext(Dispatchers.IO) {
+            runCatching {
+                PureumService.getMySentenceList()
+            }.onSuccess {
+                res = it
+            }.onFailure {
+                Log.e(ContentValues.TAG, "get My Sentence List Failed")
+            }
+        }
+    }
+
+     */
 }

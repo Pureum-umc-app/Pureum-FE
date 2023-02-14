@@ -1,5 +1,6 @@
 package kr.co.pureum.views.quest
 
+import android.content.ContentValues
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -28,7 +29,6 @@ class QuestVoidFragment : BaseFragment<FragmentQuestVoidBinding>(R.layout.fragme
         super.onViewCreated(view, savedInstanceState)
         initView()
         initToolbar()
-        //initLayoutExamination()
         initClickListener()
         initViewPager()
         observe()
@@ -36,23 +36,35 @@ class QuestVoidFragment : BaseFragment<FragmentQuestVoidBinding>(R.layout.fragme
 
     private fun initView() {
         val todayKeyword = arg.todayKeyword
+        val wordId = arg.wordId
+        viewModel.setWordId(wordId)
+        Log.e(ContentValues.TAG, wordId.toString())
         viewModel.setKeyword(todayKeyword)
+        viewModel.getTodayKeyword()
+        viewModel.sentencesList(20, 0, "date", wordId)
         binding.isLoading = true
     }
 
     private fun observe() {
+        viewModel.sentenceListLiveData.observe(viewLifecycleOwner) {
+            if (it != null) {
+                dataWrittenSentenceAdapter.setData(it)
+            }
+            binding.isLoading
+        }
         viewModel.keywordLiveData.observe(viewLifecycleOwner) {
             _keyword = it
             with(binding) {
-                keyword =it
-                isLoading = false
+                keyword = it
+                initLayoutExamination()
+                binding.isLoading = false
             }
         }
     }
 
     override fun onResume() {
         super.onResume()
-        //initLayoutExamination()
+        initLayoutExamination()
     }
 
     private fun initClickListener() {
@@ -99,13 +111,15 @@ class QuestVoidFragment : BaseFragment<FragmentQuestVoidBinding>(R.layout.fragme
 
     private fun initLayoutExamination() {
         Log.d("Tag", dataWrittenSentenceAdapter.itemCount.toString())
-        if (dataWrittenSentenceAdapter.itemCount == 0) {
-            binding.questVoidCl.isVisible = true
-            binding.questVoidExistCl.isGone = true
-        }
-        else if (dataWrittenSentenceAdapter.itemCount > 0){
-            binding.questVoidCl.isGone = true
-            binding.questVoidExistCl.isVisible = true
+        when(dataWrittenSentenceAdapter.itemCount) {
+            0 -> {
+                binding.questVoidCl.isVisible = true
+                binding.questVoidExistCl.isGone = true
+            }
+            else -> {
+                binding.questVoidCl.isGone = true
+                binding.questVoidExistCl.isVisible = true
+            }
         }
     }
 }
