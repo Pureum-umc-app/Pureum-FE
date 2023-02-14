@@ -238,4 +238,7 @@
     <string name="profile_setting_current_nickname">현재 닉네임: %s</string>
     <string name="profile_setting_finish_button">완료</string>
     <string name="battle_no_waiting_battle">현재 수락 대기 중인 대결이 없습니다.</string>
+    <string name="waiting_battle_refuse_button">거절</string>
+    <string name="waiting_battle_accept_button">수락</string>
+    <string name="waiting_battle_cancel_button">대결 취소</string>
 </resources>

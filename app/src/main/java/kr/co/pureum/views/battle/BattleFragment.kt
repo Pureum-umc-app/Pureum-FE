@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import kr.co.pureum.R
+import kr.co.pureum.adapter.battle.BattleOpponentAdapter
 import kr.co.pureum.adapter.battle.WaitingBattleAdapter
 import kr.co.pureum.base.BaseFragment
 import kr.co.pureum.databinding.FragmentBattleBinding
@@ -55,10 +56,26 @@ class BattleFragment : BaseFragment<FragmentBattleBinding>(R.layout.fragment_bat
                     addOnScrollListener(object : RecyclerView.OnScrollListener() {
                         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                             super.onScrolled(recyclerView, dx, dy)
-                            if (isLoading == false && (recyclerView.layoutManager as LinearLayoutManager?)!!.findLastCompletelyVisibleItemPosition() == itemCount - 1) {
+                            if (isLoading == false
+                                && (recyclerView.layoutManager as LinearLayoutManager?)!!.findLastCompletelyVisibleItemPosition() == itemCount - 1
+                                && viewModel.waitingBattleListLiveData.value!!.size % 5 == 0) {
                                 isLoading = true
-                                viewModel.getWaitingBattleInfo()
+                                viewModel.getMoreWaitingBattleInfo()
                             }
+                        }
+                    })
+                    setListener(object : WaitingBattleAdapter.Listener {
+                        override fun onClickRefuseButton(battleId: Long) {
+                            isLoading = true
+                            viewModel.refuseBattle(battleId)
+                        }
+                        override fun onClickAcceptButton(battleId: Long) {
+                            isLoading = true
+                            viewModel.acceptBattle(battleId)
+                        }
+                        override fun onClickCancelButton(battleId: Long) {
+                            isLoading = true
+                            viewModel.cancelBattle(battleId)
                         }
                     })
                 }
@@ -94,6 +111,9 @@ class BattleFragment : BaseFragment<FragmentBattleBinding>(R.layout.fragment_bat
                 battleNoWaitingBattle.visibility = if (it.isEmpty()) View.VISIBLE else View.GONE
                 isLoading = false
             }
+        }
+        viewModel.battleControlResponseLiveData.observe(viewLifecycleOwner) {
+            viewModel.getWaitingBattleInfo()
         }
     }
 }

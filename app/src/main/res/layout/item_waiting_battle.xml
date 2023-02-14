@@ -3,9 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <import type="android.view.View"/>
         <variable
             name="waitingBattle"
             type="kr.co.domain.model.WaitingBattle" />
+        <variable
+            name="isTouched"
+            type="java.lang.Boolean" />
+        <variable
+            name="isMine"
+            type="java.lang.Boolean" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -13,6 +20,7 @@
         android:layout_height="wrap_content">
         
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/waiting_battle_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="176dp"
@@ -66,7 +74,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@+id/battle_item_period"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginTop="16dp"
                 app:layout_constraintStart_toStartOf="parent"
                 android:text="@{waitingBattle.status, default=`대결 수락 대기 중`}"
                 android:fontFamily="@font/nanum_square_neo_bold"
@@ -74,10 +82,11 @@
                 android:textColor="@color/sub1"/>
 
             <LinearLayout
+                android:id="@+id/waiting_battle_profile_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:orientation="vertical"
                 android:gravity="center">
@@ -96,6 +105,55 @@
                     android:text="@{waitingBattle.otherNickname, default=르미}"
                     android:fontFamily="@font/nanum_square_neo_bold"
                     android:textSize="12sp"/>
+            </LinearLayout>
+            
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/waiting_battle_profile_layout"
+                android:layout_marginTop="12dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:orientation="horizontal"
+                android:visibility="@{isTouched ? View.VISIBLE : View.GONE, default=gone}">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/waiting_battle_refuse_button"
+                    android:layout_width="80dp"
+                    android:layout_height="36dp"
+                    android:background="@drawable/bg_rectangle_stroke_main1_20dp"
+                    android:backgroundTint="@null"
+                    android:text="@string/waiting_battle_refuse_button"
+                    android:fontFamily="@font/nanum_square_neo_regular"
+                    android:textSize="14sp"
+                    android:textColor="@color/main1"
+                    android:visibility="@{isMine ? View.GONE : View.VISIBLE, default=visible}"/>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/waiting_battle_accept_button"
+                    android:layout_width="80dp"
+                    android:layout_height="36dp"
+                    android:layout_marginStart="12dp"
+                    android:background="@drawable/bg_rectangle_main1_20dp"
+                    android:backgroundTint="@null"
+                    android:text="@string/waiting_battle_accept_button"
+                    android:fontFamily="@font/nanum_square_neo_regular"
+                    android:textSize="14sp"
+                    android:textColor="@color/white"
+                    android:visibility="@{isMine ? View.GONE : View.VISIBLE, default=visible}"/>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/waiting_battle_cancel_button"
+                    android:layout_width="100dp"
+                    android:layout_height="36dp"
+                    android:layout_marginStart="12dp"
+                    android:background="@drawable/bg_rectangle_main1_20dp"
+                    android:backgroundTint="@color/sub1"
+                    android:text="@string/waiting_battle_cancel_button"
+                    android:fontFamily="@font/nanum_square_neo_regular"
+                    android:textSize="14sp"
+                    android:textColor="@color/white"
+                    android:visibility="@{isMine ? View.VISIBLE : View.GONE, default=gone}"/>
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
