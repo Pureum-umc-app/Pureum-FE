@@ -24,6 +24,7 @@ import kr.co.domain.model.MyBattleCompMore
 import kr.co.domain.model.MyBattleCompMoreDto
 import kr.co.domain.model.MyBattleCompletion
 import kr.co.domain.model.MyBattleCompletionDto
+import kr.co.domain.model.MyBattleProgMore
 import kr.co.domain.model.MyBattleProgMoreDto
 import kr.co.domain.model.MyBattleProgress
 import kr.co.domain.model.MyBattleProgressDto
@@ -206,14 +207,40 @@ class BattleDateSource @Inject constructor(
         return response
     }
 
-    suspend fun getMyBattleProgMoreInfo() : MyBattleProgMoreDto {
-        val progressMore = MyBattleProgMoreDto(keyword = "구현", nickname = "푸름", mySentence = "황폐화된 자연을 복구하였다.",
-            opponentNickname = "르미", day = 10, opponentSentence = "떨어진 내 성적을 복구하였다.", mySentenceLikeNum = 5, opSentenceLikeNum = 3,
-            mySentenceLike = true, opSentenceLike = false)
+    suspend fun getMyBattleProgMoreInfo(itemIdx: Long) : MyBattleProgMore {
+        var response = MyBattleProgMore(0, false, "getMyBattleProgMoreInfo Failed",
+            result = MyBattleProgMoreDto(
+                battleId = 1,
+                duration = 0,
+                keyword = "string",
+                keywordId = 0,
+                myId = 0,
+                myImage = "string",
+                myLike = 0,
+                myLikeCnt = 0,
+                myNickname = "string",
+                mySentence = "string",
+                mySentenceId = 0,
+                oppId = 0,
+                oppImage = "string",
+                oppLike = 0,
+                oppLikeCnt = 0,
+                oppNickname = "string",
+                oppSentence = "string",
+                oppSentenceId = 0,
+                remainDuration = "string",
+                status = "A")
+        )
         withContext(Dispatchers.IO) {
-            Thread.sleep(1000)
+            runCatching {
+                pureumService.getMyBattleProgMoreInfo(itemIdx)
+            }.onSuccess {
+                response = it
+            }.onFailure {
+                Log.e(TAG, "getMyBattleProgMoreInfo Failed: $it")
+            }
         }
-        return progressMore
+        return response
     }
 
     suspend fun getMyBattleCompMoreInfo() : MyBattleCompMore {

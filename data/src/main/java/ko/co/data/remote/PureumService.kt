@@ -18,6 +18,7 @@ import kr.co.domain.model.KeywordsResponse
 import kr.co.domain.model.OpponentsResponse
 import kr.co.domain.model.ProfileImageResponse
 import kr.co.domain.model.MyBattleCompletion
+import kr.co.domain.model.MyBattleProgMore
 import kr.co.domain.model.MyBattleProgress
 import kr.co.domain.model.ProfileInfoResponse
 import kr.co.domain.model.RankResponse
@@ -164,4 +165,10 @@ interface PureumService {
     suspend fun getAllBattleCompMoreInfo(
         @Path("battleIdx") battleId: Long
     ) : AllBattleCompMore
+
+    // MY 대결 정보 반환 (진행 중, 대기 중)
+    @GET("/battles/run/my/{battleIdx}")
+    suspend fun getMyBattleProgMoreInfo(
+        @Path("battleIdx") battleId: Long
+    ) : MyBattleProgMore
 }

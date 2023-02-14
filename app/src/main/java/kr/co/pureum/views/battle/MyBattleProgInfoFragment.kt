@@ -17,6 +17,9 @@ import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import dagger.hilt.android.AndroidEntryPoint
 import kr.co.domain.model.MyBattleProgMoreDto
@@ -33,9 +36,8 @@ import kr.co.pureum.views.home.HomeFragment
 @AndroidEntryPoint
 class MyBattleProgInfoFragment : BaseFragment<FragmentMyBattleProgInfoBinding>(R.layout.fragment_my_battle_prog_info) {
 
-    private val viewModel by viewModels<AllBattleProgInfoViewModel>()
+    private val viewModel by viewModels<MyBattleProgInfoViewModel>()
     private val args : MyBattleProgInfoFragmentArgs by navArgs()
-    private val itemId : Long = args.itemIdx
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -47,7 +49,7 @@ class MyBattleProgInfoFragment : BaseFragment<FragmentMyBattleProgInfoBinding>(R
 
     private fun initView() {
         Log.e("ScreenBuild", "MyBattleProgInfoFragment")
-        viewModel.getAllBattleProgMoreInfo(itemId)
+        viewModel.getMyBattleProgMoreInfo(args.itemIdx)
         with(binding) {
         }
 
@@ -62,30 +64,50 @@ class MyBattleProgInfoFragment : BaseFragment<FragmentMyBattleProgInfoBinding>(R
     }
 
     private fun observe() {
-        viewModel.allBattleProgressListLiveData.observe(viewLifecycleOwner) {
-            binding.allBattleProgMoreDto = it
+        viewModel.myBattleProgressListLiveData.observe(viewLifecycleOwner) {
+            binding.myBattleProgMoreDto = it
 
-            when (it.challengerLike) {
+            Glide.with(binding.myProfile.context)
+                .load(it.myImage)
+                .transform(CenterCrop(), RoundedCorners(10))
+                .into(binding.myProfile)
+
+            Glide.with(binding.oppProfile.context)
+                .load(it.oppImage)
+                .transform(CenterCrop(), RoundedCorners(10))
+                .into(binding.oppProfile)
+
+            Glide.with(binding.myProfileImg.context)
+                .load(it.myImage)
+                .transform(CenterCrop(), RoundedCorners(10))
+                .into(binding.myProfileImg)
+
+            Glide.with(binding.oppProfileImg.context)
+                .load(it.oppImage)
+                .transform(CenterCrop(), RoundedCorners(10))
+                .into(binding.oppProfileImg)
+
+            when (it.myLike) {
                 1 -> {
-                    binding.myBattleSentenceLike.setBackgroundResource(R.drawable.ic_battle_heart_fill)
+                    binding.myBattleSentenceLike.isChecked = true
                 }
                 0 -> {
-                    binding.myBattleSentenceLike.setBackgroundResource(R.drawable.ic_battle_heart_not_fill)
+                    binding.myBattleSentenceLike.isChecked = false
                 }
                 else -> {
-                    binding.myBattleSentenceLike.setBackgroundResource(R.drawable.ic_battle_heart_not_fill)
+                    binding.myBattleSentenceLike.isChecked = false
                 }
             }
 
-            when (it.challengedLike) {
+            when (it.oppLike) {
                 1 -> {
-                    binding.myBattleOpSentenceLike.setBackgroundResource(R.drawable.ic_battle_heart_fill)
+                    binding.myBattleOpSentenceLike.isChecked = true
                 }
                 0 -> {
-                    binding.myBattleOpSentenceLike.setBackgroundResource(R.drawable.ic_battle_heart_not_fill)
+                    binding.myBattleOpSentenceLike.isChecked = false
                 }
                 else -> {
-                    binding.myBattleOpSentenceLike.setBackgroundResource(R.drawable.ic_battle_heart_not_fill)
+                    binding.myBattleOpSentenceLike.isChecked = false
                 }
             }
 
