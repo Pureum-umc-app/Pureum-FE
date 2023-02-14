@@ -8,6 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import dagger.hilt.android.AndroidEntryPoint
 import kr.co.pureum.R
 import kr.co.pureum.base.BaseFragment
@@ -18,7 +22,7 @@ import kr.co.pureum.databinding.FragmentMyBattleCompInfoBinding
 class AllBattleCompInfoFragment : BaseFragment<FragmentAllBattleCompInfoBinding>(R.layout.fragment_all_battle_comp_info) {
 
     private val viewModel by viewModels<AllBattleCompInfoViewModel>()
-
+    private val args : AllBattleCompInfoFragmentArgs by navArgs()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -30,7 +34,7 @@ class AllBattleCompInfoFragment : BaseFragment<FragmentAllBattleCompInfoBinding>
 
     private fun initView() {
         Log.e("ScreenBuild", "AllBattleCompInfoFragment")
-        viewModel.getAllBattleCompMoreInfo()
+        viewModel.getAllBattleCompMoreInfo(args.itemId)
         with(binding) {
 
         }
@@ -46,6 +50,40 @@ class AllBattleCompInfoFragment : BaseFragment<FragmentAllBattleCompInfoBinding>
     private fun observe() {
         viewModel.allBattleCompListLiveData.observe(viewLifecycleOwner) {
             binding.allBattleCompMoreDto = it
+
+            Glide.with(binding.battleWinnerProfile.context)
+                .load(it.winnerImage)
+                .transform(CenterCrop(), RoundedCorners(10))
+                .into(binding.battleWinnerProfile)
+
+            Glide.with(binding.battleLoserProfile.context)
+                .load(it.loserImage)
+                .transform(CenterCrop(), RoundedCorners(10))
+                .into(binding.battleLoserProfile)
+
+            when (it.userLike) {
+                1 -> {
+                    binding.battleWinnerSentenceLike.setImageResource(R.drawable.ic_battle_heart_fill)
+                }
+                0 -> {
+                    binding.battleWinnerSentenceLike.setImageResource(R.drawable.ic_battle_heart_not_fill)
+                }
+                else -> {
+                    binding.battleWinnerSentenceLike.setImageResource(R.drawable.ic_battle_heart_not_fill)
+                }
+            }
+
+            when (it.oppLike) {
+                1 -> {
+                    binding.myBattleSentenceLike.setImageResource(R.drawable.ic_battle_heart_fill)
+                }
+                0 -> {
+                    binding.myBattleSentenceLike.setImageResource(R.drawable.ic_battle_heart_not_fill)
+                }
+                else -> {
+                    binding.myBattleSentenceLike.setImageResource(R.drawable.ic_battle_heart_not_fill)
+                }
+            }
         }
     }
 

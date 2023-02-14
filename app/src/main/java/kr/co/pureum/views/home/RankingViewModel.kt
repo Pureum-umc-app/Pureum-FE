@@ -39,18 +39,20 @@ class RankingViewModel @Inject constructor(
     val rankListLiveData: LiveData<List<Rank>> = _rankListLiveData
 
     @RequiresApi(Build.VERSION_CODES.O)
-    var localDate : LocalDate = LocalDate.now()
+    var localDate : LocalDate = LocalDate.now().minusDays(1)
 
     @RequiresApi(Build.VERSION_CODES.O)
-    fun isToday() : Boolean = localDate.isEqual(LocalDate.now())
+    fun isYesterday() : Boolean = localDate.isEqual(LocalDate.now().minusDays(1))
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun setDate(option: Int) {
         localDate = when(option) {
-            INIT -> LocalDate.now()
+            INIT -> LocalDate.now().minusDays(1)
             MINUS -> localDate.minusDays(1)
             else -> localDate.plusDays(1)
         }
+        _rankList.clear()
+        if (isSame) getSameRankList() else getAllRankList()
     }
 
     fun getMyGrade() {

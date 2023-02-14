@@ -6,10 +6,13 @@ import kr.co.domain.model.AllBattleProgMore
 import kr.co.domain.model.AllBattleProgress
 import kr.co.domain.model.BattleControlResponse
 import kr.co.domain.model.BattleId
+import kr.co.domain.model.BattleLike
+import kr.co.domain.model.BattleLikeReq
 import kr.co.domain.model.BattleRequestResponse
 import kr.co.domain.model.KeywordsResponse
 import kr.co.domain.model.MyBattleCompMore
 import kr.co.domain.model.MyBattleCompletion
+import kr.co.domain.model.MyBattleProgMore
 import kr.co.domain.model.MyBattleProgMoreDto
 import kr.co.domain.model.OpponentsResponse
 import kr.co.domain.model.ProfileImageResponse
@@ -51,11 +54,11 @@ class BattleRepositoryImpl @Inject constructor(
     override suspend fun getMyBattleCompletionInfo(userId: Long): MyBattleCompletion =
         dataSource.getMyBattleCompletion(userId)
 
-    override suspend fun getMyBattleProgMoreInfo(): MyBattleProgMoreDto =
-        dataSource.getMyBattleProgMoreInfo()
+    override suspend fun getMyBattleProgMoreInfo(itemIdx: Long): MyBattleProgMore =
+        dataSource.getMyBattleProgMoreInfo(itemIdx)
 
-    override suspend fun getMyBattleCompMoreInfo(): MyBattleCompMore =
-        dataSource.getMyBattleCompMoreInfo()
+    override suspend fun getMyBattleCompMoreInfo(itemIdx: Long): MyBattleCompMore =
+        dataSource.getMyBattleCompMoreInfo(itemIdx)
 
     override suspend fun getAllBattleProgressInfo(): AllBattleProgress =
         dataSource.getAllBattleProgressInfo()
@@ -66,6 +69,9 @@ class BattleRepositoryImpl @Inject constructor(
     override suspend fun getAllBattleProgMoreInfo(itemIdx: Long): AllBattleProgMore =
         dataSource.getAllBattleProgMoreInfo(itemIdx)
 
-    override suspend fun getAllBattleCompMoreInfo(): AllBattleCompMore =
-        dataSource.getAllBattleCompMoreInfo()
+    override suspend fun getAllBattleCompMoreInfo(itemIdx: Long): AllBattleCompMore =
+        dataSource.getAllBattleCompMoreInfo(itemIdx)
+
+    override suspend fun postBattleLike(sentenceId: Long, userId: Long): BattleLike =
+        dataSource.postBattleLike(sentenceId, userId)
 }

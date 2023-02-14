@@ -69,7 +69,9 @@ class RankingFragment : BaseFragment<FragmentRankingBinding>(R.layout.fragment_r
                 addOnScrollListener(object : RecyclerView.OnScrollListener() {
                     override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                         super.onScrolled(recyclerView, dx, dy)
-                        if (binding.isLoading == false && (recyclerView.layoutManager as LinearLayoutManager?)!!.findLastCompletelyVisibleItemPosition() == itemCount - 1) {
+                        if (binding.isLoading == false
+                            && (recyclerView.layoutManager as LinearLayoutManager?)!!.findLastCompletelyVisibleItemPosition() == itemCount - 1
+                            && viewModel.rankListLiveData.value!!.size % 25 == 0) {
                             binding.isLoading = true
                             if (viewModel.isSame) viewModel.getSameRankList()
                             else viewModel.getAllRankList()
@@ -103,7 +105,7 @@ class RankingFragment : BaseFragment<FragmentRankingBinding>(R.layout.fragment_r
             binding.grade = it
         }
         viewModel.rankListLiveData.observe(viewLifecycleOwner) {
-            (binding.rankingRecyclerView.adapter as RankingAdapter).setData(it, RankingAdapter.RANK)
+            (binding.rankingRecyclerView.adapter as RankingAdapter).setData(it)
             binding.isLoading = false
         }
         viewModel.myRankLiveDate.observe(viewLifecycleOwner) {
@@ -117,9 +119,8 @@ class RankingFragment : BaseFragment<FragmentRankingBinding>(R.layout.fragment_r
             with(viewModel) {
                 setDate(option)
                 isLoading = true
-                if (isSame) getSameRankList() else getAllRankList()
                 date = localDate
-                isToday = isToday()
+                isToday = isYesterday()
             }
         }
     }

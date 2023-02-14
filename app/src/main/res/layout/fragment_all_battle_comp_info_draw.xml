@@ -91,6 +91,7 @@ tools:context=".views.battle.AllBattleCompInfoDrawFragment">
                 android:gravity="center_vertical">
 
                 <ImageView
+                    android:id="@+id/battle_first_profile"
                     android:layout_width="52dp"
                     android:layout_height="52dp"
                     android:src="@drawable/bg_default_profile_image"
@@ -117,14 +118,12 @@ tools:context=".views.battle.AllBattleCompInfoDrawFragment">
                     android:layout_weight="1" />
 
 
-                <CheckBox
+                <ImageView
                     android:id="@+id/draw_my_battle_sentence_like"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_marginEnd="16dp"
-                    android:button="@null"
-                    android:backgroundTint="@null"
-                    android:background="@drawable/custom_checkbox_heart"
+                    android:src="@drawable/ic_battle_heart_fill"
                     />
 
                 <TextView
@@ -173,6 +172,7 @@ tools:context=".views.battle.AllBattleCompInfoDrawFragment">
                 android:gravity="center_vertical">
 
                 <ImageView
+                    android:id="@+id/battle_second_profile"
                     android:layout_width="52dp"
                     android:layout_height="52dp"
                     android:src="@drawable/bg_default_profile_image"
@@ -192,14 +192,12 @@ tools:context=".views.battle.AllBattleCompInfoDrawFragment">
                     android:layout_weight="1" />
 
 
-                <CheckBox
+                <ImageView
                     android:id="@+id/draw_my_battle_op_sentence_like"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_marginEnd="16dp"
-                    android:button="@null"
-                    android:backgroundTint="@null"
-                    android:background="@drawable/custom_checkbox_heart"
+                    android:src="@drawable/ic_battle_heart_fill"
                     />
 
                 <TextView

@@ -16,6 +16,9 @@ import kr.co.domain.model.AllBattleProgressDto
 import kr.co.domain.model.BattleControlResponse
 import kr.co.domain.model.BattleId
 import kr.co.domain.model.BattleInfo
+import kr.co.domain.model.BattleLike
+import kr.co.domain.model.BattleLikeDto
+import kr.co.domain.model.BattleLikeReq
 import kr.co.domain.model.BattleRequest
 import kr.co.domain.model.BattleRequestResponse
 import kr.co.domain.model.Keyword
@@ -24,6 +27,7 @@ import kr.co.domain.model.MyBattleCompMore
 import kr.co.domain.model.MyBattleCompMoreDto
 import kr.co.domain.model.MyBattleCompletion
 import kr.co.domain.model.MyBattleCompletionDto
+import kr.co.domain.model.MyBattleProgMore
 import kr.co.domain.model.MyBattleProgMoreDto
 import kr.co.domain.model.MyBattleProgress
 import kr.co.domain.model.MyBattleProgressDto
@@ -206,36 +210,68 @@ class BattleDateSource @Inject constructor(
         return response
     }
 
-    suspend fun getMyBattleProgMoreInfo() : MyBattleProgMoreDto {
-        val progressMore = MyBattleProgMoreDto(keyword = "구현", nickname = "푸름", mySentence = "황폐화된 자연을 복구하였다.",
-            opponentNickname = "르미", day = 10, opponentSentence = "떨어진 내 성적을 복구하였다.", mySentenceLikeNum = 5, opSentenceLikeNum = 3,
-            mySentenceLike = true, opSentenceLike = false)
+    suspend fun getMyBattleProgMoreInfo(itemIdx: Long) : MyBattleProgMore {
+        var response = MyBattleProgMore(0, false, "getMyBattleProgMoreInfo Failed",
+            result = MyBattleProgMoreDto(
+                battleId = 1,
+                duration = 0,
+                keyword = "string",
+                keywordId = 0,
+                myId = 0,
+                myImage = "string",
+                myLike = 0,
+                myLikeCnt = 0,
+                myNickname = "string",
+                mySentence = "string",
+                mySentenceId = 0,
+                oppId = 0,
+                oppImage = "string",
+                oppLike = 0,
+                oppLikeCnt = 0,
+                oppNickname = "string",
+                oppSentence = "string",
+                oppSentenceId = 0,
+                remainDuration = "string",
+                status = "A")
+        )
         withContext(Dispatchers.IO) {
-            Thread.sleep(1000)
+            runCatching {
+                pureumService.getMyBattleProgMoreInfo(itemIdx)
+            }.onSuccess {
+                response = it
+            }.onFailure {
+                Log.e(TAG, "getMyBattleProgMoreInfo Failed: $it")
+            }
         }
-        return progressMore
+        return response
     }
 
-    suspend fun getMyBattleCompMoreInfo() : MyBattleCompMore {
-        val compMore = MyBattleCompMore(code = 1000, isSuccess = true, message = "요청에 성공했습니다.",
-            result = MyBattleCompMoreDto(battleId = 1, duration = 10, loserId = 0, loserImage = "", loserLikeCnt = 3, loserNickname = "르미", loserSentence= "떨어진 내 성적을 복구하였다.",
-            loserSentenceId = 1,
-            oppLike = 0,
-            situation = 0,
-            userLike= 0,
-            winnerId= 0,
-            winnerImage= "",
-            winnerLikeCnt= 10,
-            winnerNickname= "푸름",
-            winnerSentence = "황폐화된 자연을 복구하였다.",
-            winnerSentenceId = 10,
-            winnerUserId = 2)
+    suspend fun getMyBattleCompMoreInfo(itemIdx: Long) : MyBattleCompMore {
+        var response = MyBattleCompMore(0, false, "getMyBattleCompMoreInfo Failed",
+            result = MyBattleCompMoreDto(
+                battleId = 1, duration = 10, loserId = 0, loserImage = "", loserLikeCnt = 3, loserNickname = "르미", loserSentence= "떨어진 내 성적을 복구하였다.",
+                loserSentenceId = 1,
+                oppLike = 0,
+                situation = 0,
+                selfLike= 0,
+                winnerId= 0,
+                winnerImage= "",
+                winnerLikeCnt= 10,
+                winnerNickname= "푸름",
+                winnerSentence = "황폐화된 자연을 복구하였다.",
+                winnerSentenceId = 10,
+                winnerUserId = 2)
         )
-
         withContext(Dispatchers.IO) {
-            Thread.sleep(1000)
+            runCatching {
+                pureumService.getMyBattleCompMoreInfo(itemIdx)
+            }.onSuccess {
+                response = it
+            }.onFailure {
+                Log.e(TAG, "getMyBattleCompMoreInfo Failed: $it")
+            }
         }
-        return compMore
+        return response
     }
 
     suspend fun getAllBattleProgressInfo(): AllBattleProgress {
@@ -315,9 +351,9 @@ class BattleDateSource @Inject constructor(
                     duration = 10,
                     keyword = "복구",
                     keywordId = 1,
-                    oppLike = 0,
+                    challengedLike = 0,
                     remainDuration = "D-10",
-                    selfLike = 1,
+                    challengerLike = 1,
                     status = "A")
         )
         withContext(Dispatchers.IO) {
@@ -332,25 +368,51 @@ class BattleDateSource @Inject constructor(
         return response
     }
 
-    suspend fun getAllBattleCompMoreInfo() : AllBattleCompMore {
-        val compMore = AllBattleCompMore( code = 1000, isSuccess = true, message = "요청에 성공했습니다.", result = AllBattleCompMoreDto(battleId = 1,
-            duration = 10, loserId = 0, loserImage = "", loserLikeCnt = 3, loserNickname = "르미", loserSentence= "떨어진 내 성적을 복구하였다.",
-            loserSentenceId = 1,
-            oppLike = 0,
-            situation = 0,
-            userLike= 0,
-            winnerId= 0,
-            winnerImage= "",
-            winnerLikeCnt= 10,
-            winnerNickname= "푸름",
-            winnerSentence = "황폐화된 자연을 복구하였다.",
-            winnerSentenceId = 10,
-            winnerUserId = 2)
+    suspend fun getAllBattleCompMoreInfo(itemIdx: Long) : AllBattleCompMore {
+        var response = AllBattleCompMore(0, false, "getAllBattleCompMoreInfo Failed",
+            result =
+            AllBattleCompMoreDto(
+                    battleId = 1,
+                    duration = 10, loserId = 0, loserImage = "", loserLikeCnt = 3, loserNickname = "르미", loserSentence= "떨어진 내 성적을 복구하였다.",
+                    loserSentenceId = 1,
+                    oppLike = 0,
+                    situation = 0,
+                    userLike= 0,
+                    winnerId= 0,
+                    winnerImage= "",
+                    winnerLikeCnt= 10,
+                    winnerNickname= "푸름",
+                    winnerSentence = "황폐화된 자연을 복구하였다.",
+                    winnerSentenceId = 10,
+                    winnerUserId = 2)
         )
-
         withContext(Dispatchers.IO) {
-            Thread.sleep(1000)
+            runCatching {
+                pureumService.getAllBattleCompMoreInfo(itemIdx)
+            }.onSuccess {
+                response = it
+            }.onFailure {
+                Log.e(TAG, "getAllBattleCompMoreInfo Failed: $it")
+            }
         }
-        return compMore
+        return response
+    }
+
+    suspend fun postBattleLike(sentenceId: Long, userId: Long) : BattleLike {
+        val request = BattleLikeReq(sentenceId = sentenceId, userId = userId)
+
+        var response = BattleLike(0, false, "postBattleLike Failed",
+            result = BattleLikeDto(battle_like_id = 1, status = "A")
+            )
+        withContext(Dispatchers.IO) {
+            runCatching {
+                pureumService.postBattleLike(request)
+            }.onSuccess {
+                response = it
+            }.onFailure {
+                Log.e(TAG, "postBattleLike Failed: $it")
+            }
+        }
+        return response
     }
 }

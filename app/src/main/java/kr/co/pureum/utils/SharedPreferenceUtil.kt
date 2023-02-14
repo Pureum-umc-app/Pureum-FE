@@ -11,6 +11,11 @@ class SharedPreferenceUtil(context: Context) {
         spfManager.edit().clear().apply()
     }
 
+    fun getAlarmTime(): Long = spfManager.getLong("alarm_time", 0)
+    fun setAlarmTime(time: Long) {
+        spfManager.edit().putLong("alarm_time", time).apply()
+    }
+
     // userToken 메서드
     fun checkUserToken(): Boolean = spfManager.contains("user_token")
     fun getUserToken(): String = spfManager.getString("user_token", "").toString()
