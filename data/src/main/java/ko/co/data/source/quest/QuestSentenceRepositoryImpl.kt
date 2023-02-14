@@ -1,15 +1,16 @@
 package ko.co.data.source.quest
 
-import kr.co.domain.model.SentenceCompleteResponse
-import kr.co.domain.model.SentencesIncompleteResponse
-import kr.co.domain.model.SentencesListResponse
-import kr.co.domain.model.WriteSentencesResponse
+import kr.co.domain.model.*
 import kr.co.domain.repository.QuestRepository
 import javax.inject.Inject
 
 class QuestSentenceRepositoryImpl @Inject constructor(
     private val dataSource: QuestSentenceDataSource
 ) : QuestRepository {
+    override suspend fun todayKeyword(userId: Long): TodayKeywordResponse {
+        return dataSource.todayKeyword(userId)
+    }
+
     override suspend fun sentencesIncomplete(userId: Long): SentencesIncompleteResponse {
         return dataSource.sentencesIncomplete(userId)
     }
@@ -18,7 +19,7 @@ class QuestSentenceRepositoryImpl @Inject constructor(
         return dataSource.sentencesComplete(userId)
     }
 
-    override fun sentencesList(limit: Int, page: Int, sort: String, userId: Long, word_id: Long): SentencesListResponse {
+    override suspend fun sentencesList(limit: Int, page: Int, sort: String, userId: Long, word_id: Long): SentencesListResponse {
         return dataSource.sentencesList(limit, page, sort, userId, word_id)
     }
 

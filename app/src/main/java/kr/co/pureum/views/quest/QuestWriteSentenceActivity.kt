@@ -27,17 +27,19 @@ class QuestWriteSentenceActivity : BaseActivity<ActivityQuestWriteSentenceBindin
     private var keywordId: Long = 0
     private var userId = PureumApplication.spfManager.getUserId()
     private val viewModel by viewModels<QuestViewModel>()
+
     override fun initView() {
         _keyword = intent.getStringExtra("keyword").toString()
         Log.d(ContentValues.TAG, _keyword)
-        observe()
         initToolbar()
         initClickListener()
-        viewModel.getSentencesIncomplete()
         with(binding) {
             isLoading = true
             keyword = _keyword
         }
+        viewModel.getSentencesIncomplete()
+        viewModel.getTodayKeyword()
+        observe()
     }
     // 뒤로가기 버튼 or 스와이프 시 dialog
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
@@ -86,8 +88,10 @@ class QuestWriteSentenceActivity : BaseActivity<ActivityQuestWriteSentenceBindin
     }
 
     private fun observe() {
-        val index = intent.getIntExtra("index", 1)
-        Log.e(ContentValues.TAG, index.toString())
+        var index: Int = 0
+        viewModel.todayKeywordListLiveData.observe(this) {
+            index = it.indexOf(_keyword)
+        }
         viewModel.todayKeywordIdListLiveData.observe(this) {
             keywordId = it[index]
         }

@@ -3,23 +3,21 @@ package kr.co.pureum.adapter.quest
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import kr.co.domain.model.DataWrittenSentence
+import kr.co.domain.model.SentencesListDto
 import kr.co.pureum.R
 import kr.co.pureum.databinding.ItemWrittenSentenceBinding
 
-class DataWrittenSentenceRVAdapter(private val dataWrittenSentenceList: ArrayList<DataWrittenSentence>) : RecyclerView.Adapter<DataWrittenSentenceRVAdapter.DataWrittenSentenceViewHolder>() {
+class DataWrittenSentenceRVAdapter() : RecyclerView.Adapter<DataWrittenSentenceRVAdapter.DataWrittenSentenceViewHolder>() {
+    private var writtenSentenceList = mutableListOf<SentencesListDto>()
+
     inner class DataWrittenSentenceViewHolder(private val binding: ItemWrittenSentenceBinding) : RecyclerView.ViewHolder(binding.root){
-        fun bind(dataWrittenSentence: DataWrittenSentence) {
+        fun bind(sentencesListDto: SentencesListDto) {
             with(binding) {
                 itemProfileImageIb.setImageResource(R.drawable.ic_appicon_round)
-                itemUserNicknameTv.text = dataWrittenSentence.userNickname
-                itemUploadTimeTv.text = dataWrittenSentence.uploadTime
-                itemLikeNumberTv.text = dataWrittenSentence.likeNumber
-                itemWrittenSentenceTv.text = dataWrittenSentence.writtenSentence
+                writtenSentence = sentencesListDto
             }
         }
     }
-
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -30,8 +28,14 @@ class DataWrittenSentenceRVAdapter(private val dataWrittenSentenceList: ArrayLis
     }
 
     override fun onBindViewHolder(holder: DataWrittenSentenceViewHolder, position: Int) {
-        holder.bind(dataWrittenSentenceList[position])
+        holder.bind(writtenSentenceList[position])
     }
 
-    override fun getItemCount(): Int = dataWrittenSentenceList.size
+    override fun getItemCount(): Int = writtenSentenceList.size
+
+    fun setData(data: List<SentencesListDto>) {
+        writtenSentenceList.clear()
+        writtenSentenceList.addAll(data)
+        notifyDataSetChanged()
+    }
 }
