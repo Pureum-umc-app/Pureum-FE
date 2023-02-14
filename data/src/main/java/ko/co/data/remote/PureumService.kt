@@ -1,6 +1,6 @@
 package ko.co.data.remote
 
-import kr.co.domain.model.*
+import kr.co.domain.model.AllBattleCompMore
 import kr.co.domain.model.BattleRequest
 import kr.co.domain.model.BattleRequestResponse
 import kr.co.domain.model.AllBattleCompletion
@@ -24,6 +24,7 @@ import kr.co.domain.model.RankResponse
 import kr.co.domain.model.SentencesIncompleteResponse
 import kr.co.domain.model.SetUsageTimeReq
 import kr.co.domain.model.SentencesListResponse
+import kr.co.domain.model.TodayKeywordResponse
 import kr.co.domain.model.WaitingBattleResponse
 import kr.co.domain.model.WriteSentencesReq
 import kr.co.domain.model.WriteSentencesResponse
@@ -58,6 +59,7 @@ interface PureumService {
     // 날짜 별 랭킹(같은 카테고리) 조회 API
     @GET("/uses/rank-same-grade")
     suspend fun getSameRankList(@Query("date") date: String, @Query("page") page: Int): RankResponse
+
     // 대기 중인 대결 리스트 반환
     @GET("/battles/wait-list/{userId}")
     suspend fun getWaitingBattleInfo(@Path("userId") userId: Long, @Query("limit") limit: Int, @Query("page") page: Int): WaitingBattleResponse
@@ -151,9 +153,15 @@ interface PureumService {
         @Query("page")page: Int
     ) : MyBattleCompletion
 
-    // 대결 정보 반환 API (진행 중, 대기 중)
-    @GET("battles/run/{battleIdx}")
+    // 전체 대결 정보 반환 API (진행 중, 대기 중)
+    @GET("battles/run/{battleId}")
     suspend fun getAllBattleProgMoreInfo(
         @Path("battleId") battleId: Long
     ) : AllBattleProgMore
+
+    // 전체 대결 정보 반환 API (완료)
+    @GET("/battles/finish/{battleIdx}")
+    suspend fun getAllBattleCompMoreInfo(
+        @Path("battleIdx") battleId: Long
+    ) : AllBattleCompMore
 }

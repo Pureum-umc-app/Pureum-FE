@@ -66,6 +66,6 @@ class BattleRepositoryImpl @Inject constructor(
     override suspend fun getAllBattleProgMoreInfo(itemIdx: Long): AllBattleProgMore =
         dataSource.getAllBattleProgMoreInfo(itemIdx)
 
-    override suspend fun getAllBattleCompMoreInfo(): AllBattleCompMore =
-        dataSource.getAllBattleCompMoreInfo()
+    override suspend fun getAllBattleCompMoreInfo(itemIdx: Long): AllBattleCompMore =
+        dataSource.getAllBattleCompMoreInfo(itemIdx)
 }

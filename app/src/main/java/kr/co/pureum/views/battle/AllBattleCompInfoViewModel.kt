@@ -19,9 +19,9 @@ class AllBattleCompInfoViewModel @Inject constructor(
     val allBattleCompListLiveData: LiveData<AllBattleCompMoreDto>
         get() = _allBattleCompInfoListLiveData
 
-    fun getAllBattleCompMoreInfo() {
+    fun getAllBattleCompMoreInfo(itemId: Long) {
         viewModelScope.launch {
-            val res = repository.getAllBattleCompMoreInfo()
+            val res = repository.getAllBattleCompMoreInfo(itemId)
             _allBattleCompInfoListLiveData.value = res.result
         }
     }
