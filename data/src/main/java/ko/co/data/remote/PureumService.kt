@@ -38,7 +38,6 @@ import okhttp3.RequestBody
 import retrofit2.http.Body
 import retrofit2.http.POST
 import retrofit2.http.GET
-import retrofit2.http.Header
 import retrofit2.http.Multipart
 import retrofit2.http.PATCH
 import retrofit2.http.Part
@@ -130,7 +129,7 @@ interface PureumService {
     ) : DefaultResponse
     // my 문장 리스트 API
     @GET("/mypages/sentence")
-    suspend fun getMySentenceList(context: Context) : MySentencesListResponse
+    suspend fun getMySentenceList() : MySentencesListResponse
 
     // 진행 중인 대결 리스트 반환 API
     @GET("/battles/list")
@@ -191,4 +190,11 @@ interface PureumService {
     suspend fun postBattleLike(
         @Body request: BattleLikeReq
     ) : BattleLike
+
+    //도장 개수 반환 API
+    @GET("/attendances/{userId}")
+    suspend fun getStampList(@Path("userId")userId: Long) : StampListResponse
+    //출석 체크 API
+    @POST
+    suspend fun attendanceCheck(@Body uerId: UserId) : AttendancesCheckResponse
 }

@@ -4,9 +4,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kr.co.domain.model.DataWrittenSentence
+import kr.co.domain.model.MySentenceList
 import kr.co.pureum.databinding.ItemMySentenceBinding
 
 class DataMySentenceRVAdapter(private val dataMySentenceList: ArrayList<DataWrittenSentence>) : RecyclerView.Adapter<DataMySentenceRVAdapter.DataMySentenceViewHolder>() {
+    //private val mySentenceList: List<MySentenceList>
     inner class DataMySentenceViewHolder(private val binding: ItemMySentenceBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(dataMySentence: DataWrittenSentence) {
             binding.itemMyKeyword.text = dataMySentence.todayKeyword

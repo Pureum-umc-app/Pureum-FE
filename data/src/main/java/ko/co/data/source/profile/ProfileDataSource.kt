@@ -15,7 +15,6 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
-import org.json.JSONObject
 import java.io.File
 import java.io.FileOutputStream
 import java.io.InputStream
@@ -123,9 +122,9 @@ class ProfileDataSource @Inject constructor(
 
         return "$name.$ext"
     }
-    /*
-    suspend fun getMySentenceList() {
-        var res = MySentencesListResponse(code = 0, isSuccess = false, message = "문장 반환 실패", result = GetMySentenceRes(
+
+    suspend fun getMySentenceList() : MySentencesListResponse {
+        var response = MySentencesListResponse(code = 0, isSuccess = false, message = "문장 반환 실패", result = GetMySentenceRes(
             count = 3, countOpen = 2, List<MySentenceList>(3) {
                 MySentenceList(sentenceId = 35, word = "사랑", sentence = "사랑에 빠지고 싶다", countLike = 5, "O")
             }
@@ -133,14 +132,15 @@ class ProfileDataSource @Inject constructor(
         )
         withContext(Dispatchers.IO) {
             runCatching {
-                PureumService.getMySentenceList()
+                pureumService.getMySentenceList()
             }.onSuccess {
-                res = it
+                response = it
             }.onFailure {
                 Log.e(ContentValues.TAG, "get My Sentence List Failed")
             }
         }
+        return response
     }
 
-     */
+
 }

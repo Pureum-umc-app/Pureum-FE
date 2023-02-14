@@ -7,10 +7,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import ko.co.data.remote.PureumService
 import kotlinx.coroutines.launch
+import kr.co.domain.model.MySentenceList
 import kr.co.domain.model.ProfileInfo
-import kr.co.domain.repository.LoginRepository
 import kr.co.domain.repository.ProfileRepository
 import kr.co.pureum.di.PureumApplication
 import javax.inject.Inject
@@ -23,11 +22,17 @@ class ProfileViewModel @Inject constructor(
     private val _withdrawalResponseLiveData = MutableLiveData<String>()
     private val _nicknameValidationLiveData = MutableLiveData<String>()
     private val _editProfileResponseLiveData = MutableLiveData<String>()
+    private val _stampCountLiveData = MutableLiveData<Int>()
+    private val _stampCountOpenLiveData = MutableLiveData<Int>()
+    private val _mySentenceListLiveData = MutableLiveData<List<MySentenceList>>()
 
     val profileInfoLiveData: LiveData<ProfileInfo> = _profileInfoLiveData
     val withdrawalResponseLiveData: LiveData<String> = _withdrawalResponseLiveData
     val nicknameValidationLiveData: LiveData<String> = _nicknameValidationLiveData
     val editProfileResponseLiveData: LiveData<String> = _editProfileResponseLiveData
+    val stampCountLiveData: LiveData<Int> = _stampCountLiveData
+    val stampCountOpenLiveData: LiveData<Int> = _stampCountOpenLiveData
+    val mySentenceListLiveData: LiveData<List<MySentenceList>> = _mySentenceListLiveData
 
     fun getProfileInfo() {
         viewModelScope.launch {
@@ -54,6 +59,14 @@ class ProfileViewModel @Inject constructor(
         viewModelScope.launch {
             val res = repository.editProfile(PureumApplication.spfManager.getUserId(), context, imageUri, nickname)
             _editProfileResponseLiveData.value = res.result
+        }
+    }
+    fun getMySentencesList() {
+        viewModelScope.launch {
+            val res = repository.getMySentenceList().result
+            _stampCountLiveData.value = res.count
+            _stampCountOpenLiveData.value = res.countOpen
+            _mySentenceListLiveData.value = res.mySentence
         }
     }
 }
