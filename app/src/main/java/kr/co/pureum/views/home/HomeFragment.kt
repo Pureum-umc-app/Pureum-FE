@@ -152,7 +152,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
             }
         }
         viewModel.prevRankLiveData.observe(viewLifecycleOwner) {
-            (binding.homeRankRecyclerView.adapter as RankingAdapter).setData(it, RankingAdapter.HOME)
+            (binding.homeRankRecyclerView.adapter as RankingAdapter).setData(it)
         }
         viewModel.updatedGoalTimeLiveData.observe(viewLifecycleOwner) {
             with(binding) {
