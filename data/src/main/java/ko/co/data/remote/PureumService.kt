@@ -115,7 +115,7 @@ interface PureumService {
     ) : MyBattleCompletion
 
     // 대결 정보 반환 API (진행 중, 대기 중)
-    @GET("battles/run/{battleIdx}")
+    @GET("battles/run/{battleId}")
     suspend fun getAllBattleProgMoreInfo(
         @Path("battleId") battleId: Long
     ) : AllBattleProgMore

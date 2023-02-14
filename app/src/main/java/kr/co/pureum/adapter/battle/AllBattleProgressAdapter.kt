@@ -37,7 +37,6 @@ class AllBattleProgressAdapter : RecyclerView.Adapter<AllBattleProgressAdapter.V
                     .transform(CenterCrop(), RoundedCorners(10))
                     .into(myBattleFirstProfileIv)
                 myBattleFirstLikeNum.text = progressData.challengerLikeCnt.toString()
-                myBattleSecondLikeIv.setImageResource(R.drawable.ic_battle_heart_fill)
                 myBattleSecondLikeNum.text = progressData.challengedLikeCnt.toString()
                 myBattleSecondNameTv.text = progressData.challengedNickname
                 Glide.with(myBattleSecondProfileIv.context)

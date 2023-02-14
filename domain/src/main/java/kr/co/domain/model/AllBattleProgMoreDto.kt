@@ -17,8 +17,8 @@ data class AllBattleProgMoreDto(
     val duration: Int,
     val keyword: String,
     val keywordId: Int,
-    val oppLike: Int,
+    val challengedLike: Int,
     val remainDuration: String,
-    val selfLike: Int,
+    val challengerLike: Int,
     val status: String
 )

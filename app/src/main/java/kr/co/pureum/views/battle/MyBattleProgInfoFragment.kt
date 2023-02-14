@@ -47,7 +47,7 @@ class MyBattleProgInfoFragment : BaseFragment<FragmentMyBattleProgInfoBinding>(R
 
     private fun initView() {
         Log.e("ScreenBuild", "MyBattleProgInfoFragment")
-        viewModel.getAllBattleProgressInfo(itemId)
+        viewModel.getAllBattleProgMoreInfo(itemId)
         with(binding) {
         }
 
@@ -64,6 +64,30 @@ class MyBattleProgInfoFragment : BaseFragment<FragmentMyBattleProgInfoBinding>(R
     private fun observe() {
         viewModel.allBattleProgressListLiveData.observe(viewLifecycleOwner) {
             binding.allBattleProgMoreDto = it
+
+            when (it.challengerLike) {
+                1 -> {
+                    binding.myBattleSentenceLike.setBackgroundResource(R.drawable.ic_battle_heart_fill)
+                }
+                0 -> {
+                    binding.myBattleSentenceLike.setBackgroundResource(R.drawable.ic_battle_heart_not_fill)
+                }
+                else -> {
+                    binding.myBattleSentenceLike.setBackgroundResource(R.drawable.ic_battle_heart_not_fill)
+                }
+            }
+
+            when (it.challengedLike) {
+                1 -> {
+                    binding.myBattleOpSentenceLike.setBackgroundResource(R.drawable.ic_battle_heart_fill)
+                }
+                0 -> {
+                    binding.myBattleOpSentenceLike.setBackgroundResource(R.drawable.ic_battle_heart_not_fill)
+                }
+                else -> {
+                    binding.myBattleOpSentenceLike.setBackgroundResource(R.drawable.ic_battle_heart_not_fill)
+                }
+            }
 
         }
     }

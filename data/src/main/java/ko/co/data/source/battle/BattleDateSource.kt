@@ -247,9 +247,9 @@ class BattleDateSource @Inject constructor(
                     duration = 10,
                     keyword = "복구",
                     keywordId = 1,
-                    oppLike = 0,
+                    challengedLike = 0,
                     remainDuration = "D-10",
-                    selfLike = 1,
+                    challengerLike = 1,
                     status = "A")
         )
         withContext(Dispatchers.IO) {
