@@ -2,6 +2,7 @@ package kr.co.pureum.adapter.battle
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -21,6 +22,7 @@ class WaitingBattleAdapter(
     interface Listener {
         fun onClickRefuseButton(battleId: Long)
         fun onClickAcceptButton(battleId: Long)
+        fun onClickWriteButton(battleId: Long)
         fun onClickCancelButton(battleId: Long)
     }
 
@@ -31,7 +33,7 @@ class WaitingBattleAdapter(
     }
 
     inner class ViewHolder(val binding: ItemWaitingBattleBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(battle: WaitingBattle, position: Int){
+        fun bind(battle: WaitingBattle){
             with(binding) {
                 waitingBattle = battle
                 Glide.with(context)
@@ -48,16 +50,26 @@ class WaitingBattleAdapter(
 
                 // 상태 메세지에 따른 동작 처리
                 when(battle.status) {
-                    "대결장이 도착했어요!" -> { /* 상대가 보낸 요청, 내가 아직 수락하지 않은 경우 */ isMine = false }
-                    "대결 문장을 작성해주세요!" -> { /* 상대가 보낸 요청, 내가 수락하고 문장을 작성하지 않은 경우 */ isMine = false }
-                    "대결 수락 대기 중" -> { /* 내가 보낸 요청, 상대가 아직 수락하지 않은 경우 */ isMine = true }
-                    "대결 문장 작성 대기 중" -> { /* 내가 보낸 요청, 상대가 수락하고 문장을 작성하지 않은 경우 */ isMine = true }
+                    "대결장이 도착했어요!" -> { /* 상대가 보낸 요청, 내가 아직 수락하지 않은 경우 */
+                        waitingBattleRefuseButton.visibility = View.VISIBLE
+                        waitingBattleAcceptButton.visibility = View.VISIBLE
+                    }
+                    "대결 문장을 작성해주세요!" -> { /* 상대가 보낸 요청, 내가 수락하고 문장을 작성하지 않은 경우 */
+                        waitingBattleWriteButton.visibility = View.VISIBLE
+                    }
+                    "대결 수락 대기 중" -> { /* 내가 보낸 요청, 상대가 아직 수락하지 않은 경우 */
+                        waitingBattleCancelButton.visibility = View.VISIBLE
+                    }
+                    "대결 문장 작성 대기 중" -> { /* 내가 보낸 요청, 상대가 수락하고 문장을 작성하지 않은 경우 */
+                        waitingBattleCancelButton.visibility = View.VISIBLE
+                    }
                     else -> { /* 오류 발생 */ }
                 }
 
                 with(waitingBattleListener) {
                     waitingBattleRefuseButton.setOnClickListener { onClickRefuseButton(battle.battleId) }
                     waitingBattleAcceptButton.setOnClickListener { onClickAcceptButton(battle.battleId) }
+                    waitingBattleWriteButton.setOnClickListener { onClickWriteButton(battle.battleId) }
                     waitingBattleCancelButton.setOnClickListener { onClickCancelButton(battle.battleId) }
                 }
             }
@@ -72,7 +84,7 @@ class WaitingBattleAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(battleList[position], position)
+        holder.bind(battleList[position])
     }
 
     fun setData(data: List<WaitingBattle>) {

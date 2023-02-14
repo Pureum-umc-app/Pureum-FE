@@ -10,9 +10,6 @@
         <variable
             name="isTouched"
             type="java.lang.Boolean" />
-        <variable
-            name="isMine"
-            type="java.lang.Boolean" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -127,7 +124,7 @@
                     android:fontFamily="@font/nanum_square_neo_regular"
                     android:textSize="14sp"
                     android:textColor="@color/main1"
-                    android:visibility="@{isMine ? View.GONE : View.VISIBLE, default=visible}"/>
+                    android:visibility="gone"/>
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/waiting_battle_accept_button"
@@ -140,7 +137,20 @@
                     android:fontFamily="@font/nanum_square_neo_regular"
                     android:textSize="14sp"
                     android:textColor="@color/white"
-                    android:visibility="@{isMine ? View.GONE : View.VISIBLE, default=visible}"/>
+                    android:visibility="gone"/>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/waiting_battle_write_button"
+                    android:layout_width="100dp"
+                    android:layout_height="36dp"
+                    android:layout_marginStart="12dp"
+                    android:background="@drawable/bg_rectangle_main1_20dp"
+                    android:backgroundTint="@null"
+                    android:text="@string/waiting_battle_write_button"
+                    android:fontFamily="@font/nanum_square_neo_regular"
+                    android:textSize="14sp"
+                    android:textColor="@color/white"
+                    android:visibility="gone"/>
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/waiting_battle_cancel_button"
@@ -153,7 +163,7 @@
                     android:fontFamily="@font/nanum_square_neo_regular"
                     android:textSize="14sp"
                     android:textColor="@color/white"
-                    android:visibility="@{isMine ? View.VISIBLE : View.GONE, default=gone}"/>
+                    android:visibility="gone"/>
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

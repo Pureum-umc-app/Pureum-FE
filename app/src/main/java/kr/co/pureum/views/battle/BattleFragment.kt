@@ -2,7 +2,6 @@ package kr.co.pureum.views.battle
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
@@ -12,7 +11,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import kr.co.pureum.R
-import kr.co.pureum.adapter.battle.BattleOpponentAdapter
 import kr.co.pureum.adapter.battle.WaitingBattleAdapter
 import kr.co.pureum.base.BaseFragment
 import kr.co.pureum.databinding.FragmentBattleBinding
@@ -73,6 +71,11 @@ class BattleFragment : BaseFragment<FragmentBattleBinding>(R.layout.fragment_bat
                             isLoading = true
                             viewModel.acceptBattle(battleId)
                         }
+
+                        override fun onClickWriteButton(battleId: Long) {
+                            // TODO: 문장 작성 화면으로 이동
+                        }
+
                         override fun onClickCancelButton(battleId: Long) {
                             isLoading = true
                             viewModel.cancelBattle(battleId)
