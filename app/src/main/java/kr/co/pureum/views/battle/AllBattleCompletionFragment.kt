@@ -1,11 +1,13 @@
 package kr.co.pureum.views.battle
 
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,6 +24,7 @@ class AllBattleCompletionFragment : BaseFragment<FragmentAllBattleCompletionBind
 
     private val viewModel by viewModels<AllBattleCompletionViewModel>()
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
@@ -29,6 +32,7 @@ class AllBattleCompletionFragment : BaseFragment<FragmentAllBattleCompletionBind
         observe()
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun initView() {
         Log.e("ScreenBuild", "AllBattleCompletionFragment")
         with(binding) {
@@ -36,14 +40,14 @@ class AllBattleCompletionFragment : BaseFragment<FragmentAllBattleCompletionBind
             allBattleCompletionRv.apply {
                 adapter = AllBattleCompletionAdapter().apply {
                     setListener(object : AllBattleCompletionAdapter.Listener{
-                        override fun onItemClick(pos: Int, type: Int) {
+                        override fun onItemClick(pos: Int, type: Int, itemId: Long) {
                             when (type) {
                                 0 -> {
-                                    val action = AllBattleFragmentDirections.actionAllBattleFragmentToAllBattleCompInfoDrawFragment()
+                                    val action = AllBattleFragmentDirections.actionAllBattleFragmentToAllBattleCompInfoDrawFragment(itemId)
                                     findNavController().navigate(action)
                                 }
                                 else -> {
-                                    val action = AllBattleFragmentDirections.actionAllBattleFragmentToAllBattleCompInfoFragment()
+                                    val action = AllBattleFragmentDirections.actionAllBattleFragmentToAllBattleCompInfoFragment(itemId)
                                     findNavController().navigate(action)
                                 }
                             }

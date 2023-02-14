@@ -27,5 +27,5 @@ interface BattleRepository {
     suspend fun getAllBattleProgressInfo() : AllBattleProgress
     suspend fun getAllBattleCompletionInfo() : AllBattleCompletion
     suspend fun getAllBattleProgMoreInfo(itemIdx: Long) : AllBattleProgMore
-    suspend fun getAllBattleCompMoreInfo() : AllBattleCompMore
+    suspend fun getAllBattleCompMoreInfo(itemIdx: Long) : AllBattleCompMore
 }

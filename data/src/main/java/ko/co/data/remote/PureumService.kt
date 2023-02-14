@@ -1,5 +1,6 @@
 package ko.co.data.remote
 
+import kr.co.domain.model.AllBattleCompMore
 import kr.co.domain.model.BattleRequest
 import kr.co.domain.model.BattleRequestResponse
 import kr.co.domain.model.AllBattleCompletion
@@ -135,9 +136,15 @@ interface PureumService {
         @Query("page")page: Int
     ) : MyBattleCompletion
 
-    // 대결 정보 반환 API (진행 중, 대기 중)
+    // 전체 대결 정보 반환 API (진행 중, 대기 중)
     @GET("battles/run/{battleId}")
     suspend fun getAllBattleProgMoreInfo(
         @Path("battleId") battleId: Long
     ) : AllBattleProgMore
+
+    // 전체 대결 정보 반환 API (완료)
+    @GET("/battles/finsih/{battleIdx}")
+    suspend fun getAllBattleCompMoreInfo(
+        @Path("battleIdx") battleId: Long
+    ) : AllBattleCompMore
 }

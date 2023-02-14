@@ -16,7 +16,7 @@ class AllBattleCompletionAdapter : RecyclerView.Adapter<AllBattleCompletionAdapt
     private var allBattleCompletionList = mutableListOf<AllBattleCompletionDto>()
 
     interface Listener {
-        fun onItemClick(pos: Int, type: Int)
+        fun onItemClick(pos: Int, type: Int, itemId: Long)
     }
 
     private lateinit var completionListener : Listener
@@ -39,7 +39,7 @@ class AllBattleCompletionAdapter : RecyclerView.Adapter<AllBattleCompletionAdapt
 
 
                 root.setOnClickListener {
-                    completionListener.onItemClick(position, compData.hasResult)
+                    completionListener.onItemClick(position, compData.hasResult, compData.battleId)
                 }
             }
 

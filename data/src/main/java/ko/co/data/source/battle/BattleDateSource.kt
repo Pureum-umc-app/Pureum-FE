@@ -287,25 +287,33 @@ class BattleDateSource @Inject constructor(
         return response
     }
 
-    suspend fun getAllBattleCompMoreInfo() : AllBattleCompMore {
-        val compMore = AllBattleCompMore( code = 1000, isSuccess = true, message = "요청에 성공했습니다.", result = AllBattleCompMoreDto(battleId = 1,
-            duration = 10, loserId = 0, loserImage = "", loserLikeCnt = 3, loserNickname = "르미", loserSentence= "떨어진 내 성적을 복구하였다.",
-            loserSentenceId = 1,
-            oppLike = 0,
-            situation = 0,
-            userLike= 0,
-            winnerId= 0,
-            winnerImage= "",
-            winnerLikeCnt= 10,
-            winnerNickname= "푸름",
-            winnerSentence = "황폐화된 자연을 복구하였다.",
-            winnerSentenceId = 10,
-            winnerUserId = 2)
+    suspend fun getAllBattleCompMoreInfo(itemIdx: Long) : AllBattleCompMore {
+        var response = AllBattleCompMore(0, false, "getAllBattleCompMoreInfo Failed",
+            result =
+            AllBattleCompMoreDto(
+                    battleId = 1,
+                    duration = 10, loserId = 0, loserImage = "", loserLikeCnt = 3, loserNickname = "르미", loserSentence= "떨어진 내 성적을 복구하였다.",
+                    loserSentenceId = 1,
+                    oppLike = 0,
+                    situation = 0,
+                    userLike= 0,
+                    winnerId= 0,
+                    winnerImage= "",
+                    winnerLikeCnt= 10,
+                    winnerNickname= "푸름",
+                    winnerSentence = "황폐화된 자연을 복구하였다.",
+                    winnerSentenceId = 10,
+                    winnerUserId = 2)
         )
-
         withContext(Dispatchers.IO) {
-            Thread.sleep(1000)
+            runCatching {
+                pureumService.getAllBattleCompMoreInfo(itemIdx)
+            }.onSuccess {
+                response = it
+            }.onFailure {
+                Log.e(TAG, "getAllBattleCompMoreInfo Failed: $it")
+            }
         }
-        return compMore
+        return response
     }
 }

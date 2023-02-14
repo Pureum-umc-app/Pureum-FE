@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import dagger.hilt.android.AndroidEntryPoint
 import kr.co.pureum.R
 import kr.co.pureum.base.BaseFragment
@@ -18,7 +19,7 @@ import kr.co.pureum.databinding.FragmentMyBattleCompInfoDrawBinding
 class AllBattleCompInfoDrawFragment : BaseFragment<FragmentAllBattleCompInfoDrawBinding>(R.layout.fragment_all_battle_comp_info_draw) {
 
     private val viewModel by viewModels<AllBattleCompInfoViewModel>()
-
+    private val args : AllBattleCompInfoDrawFragmentArgs by navArgs()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -30,7 +31,7 @@ class AllBattleCompInfoDrawFragment : BaseFragment<FragmentAllBattleCompInfoDraw
 
     private fun initView() {
         Log.e("ScreenBuild", "AllBattleCompInfoDrawFragment")
-        viewModel.getAllBattleCompMoreInfo()
+        viewModel.getAllBattleCompMoreInfo(args.itemId)
         with(binding) {
 
         }
