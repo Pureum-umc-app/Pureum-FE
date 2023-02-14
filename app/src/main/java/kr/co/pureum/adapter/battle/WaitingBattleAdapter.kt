@@ -1,21 +1,31 @@
 package kr.co.pureum.adapter.battle
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import kr.co.domain.model.WaitingBattleDto
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import kr.co.domain.model.WaitingBattle
 import kr.co.pureum.R
 import kr.co.pureum.databinding.ItemWaitingBattleBinding
 
-class WaitingBattleAdapter : RecyclerView.Adapter<WaitingBattleAdapter.ViewHolder>() {
+class WaitingBattleAdapter(
+    private val context: Context,
+) : RecyclerView.Adapter<WaitingBattleAdapter.ViewHolder>() {
     private lateinit var binding: ItemWaitingBattleBinding
-    private var battleList = mutableListOf<WaitingBattleDto>()
+    private var battleList = mutableListOf<WaitingBattle>()
 
     inner class ViewHolder(val binding: ItemWaitingBattleBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(waitingBattleDto: WaitingBattleDto, position: Int){
+        fun bind(battle: WaitingBattle, position: Int){
             with(binding) {
-                waitingBattle = waitingBattleDto
+                waitingBattle = battle
+                Glide.with(context)
+                    .load(battle.otherProfileImg)
+                    .transform(CenterCrop(), RoundedCorners(10))
+                    .into(otherProfileImage)
             }
         }
     }
@@ -31,9 +41,9 @@ class WaitingBattleAdapter : RecyclerView.Adapter<WaitingBattleAdapter.ViewHolde
         holder.bind(battleList[position], position)
     }
 
-    fun setData(data: List<WaitingBattleDto>) {
+    fun setData(data: List<WaitingBattle>) {
         battleList.clear()
         battleList.addAll(data)
-        notifyDataSetChanged()
+        notifyItemRangeInserted(battleList.size, 5)
     }
 }

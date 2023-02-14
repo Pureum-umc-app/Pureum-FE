@@ -7,7 +7,6 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import kr.co.domain.model.AllBattleProgMoreDto
-import kr.co.domain.model.MyBattleProgMoreDto
 import kr.co.domain.repository.BattleRepository
 import javax.inject.Inject
 
@@ -19,9 +18,9 @@ class AllBattleProgInfoViewModel  @Inject constructor(
     val allBattleProgressListLiveData: LiveData<AllBattleProgMoreDto>
         get() = _allBattleProgInfoListLiveData
 
-    fun getAllBattleProgressInfo() {
+    fun getAllBattleProgressInfo(itemId: Long) {
         viewModelScope.launch {
-            val res = repository.getAllBattleProgMoreInfo()
+            val res = repository.getAllBattleProgMoreInfo(itemId)
             _allBattleProgInfoListLiveData.value = res.result
         }
     }

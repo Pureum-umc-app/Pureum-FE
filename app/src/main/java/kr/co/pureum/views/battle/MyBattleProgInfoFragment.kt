@@ -15,6 +15,7 @@ import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import dagger.hilt.android.AndroidEntryPoint
@@ -32,7 +33,9 @@ import kr.co.pureum.views.home.HomeFragment
 @AndroidEntryPoint
 class MyBattleProgInfoFragment : BaseFragment<FragmentMyBattleProgInfoBinding>(R.layout.fragment_my_battle_prog_info) {
 
-    private val viewModel by viewModels<MyBattleProgInfoViewModel>()
+    private val viewModel by viewModels<AllBattleProgInfoViewModel>()
+    private val args : MyBattleProgInfoFragmentArgs by navArgs()
+    private val itemId : Long = args.itemIdx
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -44,7 +47,7 @@ class MyBattleProgInfoFragment : BaseFragment<FragmentMyBattleProgInfoBinding>(R
 
     private fun initView() {
         Log.e("ScreenBuild", "MyBattleProgInfoFragment")
-        viewModel.getMyBattleProgressInfo()
+        viewModel.getAllBattleProgressInfo(itemId)
         with(binding) {
         }
 
@@ -59,8 +62,8 @@ class MyBattleProgInfoFragment : BaseFragment<FragmentMyBattleProgInfoBinding>(R
     }
 
     private fun observe() {
-        viewModel.myBattleProgressListLiveData.observe(viewLifecycleOwner) {
-            binding.myBattleProgMoreDto = it
+        viewModel.allBattleProgressListLiveData.observe(viewLifecycleOwner) {
+            binding.allBattleProgMoreDto = it
 
         }
     }

@@ -13,7 +13,7 @@ import kr.co.pureum.databinding.FragmentOnBattleFirstBinding
 @AndroidEntryPoint
 class OnBattleFirstFragment : BaseFragment<FragmentOnBattleFirstBinding>(R.layout.fragment_on_battle_first) {
     private lateinit var viewModel: OnBattleViewModel
-    private var _keywords = listOf<String>()
+    private var myKeywords: List<String> = listOf()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -30,23 +30,22 @@ class OnBattleFirstFragment : BaseFragment<FragmentOnBattleFirstBinding>(R.layou
 
     private fun initListener() {
         with(binding) {
-            battleKeyword1.setOnClickListener { if (_keywords.isNotEmpty()) viewModel.setKeyword(_keywords[0]) }
-            battleKeyword2.setOnClickListener { if (_keywords.isNotEmpty()) viewModel.setKeyword(_keywords[1]) }
-            battleKeyword3.setOnClickListener { if (_keywords.isNotEmpty()) viewModel.setKeyword(_keywords[2]) }
+            mutableListOf(battleKeyword1, battleKeyword2, battleKeyword3).forEachIndexed { index, it ->
+                it.setOnClickListener { viewModel.setKeyword(myKeywords[index]) }
+            }
         }
     }
 
     private fun observe() {
         viewModel.keywordsLiveData.observe(viewLifecycleOwner) {
-            _keywords = it
-            Log.e(TAG, _keywords.toString())
+            myKeywords = it.map { keyword -> keyword.word }
             with(binding) {
-                keywords = it
+                keywords = myKeywords
                 isLoading = false
             }
         }
         viewModel.keywordLiveData.observe(viewLifecycleOwner) {
-            Log.e(TAG, it)
+            Log.e(TAG, it.word)
             (requireActivity() as OnBattleActivity).navigate(OnBattleSecondFragment())
         }
     }

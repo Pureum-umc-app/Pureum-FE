@@ -1,6 +1,30 @@
 package ko.co.data.remote
 
 import kr.co.domain.model.*
+import kr.co.domain.model.BattleRequest
+import kr.co.domain.model.BattleRequestResponse
+import kr.co.domain.model.AllBattleCompletion
+import kr.co.domain.model.AllBattleProgMore
+import kr.co.domain.model.AllBattleProgress
+import kr.co.domain.model.DailyRecord
+import kr.co.domain.model.DailyRecordResponse
+import kr.co.domain.model.SentenceCompleteResponse
+import kr.co.domain.model.DefaultResponse
+import kr.co.domain.model.GradeResponse
+import kr.co.domain.model.HomeResponse
+import kr.co.domain.model.KeywordsResponse
+import kr.co.domain.model.OpponentsResponse
+import kr.co.domain.model.ProfileImageResponse
+import kr.co.domain.model.MyBattleCompletion
+import kr.co.domain.model.MyBattleProgress
+import kr.co.domain.model.ProfileInfoResponse
+import kr.co.domain.model.RankResponse
+import kr.co.domain.model.SentencesIncompleteResponse
+import kr.co.domain.model.SetUsageTimeReq
+import kr.co.domain.model.SentencesListResponse
+import kr.co.domain.model.WaitingBattleResponse
+import kr.co.domain.model.WriteSentencesReq
+import kr.co.domain.model.WriteSentencesResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.http.Body
@@ -32,6 +56,22 @@ interface PureumService {
     // 날짜 별 랭킹(같은 카테고리) 조회 API
     @GET("/uses/rank-same-grade")
     suspend fun getSameRankList(@Query("date") date: String, @Query("page") page: Int): RankResponse
+    // 대기 중인 대결 리스트 반환
+    @GET("/battles/wait-list/{userId}")
+    suspend fun getWaitingBattleInfo(@Path("userId") userId: Long, @Query("limit") limit: Int, @Query("page") page: Int): WaitingBattleResponse
+    // 대결 키워드 3개 반환 API
+    @GET("/battles/{userId}/battle-word")
+    suspend fun getThreeKeywords(@Path("userId") userId: Long): KeywordsResponse
+    // 대결 상대 리스트 반환 API
+    @GET("/battles/{userId}/fighters")
+    suspend fun getOpponentsList(@Path("userId") userId: Long): OpponentsResponse
+    // 대결 신청 시 내 사진 조회
+    @GET("/battles/apply/photo/{userId}")
+    suspend fun getMyProfileImage(@Path("userId") userId: Long): ProfileImageResponse
+    // 대결 신청 API
+    @POST("/battles")
+    suspend fun sendBattleRequest(@Body battleRequest: BattleRequest): BattleRequestResponse
+
 
     //오늘의 키워드 반환
     @GET("/sentences/word/{userId}")
@@ -98,4 +138,10 @@ interface PureumService {
         @Query("limit")limit: Int,
         @Query("page")page: Int
     ) : MyBattleCompletion
+
+    // 대결 정보 반환 API (진행 중, 대기 중)
+    @GET("battles/run/{battleIdx}")
+    suspend fun getAllBattleProgMoreInfo(
+        @Path("battleId") battleId: Long
+    ) : AllBattleProgMore
 }
