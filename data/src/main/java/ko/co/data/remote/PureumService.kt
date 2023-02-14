@@ -8,6 +8,8 @@ import kr.co.domain.model.AllBattleProgMore
 import kr.co.domain.model.AllBattleProgress
 import kr.co.domain.model.BattleControlResponse
 import kr.co.domain.model.BattleId
+import kr.co.domain.model.BattleLike
+import kr.co.domain.model.BattleLikeReq
 import kr.co.domain.model.DailyRecord
 import kr.co.domain.model.DailyRecordResponse
 import kr.co.domain.model.SentenceCompleteResponse
@@ -178,4 +180,10 @@ interface PureumService {
     suspend fun getMyBattleCompMoreInfo(
         @Path("battleIdx") battleId: Long
     ) : MyBattleCompMore
+
+    // 대결 문장 좋아요 API
+    @POST("/battles/like")
+    suspend fun postBattleLike(
+        @Body request: BattleLikeReq
+    ) : BattleLike
 }
