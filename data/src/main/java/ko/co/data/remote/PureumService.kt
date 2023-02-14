@@ -1,6 +1,5 @@
 package ko.co.data.remote
 
-import kr.co.domain.model.AllBattleCompMore
 import kr.co.domain.model.BattleRequest
 import kr.co.domain.model.BattleRequestResponse
 import kr.co.domain.model.AllBattleCompletion
@@ -60,6 +59,16 @@ interface PureumService {
     // 대기 중인 대결 리스트 반환
     @GET("/battles/wait-list/{userId}")
     suspend fun getWaitingBattleInfo(@Path("userId") userId: Long, @Query("limit") limit: Int, @Query("page") page: Int): WaitingBattleResponse
+    // 대결 수락 API
+    @POST("/battles/accept")
+    suspend fun acceptBattle(@Body battleId: BattleId): BattleControlResponse
+    // 대결 거절 API
+    @POST("battles/reject")
+    suspend fun refuseBattle(@Body battleId: BattleId): BattleControlResponse
+    // 대결 취소 API
+    @POST("battles/cancel")
+    suspend fun cancelBattle(@Body battleId: BattleId): BattleControlResponse
+
     // 대결 키워드 3개 반환 API
     @GET("/battles/{userId}/battle-word")
     suspend fun getThreeKeywords(@Path("userId") userId: Long): KeywordsResponse
@@ -73,6 +82,10 @@ interface PureumService {
     @POST("/battles")
     suspend fun sendBattleRequest(@Body battleRequest: BattleRequest): BattleRequestResponse
 
+
+    //오늘의 키워드 반환
+    @GET("/sentences/word/{userId}")
+    suspend fun todayKeyword(@Path("userId")userId: Long) : TodayKeywordResponse
     // 오늘의 작성 전 단어 반환
     @GET("/sentences/incomplete/{userId}")
     suspend fun sentencesIncomplete(@Path("userId")userId: Long) : SentencesIncompleteResponse
@@ -86,7 +99,7 @@ interface PureumService {
         @Query("page")page: Int,
         @Query("sort")sort: String,
         @Path("userId")userId: Long,
-        @Query("word_id")word_id: Int
+        @Query("word_id")word_id: Long
     ) : SentencesListResponse
     @POST("/sentences/write")
     suspend fun sentencesWrite(@Body writeSentencesReq: WriteSentencesReq) : WriteSentencesResponse

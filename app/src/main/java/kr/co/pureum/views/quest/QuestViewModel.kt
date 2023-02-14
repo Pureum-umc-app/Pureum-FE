@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import kr.co.domain.model.SentencesDto
+import kr.co.domain.model.SentencesListDto
 import kr.co.domain.model.WriteSentencesDto
 import kr.co.domain.repository.QuestRepository
 import kr.co.pureum.di.PureumApplication
@@ -20,56 +20,77 @@ class QuestViewModel @Inject constructor(
     val todayKeywordListLiveData: LiveData<List<String>>
         get() = _todayKeywordListLiveData
 
-    private var _keywordLiveData = MutableLiveData<String>()
-    val keywordLiveData: LiveData<String>
-        get() = _keywordLiveData
-
-    private var _todayKeywordMeaningListLiveData = MutableLiveData<List<String>>()
-    val todayKeywordMeaningListLiveData: LiveData<List<String>>
-        get() = _todayKeywordMeaningListLiveData
-
     private var _todayKeywordIdListLiveData = MutableLiveData<List<Long>>()
     val todayKeywordIdListLiveData: LiveData<List<Long>>
         get() = _todayKeywordIdListLiveData
+
+    private var _todayKeywordMeaningListLiveData = MutableLiveData<List<String>>()
+    val todayKeywordMeaningListLiveData: MutableLiveData<List<String>>
+        get() = _todayKeywordMeaningListLiveData
+
+    private var _incompleteKeywordListLiveData = MutableLiveData<List<String>>()
+    val incompleteKeywordListLiveData: LiveData<List<String>>
+        get() = _incompleteKeywordListLiveData
+
+    private var _incompleteKeywordMeaningListLiveData = MutableLiveData<List<String>>()
+    val incompleteKeywordMeaningListLiveData: LiveData<List<String>>
+        get() = _incompleteKeywordMeaningListLiveData
+
+    private var _incompleteKeywordIdListLiveData = MutableLiveData<List<Long>>()
+    val incompleteKeywordIdListLiveData: LiveData<List<Long>>
+        get() = _incompleteKeywordIdListLiveData
+
+    private var _completeKeywordListLiveData = MutableLiveData<List<String>>()
+    val completeKeywordListLiveData: LiveData<List<String>>
+        get() = _completeKeywordListLiveData
+
+    private var _completeKeywordMeaningListLiveData = MutableLiveData<List<String>>()
+    val completeKeywordMeaningListLiveData: LiveData<List<String>>
+        get() = _completeKeywordMeaningListLiveData
+
+    private var _completeKeywordIdListLiveData = MutableLiveData<List<Long>>()
+    val completeKeywordIdListLiveData: LiveData<List<Long>>
+        get() = _completeKeywordIdListLiveData
+
+    private var _keywordLiveData = MutableLiveData<String>()
+    val keywordLiveData: LiveData<String>
+        get() = _keywordLiveData
 
     private var _todayWriteSentencesResponseLiveData = MutableLiveData<WriteSentencesDto>()
     val todayWriteSentencesResponseLiveData: LiveData<WriteSentencesDto>
         get() = _todayWriteSentencesResponseLiveData
 
-    //삭제 할 말... @ @ @ @ @ @ @
-    private var _keywordMeaningLiveData = MutableLiveData<String>()
-    val keywordMeaningLiveData: LiveData<String>
-        get() = _keywordMeaningLiveData
+    private var _sentenceListLiveData = MutableLiveData<List<SentencesListDto>?>()
+    val sentenceListLiveData: LiveData<List<SentencesListDto>?>
+        get() = _sentenceListLiveData
 
-    private var _todaySentenceDate = MutableLiveData<String>()
-    val todaySentenceDate: LiveData<String>
-        get() = _todaySentenceDate
+    fun getTodayKeyword() {
+        viewModelScope.launch {
+            val res = repository.todayKeyword(PureumApplication.spfManager.getUserId()).result
+            _todayKeywordListLiveData.value = res.map { it.keyword }
+            _todayKeywordIdListLiveData.value = res.map { it.keywordId }
+            _todayKeywordMeaningListLiveData.value = res.map { it.meaning }
+        }
+    }
 
-    private var _todaySentenceListLiveData = MutableLiveData<SentencesDto>()
-    val todaySentenceListLiveData
-        get() = _todaySentenceListLiveData
-
-    private var _todayWriteSentenceLiveData = MutableLiveData<String>()
-    val todayWriteSentenceLiveData: LiveData<String>
-        get() = _todayWriteSentenceLiveData
-
-    private var _todayWriteSentenceStatusLiveData = MutableLiveData<String>()
-    val todayWriteSentenceStatusLiveData: LiveData<String>
-    get() = _todayWriteSentenceStatusLiveData
 
     fun getSentencesIncomplete() {
         viewModelScope.launch {
-            val res = repository.sentencesIncomplete(PureumApplication.spfManager.getUserId()).result
-            _todayKeywordListLiveData.value = res.map { it.keyword }
-            _todayKeywordMeaningListLiveData.value = res.map { it.meaning }
-            _todayKeywordIdListLiveData.value = res.map { it.keywordId }
+            val res =
+                repository.sentencesIncomplete(PureumApplication.spfManager.getUserId()).result
+            _incompleteKeywordListLiveData.value = res.map { it.keyword }
+            _incompleteKeywordMeaningListLiveData.value = res.map { it.meaning }
+            _incompleteKeywordIdListLiveData.value = res.map { it.keywordId }
         }
     }
 
     fun getSentencesComplete() {
         viewModelScope.launch {
-            val res = repository.sentencesComplete(PureumApplication.spfManager.getUserId()).result
-            _todayKeywordListLiveData.value = res.map { it.keyword }
+            val res =
+                repository.sentencesComplete(PureumApplication.spfManager.getUserId()).result
+            _completeKeywordListLiveData.value = res.map { it.keyword }
+            _completeKeywordMeaningListLiveData.value = res.map { it.meaning }
+            _completeKeywordIdListLiveData.value = res.map { it.keywordId }
         }
     }
 
@@ -77,9 +98,27 @@ class QuestViewModel @Inject constructor(
         _keywordLiveData.value = keyword
     }
 
+    fun sentencesList(limit: Int, page: Int, sort: String, word_id: Long) {
+        viewModelScope.launch {
+            val res = repository.sentencesList(
+                limit,
+                page,
+                sort,
+                PureumApplication.spfManager.getUserId(),
+                word_id
+            ).result
+            _sentenceListLiveData.value = res
+        }
+    }
+
     fun getSentenceWrite(keywordId: Long, sentence: String, status: String) {
         viewModelScope.launch {
-            val res = repository.writeSentences(keywordId, sentence, status, PureumApplication.spfManager.getUserId())
+            val res = repository.writeSentences(
+                keywordId,
+                sentence,
+                status,
+                PureumApplication.spfManager.getUserId()
+            )
             _todayWriteSentencesResponseLiveData.value = res.result
         }
     }

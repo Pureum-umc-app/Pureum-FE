@@ -4,6 +4,8 @@ import kr.co.domain.model.AllBattleCompMore
 import kr.co.domain.model.AllBattleCompletion
 import kr.co.domain.model.AllBattleProgMore
 import kr.co.domain.model.AllBattleProgress
+import kr.co.domain.model.BattleControlResponse
+import kr.co.domain.model.BattleId
 import kr.co.domain.model.BattleRequestResponse
 import kr.co.domain.model.KeywordsResponse
 import kr.co.domain.model.MyBattleCompMore
@@ -21,6 +23,15 @@ class BattleRepositoryImpl @Inject constructor(
 ) : BattleRepository{
     override suspend fun getWaitingBattleInfo(userId: Long, limit: Int, page: Int) : WaitingBattleResponse =
         dataSource.getWaitingBattleInfo(userId, limit, page)
+
+    override suspend fun acceptBattle(battleId: BattleId): BattleControlResponse =
+        dataSource.acceptBattle(battleId)
+
+    override suspend fun refuseBattle(battleId: BattleId): BattleControlResponse =
+        dataSource.refuseBattle(battleId)
+
+    override suspend fun cancelBattle(battleId: BattleId): BattleControlResponse =
+        dataSource.cancelBattle(battleId)
 
     override suspend fun getThreeKeywords(userId: Long): KeywordsResponse =
         dataSource.getThreeKeywords(userId)

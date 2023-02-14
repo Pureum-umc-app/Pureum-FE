@@ -11,6 +11,26 @@ import javax.inject.Inject
 class QuestSentenceDataSource @Inject constructor(
     private val pureumService: PureumService
 ) {
+    suspend fun todayKeyword(userId: Long): TodayKeywordResponse {
+        var response = TodayKeywordResponse(
+            code = 0, isSuccess = true, message = "요청에 성공하였습니다", result = List<SentencesDto>(3) {
+                SentencesDto(
+                    date = "2022-02-08", keyword = "한탄", keywordId = 1,
+                    meaning = "원통하거나 뉘우치는 일이 있을 때 한숨을 쉬며 탄식함. 또는 그 한숨.", userId = 1)
+            }
+        )
+        withContext(Dispatchers.IO) {
+            runCatching {
+                pureumService.todayKeyword(userId)
+            }.onSuccess {
+                response = it
+            }.onFailure {
+                Log.e(ContentValues.TAG, "Today Keyword Failed")
+            }
+        }
+        return response
+    }
+
     suspend fun sentencesIncomplete(userId: Long): SentencesIncompleteResponse {
         var sentencesIncompleteResponse = SentencesIncompleteResponse(
             code = 0, isSuccess = true, message = "요청에 성공하였습니다", result = List<SentencesDto>(3) {
@@ -43,7 +63,7 @@ class QuestSentenceDataSource @Inject constructor(
                 )
             }
         )
-        withContext(Dispatchers.IO){
+        withContext(Dispatchers.IO) {
             Thread.sleep(1000)
             runCatching {
                 pureumService.sentencesComplete(userId)
@@ -56,8 +76,8 @@ class QuestSentenceDataSource @Inject constructor(
         return response
     }
 
-    fun sentencesList(limit: Int, page: Int, sort: String, userId: Long, word_id: Long): SentencesListResponse {
-        val response = SentencesListResponse(
+    suspend fun sentencesList(limit: Int, page: Int, sort: String, userId: Long, word_id: Long): SentencesListResponse {
+        var response = SentencesListResponse(
             code = 0, isSuccess = true, message = "요청에 성공하였습니다", result = List<SentencesListDto>(1) {
                 SentencesListDto(
                     image = "기본", keyword = "한탄", keywordId = 1, likeNum = 0, nickname = "르미",
@@ -65,6 +85,15 @@ class QuestSentenceDataSource @Inject constructor(
                 )
             }
         )
+        withContext(Dispatchers.IO) {
+            runCatching {
+                pureumService.sentencesList(limit, page, sort, userId, word_id)
+            }.onSuccess {
+                response = it
+            }.onFailure {
+                Log.e(ContentValues.TAG, "sentences List Failed")
+            }
+        }
         return response
     }
     suspend fun writeSentences(keywordId: Long, sentence: String, status: String, userId: Long) : WriteSentencesResponse {

@@ -4,6 +4,7 @@ import android.content.ContentValues
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.core.view.isGone
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import kr.co.pureum.R
@@ -14,6 +15,9 @@ import kr.co.pureum.databinding.FragmentQuestWritingBeforeBinding
 class QuestWritingBeforeFragment : BaseFragment<FragmentQuestWritingBeforeBinding>(R.layout.fragment_quest_writing_before) {
     private lateinit var viewModel: QuestViewModel
     private var _keywords = listOf<String>()
+    private var _wordId = mutableListOf<Long>()
+    private var index: Int = 0
+    private lateinit var todayKeyword: String
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -24,8 +28,23 @@ class QuestWritingBeforeFragment : BaseFragment<FragmentQuestWritingBeforeBindin
 
     private fun initView() {
         viewModel = (requireParentFragment() as QuestClickFragment).viewModel
-        binding.isLoading = true
         viewModel.getSentencesIncomplete()
+        Log.e("error", _keywords.toString())
+        with(binding) {
+            when(_keywords.size) {
+                2 -> questTodaySentenceThreeCv.isGone = true
+                1 -> {
+                    questTodaySentenceTwoCv.isGone = true
+                    questTodaySentenceThreeCv.isGone = true
+                }
+                0 -> {
+                    questTodaySentenceOneCv.isGone = true
+                    questTodaySentenceTwoCv.isGone = true
+                    questTodaySentenceThreeCv.isGone = true
+                }
+            }
+            isLoading = true
+        }
     }
 
     override fun onPause() {
@@ -42,26 +61,62 @@ class QuestWritingBeforeFragment : BaseFragment<FragmentQuestWritingBeforeBindin
             }
 
              */
-            questTodaySentenceOneCv.setOnClickListener { if (_keywords.isNotEmpty()) viewModel.setKeyword(_keywords[0]) }
-            questTodaySentenceTwoCv.setOnClickListener { if (_keywords.isNotEmpty()) viewModel.setKeyword(_keywords[1]) }
-            questTodaySentenceThreeCv.setOnClickListener { if (_keywords.isNotEmpty()) viewModel.setKeyword(_keywords[2]) }
+            questTodaySentenceOneCv.setOnClickListener {
+                if (_keywords.isNotEmpty()) {
+                    viewModel.setKeyword(_keywords[0])
+                    val action =
+                        QuestClickFragmentDirections.actionQuestClickFragmentToQuestVoidFragment(
+                            todayKeyword,
+                            index
+                        )
+                    Log.e(ContentValues.TAG, todayKeyword)
+                    findNavController().navigate(action)
+                }
+            }
+            questTodaySentenceTwoCv.setOnClickListener {
+                if (_keywords.isNotEmpty()) {
+                    viewModel.setKeyword(_keywords[1])
+                    val action =
+                        QuestClickFragmentDirections.actionQuestClickFragmentToQuestVoidFragment(
+                            todayKeyword,
+                            index
+                        )
+                    Log.e(ContentValues.TAG, todayKeyword)
+                    findNavController().navigate(action)
+                }
+            }
+            questTodaySentenceThreeCv.setOnClickListener {
+                if (_keywords.isNotEmpty()) {
+                    viewModel.setKeyword(_keywords[2])
+                    val action =
+                        QuestClickFragmentDirections.actionQuestClickFragmentToQuestVoidFragment(
+                            todayKeyword,
+                            index
+                        )
+                    Log.e(ContentValues.TAG, todayKeyword)
+                    findNavController().navigate(action)
+                }
+            }
         }
     }
+
     private fun observe() {
-        viewModel.todayKeywordListLiveData.observe(viewLifecycleOwner) {
+        viewModel.incompleteKeywordIdListLiveData.observe(viewLifecycleOwner) {
+            _wordId = it.toMutableList()
+            Log.e(ContentValues.TAG, _wordId.toString())
+        }
+        viewModel.incompleteKeywordListLiveData.observe(viewLifecycleOwner) {
             _keywords = it
             Log.d("tag", _keywords.toString())
-            binding.keywords = _keywords
-            Log.d("TAG", binding.keywords.toString())
-            binding.isLoading = false
-        }
-        // 뒤로가기 이슈 (수정해야함)
-        viewModel.keywordLiveData.observe(viewLifecycleOwner) {
-            Log.e("TAG", it)
-            val index = _keywords.indexOf(it)
-            Log.e(ContentValues.TAG, index.toString())
-            val action = QuestClickFragmentDirections.actionQuestClickFragmentToQuestVoidFragment(it, index)
-            findNavController().navigate(action)
+            with(binding) {
+                keywords = _keywords
+                Log.d("TAG", keywords.toString())
+                isLoading = false
+            }
+            viewModel.keywordLiveData.observe(viewLifecycleOwner) {
+                index = _keywords.indexOf(it)
+                todayKeyword = it
+            }
         }
     }
 }
