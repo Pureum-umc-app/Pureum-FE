@@ -5,6 +5,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import dagger.hilt.android.AndroidEntryPoint
 import kr.co.pureum.R
 import kr.co.pureum.base.BaseFragment
@@ -26,36 +29,63 @@ class OnBattleFourthFragment : BaseFragment<FragmentOnBattleFourthBinding>(R.lay
 
     private fun initView() {
         viewModel = (requireActivity() as OnBattleActivity).viewModel
+        viewModel.getMyProfileImage()
         (requireActivity() as OnBattleActivity).changeToolbarColor()
         with(binding) {
-            isLoading = false
-            keyword = viewModel.keywordLiveData.value
-            nickname = "푸름"
+            keyword = viewModel.keywordLiveData.value!!.word
             mySentence = viewModel.sentenceLiveData.value
             opponentNickname = viewModel.opponentLiveData.value!!.nickname
-            day = 1
+            day = 3
         }
     }
 
+    private var days = 3
     private fun initListener() {
         with(binding) {
-            var days = 1
             battlePeriodDecreaseButton.setOnClickListener {
-                if (days in 2..10) days -= 1
+                if (days in 4..10) days -= 1
                 day = days
             }
             battlePeriodIncreaseButton.setOnClickListener {
-                if (days in 1..9) days += 1
+                if (days in 3..9) days += 1
                 day = days
             }
             battleFinalNextButton.setOnClickListener {
-                showBattleRequestDialog(viewModel.keywordLiveData.value!!, days)
+                viewModel.sendBattleRequest(days)
+
             }
         }
     }
 
     private fun observe() {
+        viewModel.profileImageLiveData.observe(viewLifecycleOwner) {
+            with(binding) {
+                nickname = it.nickname
 
+                Glide.with(requireContext())
+                    .load(it.image)
+                    .transform(CenterCrop(), RoundedCorners(10))
+                    .into(userProfileImage1)
+
+                Glide.with(requireContext())
+                    .load(it.image)
+                    .transform(CenterCrop(), RoundedCorners(10))
+                    .into(userProfileImage2)
+
+                Glide.with(requireContext())
+                    .load(viewModel.opponentLiveData.value!!.image)
+                    .transform(CenterCrop(), RoundedCorners(10))
+                    .into(opponentProfileImage1)
+
+                Glide.with(requireContext())
+                    .load(viewModel.opponentLiveData.value!!.image)
+                    .transform(CenterCrop(), RoundedCorners(10))
+                    .into(opponentProfileImage2)
+            }
+        }
+        viewModel.requestLiveData.observe(viewLifecycleOwner) {
+            showBattleRequestDialog(viewModel.keywordLiveData.value!!.word, days)
+        }
     }
 
     private fun showBattleRequestDialog(_keyword: String, _period: Int) {

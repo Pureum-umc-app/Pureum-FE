@@ -1,6 +1,6 @@
 package ko.co.data.source.battle
 
-import android.content.ContentValues
+import android.content.ContentValues.TAG
 import android.util.Log
 import ko.co.data.remote.PureumService
 import kotlinx.coroutines.Dispatchers
@@ -13,6 +13,10 @@ import kr.co.domain.model.AllBattleProgMore
 import kr.co.domain.model.AllBattleProgMoreDto
 import kr.co.domain.model.AllBattleProgress
 import kr.co.domain.model.AllBattleProgressDto
+import kr.co.domain.model.BattleRequest
+import kr.co.domain.model.BattleRequestResponse
+import kr.co.domain.model.Keyword
+import kr.co.domain.model.KeywordsResponse
 import kr.co.domain.model.MyBattleCompMore
 import kr.co.domain.model.MyBattleCompMoreDto
 import kr.co.domain.model.MyBattleCompletion
@@ -20,32 +24,84 @@ import kr.co.domain.model.MyBattleCompletionDto
 import kr.co.domain.model.MyBattleProgMoreDto
 import kr.co.domain.model.MyBattleProgress
 import kr.co.domain.model.MyBattleProgressDto
-import kr.co.domain.model.OpponentDto
-import kr.co.domain.model.WaitingBattleDto
+import kr.co.domain.model.OpponentsResponse
+import kr.co.domain.model.ProfileImage
+import kr.co.domain.model.ProfileImageResponse
+import kr.co.domain.model.WaitingBattleResponse
 import javax.inject.Inject
 
 class BattleDateSource @Inject constructor(
     private val pureumService: PureumService
 ) {
-    suspend fun getWaitingBattleInfo() : List<WaitingBattleDto> {
-        // TODO: 임시
-        val battleList = MutableList(3) {
-            WaitingBattleDto(word = "구현", period = 10, message = "대결 수락 대기 중",
-                opponentNickname = "%d 번째 상대".format(it + 1), opponentProfile = "")
-        }
+    suspend fun getWaitingBattleInfo(userId: Long, limit: Int, page: Int) : WaitingBattleResponse {
+        var battleList = WaitingBattleResponse(0, false, "", listOf())
         withContext(Dispatchers.IO) {
-            Thread.sleep(1000)
+            runCatching {
+                pureumService.getWaitingBattleInfo(userId, limit, page)
+            }.onSuccess {
+                battleList = it
+            }.onFailure {
+                Log.e(TAG, "getWaitingBattleInfo failed: $it")
+            }
         }
         return battleList
     }
 
-    suspend fun getThreeKeywords() : List<String> {
-        // TODO: 임시
-        val keywords = mutableListOf("복구", "신년", "단련")
+    suspend fun getThreeKeywords(userId: Long): KeywordsResponse {
+        var response = KeywordsResponse(0, false, "", listOf())
         withContext(Dispatchers.IO) {
-            Thread.sleep(1000)
+            runCatching {
+                pureumService.getThreeKeywords(userId)
+            }.onSuccess {
+                response = it
+            }.onFailure {
+                Log.e(TAG, "getThreeKeywords failed: $it")
+            }
         }
-        return keywords
+        return response
+    }
+
+    suspend fun getOpponentsList(userId: Long): OpponentsResponse {
+        var response = OpponentsResponse(0, false, "", listOf())
+        withContext(Dispatchers.IO) {
+            runCatching {
+                pureumService.getOpponentsList(userId)
+            }.onSuccess {
+                response = it
+            }.onFailure {
+                Log.e(TAG, "getOpponentsList failed: $it")
+            }
+        }
+        return response
+    }
+
+    suspend fun getMyProfileImage(userId: Long): ProfileImageResponse {
+        var response = ProfileImageResponse(0, false, "", ProfileImage("", "", 0))
+        withContext(Dispatchers.IO) {
+            runCatching {
+                pureumService.getMyProfileImage(userId)
+            }.onSuccess {
+                response = it
+            }.onFailure {
+                Log.e(TAG, "getMyProfileImage failed: $it")
+            }
+        }
+        return response
+    }
+
+    suspend fun sendBattleRequest(userId: Long, opponentId: Long, wordId: Long, sentence: String, duration: Int): BattleRequestResponse {
+        val battleRequest = BattleRequest(opponentId, userId, duration, sentence, wordId)
+        var response = BattleRequestResponse(0, false, "", 0)
+        withContext(Dispatchers.IO) {
+            runCatching {
+                pureumService.sendBattleRequest(battleRequest)
+            }.onSuccess {
+                response = it
+            }.onFailure {
+                Log.e(TAG, "sendBattleRequest failed: $it")
+            }
+        }
+        return response
     }
 
     suspend fun getMyBattleProgressInfo(userId: Long) : MyBattleProgress {
@@ -73,7 +129,7 @@ class BattleDateSource @Inject constructor(
             }.onSuccess {
                 response = it
             }.onFailure {
-                Log.e(ContentValues.TAG, "getMyBattleProgressInfo Failed: $it")
+                Log.e(TAG, "getMyBattleProgressInfo Failed: $it")
             }
         }
         return response
@@ -99,43 +155,10 @@ class BattleDateSource @Inject constructor(
             }.onSuccess {
                 response = it
             }.onFailure {
-                Log.e(ContentValues.TAG, "getMyBattleCompletionInfo Failed: $it")
+                Log.e(TAG, "getMyBattleCompletionInfo Failed: $it")
             }
         }
         return response
-    }
-
-    suspend fun getDefinition(keyword: String) : String {
-        val definition = when(keyword) {
-            "복구" -> "손실 이전의 상태로 회복함."
-            "신년" -> "새로 시작되는 해."
-            "단련" -> "어떤 일을 반복하여 익숙하게 됨. 또는 그렇게 함."
-            else -> ""
-        }
-        withContext(Dispatchers.IO) {
-            Thread.sleep(1000)
-        }
-        return definition
-    }
-
-    suspend fun getOpponentsList() : List<OpponentDto> {
-        val opponentsList = MutableList(10){
-            OpponentDto(nickname = "%d 번째 상대".format(it + 1), profile = "")
-        }
-        withContext(Dispatchers.IO) {
-            Thread.sleep(1000)
-        }
-        return opponentsList
-    }
-
-    suspend fun getAdditionalOpponents(position: Int, itemCount: Int) : List<OpponentDto> {
-        val opponentsList = MutableList(itemCount){
-            OpponentDto(nickname = "%d 번째 상대".format(position + it + 1), profile = "")
-        }
-        withContext(Dispatchers.IO) {
-            Thread.sleep(1000)
-        }
-        return opponentsList
     }
 
     suspend fun getMyBattleProgMoreInfo() : MyBattleProgMoreDto {
@@ -195,7 +218,7 @@ class BattleDateSource @Inject constructor(
             }.onSuccess {
                 response = it
             }.onFailure {
-                Log.e(ContentValues.TAG, "getAllBattleProgressInfo Failed: $it")
+                Log.e(TAG, "getAllBattleProgressInfo Failed: $it")
             }
         }
         return response
@@ -221,7 +244,7 @@ class BattleDateSource @Inject constructor(
             }.onSuccess {
                 response = it
             }.onFailure {
-                Log.e(ContentValues.TAG, "getAllBattleCompletionInfo Failed: $it")
+                Log.e(TAG, "getAllBattleCompletionInfo Failed: $it")
             }
         }
         return response
@@ -258,7 +281,7 @@ class BattleDateSource @Inject constructor(
             }.onSuccess {
                 response = it
             }.onFailure {
-                Log.e(ContentValues.TAG, "getAllBattleProgMoreInfo Failed: $it")
+                Log.e(TAG, "getAllBattleProgMoreInfo Failed: $it")
             }
         }
         return response
@@ -285,6 +308,4 @@ class BattleDateSource @Inject constructor(
         }
         return compMore
     }
-
-
 }

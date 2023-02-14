@@ -31,16 +31,7 @@ class OnBattleThirdFragment : BaseFragment<FragmentOnBattleThirdBinding>(R.layou
         with(binding) {
             isLoading = true
             battleOpponentRecyclerView.apply {
-                adapter = BattleOpponentAdapter().apply {
-                    addOnScrollListener(object : RecyclerView.OnScrollListener() {
-                        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                            super.onScrolled(recyclerView, dx, dy)
-                            if (isLoading == false && (recyclerView.layoutManager as LinearLayoutManager?)!!.findLastCompletelyVisibleItemPosition() == itemCount - 1) {
-                                isLoading = true
-                                viewModel.getAdditionalOpponents()
-                            }
-                        }
-                    })
+                adapter = BattleOpponentAdapter(requireContext()).apply {
                     setListener(object : BattleOpponentAdapter.Listener{
                         override fun onClick(checkedIndex: Int) {
                             battleOpponentButton.isEnabled = checkedIndex != -1
