@@ -1,10 +1,13 @@
 package ko.co.data.remote
 
+import kr.co.domain.model.AllBattleCompMore
 import kr.co.domain.model.BattleRequest
 import kr.co.domain.model.BattleRequestResponse
 import kr.co.domain.model.AllBattleCompletion
 import kr.co.domain.model.AllBattleProgMore
 import kr.co.domain.model.AllBattleProgress
+import kr.co.domain.model.BattleControlResponse
+import kr.co.domain.model.BattleId
 import kr.co.domain.model.DailyRecord
 import kr.co.domain.model.DailyRecordResponse
 import kr.co.domain.model.SentenceCompleteResponse
@@ -21,6 +24,7 @@ import kr.co.domain.model.RankResponse
 import kr.co.domain.model.SentencesIncompleteResponse
 import kr.co.domain.model.SetUsageTimeReq
 import kr.co.domain.model.SentencesListResponse
+import kr.co.domain.model.TodayKeywordResponse
 import kr.co.domain.model.WaitingBattleResponse
 import kr.co.domain.model.WriteSentencesReq
 import kr.co.domain.model.WriteSentencesResponse
@@ -156,7 +160,7 @@ interface PureumService {
     ) : AllBattleProgMore
 
     // 전체 대결 정보 반환 API (완료)
-    @GET("/battles/finsih/{battleIdx}")
+    @GET("/battles/finish/{battleIdx}")
     suspend fun getAllBattleCompMoreInfo(
         @Path("battleIdx") battleId: Long
     ) : AllBattleCompMore

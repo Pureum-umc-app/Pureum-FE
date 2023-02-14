@@ -9,6 +9,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import dagger.hilt.android.AndroidEntryPoint
 import kr.co.pureum.R
 import kr.co.pureum.base.BaseFragment
@@ -47,6 +50,40 @@ class AllBattleCompInfoFragment : BaseFragment<FragmentAllBattleCompInfoBinding>
     private fun observe() {
         viewModel.allBattleCompListLiveData.observe(viewLifecycleOwner) {
             binding.allBattleCompMoreDto = it
+
+            Glide.with(binding.battleWinnerProfile.context)
+                .load(it.winnerImage)
+                .transform(CenterCrop(), RoundedCorners(10))
+                .into(binding.battleWinnerProfile)
+
+            Glide.with(binding.battleLoserProfile.context)
+                .load(it.loserImage)
+                .transform(CenterCrop(), RoundedCorners(10))
+                .into(binding.battleLoserProfile)
+
+            when (it.userLike) {
+                1 -> {
+                    binding.myBattleSentenceLike.isChecked = true
+                }
+                0 -> {
+                    binding.myBattleSentenceLike.isChecked = false
+                }
+                else -> {
+                    binding.myBattleSentenceLike.isChecked = false
+                }
+            }
+
+            when (it.oppLike) {
+                1 -> {
+                    binding.myBattleSentenceLike.isChecked = true
+                }
+                0 -> {
+                    binding.myBattleSentenceLike.isChecked = false
+                }
+                else -> {
+                    binding.myBattleSentenceLike.isChecked = false
+                }
+            }
         }
     }
 
