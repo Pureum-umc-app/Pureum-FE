@@ -5,10 +5,6 @@
     tools:context=".views.battle.OnBattleSecondFragment">
 
     <data>
-        <import type="android.view.View"/>
-        <variable
-            name="isLoading"
-            type="java.lang.Boolean" />
         <variable
             name="keyword"
             type="java.lang.String" />
@@ -176,8 +172,7 @@
             app:layout_constraintStart_toStartOf="parent"
             android:text="@{keyword, default=`복구`}"
             android:fontFamily="@font/nanum_square_neo_extrabold"
-            android:textSize="22sp"
-            android:visibility="@{isLoading ? View.GONE : View.VISIBLE}"/>
+            android:textSize="22sp"/>
 
         <TextView
             android:id="@+id/battle_definition_label"
@@ -189,8 +184,7 @@
             android:text="@string/battle_definition_label"
             android:fontFamily="@font/nanum_square_neo_bold"
             android:textSize="16sp"
-            android:textColor="@color/text2"
-            android:visibility="@{isLoading ? View.GONE : View.VISIBLE}"/>
+            android:textColor="@color/text2"/>
 
         <TextView
             android:id="@+id/battle_definition"
@@ -201,8 +195,7 @@
             app:layout_constraintStart_toStartOf="parent"
             android:text="@{definition, default=`손실 이전의 상태로 회복함.`}"
             android:fontFamily="@font/nanum_square_neo_bold"
-            android:textSize="16sp"
-            android:visibility="@{isLoading ? View.GONE : View.VISIBLE}"/>
+            android:textSize="16sp"/>
 
         <View
             android:layout_width="0dp"
@@ -212,8 +205,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:background="@color/text2"
-            android:backgroundTint="@null"
-            android:visibility="@{isLoading ? View.GONE : View.VISIBLE}"/>
+            android:backgroundTint="@null"/>
 
         <Button
             android:id="@+id/battle_sentence_clear_button"
@@ -248,8 +240,7 @@
             android:textColor="@color/text1"
             android:textColorHint="@color/text2"
             android:gravity="top"
-            android:autofillHints="name"
-            android:visibility="@{isLoading ? View.GONE : View.VISIBLE}"/>
+            android:autofillHints="name"/>
 
         <Button
             android:id="@+id/battle_sentence_button"
@@ -261,19 +252,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:background="@drawable/bg_rectangle_10dp"
             android:text="@string/battle_sentence_button"
-            android:fontFamily="@font/nanum_square_neo_regular"
-            android:visibility="@{isLoading ? View.GONE : View.VISIBLE}"/>
-
-        <com.google.android.material.progressindicator.CircularProgressIndicator
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:trackColor="@color/progressbar_light_grey"
-            app:indicatorColor="@color/main1"
-            android:indeterminate="true"
-            android:visibility="@{isLoading ? View.VISIBLE : View.GONE}"/>
+            android:fontFamily="@font/nanum_square_neo_regular"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
