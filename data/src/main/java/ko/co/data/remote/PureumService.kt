@@ -1,5 +1,6 @@
 package ko.co.data.remote
 
+import kr.co.domain.model.*
 import kr.co.domain.model.AllBattleCompMore
 import kr.co.domain.model.BattleRequest
 import kr.co.domain.model.BattleRequestResponse
@@ -37,6 +38,7 @@ import okhttp3.RequestBody
 import retrofit2.http.Body
 import retrofit2.http.POST
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.Multipart
 import retrofit2.http.PATCH
 import retrofit2.http.Part
@@ -126,6 +128,9 @@ interface PureumService {
         @Part image: MultipartBody.Part?,
         @Part("nickname") nickname: RequestBody
     ) : DefaultResponse
+    // my 문장 리스트 API
+    @GET("/mypages/sentence")
+    suspend fun getMySentenceList(context: Context) : MySentencesListResponse
 
     // 진행 중인 대결 리스트 반환 API
     @GET("/battles/list")

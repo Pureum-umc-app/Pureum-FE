@@ -30,7 +30,7 @@
             android:visibility="@{isLoading ? View.VISIBLE : View.GONE}"/>
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/quest_today_sentence_one_cv"
+            android:id="@+id/quest_completion_sentence_one_cv"
             android:layout_marginTop="61dp"
             android:layout_width="296dp"
             android:layout_height="132dp"
@@ -76,7 +76,7 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/quest_today_sentence_two_cv"
+            android:id="@+id/quest_completion_sentence_two_cv"
             android:layout_marginTop="35dp"
             android:layout_width="296dp"
             android:layout_height="132dp"
@@ -120,7 +120,7 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/quest_today_sentence_three_cv"
+            android:id="@+id/quest_completion_sentence_three_cv"
             android:layout_marginTop="35dp"
             android:layout_width="296dp"
             android:layout_height="132dp"

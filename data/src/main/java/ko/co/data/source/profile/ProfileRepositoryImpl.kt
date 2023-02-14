@@ -2,7 +2,9 @@ package ko.co.data.source.profile
 
 import android.content.Context
 import android.net.Uri
+import ko.co.data.remote.PureumLoginService
 import kr.co.domain.model.DefaultResponse
+import kr.co.domain.model.MySentencesListResponse
 import kr.co.domain.model.ProfileInfoResponse
 import kr.co.domain.repository.ProfileRepository
 import javax.inject.Inject
@@ -21,4 +23,10 @@ class ProfileRepositoryImpl @Inject constructor(
 
     override suspend fun editProfile(userId: Long, context: Context, imageUri: Uri?, nickname: String): DefaultResponse =
         dataSource.editProfile(userId, context, imageUri, nickname)
+
+    /*
+    override suspend fun getMySentenceList(): MySentencesListResponse =
+        dataSource.getMySentenceList()
+     */
+
 }

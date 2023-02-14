@@ -24,21 +24,20 @@ class QuestLatestSentenceFragment : BaseFragment<FragmentQuestLatestSentenceBind
     private lateinit var viewModel: QuestViewModel
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initApplyRecyclerView()
         initView()
         initClickListener()
-        initApplyRecyclerView()
         observe()
     }
 
     override fun onResume() {
         super.onResume()
-        viewModel.sentencesList(limit, page, sort, wordId)
     }
 
     private fun initView() {
         viewModel = (requireParentFragment() as QuestVoidFragment).viewModel
         viewModel.getTodayKeyword()
-        keyword = viewModel.keywordLiveData.value.toString()
+        wordId = viewModel.keywordIdLiveData.value!!.toLong()
         viewModel.getSentencesIncomplete()
         viewModel.getSentencesComplete()
         viewModel.sentencesList(limit, page, sort, wordId)
@@ -49,7 +48,6 @@ class QuestLatestSentenceFragment : BaseFragment<FragmentQuestLatestSentenceBind
 
     override fun onPause() {
         super.onPause()
-        Log.e(ContentValues.TAG, wordId.toString())
     }
     private fun initClickListener() {
     }
@@ -60,17 +58,13 @@ class QuestLatestSentenceFragment : BaseFragment<FragmentQuestLatestSentenceBind
         managerSentence.stackFromEnd = true
         binding.questLatestSentenceRv.layoutManager = managerSentence
         binding.questLatestSentenceRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        binding.questLatestSentenceRv.adapter = dataWrittenSentenceAdapter
+        binding.questLatestSentenceRv.adapter = DataWrittenSentenceRVAdapter()
     }
 
     private fun observe() {
-        viewModel.todayKeywordListLiveData.observe(viewLifecycleOwner) {
-            _keyword = it
-            index = it.indexOf(keyword)
-        }
-        viewModel.completeKeywordIdListLiveData.observe(viewLifecycleOwner) {
+        viewModel.todayKeywordIdListLiveData.observe(viewLifecycleOwner) {
             wordId = it[index]
-            binding.isLoading = false
+            Log.e(ContentValues.TAG, wordId.toString())
         }
         viewModel.sentenceListLiveData.observe(viewLifecycleOwner) {
             (binding.questLatestSentenceRv.adapter as DataWrittenSentenceRVAdapter).setData(it!!)

@@ -25,7 +25,6 @@ class QuestWriteSentenceActivity : BaseActivity<ActivityQuestWriteSentenceBindin
     private lateinit var _keyword: String
     private var status: String = "P"
     private var keywordId: Long = 0
-    private var userId = PureumApplication.spfManager.getUserId()
     private val viewModel by viewModels<QuestViewModel>()
 
     override fun initView() {
