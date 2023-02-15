@@ -90,6 +90,7 @@ class AllBattleProgInfoFragment : BaseFragment<FragmentAllBattleProgInfoBinding>
                     binding.myBattleOpSentenceLike.isChecked = false
                 }
             }
+
         }
     }
 
@@ -104,14 +105,17 @@ class AllBattleProgInfoFragment : BaseFragment<FragmentAllBattleProgInfoBinding>
     }
 
     private fun battleLike(){
-        val firstSentenceId : Long = viewModel.allBattleProgressListLiveData.value?.challengerSentenceId ?: 0
-        val secSentenceId : Long = viewModel.allBattleProgressListLiveData.value?.challengerSentenceId ?: 0
-        binding.myBattleSentenceLike.setOnClickListener{
-            viewModel.postBattleLike(firstSentenceId)
+        viewModel.allBattleProgressListLiveData.observe(viewLifecycleOwner) {
+            val firstUserId = it.challengerSentenceId
+            val secondUserId = it.challengedSentenceId
+            binding.myBattleSentenceLike.setOnClickListener{
+                viewModel.postBattleLike(firstUserId)
+            }
+            binding.myBattleOpSentenceLike.setOnClickListener{
+                viewModel.postBattleLike(secondUserId)
+            }
         }
-        binding.myBattleOpSentenceLike.setOnClickListener{
-            viewModel.postBattleLike(secSentenceId)
-        }
+
     }
 
 

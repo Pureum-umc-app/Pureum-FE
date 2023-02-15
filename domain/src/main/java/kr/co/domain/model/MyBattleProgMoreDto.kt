@@ -11,14 +11,14 @@ data class MyBattleProgMoreDto (
     var myLikeCnt: Int,
     var myNickname: String,
     var mySentence: String,
-    var mySentenceId: Int,
+    var mySentenceId: Long,
     var oppId: Long,
     var oppImage: String,
     var oppLike: Int,
     var oppLikeCnt: Int,
     var oppNickname: String,
     var oppSentence: String,
-    var oppSentenceId: Int,
+    var oppSentenceId: Long,
     var remainDuration: String,
     var status: String
 )
