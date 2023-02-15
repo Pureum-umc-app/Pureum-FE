@@ -97,7 +97,8 @@ class OnBattleFourthFragment : BaseFragment<FragmentOnBattleFourthBinding>(R.lay
             battleRequestMyBattleButton.setOnClickListener {
                 // TODO: 내 배틀 페이지로 이동 - 현재는 임시로 홈 화면으로 가도록 설정
                 val intent = Intent(requireContext(), MainActivity::class.java).apply {
-                    putExtra("screen", 1)
+                    putExtra("screen", 2)
+                    putExtra("toMyBattle", true)
                 }
                 dialog.dismiss()
                 startActivity(intent)

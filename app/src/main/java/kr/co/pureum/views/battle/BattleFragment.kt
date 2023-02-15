@@ -35,6 +35,13 @@ class BattleFragment : BaseFragment<FragmentBattleBinding>(R.layout.fragment_bat
             true -> findNavController().navigate(BattleFragmentDirections.actionBattleFragmentToMyBattleFragment())
             else -> {}
         }
+        when(requireActivity().intent.hasExtra("toMyBattle")) {
+            true -> {
+                val action = BattleFragmentDirections.actionBattleFragmentToMyBattleFragment()
+                findNavController().navigate(action)
+            }
+            false -> {}
+        }
         _init = false
     }
 
