@@ -1,4 +1,4 @@
-package ko.co.data.source.Attendances
+package ko.co.data.source.attendances
 
 import android.content.ContentValues
 import android.util.Log
@@ -11,10 +11,11 @@ import javax.inject.Inject
 class AttendancesDataSource @Inject constructor(
     private val pureumService: PureumService
 ) {
-    suspend fun stampList(userId: Long) : StampListResponse {
-        var response = StampListResponse(code = 0, isSuccess = true, message = "요청에 성공하였습니다.", result = StampListDto(
-            accumulatedCnt = 3, currentCnt = 2, userId = 1
-        )
+    suspend fun getStampList(userId: Long) : StampListResponse {
+        var response = StampListResponse(code = 0, isSuccess = true, message = "요청에 성공하였습니다.",
+            result = StampInfo(
+                accumulatedCnt = 50, currentCnt = 2, userId = 1
+            )
         )
         withContext(Dispatchers.IO) {
             runCatching {
@@ -27,6 +28,7 @@ class AttendancesDataSource @Inject constructor(
         }
         return response
     }
+
     suspend fun attendanceCheck(userId: UserId) : AttendancesCheckResponse {
         var response = AttendancesCheckResponse(
             code = 0, isSuccess = true, message = "요청에 성공하였습니다.", result = CheckId(

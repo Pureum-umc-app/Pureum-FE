@@ -1,4 +1,4 @@
-package ko.co.data.source.Attendances
+package ko.co.data.source.attendances
 
 import kr.co.domain.model.AttendancesCheckResponse
 import kr.co.domain.model.StampListResponse
@@ -9,7 +9,8 @@ import javax.inject.Inject
 class AttendancesRepositoryImpl @Inject constructor(
     private val dataSource: AttendancesDataSource
 ) : AttendancesRepository {
-    override suspend fun getStampList(userId: Long): StampListResponse = dataSource.stampList(userId)
-
-    override suspend fun attendancesCheck(userId: UserId): AttendancesCheckResponse = dataSource.attendanceCheck(userId)
+    override suspend fun getStampList(userId: Long): StampListResponse =
+        dataSource.getStampList(userId)
+    override suspend fun attendancesCheck(userId: UserId): AttendancesCheckResponse =
+        dataSource.attendanceCheck(userId)
 }

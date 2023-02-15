@@ -39,4 +39,10 @@ class SharedPreferenceUtil(context: Context) {
     fun clearPurposeTime() {
         spfManager.edit().remove("purpose_time").apply()
     }
+
+    // 출석체크 확인
+    fun getAttendance(): Long = spfManager.getLong("attendance", 0)
+    fun setAttendance(time: Long) {
+        spfManager.edit().putLong("attendance", time).apply()
+    }
 }

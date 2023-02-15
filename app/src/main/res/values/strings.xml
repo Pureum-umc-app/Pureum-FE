@@ -86,7 +86,7 @@
     <string name="no_ignore">잊기 전에 출석체크를 해주세요</string>
     <string name="check_ok">출석체크가 완료되었습니다</string>
     <string name="check_no">클릭해서 출석체크 하기</string>
-    <string name="check_number">누적 출석체크 횟수: 0회</string>
+    <string name="check_number">누적 출석체크 횟수: %d회</string>
     <string name="today_keyword">오늘의 키워드로 문장을 작성해요</string>
     <string name="click_keyword">클릭 시 오늘의 키워드로 이동</string>
     <string name="my_badge">MY 배지</string>
