@@ -11,9 +11,6 @@ import kr.co.pureum.base.BaseFragment
 import kr.co.pureum.databinding.FragmentQuestPopularitySentenceBinding
 
 class QuestPopularitySentenceFragment : BaseFragment<FragmentQuestPopularitySentenceBinding>(R.layout.fragment_quest_popularity_sentence) {
-    private lateinit var _keyword: List<String>
-    private lateinit var _wordId: List<Long>
-    private lateinit var keyword: String
     private var wordId: Long = 0
     private val limit = 20
     private var index: Int = 0
@@ -23,8 +20,8 @@ class QuestPopularitySentenceFragment : BaseFragment<FragmentQuestPopularitySent
     private lateinit var viewModel: QuestViewModel
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initApplyRecyclerView()
         initView()
+        initApplyRecyclerView()
         initClickListener()
         observe()
     }

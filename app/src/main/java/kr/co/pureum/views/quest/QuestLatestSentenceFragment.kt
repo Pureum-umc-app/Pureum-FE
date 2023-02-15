@@ -11,21 +11,17 @@ import kr.co.pureum.base.BaseFragment
 import kr.co.pureum.databinding.FragmentQuestLatestSentenceBinding
 
 class QuestLatestSentenceFragment : BaseFragment<FragmentQuestLatestSentenceBinding>(R.layout.fragment_quest_latest_sentence) {
-    private lateinit var _keyword: List<String>
-    private lateinit var _wordId: List<Long>
-    private lateinit var keyword: String
     private var wordId: Long = 0
     private val limit = 20
     private var index: Int = 0
     private var page = 0
     private val sort = "date"
 
-    private val dataWrittenSentenceAdapter = DataWrittenSentenceRVAdapter()
     private lateinit var viewModel: QuestViewModel
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initApplyRecyclerView()
         initView()
+        initApplyRecyclerView()
         initClickListener()
         observe()
     }
