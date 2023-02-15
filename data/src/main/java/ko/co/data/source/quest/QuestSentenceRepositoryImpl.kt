@@ -26,4 +26,7 @@ class QuestSentenceRepositoryImpl @Inject constructor(
     override suspend fun writeSentences(keywordId: Long, sentence: String, status: String, userId: Long): WriteSentencesResponse {
         return dataSource.writeSentences(keywordId, sentence, status, userId)
     }
+
+    override suspend fun getProfileInfo(userId: Long): ProfileInfoResponse =
+        dataSource.getProfileInfo(userId)
 }
