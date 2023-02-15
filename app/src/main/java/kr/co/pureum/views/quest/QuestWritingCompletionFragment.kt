@@ -13,16 +13,15 @@ import kr.co.pureum.databinding.FragmentQuestWritingCompletionBinding
 
 class QuestWritingCompletionFragment : BaseFragment<FragmentQuestWritingCompletionBinding>(R.layout.fragment_quest_writing_completion) {
     private lateinit var viewModel: QuestViewModel
-    private var _keywords = listOf<String>()
+    private var _keywords = mutableListOf("", "", "")
     private var _wordId = mutableListOf<Long>()
     private var wordId : Long = 0
     private var index: Int = 0
-    var size: Int = 0
+    var _size: Int = 0
     private lateinit var todayKeyword: String
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
-        initListener()
         observe()
     }
 
@@ -30,8 +29,6 @@ class QuestWritingCompletionFragment : BaseFragment<FragmentQuestWritingCompleti
         viewModel = (requireParentFragment() as QuestClickFragment).viewModel
         viewModel.getSentencesComplete()
         with(binding) {
-            keywords = _keywords
-            Log.e(ContentValues.TAG, _keywords.toString())
             isLoading = true
         }
     }
@@ -40,7 +37,7 @@ class QuestWritingCompletionFragment : BaseFragment<FragmentQuestWritingCompleti
         with(binding) {
             questCompletionSentenceOneCv.setOnClickListener {
                 if (_keywords.isNotEmpty()) {
-                    viewModel.setCompleteKeyword(_keywords[size-3])
+                    //viewModel.setCompleteKeyword(_keywords[size-3])
                     val action = QuestClickFragmentDirections.actionQuestClickFragmentToQuestVoidFragment(todayKeyword, wordId, index)
                     Log.e(ContentValues.TAG, todayKeyword)
                     findNavController().navigate(action)
@@ -48,7 +45,7 @@ class QuestWritingCompletionFragment : BaseFragment<FragmentQuestWritingCompleti
             }
             questCompletionSentenceTwoCv.setOnClickListener {
                 if (_keywords.isNotEmpty()) {
-                    viewModel.setCompleteKeyword(_keywords[size-2])
+                    //viewModel.setCompleteKeyword(_keywords[size-2])
                     val action = QuestClickFragmentDirections.actionQuestClickFragmentToQuestVoidFragment(todayKeyword, wordId, index)
                     Log.e(ContentValues.TAG, todayKeyword)
                     findNavController().navigate(action)
@@ -57,43 +54,32 @@ class QuestWritingCompletionFragment : BaseFragment<FragmentQuestWritingCompleti
 
             questCompletionSentenceThreeCv.setOnClickListener {
                 if (_keywords.isNotEmpty()) {
-                    viewModel.setCompleteKeyword(_keywords[size-1])
+                    //viewModel.setCompleteKeyword(_keywords[size-1])
                     val action = QuestClickFragmentDirections.actionQuestClickFragmentToQuestVoidFragment(todayKeyword,wordId, index)
                     Log.e(ContentValues.TAG, todayKeyword)
-                    findNavController().navigate(action) }
+                    findNavController().navigate(action)
                 }
             }
         }
+    }
+
     private fun observe() {
         viewModel.completeKeywordIdListLiveData.observe(viewLifecycleOwner) {
-            _wordId = it.toMutableList()
+            _wordId = it as MutableList<Long>
         }
         viewModel.completeKeywordListLiveData.observe(viewLifecycleOwner) {
             Log.e(ContentValues.TAG, it.toString())
-            _keywords = it
-            size = _keywords.size
+            for (i in it.indices) {
+                _keywords[i] = it[i]
+            }
+            _size = it.size
             with(binding) {
-                keywords = it.subList(size-3, size)
+                keywords = _keywords
                 Log.e(ContentValues.TAG, keywords.toString())
-                when(_keywords.size) {
-                    0 -> {
-                        questCompletionSentenceOneCv.isGone = true
-                        questCompletionSentenceTwoCv.isGone = true
-                        questCompletionSentenceThreeCv.isVisible
-                    }
-                    1 -> questCompletionSentenceOneCv.isVisible = true
-                    2 -> {
-                        questCompletionSentenceTwoCv.isVisible = true
-                        questCompletionSentenceOneCv.isVisible = true
-                    }
-                    else -> {
-                        questCompletionSentenceOneCv.isVisible = true
-                        questCompletionSentenceTwoCv.isVisible = true
-                        questCompletionSentenceThreeCv.isVisible = true
-                    }
-                }
+                Log.e(ContentValues.TAG, _size.toString())
                 binding.isLoading = false
             }
+            initListener()
         }
         viewModel.completeKeywordLiveData.observe(viewLifecycleOwner) {
             todayKeyword = it

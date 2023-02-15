@@ -118,9 +118,9 @@ class RankingFragment : BaseFragment<FragmentRankingBinding>(R.layout.fragment_r
         with(binding) {
             with(viewModel) {
                 setDate(option)
-                isLoading = true
                 date = localDate
                 isToday = isYesterday()
+                isLoading = true
             }
         }
     }
