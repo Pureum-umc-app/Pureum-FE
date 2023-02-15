@@ -34,6 +34,20 @@
             android:name="toAllBattle"
             app:argType="boolean"
             android:defaultValue="false"/>
+        <action
+            android:id="@+id/action_battleFragment_to_onBattleSentenceFragment"
+            app:destination="@id/onBattleSentenceFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/onBattleSentenceFragment"
+        android:name="kr.co.pureum.views.battle.OnBattleSentenceFragment"
+        android:label="OnBattleSentenceFragment">
+
+        <argument
+            android:name="battleId"
+            app:argType="long"
+            android:defaultValue="0L"/>
     </fragment>
 
     <fragment

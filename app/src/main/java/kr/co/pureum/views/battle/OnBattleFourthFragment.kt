@@ -89,7 +89,9 @@ class OnBattleFourthFragment : BaseFragment<FragmentOnBattleFourthBinding>(R.lay
     }
 
     private fun showBattleRequestDialog(_keyword: String, _period: Int) {
-        val dialog = Dialog(requireContext())
+        val dialog = Dialog(requireContext()).apply {
+            setCancelable(false)
+        }
         val dialogBinding = DialogBattleRequestBinding.inflate(LayoutInflater.from(requireContext()))
         with(dialogBinding) {
             keyword = _keyword

@@ -1,6 +1,8 @@
 package kr.co.pureum.adapter.battle
 
+import android.content.ContentValues.TAG
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -53,14 +55,25 @@ class WaitingBattleAdapter(
                     "대결장이 도착했어요!" -> { /* 상대가 보낸 요청, 내가 아직 수락하지 않은 경우 */
                         waitingBattleRefuseButton.visibility = View.VISIBLE
                         waitingBattleAcceptButton.visibility = View.VISIBLE
+                        waitingBattleWriteButton.visibility = View.GONE
+                        waitingBattleCancelButton.visibility = View.GONE
                     }
                     "대결 문장을 작성해주세요!" -> { /* 상대가 보낸 요청, 내가 수락하고 문장을 작성하지 않은 경우 */
+                        waitingBattleRefuseButton.visibility = View.GONE
+                        waitingBattleAcceptButton.visibility = View.GONE
                         waitingBattleWriteButton.visibility = View.VISIBLE
+                        waitingBattleCancelButton.visibility = View.GONE
                     }
                     "대결 수락 대기 중" -> { /* 내가 보낸 요청, 상대가 아직 수락하지 않은 경우 */
+                        waitingBattleRefuseButton.visibility = View.GONE
+                        waitingBattleAcceptButton.visibility = View.GONE
+                        waitingBattleWriteButton.visibility = View.GONE
                         waitingBattleCancelButton.visibility = View.VISIBLE
                     }
                     "대결 문장 작성 대기 중" -> { /* 내가 보낸 요청, 상대가 수락하고 문장을 작성하지 않은 경우 */
+                        waitingBattleRefuseButton.visibility = View.GONE
+                        waitingBattleAcceptButton.visibility = View.GONE
+                        waitingBattleWriteButton.visibility = View.GONE
                         waitingBattleCancelButton.visibility = View.VISIBLE
                     }
                     else -> { /* 오류 발생 */ }
@@ -91,5 +104,6 @@ class WaitingBattleAdapter(
         battleList.clear()
         battleList.addAll(data)
         notifyDataSetChanged()
+        Log.e(TAG, "$battleList")
     }
 }

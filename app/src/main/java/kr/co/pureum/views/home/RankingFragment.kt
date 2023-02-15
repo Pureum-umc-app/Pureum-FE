@@ -64,7 +64,7 @@ class RankingFragment : BaseFragment<FragmentRankingBinding>(R.layout.fragment_r
         viewModel.getMyGrade()
         setDate(RankingViewModel.INIT)
         binding.rankingRecyclerView.apply {
-            adapter = RankingAdapter().apply {
+            adapter = RankingAdapter(context).apply {
                 addOnScrollListener(object : RecyclerView.OnScrollListener() {
                     override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                         super.onScrolled(recyclerView, dx, dy)

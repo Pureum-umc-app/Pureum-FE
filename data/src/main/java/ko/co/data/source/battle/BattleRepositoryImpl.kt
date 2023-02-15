@@ -9,6 +9,8 @@ import kr.co.domain.model.BattleId
 import kr.co.domain.model.BattleLike
 import kr.co.domain.model.BattleLikeReq
 import kr.co.domain.model.BattleRequestResponse
+import kr.co.domain.model.BattleSentenceRequest
+import kr.co.domain.model.BattleSentenceResponse
 import kr.co.domain.model.KeywordsResponse
 import kr.co.domain.model.MyBattleCompMore
 import kr.co.domain.model.MyBattleCompletion
@@ -47,6 +49,9 @@ class BattleRepositoryImpl @Inject constructor(
 
     override suspend fun sendBattleRequest(userId: Long, opponentId: Long, wordId: Long, sentence: String, duration: Int): BattleRequestResponse =
         dataSource.sendBattleRequest(userId, opponentId, wordId, sentence, duration)
+
+    override suspend fun writeSentence(battleId: Long, sentence: String): BattleSentenceResponse =
+        dataSource.writeSentence(battleId, sentence)
 
     override suspend fun getMyBattleProgressInfo(userId: Long): MyBattleProgress =
         dataSource.getMyBattleProgressInfo(userId)

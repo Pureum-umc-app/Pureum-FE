@@ -114,7 +114,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                 })
             }
             homeRankRecyclerView.apply {
-                adapter = RankingAdapter()
+                adapter = RankingAdapter(requireContext())
                 layoutManager = LinearLayoutManager(requireActivity())
                 isNestedScrollingEnabled = false
             }
