@@ -16,9 +16,11 @@ class RankingAdapter : RecyclerView.Adapter<RankingAdapter.ViewHolder>() {
     inner class ViewHolder(val binding: ItemHomeRankBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(rank: Rank, position: Int){
             binding.rank = rank
+            val scale = binding.rankLayout.resources.displayMetrics.density
             if (position == rankList.size - 1) {
-                val scale = binding.rankLayout.resources.displayMetrics.density
                 (binding.rankLayout.layoutParams as ViewGroup.MarginLayoutParams).bottomMargin = (12 * scale).toInt()
+            } else {
+                (binding.rankLayout.layoutParams as ViewGroup.MarginLayoutParams).bottomMargin = (4 * scale).toInt()
             }
         }
     }

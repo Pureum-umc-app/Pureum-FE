@@ -62,7 +62,6 @@ class RankingFragment : BaseFragment<FragmentRankingBinding>(R.layout.fragment_r
     @RequiresApi(Build.VERSION_CODES.O)
     private fun initView() {
         viewModel.getMyGrade()
-        viewModel.getAllRankList()
         setDate(RankingViewModel.INIT)
         binding.rankingRecyclerView.apply {
             adapter = RankingAdapter().apply {
@@ -71,7 +70,8 @@ class RankingFragment : BaseFragment<FragmentRankingBinding>(R.layout.fragment_r
                         super.onScrolled(recyclerView, dx, dy)
                         if (binding.isLoading == false
                             && (recyclerView.layoutManager as LinearLayoutManager?)!!.findLastCompletelyVisibleItemPosition() == itemCount - 1
-                            && viewModel.rankListLiveData.value!!.size % 25 == 0) {
+                            && viewModel.rankListLiveData.value!!.size % 25 == 0
+                        ) {
                             binding.isLoading = true
                             if (viewModel.isSame) viewModel.getSameRankList()
                             else viewModel.getAllRankList()
