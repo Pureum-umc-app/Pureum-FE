@@ -73,8 +73,8 @@ class QuestFragment : BaseFragment<FragmentQuestBinding>(R.layout.fragment_quest
     private fun initView() {
         Log.e("ScreenBuild", "QuestFragment")
         binding.isLoading = true
+        viewModel.getProfileInfo()
         viewModel.getTodayKeyword()
-        binding.nickname = "태우"
     }
 
     // 상태바 color 지정 함수
@@ -119,6 +119,9 @@ class QuestFragment : BaseFragment<FragmentQuestBinding>(R.layout.fragment_quest
             Log.d(TAG, it.toString())
             Log.e(TAG, PureumApplication.spfManager.getUserId().toString())
 
+        }
+        viewModel.profileInfoLiveData.observe(viewLifecycleOwner) {
+            binding.nickname = it.nickname
         }
     }
 }

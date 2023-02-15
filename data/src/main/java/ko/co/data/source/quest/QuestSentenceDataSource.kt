@@ -111,4 +111,20 @@ class QuestSentenceDataSource @Inject constructor(
         }
         return response
     }
+
+    suspend fun getProfileInfo(userId: Long) : ProfileInfoResponse {
+        var response = ProfileInfoResponse(0, false, "getProfileInfo Failed",
+            ProfileInfo(0, "nickname error", "profileUrl error")
+        )
+        withContext(Dispatchers.IO) {
+            runCatching {
+                pureumService.getProfileInfo(userId)
+            }.onSuccess {
+                response = it
+            }.onFailure {
+                Log.e(ContentValues.TAG, "getProfileInfo Failed: $it")
+            }
+        }
+        return response
+    }
 }

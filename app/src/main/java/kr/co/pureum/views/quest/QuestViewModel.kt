@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import kr.co.domain.model.Keyword
+import kr.co.domain.model.ProfileInfo
 import kr.co.domain.model.SentencesListDto
 import kr.co.domain.model.WriteSentencesDto
 import kr.co.domain.repository.QuestRepository
@@ -143,5 +144,14 @@ class QuestViewModel @Inject constructor(
     fun getMySentenceList() {
         val res = repository
 
+    }
+
+    private val _profileInfoLiveData = MutableLiveData<ProfileInfo>()
+    val profileInfoLiveData: LiveData<ProfileInfo> = _profileInfoLiveData
+    fun getProfileInfo() {
+        viewModelScope.launch {
+            val res = repository.getProfileInfo(PureumApplication.spfManager.getUserId())
+            _profileInfoLiveData.value = res.result
+        }
     }
 }
