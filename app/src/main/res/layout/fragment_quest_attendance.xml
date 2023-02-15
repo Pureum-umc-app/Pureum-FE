@@ -4,6 +4,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     
     <data>
+        <import type="android.view.View"/>
+        <variable
+            name="isChecked"
+            type="java.lang.Boolean" />
         <variable
             name="accumulatedCnt"
             type="java.lang.Integer" />
@@ -34,7 +38,7 @@
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.appcompat.widget.LinearLayoutCompat
-            android:id="@+id/quest_attendance_layout_ll"
+            android:id="@+id/quest_attendance_button"
             android:layout_width="240dp"
             android:layout_height="42dp"
             android:layout_marginTop="67dp"
@@ -43,21 +47,35 @@
             android:gravity="center_vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" >
+            app:layout_constraintTop_toTopOf="parent"
+            android:clickable="@{!isChecked}">
+            
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="18dp">
 
-            <androidx.appcompat.widget.AppCompatImageButton
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginStart="18dp"
-                android:src="@drawable/selector_quest_attendance_button"
-                android:backgroundTint="@null"/>
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_circle_not_ok"
+                    android:backgroundTint="@null"
+                    android:visibility="@{isChecked ? View.GONE : View.VISIBLE, default=visible}"/>
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_circle_ok"
+                    android:backgroundTint="@null"
+                    android:visibility="@{isChecked ? View.VISIBLE : View.GONE, default=gone}"/>
+            </FrameLayout>
 
             <TextView
                 android:id="@+id/quest_attendance_ok_text_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="17dp"
-                android:text="@string/check_no"
+                android:text="@{isChecked ? `출석체크가 완료되었습니다` : `클릭해서 출석체크 하기`, default=`클릭해서 출석체크 하기`}"
                 android:textSize="14sp"
                 android:textColor="@color/text1"
                 android:fontFamily="@font/nanum_square_neo_regular"/>
@@ -74,7 +92,7 @@
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/quest_attendance_layout_ll" />
+            app:layout_constraintTop_toBottomOf="@+id/quest_attendance_button" />
 
 
 <!--        <androidx.recyclerview.widget.RecyclerView-->
