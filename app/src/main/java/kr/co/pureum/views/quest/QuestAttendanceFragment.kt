@@ -1,6 +1,8 @@
 package kr.co.pureum.views.quest
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -41,15 +43,7 @@ class QuestAttendanceFragment : BaseFragment<FragmentQuestAttendanceBinding>(R.l
     private fun initView() {
         viewModel.getStampList()
         with(binding) {
-            if (isToday(PureumApplication.spfManager.getAttendance())) {
-                questAttendanceLayoutLl.isClickable = false
-                questAttendanceLayoutLl.isSelected = false
-                questAttendanceOkTextTv.text = "출석체크가 완료되었습니다"
-            } else {
-                questAttendanceLayoutLl.isClickable = true
-                questAttendanceLayoutLl.isSelected = true
-                questAttendanceOkTextTv.text = "클릭해서 출석체크 하기"
-            }
+            isChecked = isToday(PureumApplication.spfManager.getAttendance())
             questAttendanceViewPager.apply {
                 adapter = AttendanceSheetAdapter()
                 offscreenPageLimit = 3
@@ -62,8 +56,8 @@ class QuestAttendanceFragment : BaseFragment<FragmentQuestAttendanceBinding>(R.l
 
     private fun initListener() {
         with(binding) {
-            questAttendanceLayoutLl.setOnClickListener {
-                questAttendanceLayoutLl.isClickable = false
+            questAttendanceButton.setOnClickListener {
+                questAttendanceButton.isClickable = false
                 viewModel.attendanceCheck()
             }
         }
@@ -85,12 +79,9 @@ class QuestAttendanceFragment : BaseFragment<FragmentQuestAttendanceBinding>(R.l
         viewModel.attendanceLiveData.observe(viewLifecycleOwner) {
             with(binding) {
                 viewModel.getStampList()
-                questAttendanceLayoutLl.isSelected = !questAttendanceLayoutLl.isSelected
-                questAttendanceOkTextTv.text = when (questAttendanceLayoutLl.isSelected) {
-                    true -> "출석체크가 완료되었습니다"
-                    false -> "클릭해서 출석체크 하기"
-                }
+                isChecked = true
             }
+            PureumApplication.spfManager.setAttendance(System.currentTimeMillis())
         }
     }
 
