@@ -137,11 +137,12 @@
 
             <LinearLayout
                 android:id="@+id/quest_attendance_go_ll"
-                android:layout_width="200dp"
+                android:layout_width="wrap_content"
                 android:layout_height="60dp"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="40dp"
                 android:layout_marginBottom="24dp"
+                android:paddingHorizontal="24dp"
                 android:background="@drawable/bg_rectangle_10dp"
                 android:backgroundTint="@null"
                 android:gravity="center"
