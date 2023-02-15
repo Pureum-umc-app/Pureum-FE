@@ -21,6 +21,9 @@ import kr.co.domain.model.BattleLikeDto
 import kr.co.domain.model.BattleLikeReq
 import kr.co.domain.model.BattleRequest
 import kr.co.domain.model.BattleRequestResponse
+import kr.co.domain.model.BattleSentenceDto
+import kr.co.domain.model.BattleSentenceRequest
+import kr.co.domain.model.BattleSentenceResponse
 import kr.co.domain.model.Keyword
 import kr.co.domain.model.KeywordsResponse
 import kr.co.domain.model.MyBattleCompMore
@@ -148,6 +151,21 @@ class BattleDateSource @Inject constructor(
                 response = it
             }.onFailure {
                 Log.e(TAG, "sendBattleRequest failed: $it")
+            }
+        }
+        return response
+    }
+
+    suspend fun writeSentence(battleId: Long, sentence: String): BattleSentenceResponse {
+        val battleSentence = BattleSentenceRequest(battleId, sentence)
+        var response = BattleSentenceResponse(0, false, "", BattleSentenceDto(0, 0, ""))
+        withContext(Dispatchers.IO) {
+            runCatching {
+                pureumService.writeSentence(battleSentence)
+            }.onSuccess {
+                response = it
+            }.onFailure {
+                Log.e(TAG, "writeSentence failed: $it")
             }
         }
         return response

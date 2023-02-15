@@ -1,7 +1,9 @@
 package kr.co.pureum.views.battle
 
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
@@ -63,7 +65,8 @@ class BattleFragment : BaseFragment<FragmentBattleBinding>(R.layout.fragment_bat
                             super.onScrolled(recyclerView, dx, dy)
                             if (isLoading == false
                                 && (recyclerView.layoutManager as LinearLayoutManager?)!!.findLastCompletelyVisibleItemPosition() == itemCount - 1
-                                && viewModel.waitingBattleListLiveData.value!!.size % 5 == 0) {
+                                && viewModel.waitingBattleListLiveData.value!!.size % 5 == 0
+                            ) {
                                 isLoading = true
                                 viewModel.getMoreWaitingBattleInfo()
                             }
@@ -80,7 +83,8 @@ class BattleFragment : BaseFragment<FragmentBattleBinding>(R.layout.fragment_bat
                         }
 
                         override fun onClickWriteButton(battleId: Long) {
-                            // TODO: 문장 작성 화면으로 이동
+                            val action = BattleFragmentDirections.actionBattleFragmentToOnBattleSentenceFragment(battleId)
+                            findNavController().navigate(action)
                         }
 
                         override fun onClickCancelButton(battleId: Long) {
@@ -90,7 +94,7 @@ class BattleFragment : BaseFragment<FragmentBattleBinding>(R.layout.fragment_bat
                     })
                 }
                 layoutManager = LinearLayoutManager(requireContext())
-                isNestedScrollingEnabled = false;
+                //isNestedScrollingEnabled = false
             }
         }
     }
@@ -108,9 +112,7 @@ class BattleFragment : BaseFragment<FragmentBattleBinding>(R.layout.fragment_bat
                 val action = BattleFragmentDirections.actionBattleFragmentToAllBattleFragment()
                 findNavController().navigate(action)
             }
-            battleMoreButton.setOnClickListener {
-
-            }
+            battleMoreButton.visibility = View.GONE
         }
     }
 
@@ -120,6 +122,9 @@ class BattleFragment : BaseFragment<FragmentBattleBinding>(R.layout.fragment_bat
                 (battleWaitingRecyclerView.adapter as WaitingBattleAdapter).setData(it)
                 battleNoWaitingBattle.visibility = if (it.isEmpty()) View.VISIBLE else View.GONE
                 isLoading = false
+                //battleLayout.requestLayout()
+                //battleWaitingRecyclerView.layoutParams.height = battleWaitingRecyclerView.computeVerticalScrollRange()
+                Log.e(TAG, "${battleWaitingRecyclerView.computeVerticalScrollRange()}")
             }
         }
         viewModel.battleControlResponseLiveData.observe(viewLifecycleOwner) {

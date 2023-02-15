@@ -15,10 +15,11 @@ import kr.co.pureum.databinding.FragmentQuestWritingBeforeBinding
 @AndroidEntryPoint
 class QuestWritingBeforeFragment : BaseFragment<FragmentQuestWritingBeforeBinding>(R.layout.fragment_quest_writing_before) {
     private lateinit var viewModel: QuestViewModel
-    private var _keywords = listOf<String>()
+    private var _keywords = mutableListOf("", "", "")
     private var _wordId = mutableListOf<Long>()
     private var index: Int = 0
     private var wordId: Long = 0
+    private var _size: Int = 0
     private lateinit var todayKeyword: String
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -93,26 +94,13 @@ class QuestWritingBeforeFragment : BaseFragment<FragmentQuestWritingBeforeBindin
             _wordId = it.toMutableList()
         }
         viewModel.incompleteKeywordListLiveData.observe(viewLifecycleOwner) {
-            _keywords = it
+            for (i in it.indices) {
+                _keywords[i] = it[i]
+            }
+            _size = it.size
             with(binding) {
                 keywords = it
-                when (_keywords.size) {
-                    2 -> questTodaySentenceThreeCv.isGone = true
-                    1 -> {
-                        questTodaySentenceTwoCv.isGone = true
-                        questTodaySentenceThreeCv.isGone = true
-                    }
-                    0 -> {
-                        questTodaySentenceOneCv.isGone = true
-                        questTodaySentenceTwoCv.isGone = true
-                        questTodaySentenceThreeCv.isGone = true
-                    }
-                    else -> {
-                        questTodaySentenceOneCv.isVisible = true
-                        questTodaySentenceOneCv.isVisible = true
-                        questTodaySentenceThreeCv.isVisible = true
-                    }
-                }
+                size = _size
                 isLoading = false
             }
         }

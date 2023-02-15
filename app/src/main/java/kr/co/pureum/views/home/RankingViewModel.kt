@@ -12,6 +12,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kr.co.domain.model.Rank
+import kr.co.domain.model.TimeInfo
 import kr.co.domain.model.UserRankDto
 import kr.co.domain.repository.RankingRepository
 import kr.co.pureum.di.PureumApplication
@@ -31,7 +32,7 @@ class RankingViewModel @Inject constructor(
 
     private val _gradeLiveData = MutableLiveData<String>()
     private val _myRankLiveData = MutableLiveData<Rank>()
-    private val _rankList : MutableList<Rank> = mutableListOf()
+    private var _rankList : MutableList<Rank> = mutableListOf()
     private val _rankListLiveData = MutableLiveData<List<Rank>>()
 
     val myRankLiveDate : LiveData<Rank> = _myRankLiveData

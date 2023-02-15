@@ -17,8 +17,9 @@ class QuestWritingCompletionFragment : BaseFragment<FragmentQuestWritingCompleti
     private var _wordId = mutableListOf<Long>()
     private var wordId : Long = 0
     private var index: Int = 0
-    var _size: Int = 0
+    private var _size: Int = 0
     private lateinit var todayKeyword: String
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
@@ -75,17 +76,18 @@ class QuestWritingCompletionFragment : BaseFragment<FragmentQuestWritingCompleti
             _size = it.size
             with(binding) {
                 keywords = _keywords
+                size = _size
                 Log.e(ContentValues.TAG, keywords.toString())
                 Log.e(ContentValues.TAG, _size.toString())
                 binding.isLoading = false
             }
-            initListener()
+            //initListener()
         }
-        viewModel.completeKeywordLiveData.observe(viewLifecycleOwner) {
-            todayKeyword = it
-            index = _keywords.indexOf(it)
-            wordId = _wordId[index]
-            binding.isLoading = false
-        }
+//        viewModel.completeKeywordLiveData.observe(viewLifecycleOwner) {
+//            todayKeyword = it
+//            index = _keywords.indexOf(it)
+//            wordId = _wordId[index]
+//            binding.isLoading = false
+//        }
     }
 }

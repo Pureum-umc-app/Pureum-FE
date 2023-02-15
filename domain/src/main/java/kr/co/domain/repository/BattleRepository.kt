@@ -10,6 +10,8 @@ import kr.co.domain.model.BattleId
 import kr.co.domain.model.BattleLike
 import kr.co.domain.model.BattleLikeReq
 import kr.co.domain.model.BattleRequestResponse
+import kr.co.domain.model.BattleSentenceRequest
+import kr.co.domain.model.BattleSentenceResponse
 import kr.co.domain.model.KeywordsResponse
 import kr.co.domain.model.MyBattleCompMore
 import kr.co.domain.model.MyBattleCompletion
@@ -19,6 +21,7 @@ import kr.co.domain.model.OpponentsResponse
 import kr.co.domain.model.ProfileImageResponse
 import kr.co.domain.model.WaitingBattleResponse
 import kr.co.domain.model.MyBattleProgress
+import retrofit2.http.Body
 
 interface BattleRepository {
     suspend fun getWaitingBattleInfo(userId: Long, limit: Int, page: Int) : WaitingBattleResponse
@@ -30,6 +33,7 @@ interface BattleRepository {
     suspend fun getOpponentsList(userId: Long): OpponentsResponse
     suspend fun getMyProfileImage(userId: Long): ProfileImageResponse
     suspend fun sendBattleRequest(userId: Long, opponentId: Long, wordId: Long, sentence: String, duration: Int): BattleRequestResponse
+    suspend fun writeSentence(battleId: Long, sentence: String): BattleSentenceResponse
 
     suspend fun getMyBattleProgressInfo(userId: Long) : MyBattleProgress
     suspend fun getMyBattleCompletionInfo(userId: Long) : MyBattleCompletion

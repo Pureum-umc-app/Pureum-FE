@@ -90,7 +90,9 @@ interface PureumService {
     // 대결 신청 API
     @POST("/battles")
     suspend fun sendBattleRequest(@Body battleRequest: BattleRequest): BattleRequestResponse
-
+    // 대결 받은 사람 대결 문장 작성 API
+    @POST("/battles/challenged/write")
+    suspend fun writeSentence(@Body battleSentence: BattleSentenceRequest): BattleSentenceResponse
 
     //오늘의 키워드 반환
     @GET("/sentences/word/{userId}")

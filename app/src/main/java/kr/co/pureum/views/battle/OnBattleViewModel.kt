@@ -7,6 +7,8 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import kr.co.domain.model.BattleRequestResponse
+import kr.co.domain.model.BattleSentenceDto
+import kr.co.domain.model.BattleSentenceResponse
 import kr.co.domain.model.Keyword
 import kr.co.domain.model.Opponent
 import kr.co.domain.model.ProfileImage
@@ -25,6 +27,7 @@ class OnBattleViewModel @Inject constructor(
     private val _opponentLiveData = MutableLiveData<Opponent>()
     private val _profileImageLiveData = MutableLiveData<ProfileImage>()
     private val _requestLiveData = MutableLiveData<Long>()
+    private val _writingLiveData = MutableLiveData<BattleSentenceDto>()
 
     val keywordsLiveData: LiveData<List<Keyword>> = _keywordsLiveData
     val keywordLiveData: LiveData<Keyword> = _keywordLiveData
@@ -33,6 +36,7 @@ class OnBattleViewModel @Inject constructor(
     val opponentLiveData: LiveData<Opponent> = _opponentLiveData
     val profileImageLiveData: LiveData<ProfileImage> = _profileImageLiveData
     val requestLiveData: LiveData<Long> = _requestLiveData
+    val writingLiveData: LiveData<BattleSentenceDto> = _writingLiveData
 
     fun getThreeKeywords() {
         viewModelScope.launch {
@@ -77,6 +81,13 @@ class OnBattleViewModel @Inject constructor(
                 duration
             )
             _requestLiveData.value = res.result
+        }
+    }
+
+    fun writeSentence(battleId: Long, sentence: String){
+        viewModelScope.launch {
+            val res = repository.writeSentence(battleId, sentence)
+            _writingLiveData.value = res.result
         }
     }
 }
