@@ -45,6 +45,7 @@ class MyBattleProgInfoFragment : BaseFragment<FragmentMyBattleProgInfoBinding>(R
         initListener()
         observe()
         initToolbar()
+        battleLike()
     }
 
     private fun initView() {
@@ -144,6 +145,20 @@ class MyBattleProgInfoFragment : BaseFragment<FragmentMyBattleProgInfoBinding>(R
                 findNavController().navigateUp()
             }
         }
+    }
+
+    private fun battleLike(){
+        viewModel.myBattleProgressListLiveData.observe(viewLifecycleOwner) {
+            val firstUserId = it.mySentenceId
+            val secondUserId = it.oppSentenceId
+            binding.myBattleSentenceLike.setOnClickListener{
+                viewModel.postBattleLike(firstUserId)
+            }
+            binding.myBattleOpSentenceLike.setOnClickListener{
+                viewModel.postBattleLike(secondUserId)
+            }
+        }
+
     }
 
 
