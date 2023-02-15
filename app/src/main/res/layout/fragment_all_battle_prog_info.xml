@@ -231,6 +231,7 @@ tools:context=".views.battle.AllBattleProgInfoFragment">
                     />
 
                 <TextView
+                    android:id="@+id/first_like_num"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@{Integer.toString(allBattleProgMoreDto.challengerLikeCnt), default=`5`}"
