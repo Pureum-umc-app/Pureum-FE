@@ -39,10 +39,11 @@ class MyBattleProgInfoViewModel @Inject constructor(
         }
     }
 
-    fun postBattleLike(sentenceId: Long) {
+    fun postBattleLike(sentenceId: Long, itemId: Long) {
         viewModelScope.launch {
             val res = repository.postBattleLike(sentenceId, PureumApplication.spfManager.getUserId())
             _battleLikeResponseLiveData.value = res.result
+            getMyBattleProgMoreInfo(itemId)
         }
     }
 

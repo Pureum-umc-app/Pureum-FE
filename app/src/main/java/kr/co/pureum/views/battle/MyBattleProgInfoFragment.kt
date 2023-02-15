@@ -152,10 +152,10 @@ class MyBattleProgInfoFragment : BaseFragment<FragmentMyBattleProgInfoBinding>(R
             val firstUserId = it.mySentenceId
             val secondUserId = it.oppSentenceId
             binding.myBattleSentenceLike.setOnClickListener{
-                viewModel.postBattleLike(firstUserId)
+                viewModel.postBattleLike(firstUserId, args.itemIdx)
             }
             binding.myBattleOpSentenceLike.setOnClickListener{
-                viewModel.postBattleLike(secondUserId)
+                viewModel.postBattleLike(secondUserId, args.itemIdx)
             }
         }
 
