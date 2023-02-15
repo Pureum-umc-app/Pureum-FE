@@ -4,6 +4,8 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import ko.co.data.source.attendances.AttendancesDataSource
+import ko.co.data.source.attendances.AttendancesRepositoryImpl
 import ko.co.data.source.badge.BadgeDataSource
 import ko.co.data.source.badge.BadgeRepositoryImpl
 import ko.co.data.source.battle.BattleDateSource
@@ -58,4 +60,9 @@ object RepositoryModule {
     @Singleton
     fun providesProfileRepository(profileDataSource: ProfileDataSource) : ProfileRepository =
         ProfileRepositoryImpl(profileDataSource)
+
+    @Provides
+    @Singleton
+    fun providesAttendancesRepository(attendancesDataSource: AttendancesDataSource) : AttendancesRepository =
+        AttendancesRepositoryImpl(attendancesDataSource)
 }

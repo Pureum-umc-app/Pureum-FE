@@ -193,8 +193,8 @@ interface PureumService {
 
     //도장 개수 반환 API
     @GET("/attendances/{userId}")
-    suspend fun getStampList(@Path("userId")userId: Long) : StampListResponse
+    suspend fun getStampList(@Path("userId") userId: Long) : StampListResponse
     //출석 체크 API
-    @POST
-    suspend fun attendanceCheck(@Body uerId: UserId) : AttendancesCheckResponse
+    @POST("/attendances/check")
+    suspend fun attendanceCheck(@Body userId: UserId) : AttendancesCheckResponse
 }

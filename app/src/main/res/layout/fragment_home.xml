@@ -81,6 +81,7 @@
                 android:id="@+id/home_usage_time_view_pager"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:minHeight="296dp"
                 app:layout_constraintTop_toBottomOf="@+id/home_date"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
