@@ -10,6 +10,9 @@
             name="keywords"
             type="List&lt;java.lang.String>" />
         <variable
+            name="size"
+            type="java.lang.Integer" />
+        <variable
             name="isLoading"
             type="java.lang.Boolean" />
 
@@ -37,7 +40,8 @@
             android:layout_height="132dp"
             android:backgroundTint="@color/main3"
             app:cardElevation="10dp"
-            app:cardCornerRadius="10dp" >
+            app:cardCornerRadius="10dp"
+            android:visibility="@{size >= 1 ? View.VISIBLE : View.GONE, default=visible}">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -82,7 +86,8 @@
             android:layout_height="132dp"
             android:backgroundTint="@color/main3"
             app:cardElevation="10dp"
-            app:cardCornerRadius="10dp">
+            app:cardCornerRadius="10dp"
+            android:visibility="@{size >= 2 ? View.VISIBLE : View.GONE, default=visible}">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -125,7 +130,8 @@
             android:layout_height="132dp"
             android:backgroundTint="@color/main3"
             app:cardElevation="10dp"
-            app:cardCornerRadius="10dp">
+            app:cardCornerRadius="10dp"
+            android:visibility="@{size >= 3 ? View.VISIBLE : View.GONE, default=visible}">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
