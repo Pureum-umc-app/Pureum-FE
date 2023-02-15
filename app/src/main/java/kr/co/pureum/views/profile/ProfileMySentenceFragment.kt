@@ -15,16 +15,19 @@ import kr.co.pureum.databinding.FragmentProfileMySentenceBinding
 @AndroidEntryPoint
 class ProfileMySentenceFragment : BaseFragment<FragmentProfileMySentenceBinding>(R.layout.fragment_profile_my_sentence){
     private val viewModel by viewModels<ProfileViewModel>()
-    private val dataMyWrittenSentenceList: ArrayList<DataWrittenSentence> = arrayListOf()
-    private val dataMySentenceAdapter = DataMySentenceRVAdapter(dataMyWrittenSentenceList)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initView()
         initRecyclerView()
         initListener()
+        observe()
     }
     private fun initView() {
-
+        viewModel.getMySentencesList()
+        with(binding) {
+            isLoading = true
+        }
     }
 
     private fun initListener() {
@@ -42,13 +45,20 @@ class ProfileMySentenceFragment : BaseFragment<FragmentProfileMySentenceBinding>
         managerMySentence.isSmoothScrollbarEnabled = true
         binding.profileMySentenceRv.layoutManager = managerMySentence
         binding.profileMySentenceRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        binding.profileMySentenceRv.adapter = dataMySentenceAdapter
-        dataMyWrittenSentenceList.apply {
-            add(DataWrittenSentence("구현", R.drawable.ic_appicon_round, "르미", "방금", "6", "리사이클러뷰 구현에 성공했습니다.", "공개"))
-            add(DataWrittenSentence("계기", R.drawable.ic_appicon_round, "르미", "방금", "4", "유엠씨 경험이 좋은 계기가 되었습니다.", "공개"))
-        }
+        binding.profileMySentenceRv.adapter = DataMySentenceRVAdapter()
     }
     private fun observe() {
-
+        viewModel.countLiveData.observe(viewLifecycleOwner) {
+            binding.getMySentenceRes?.count = it
+        }
+        viewModel.countOpenLiveData.observe(viewLifecycleOwner) {
+            binding.getMySentenceRes?.countOpen = it
+        }
+        viewModel.mySentenceListLiveData.observe(viewLifecycleOwner) {
+            with(binding) {
+                (profileMySentenceRv.adapter as DataMySentenceRVAdapter).setData(it)
+                isLoading = false
+            }
+        }
     }
 }

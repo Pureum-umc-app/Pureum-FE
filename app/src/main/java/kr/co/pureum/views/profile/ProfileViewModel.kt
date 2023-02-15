@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import kr.co.domain.model.GetMySentenceRes
 import kr.co.domain.model.MySentenceList
 import kr.co.domain.model.ProfileInfo
 import kr.co.domain.repository.ProfileRepository
@@ -22,16 +23,16 @@ class ProfileViewModel @Inject constructor(
     private val _withdrawalResponseLiveData = MutableLiveData<String>()
     private val _nicknameValidationLiveData = MutableLiveData<String>()
     private val _editProfileResponseLiveData = MutableLiveData<String>()
-    private val _stampCountLiveData = MutableLiveData<Int>()
-    private val _stampCountOpenLiveData = MutableLiveData<Int>()
+    private val _countLiveData = MutableLiveData<Int>()
+    private val _countOpenLiveData = MutableLiveData<Int>()
     private val _mySentenceListLiveData = MutableLiveData<List<MySentenceList>>()
 
     val profileInfoLiveData: LiveData<ProfileInfo> = _profileInfoLiveData
     val withdrawalResponseLiveData: LiveData<String> = _withdrawalResponseLiveData
     val nicknameValidationLiveData: LiveData<String> = _nicknameValidationLiveData
     val editProfileResponseLiveData: LiveData<String> = _editProfileResponseLiveData
-    val stampCountLiveData: LiveData<Int> = _stampCountLiveData
-    val stampCountOpenLiveData: LiveData<Int> = _stampCountOpenLiveData
+    val countLiveData: LiveData<Int> = _countLiveData
+    val countOpenLiveData: LiveData<Int> = _countOpenLiveData
     val mySentenceListLiveData: LiveData<List<MySentenceList>> = _mySentenceListLiveData
 
     fun getProfileInfo() {
@@ -62,10 +63,13 @@ class ProfileViewModel @Inject constructor(
         }
     }
     fun getMySentencesList() {
+
         viewModelScope.launch {
             val res = repository.getMySentenceList().result
-            _stampCountLiveData.value = res.count
-            _stampCountOpenLiveData.value = res.countOpen
+            val count = GetMySentenceRes(count = res.count, countOpen = res.countOpen, mySentence = listOf())
+
+            _countLiveData.value = count.count
+            _countOpenLiveData.value = count.countOpen
             _mySentenceListLiveData.value = res.mySentence
         }
     }
