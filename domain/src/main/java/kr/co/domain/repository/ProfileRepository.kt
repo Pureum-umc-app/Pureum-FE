@@ -12,4 +12,5 @@ interface ProfileRepository {
     suspend fun nicknameValidate(nickname: String) : DefaultResponse
     suspend fun editProfile(userId: Long, context: Context, imageUri: Uri?, nickname: String) : DefaultResponse
     suspend fun getMySentenceList(): MySentencesListResponse
+    suspend fun deleteMySentence(sentenceId: Long): DefaultResponse
 }

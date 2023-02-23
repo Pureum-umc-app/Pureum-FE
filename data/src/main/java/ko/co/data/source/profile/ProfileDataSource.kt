@@ -1,6 +1,5 @@
 package ko.co.data.source.profile
 
-import android.content.ContentValues
 import android.content.ContentValues.TAG
 import android.content.Context
 import android.net.Uri
@@ -136,11 +135,23 @@ class ProfileDataSource @Inject constructor(
             }.onSuccess {
                 response = it
             }.onFailure {
-                Log.e(ContentValues.TAG, "get My Sentence List Failed")
+                Log.e(TAG, "get My Sentence List Failed")
             }
         }
         return response
     }
 
-
+    suspend fun deleteMySentence(sentenceId: Long) : DefaultResponse {
+        var response = DefaultResponse(code = 0, isSuccess = false, message = "문장 삭제 실패", result = "문장이 존재하지 않습니다.")
+        withContext(Dispatchers.IO) {
+            runCatching {
+                pureumService.deleteMySentence(sentenceId)
+            }.onSuccess {
+                response = it
+            }.onFailure {
+                Log.e(TAG, "delete My Sentence Failed")
+            }
+        }
+        return response
+    }
 }

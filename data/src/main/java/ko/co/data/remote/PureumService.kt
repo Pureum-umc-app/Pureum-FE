@@ -199,4 +199,7 @@ interface PureumService {
     //출석 체크 API
     @POST("/attendances/check")
     suspend fun attendanceCheck(@Body userId: UserId) : AttendancesCheckResponse
+
+    //문장 삭제 API
+    suspend fun deleteMySentence(@Path("sentenceId") sentenceId: Long) : DefaultResponse
 }
