@@ -188,6 +188,11 @@
     <string name="present_nickname">현재 닉네임: 르미</string>
     <string name="my_text">MY</string>
     <string name="my_sentence_list">%d 문장 작성/ %d 문장 공개</string>
+    <string name="sentence_delete">문작을 삭제하시겠습니까?</string>
+    <string name="dialog_no">아니오</string>
+    <string name="dialog_yes">네</string>
+    <string name="menu_modify">수정</string>
+    <string name="menu_delete">  삭제</string>
 
     <!-- BadgeFragment -->
     <string name="badge_toolbar_title">배지</string>

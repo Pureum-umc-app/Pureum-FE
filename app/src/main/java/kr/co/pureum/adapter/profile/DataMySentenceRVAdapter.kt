@@ -6,9 +6,12 @@ import androidx.recyclerview.widget.RecyclerView
 import kr.co.domain.model.MySentenceList
 import kr.co.pureum.databinding.ItemMySentenceBinding
 
-class DataMySentenceRVAdapter() : RecyclerView.Adapter<DataMySentenceRVAdapter.DataMySentenceViewHolder>() {
-    private val mySentenceList = mutableListOf<MySentenceList>()
-    inner class DataMySentenceViewHolder(private val binding: ItemMySentenceBinding) : RecyclerView.ViewHolder(binding.root) {
+class DataMySentenceRVAdapter(private var optionsMenuClickListener: OptionsMenuClickListener) : RecyclerView.Adapter<DataMySentenceRVAdapter.DataMySentenceViewHolder>() {
+    private var mySentenceList = mutableListOf<MySentenceList>()
+    interface OptionsMenuClickListener {
+        fun onOptionsMenuClicked(position: Int)
+    }
+    inner class DataMySentenceViewHolder(val binding: ItemMySentenceBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(dataMySentence: MySentenceList) {
             binding.itemMyKeyword.text = dataMySentence.word
             binding.itemMySentence.text = dataMySentence.sentence
@@ -23,7 +26,12 @@ class DataMySentenceRVAdapter() : RecyclerView.Adapter<DataMySentenceRVAdapter.D
     }
 
     override fun onBindViewHolder(holder: DataMySentenceViewHolder, position: Int) {
-        holder.bind(mySentenceList[position])
+        with(holder) {
+            bind(mySentenceList[position])
+            binding.itemDotsButton.setOnClickListener {
+                optionsMenuClickListener.onOptionsMenuClicked(position)
+            }
+        }
     }
 
     override fun getItemCount(): Int  = mySentenceList.size
