@@ -201,5 +201,6 @@ interface PureumService {
     suspend fun attendanceCheck(@Body userId: UserId) : AttendancesCheckResponse
 
     //문장 삭제 API
+    @PATCH("/mypages/sentence/{sentenceId}/delete")
     suspend fun deleteMySentence(@Path("sentenceId") sentenceId: Long) : DefaultResponse
 }
