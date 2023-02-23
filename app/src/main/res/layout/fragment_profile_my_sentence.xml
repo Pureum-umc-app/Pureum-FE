@@ -8,8 +8,11 @@
             name="isLoading"
             type="java.lang.Boolean" />
         <variable
-            name="getMySentenceRes"
-            type="kr.co.domain.model.GetMySentenceRes" />
+            name="privateNum"
+            type="Integer" />
+        <variable
+            name="openNum"
+            type="Integer" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -36,9 +39,10 @@
             android:layout_marginTop="60dp"
             android:layout_marginEnd="32dp"
             android:fontFamily="@font/nanum_square_neo"
-            android:text="@{@string/my_sentence_list(getMySentenceRes.count, getMySentenceRes.countOpen)}"
+            android:text="@{@string/my_sentence_list(privateNum, openNum)}"
             android:textColor="@color/text2"
             android:textSize="16sp"
+            android:visibility="@{isLoading ? View.GONE : View.VISIBLE}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

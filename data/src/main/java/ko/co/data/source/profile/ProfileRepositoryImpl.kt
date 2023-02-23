@@ -27,5 +27,6 @@ class ProfileRepositoryImpl @Inject constructor(
     override suspend fun getMySentenceList(): MySentencesListResponse =
         dataSource.getMySentenceList()
 
-
+    override suspend fun deleteMySentence(sentenceId: Long): DefaultResponse =
+        dataSource.deleteMySentence(sentenceId)
 }
