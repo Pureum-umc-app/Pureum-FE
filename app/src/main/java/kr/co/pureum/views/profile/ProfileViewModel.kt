@@ -8,7 +8,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import kr.co.domain.model.GetMySentenceRes
 import kr.co.domain.model.MySentenceList
 import kr.co.domain.model.ProfileInfo
 import kr.co.domain.repository.ProfileRepository
@@ -63,14 +62,20 @@ class ProfileViewModel @Inject constructor(
         }
     }
     fun getMySentencesList() {
-
         viewModelScope.launch {
             val res = repository.getMySentenceList().result
-            val count = GetMySentenceRes(count = res.count, countOpen = res.countOpen, mySentence = listOf())
-
-            _countLiveData.value = count.count
-            _countOpenLiveData.value = count.countOpen
+            _countLiveData.value = res.count
+            _countOpenLiveData.value = res.countOpen
             _mySentenceListLiveData.value = res.mySentence
         }
     }
+    /*
+    fun deleteMySentence(sentenceId: Long) {
+        viewModelScope.launch {
+            val res = repository.deleteMySentence(sentenceId)
+            _mySentenceListLiveData.value = res
+        }
+    }
+
+     */
 }
