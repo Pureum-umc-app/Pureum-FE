@@ -9,7 +9,7 @@ import kr.co.pureum.databinding.ItemMySentenceBinding
 class DataMySentenceRVAdapter(private var optionsMenuClickListener: OptionsMenuClickListener) : RecyclerView.Adapter<DataMySentenceRVAdapter.DataMySentenceViewHolder>() {
     private var mySentenceList = mutableListOf<MySentenceList>()
     interface OptionsMenuClickListener {
-        fun onOptionsMenuClicked(position: Int)
+        fun onOptionsMenuClicked(sentenceId: Long)
     }
     inner class DataMySentenceViewHolder(val binding: ItemMySentenceBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(dataMySentence: MySentenceList) {
@@ -17,9 +17,15 @@ class DataMySentenceRVAdapter(private var optionsMenuClickListener: OptionsMenuC
             binding.itemMySentence.text = dataMySentence.sentence
             binding.itemMyLikeNumber.text = dataMySentence.countLike.toString()
             binding.itemPrivatePublic.text = dataMySentence.status
+            binding.itemDotsButton.setOnClickListener {
+                optionsMenuClickListener.onOptionsMenuClicked(dataMySentence.sentenceId)
+            }
         }
 
         }
+    override fun getItemViewType(position: Int): Int {
+        return position
+    }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DataMySentenceViewHolder {
         val binding = ItemMySentenceBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return DataMySentenceViewHolder(binding)
@@ -28,9 +34,6 @@ class DataMySentenceRVAdapter(private var optionsMenuClickListener: OptionsMenuC
     override fun onBindViewHolder(holder: DataMySentenceViewHolder, position: Int) {
         with(holder) {
             bind(mySentenceList[position])
-            binding.itemDotsButton.setOnClickListener {
-                optionsMenuClickListener.onOptionsMenuClicked(position)
-            }
         }
     }
 

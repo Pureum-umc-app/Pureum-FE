@@ -6,13 +6,11 @@ import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import android.view.MenuItem
 import android.view.View
 import android.view.WindowManager
 import android.widget.Button
 import android.widget.PopupMenu
 import android.widget.Toast
-import androidx.core.view.get
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -58,29 +56,28 @@ class ProfileMySentenceFragment : BaseFragment<FragmentProfileMySentenceBinding>
         binding.profileMySentenceRv.layoutManager = managerMySentence
         binding.profileMySentenceRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         binding.profileMySentenceRv.adapter = DataMySentenceRVAdapter(object : DataMySentenceRVAdapter.OptionsMenuClickListener {
-            override fun onOptionsMenuClicked(position: Int) {
-                preformOptionsMenuClick(position)
+            override fun onOptionsMenuClicked(sentenceId: Long) {
+                Log.e(ContentValues.TAG, sentenceId.toString())
+                preformOptionsMenuClick(sentenceId)
             }
         })
     }
 
-    private fun preformOptionsMenuClick(position: Int) {
-        val popupMenu = PopupMenu(activity, binding.profileMySentenceRv[position].findViewById(R.id.item_dots_button))
+    private fun preformOptionsMenuClick(sentenceId: Long) {
+        val popupMenu = PopupMenu(activity, binding.profileSentenceCountTv)
         popupMenu.inflate(R.menu.menu_my_sentences)
-        popupMenu.setOnMenuItemClickListener(object : PopupMenu.OnMenuItemClickListener {
-            override fun onMenuItemClick(item: MenuItem?): Boolean {
-                when(item?.itemId) {
-                    R.id.menu_modify -> {
-                        Toast.makeText(activity, "item_modify_clicked", Toast.LENGTH_SHORT).show()
-                    }
-                    R.id.menu_delete -> {
-                        Toast.makeText(activity, "item_delete_clicked", Toast.LENGTH_SHORT).show()
-                        activity?.let { deleteDialog(it) }
-                    }
+        popupMenu.setOnMenuItemClickListener { item ->
+            when (item?.itemId) {
+                R.id.menu_modify -> {
+                    Toast.makeText(activity, "item_modify_clicked", Toast.LENGTH_SHORT).show()
                 }
-                return false
+                R.id.menu_delete -> {
+                    Toast.makeText(activity, "item_delete_clicked", Toast.LENGTH_SHORT).show()
+                    activity?.let { deleteDialog(it, sentenceId) }
+                }
             }
-        })
+            false
+        }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             popupMenu.setForceShowIcon(true)
         }
@@ -101,11 +98,12 @@ class ProfileMySentenceFragment : BaseFragment<FragmentProfileMySentenceBinding>
                     Log.e(ContentValues.TAG, it.toString())
                     countOpen = it
                 }
+                Log.e(ContentValues.TAG, profileMySentenceRv.adapter?.itemCount.toString())
                 isLoading = false
             }
         }
     }
-    private fun deleteDialog(context: Context) {
+    private fun deleteDialog(context: Context, sentenceId: Long) {
         val dialog = Dialog(context)
         dialog.setContentView(R.layout.dialog_sentence_delete)
         val noButton = dialog.findViewById<Button>(R.id.dialog_button_no_bt)
@@ -118,6 +116,8 @@ class ProfileMySentenceFragment : BaseFragment<FragmentProfileMySentenceBinding>
         }
         yesButton.setOnClickListener {
             Toast.makeText(activity, "삭제합니다!", Toast.LENGTH_SHORT).show()
+            viewModel.deleteMySentence(sentenceId)
+            dialog.dismiss()
         }
         dialog.show()
     }

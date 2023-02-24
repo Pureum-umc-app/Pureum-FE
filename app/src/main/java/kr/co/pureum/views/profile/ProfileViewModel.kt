@@ -8,8 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import kr.co.domain.model.MySentenceList
-import kr.co.domain.model.ProfileInfo
+import kr.co.domain.model.*
 import kr.co.domain.repository.ProfileRepository
 import kr.co.pureum.di.PureumApplication
 import javax.inject.Inject
@@ -25,6 +24,7 @@ class ProfileViewModel @Inject constructor(
     private val _countLiveData = MutableLiveData<Int>()
     private val _countOpenLiveData = MutableLiveData<Int>()
     private val _mySentenceListLiveData = MutableLiveData<List<MySentenceList>>()
+    private val _mySentenceResponseLiveData = MutableLiveData<DefaultResponse>()
 
     val profileInfoLiveData: LiveData<ProfileInfo> = _profileInfoLiveData
     val withdrawalResponseLiveData: LiveData<String> = _withdrawalResponseLiveData
@@ -33,6 +33,7 @@ class ProfileViewModel @Inject constructor(
     val countLiveData: LiveData<Int> = _countLiveData
     val countOpenLiveData: LiveData<Int> = _countOpenLiveData
     val mySentenceListLiveData: LiveData<List<MySentenceList>> = _mySentenceListLiveData
+    val mySentenceResponseLiveData: LiveData<DefaultResponse> = _mySentenceResponseLiveData
 
     fun getProfileInfo() {
         viewModelScope.launch {
@@ -69,13 +70,10 @@ class ProfileViewModel @Inject constructor(
             _mySentenceListLiveData.value = res.mySentence
         }
     }
-    /*
     fun deleteMySentence(sentenceId: Long) {
         viewModelScope.launch {
             val res = repository.deleteMySentence(sentenceId)
-            _mySentenceListLiveData.value = res
+            _mySentenceResponseLiveData.value = res
         }
     }
-
-     */
 }
