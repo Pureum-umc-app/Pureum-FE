@@ -49,8 +49,9 @@ class QuestVoidFragment : BaseFragment<FragmentQuestVoidBinding>(R.layout.fragme
         viewModel.sentenceListLiveData.observe(viewLifecycleOwner) {
             if (it != null) {
                 dataWrittenSentenceAdapter.setData(it)
+                initLayoutExamination()
             }
-            binding.isLoading
+            binding.isLoading = false
         }
         viewModel.keywordLiveData.observe(viewLifecycleOwner) {
             _keyword = it
@@ -121,5 +122,6 @@ class QuestVoidFragment : BaseFragment<FragmentQuestVoidBinding>(R.layout.fragme
                 binding.questVoidExistCl.isVisible = true
             }
         }
+        binding.isLoading = true
     }
 }

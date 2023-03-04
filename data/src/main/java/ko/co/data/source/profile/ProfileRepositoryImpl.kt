@@ -29,4 +29,7 @@ class ProfileRepositoryImpl @Inject constructor(
 
     override suspend fun deleteMySentence(sentenceId: Long): DefaultResponse =
         dataSource.deleteMySentence(sentenceId)
+
+    override suspend fun modifyMySentence(sentence: String, sentenceId: Long
+    ): DefaultResponse  = dataSource.modifyMySentence(sentence, sentenceId)
 }

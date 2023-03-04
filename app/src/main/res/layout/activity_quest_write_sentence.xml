@@ -55,25 +55,30 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:gravity="center_vertical"
+            android:layout_marginHorizontal="32dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/appbar_layout">
+            app:layout_constraintTop_toBottomOf="@+id/appbar_layout"
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/quest_keyword_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
                 android:text="@{keyword, default=구현}"
                 android:textSize="22sp"
                 android:textStyle="bold" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/quest_sentence_public_private_bt"
                 android:layout_width="106dp"
                 android:layout_height="30dp"
                 android:paddingVertical="0dp"
-                android:layout_marginStart="210dp"
                 android:background="@drawable/selector_private_public"
                 android:backgroundTint="@null"
                 android:text="@string/sentence_private"

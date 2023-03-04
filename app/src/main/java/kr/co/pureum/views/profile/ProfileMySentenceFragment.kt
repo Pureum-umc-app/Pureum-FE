@@ -3,13 +3,13 @@ package kr.co.pureum.views.profile
 import android.app.Dialog
 import android.content.ContentValues
 import android.content.Context
-import android.os.Build
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.widget.Button
-import android.widget.PopupMenu
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -23,6 +23,7 @@ import kr.co.pureum.databinding.FragmentProfileMySentenceBinding
 @AndroidEntryPoint
 class ProfileMySentenceFragment : BaseFragment<FragmentProfileMySentenceBinding>(R.layout.fragment_profile_my_sentence){
     private val viewModel by viewModels<ProfileViewModel>()
+    private lateinit var keyword: String
     private var count: Int = 0
     private var countOpen: Int = 0
 
@@ -49,39 +50,30 @@ class ProfileMySentenceFragment : BaseFragment<FragmentProfileMySentenceBinding>
     }
 
     private fun initRecyclerView() {
-        val managerMySentence = LinearLayoutManager(activity)
-        managerMySentence.reverseLayout = true
-        managerMySentence.stackFromEnd = true
-        managerMySentence.isSmoothScrollbarEnabled = true
-        binding.profileMySentenceRv.layoutManager = managerMySentence
-        binding.profileMySentenceRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        binding.profileMySentenceRv.adapter = DataMySentenceRVAdapter(object : DataMySentenceRVAdapter.OptionsMenuClickListener {
-            override fun onOptionsMenuClicked(sentenceId: Long) {
-                Log.e(ContentValues.TAG, sentenceId.toString())
-                preformOptionsMenuClick(sentenceId)
-            }
-        })
-    }
+        with(binding) {
+            val managerMySentence = LinearLayoutManager(activity)
+            managerMySentence.reverseLayout = true
+            managerMySentence.stackFromEnd = true
+            managerMySentence.isSmoothScrollbarEnabled = true
+            profileMySentenceRv.layoutManager = managerMySentence
+            profileMySentenceRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            profileMySentenceRv.adapter = activity?.let {
+                DataMySentenceRVAdapter(object : DataMySentenceRVAdapter.OptionsMenuClickListener {
+                    override fun onOptionsMenuClicked(sentenceId: Long, position: Int) {
+                        Log.e(ContentValues.TAG, sentenceId.toString())
+                    }
 
-    private fun preformOptionsMenuClick(sentenceId: Long) {
-        val popupMenu = PopupMenu(activity, binding.profileSentenceCountTv)
-        popupMenu.inflate(R.menu.menu_my_sentences)
-        popupMenu.setOnMenuItemClickListener { item ->
-            when (item?.itemId) {
-                R.id.menu_modify -> {
-                    Toast.makeText(activity, "item_modify_clicked", Toast.LENGTH_SHORT).show()
-                }
-                R.id.menu_delete -> {
-                    Toast.makeText(activity, "item_delete_clicked", Toast.LENGTH_SHORT).show()
-                    activity?.let { deleteDialog(it, sentenceId) }
-                }
+                    override fun modifyClicked(sentenceId: Long) {
+                        modifyDialog(activity!!,sentenceId)
+                    }
+
+                    override fun deleteClicked(sentenceId: Long) {
+                        deleteDialog(activity!!,sentenceId)
+                        isLoading = true
+                    }
+                }, it)
             }
-            false
         }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            popupMenu.setForceShowIcon(true)
-        }
-        popupMenu.show()
     }
     private fun observe() {
 
@@ -118,6 +110,30 @@ class ProfileMySentenceFragment : BaseFragment<FragmentProfileMySentenceBinding>
             Toast.makeText(activity, "삭제합니다!", Toast.LENGTH_SHORT).show()
             viewModel.deleteMySentence(sentenceId)
             dialog.dismiss()
+        }
+        dialog.show()
+    }
+
+    private fun modifyDialog(context: Context, sentenceId: Long) {
+        Log.e(ContentValues.TAG, sentenceId.toString())
+        val dialog = Dialog(context)
+        dialog.setContentView(R.layout.dialog_sentence_delete)
+        val noButton = dialog.findViewById<Button>(R.id.dialog_button_no_bt)
+        val yesButton = dialog.findViewById<Button>(R.id.dialog_button_yes_bt)
+        val modifyText = dialog.findViewById<TextView>(R.id.dialog_error_text)
+        modifyText.text = "문장을 수정하시겠습니까?"
+        dialog.window?.setBackgroundDrawableResource(R.drawable.bg_rectangle_10dp)
+        dialog.window!!.setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT)
+        dialog.setCancelable(false)
+        noButton.setOnClickListener {
+            dialog.dismiss()
+        }
+        yesButton.setOnClickListener {
+            Toast.makeText(activity, "삭제합니다!", Toast.LENGTH_SHORT).show()
+            val intent = Intent(activity, ProfileSentenceModifyActivity::class.java).apply {
+                putExtra("sentenceId", sentenceId)
+            }
+            startActivity(intent)
         }
         dialog.show()
     }
