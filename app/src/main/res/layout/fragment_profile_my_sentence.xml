@@ -20,17 +20,18 @@
         android:layout_height="match_parent">
 
         <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:id="@+id/circularProgressIndicator"
             android:layout_width="wrap_content"
             android:layout_height="106dp"
             android:layout_gravity="center"
-            app:trackColor="@color/progressbar_light_grey"
-            app:indicatorColor="@color/main1"
             android:indeterminate="true"
             android:visibility="@{isLoading ? View.VISIBLE : View.GONE}"
-            app:layout_constraintStart_toStartOf="parent"
+            app:indicatorColor="@color/main1"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:trackColor="@color/progressbar_light_grey" />
 
         <TextView
             android:id="@+id/profile_sentence_count_tv"
@@ -70,8 +71,9 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/profile_my_sentence_rv"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginTop="26dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView8" />
 

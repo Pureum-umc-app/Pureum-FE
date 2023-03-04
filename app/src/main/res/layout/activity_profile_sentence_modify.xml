@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".views.quest.QuestWriteSentenceActivity">
+    tools:context=".views.profile.ProfileSentenceModifyActivity">
 
     <data>
         <import type="android.view.View"/>
@@ -58,11 +58,10 @@
             android:layout_marginHorizontal="32dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/appbar_layout"
-            android:orientation="horizontal">
+            app:layout_constraintTop_toBottomOf="@+id/appbar_layout">
 
             <TextView
-                android:id="@+id/quest_keyword_tv"
+                android:id="@+id/profile_keyword_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{keyword, default=구현}"
@@ -75,7 +74,7 @@
                 android:layout_weight="1"/>
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/quest_sentence_public_private_bt"
+                android:id="@+id/profile_sentence_public_private_bt"
                 android:layout_width="106dp"
                 android:layout_height="30dp"
                 android:paddingVertical="0dp"
@@ -102,7 +101,7 @@
             app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
         <TextView
-            android:id="@+id/quest_keyword_definition_tv"
+            android:id="@+id/profile_keyword_definition_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
@@ -127,10 +126,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.492"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/quest_keyword_definition_tv" />
+            app:layout_constraintTop_toBottomOf="@+id/profile_keyword_definition_tv" />
 
         <EditText
-            android:id="@+id/quest_sentence_writing_et"
+            android:id="@+id/profile_sentence_writing_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
@@ -147,7 +146,7 @@
             app:layout_constraintTop_toBottomOf="@+id/view" />
 
         <Button
-            android:id="@+id/quest_sentence_completion_bt"
+            android:id="@+id/profile_sentence_completion_bt"
             android:layout_width="130dp"
             android:layout_height="36dp"
             android:layout_marginTop="132dp"

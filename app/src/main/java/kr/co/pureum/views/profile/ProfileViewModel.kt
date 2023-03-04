@@ -25,6 +25,7 @@ class ProfileViewModel @Inject constructor(
     private val _countOpenLiveData = MutableLiveData<Int>()
     private val _mySentenceListLiveData = MutableLiveData<List<MySentenceList>>()
     private val _mySentenceResponseLiveData = MutableLiveData<DefaultResponse>()
+    private val _modifySentenceLiveData = MutableLiveData<DefaultResponse>()
 
     val profileInfoLiveData: LiveData<ProfileInfo> = _profileInfoLiveData
     val withdrawalResponseLiveData: LiveData<String> = _withdrawalResponseLiveData
@@ -34,6 +35,7 @@ class ProfileViewModel @Inject constructor(
     val countOpenLiveData: LiveData<Int> = _countOpenLiveData
     val mySentenceListLiveData: LiveData<List<MySentenceList>> = _mySentenceListLiveData
     val mySentenceResponseLiveData: LiveData<DefaultResponse> = _mySentenceResponseLiveData
+    val modifySentenceLiveData: LiveData<DefaultResponse> = _modifySentenceLiveData
 
     fun getProfileInfo() {
         viewModelScope.launch {
@@ -74,6 +76,12 @@ class ProfileViewModel @Inject constructor(
         viewModelScope.launch {
             val res = repository.deleteMySentence(sentenceId)
             _mySentenceResponseLiveData.value = res
+        }
+    }
+    fun modifyMySentence(sentence: String, sentenceId: Long) {
+        viewModelScope.launch {
+            val res = repository.modifyMySentence(sentence, sentenceId)
+            _modifySentenceLiveData.value = res
         }
     }
 }

@@ -203,4 +203,10 @@ interface PureumService {
     //문장 삭제 API
     @PATCH("/mypages/sentence/{sentenceId}/delete")
     suspend fun deleteMySentence(@Path("sentenceId") sentenceId: Long) : DefaultResponse
+    //문장 수정 API
+    @PATCH("/mypages/sentence/{sentenceId}/edit")
+    suspend fun modifyMySentence(
+        @Body postUpdateSentenceReq: PostUpdateSentenceReq,
+        @Path("sentenceId") sentenceId: Long
+    ) : DefaultResponse
 }
