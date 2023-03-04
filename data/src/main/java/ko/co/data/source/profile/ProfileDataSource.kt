@@ -154,4 +154,18 @@ class ProfileDataSource @Inject constructor(
         }
         return response
     }
+
+    suspend fun modifyMySentence(sentence: String, sentenceId: Long) : DefaultResponse {
+        var response = DefaultResponse(code = 0, isSuccess = false, message = "문장 수정 실패", result = "문장 길이가 짧습니다.")
+        withContext(Dispatchers.IO) {
+            runCatching {
+                pureumService.modifyMySentence(PostUpdateSentenceReq(sentence), sentenceId)
+            }.onSuccess {
+                response = it
+            }.onFailure {
+                Log.e(TAG, "modify my sentence failed")
+            }
+        }
+        return response
+    }
 }
