@@ -2,9 +2,7 @@ package kr.co.domain.repository
 
 import android.content.Context
 import android.net.Uri
-import kr.co.domain.model.DefaultResponse
-import kr.co.domain.model.MySentencesListResponse
-import kr.co.domain.model.ProfileInfoResponse
+import kr.co.domain.model.*
 
 interface ProfileRepository {
     suspend fun getProfileInfo(userId: Long) : ProfileInfoResponse
@@ -14,4 +12,5 @@ interface ProfileRepository {
     suspend fun getMySentenceList(): MySentencesListResponse
     suspend fun deleteMySentence(sentenceId: Long): DefaultResponse
     suspend fun modifyMySentence(sentence: String, sentenceId: Long) : DefaultResponse
+    suspend fun mySentenceInfo(sentenceId: Long) : MySentenceInfoResponse
 }

@@ -3,6 +3,7 @@ package ko.co.data.source.profile
 import android.content.Context
 import android.net.Uri
 import kr.co.domain.model.DefaultResponse
+import kr.co.domain.model.MySentenceInfoResponse
 import kr.co.domain.model.MySentencesListResponse
 import kr.co.domain.model.ProfileInfoResponse
 import kr.co.domain.repository.ProfileRepository
@@ -30,6 +31,9 @@ class ProfileRepositoryImpl @Inject constructor(
     override suspend fun deleteMySentence(sentenceId: Long): DefaultResponse =
         dataSource.deleteMySentence(sentenceId)
 
-    override suspend fun modifyMySentence(sentence: String, sentenceId: Long
-    ): DefaultResponse  = dataSource.modifyMySentence(sentence, sentenceId)
+    override suspend fun modifyMySentence(sentence: String, sentenceId: Long): DefaultResponse  =
+        dataSource.modifyMySentence(sentence, sentenceId)
+
+    override suspend fun mySentenceInfo(sentenceId: Long): MySentenceInfoResponse =
+        dataSource.mySentenceInfo(sentenceId)
 }

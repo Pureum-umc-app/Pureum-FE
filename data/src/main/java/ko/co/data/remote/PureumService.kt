@@ -209,4 +209,7 @@ interface PureumService {
         @Body postUpdateSentenceReq: PostUpdateSentenceReq,
         @Path("sentenceId") sentenceId: Long
     ) : DefaultResponse
+    //나의 문장 단어 정보 반환 API
+    @GET("/mypages/sentence/{sentenceId}/word")
+    suspend fun mySentenceInfo(@Path("sentenceId") sentenceId: Long) : MySentenceInfoResponse
 }
