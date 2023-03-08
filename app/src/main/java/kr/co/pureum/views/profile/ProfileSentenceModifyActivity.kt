@@ -27,11 +27,16 @@ class ProfileSentenceModifyActivity : BaseActivity<ActivityProfileSentenceModify
         Log.e(ContentValues.TAG, sentenceId.toString())
         initToolbar()
         initClickListener()
+        with(binding) {
+            isLoading = true
+        }
+        viewModel.getSentenceInfo(sentenceId)
+        observe()
     }
 
     private fun initClickListener() {
         binding.profileSentenceCompletionBt.setOnClickListener {
-            val keyword = binding.profileKeywordTv.text.toString()
+            val keyword = binding.keyword
             val sentence = binding.profileSentenceWritingEt.text
 
             if (sentence.isEmpty() || sentence.length < 10 || !sentence.contains(keyword)) {
@@ -46,7 +51,15 @@ class ProfileSentenceModifyActivity : BaseActivity<ActivityProfileSentenceModify
     }
 
     private fun observe() {
-
+        with(binding) {
+            viewModel.sentenceInfoKeywordData.observe(this@ProfileSentenceModifyActivity) {
+                keyword = it
+            }
+            viewModel.sentenceInfoMeaningData.observe(this@ProfileSentenceModifyActivity) {
+                definition = it
+            }
+            isLoading = false
+        }
     }
 
     private fun initToolbar() {
