@@ -26,6 +26,8 @@ class ProfileViewModel @Inject constructor(
     private val _mySentenceListLiveData = MutableLiveData<List<MySentenceList>>()
     private val _mySentenceResponseLiveData = MutableLiveData<DefaultResponse>()
     private val _modifySentenceLiveData = MutableLiveData<DefaultResponse>()
+    private val _sentenceInfoMeaningData = MutableLiveData<String>()
+    private val _sentenceInfoKeywordData = MutableLiveData<String>()
 
     val profileInfoLiveData: LiveData<ProfileInfo> = _profileInfoLiveData
     val withdrawalResponseLiveData: LiveData<String> = _withdrawalResponseLiveData
@@ -36,6 +38,8 @@ class ProfileViewModel @Inject constructor(
     val mySentenceListLiveData: LiveData<List<MySentenceList>> = _mySentenceListLiveData
     val mySentenceResponseLiveData: LiveData<DefaultResponse> = _mySentenceResponseLiveData
     val modifySentenceLiveData: LiveData<DefaultResponse> = _modifySentenceLiveData
+    val sentenceInfoMeaningData : LiveData<String> = _sentenceInfoMeaningData
+    val sentenceInfoKeywordData : LiveData<String> = _sentenceInfoKeywordData
 
     fun getProfileInfo() {
         viewModelScope.launch {
@@ -82,6 +86,14 @@ class ProfileViewModel @Inject constructor(
         viewModelScope.launch {
             val res = repository.modifyMySentence(sentence, sentenceId)
             _modifySentenceLiveData.value = res
+        }
+    }
+
+    fun getSentenceInfo(sentenceId: Long) {
+        viewModelScope.launch {
+            val res = repository.mySentenceInfo(sentenceId).result
+            _sentenceInfoKeywordData.value = res.word
+            _sentenceInfoMeaningData.value = res.meaning
         }
     }
 }

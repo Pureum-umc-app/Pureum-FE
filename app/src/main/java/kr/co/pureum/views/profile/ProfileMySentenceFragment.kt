@@ -23,7 +23,6 @@ import kr.co.pureum.databinding.FragmentProfileMySentenceBinding
 @AndroidEntryPoint
 class ProfileMySentenceFragment : BaseFragment<FragmentProfileMySentenceBinding>(R.layout.fragment_profile_my_sentence){
     private val viewModel by viewModels<ProfileViewModel>()
-    private lateinit var keyword: String
     private var count: Int = 0
     private var countOpen: Int = 0
 
@@ -69,7 +68,6 @@ class ProfileMySentenceFragment : BaseFragment<FragmentProfileMySentenceBinding>
 
                     override fun deleteClicked(sentenceId: Long) {
                         deleteDialog(activity!!,sentenceId)
-                        isLoading = true
                     }
                 }, it)
             }
@@ -110,6 +108,7 @@ class ProfileMySentenceFragment : BaseFragment<FragmentProfileMySentenceBinding>
             Toast.makeText(activity, "삭제합니다!", Toast.LENGTH_SHORT).show()
             viewModel.deleteMySentence(sentenceId)
             dialog.dismiss()
+
         }
         dialog.show()
     }

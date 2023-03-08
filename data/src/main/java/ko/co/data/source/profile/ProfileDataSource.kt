@@ -168,4 +168,21 @@ class ProfileDataSource @Inject constructor(
         }
         return response
     }
+
+    suspend fun mySentenceInfo(sentenceId: Long) : MySentenceInfoResponse {
+        var response = MySentenceInfoResponse(code = 0, isSuccess = false, message = "정보 불러오기 실패", result = MySentenceInfoDto(
+            meaning = "바보입니까", word = "바보"
+        )
+        )
+        withContext(Dispatchers.IO) {
+            runCatching {
+                pureumService.mySentenceInfo(sentenceId)
+            }.onSuccess {
+                response = it
+            }.onFailure {
+                Log.e(TAG, "my sentence info failed")
+            }
+        }
+        return response
+    }
 }
