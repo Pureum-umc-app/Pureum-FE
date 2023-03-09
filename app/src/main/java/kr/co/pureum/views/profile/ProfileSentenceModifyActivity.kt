@@ -36,15 +36,15 @@ class ProfileSentenceModifyActivity : BaseActivity<ActivityProfileSentenceModify
 
     private fun initClickListener() {
         binding.profileSentenceCompletionBt.setOnClickListener {
-            val keyword = binding.profileKeywordTv.text
+            val keyword = binding.profileKeywordTv.text.toString()
             val sentence = binding.profileSentenceWritingEt.text
 
             if (sentence.isEmpty() || sentence.length < 10 || !sentence.contains(keyword)) {
-                errorDidaLog(this, sentence, keyword as String)
+                errorDidaLog(this, sentence, keyword)
             }
             else if (sentence.length >= 10 && sentence.contains(keyword)) {
                 viewModel.modifyMySentence(sentence.toString(), sentenceId)
-                completionDialog(this, keyword as String)
+                completionDialog(this, keyword)
             }
         }
         privatePublicButton()

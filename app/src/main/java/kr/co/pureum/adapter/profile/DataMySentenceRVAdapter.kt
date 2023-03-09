@@ -37,10 +37,12 @@ class DataMySentenceRVAdapter(private var optionsMenuClickListener: OptionsMenuC
                         R.id.menu_modify -> {
                             Toast.makeText(context, "item_modify_clicked", Toast.LENGTH_SHORT).show()
                             optionsMenuClickListener.modifyClicked(dataMySentence.sentenceId)
+                            popupMenu.dismiss()
                         }
                         R.id.menu_delete -> {
                             Toast.makeText(context, "item_delete_clicked", Toast.LENGTH_SHORT).show()
                             optionsMenuClickListener.deleteClicked(dataMySentence.sentenceId)
+                            popupMenu.dismiss()
                         }
                     }
                     false
