@@ -108,7 +108,6 @@ class ProfileMySentenceFragment : BaseFragment<FragmentProfileMySentenceBinding>
             Toast.makeText(activity, "삭제합니다!", Toast.LENGTH_SHORT).show()
             viewModel.deleteMySentence(sentenceId)
             dialog.dismiss()
-
         }
         dialog.show()
     }
@@ -132,6 +131,7 @@ class ProfileMySentenceFragment : BaseFragment<FragmentProfileMySentenceBinding>
             val intent = Intent(activity, ProfileSentenceModifyActivity::class.java).apply {
                 putExtra("sentenceId", sentenceId)
             }
+            dialog.dismiss()
             startActivity(intent)
         }
         dialog.show()
