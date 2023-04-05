@@ -20,6 +20,7 @@ import java.util.*
 
 @AndroidEntryPoint
 class QuestAttendanceFragment : BaseFragment<FragmentQuestAttendanceBinding>(R.layout.fragment_quest_attendance) {
+    private val questViewModel by viewModels<QuestBadgeViewModel>()
     private val viewModel by viewModels<AttendanceViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -67,6 +68,9 @@ class QuestAttendanceFragment : BaseFragment<FragmentQuestAttendanceBinding>(R.l
         viewModel.stampsLiveData.observe(viewLifecycleOwner) {
             with(binding) {
                 accumulatedCnt = it.accumulatedCnt
+                if (accumulatedCnt == 30) {
+
+                }
                 val stampSheetList = MutableList(it.accumulatedCnt / 12) { 12 }
                 stampSheetList.add(it.currentCnt)
                 with(questAttendanceViewPager) {

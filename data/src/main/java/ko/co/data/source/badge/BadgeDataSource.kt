@@ -1,19 +1,44 @@
 package ko.co.data.source.badge
 
+import android.content.ContentValues
+import android.util.Log
 import ko.co.data.remote.PureumService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import kr.co.domain.model.BadgeInfo
+import kr.co.domain.model.BadgeResponse
+import kr.co.domain.model.DefaultResponse
+import kr.co.domain.model.SaveBadgeRequest
 import javax.inject.Inject
 
 class BadgeDataSource @Inject constructor(
     private val pureumService: PureumService
 ) {
-    suspend fun getBadgeInfo() : List<Int> {
-        // TODO: 임시
-        val badgeList = listOf(1, -1, -1, 0, 0, 0, 0, -1, -1, 0)
+    suspend fun saveBadge(saveBadgeReq: SaveBadgeRequest, userId: Long): DefaultResponse {
+        var response = DefaultResponse(0, false, "saveBadge Failed", "saveBadge Failed")
         withContext(Dispatchers.IO) {
-            Thread.sleep(1000)
+            runCatching {
+                pureumService.saveBadge(saveBadgeReq, userId)
+            }.onSuccess {
+                response = it
+            }.onFailure {
+                Log.e(ContentValues.TAG, "saveBadge Failed: $it")
+            }
         }
-        return badgeList
+        return response
+    }
+    suspend fun getBadges(userId: Long): BadgeInfo {
+        var response = BadgeResponse(0, false, "getBadges Failed",
+            BadgeInfo(emptyList(), 0))
+        withContext(Dispatchers.IO) {
+            runCatching {
+                pureumService.getBadges(userId)
+            }.onSuccess {
+                response = it
+            }.onFailure {
+                Log.e(ContentValues.TAG, "getBadges Failed: $it")
+            }
+        }
+        return response.result
     }
 }

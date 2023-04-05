@@ -133,6 +133,13 @@ interface PureumService {
     @GET("/mypages/sentence")
     suspend fun getMySentenceList() : MySentencesListResponse
 
+    // 배지 저장 API
+    @POST("/badges/{userId}")
+    suspend fun saveBadge(@Body saveBadgeReq: SaveBadgeRequest, @Path("userId") userId: Long): DefaultResponse
+    // 배지 화면 정보 반환 API
+    @GET("/badges/return/{userId}")
+    suspend fun getBadges(@Path("userId") userId: Long): BadgeResponse
+
     // 진행 중인 대결 리스트 반환 API
     @GET("/battles/list")
     suspend fun getAllBattleProgressInfo(
