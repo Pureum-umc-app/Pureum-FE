@@ -45,18 +45,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         if (intent.hasExtra("first")) achieveBadge()
     }
 
-    private val badgeViewModel by viewModels<QuestBadgeViewModel>()
-    private fun achieveBadge() {
-        badgeViewModel.saveBadge(8)
-        observe()
-    }
-
-    private fun observe() {
-        badgeViewModel.badgeResultLiveData.observe(this) {
-            badgeViewModel.showBadgeAchieveDialog(this, this,8)
-        }
-    }
-
     private fun getUsageStats() {
         if (!checkUsageStatsPermission()) {
             Log.e(TAG, "The user may not allow the access to apps usage.")
@@ -280,5 +268,17 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         calendar.timeInMillis = timeInMillis
         val otherDay = calendar.get(Calendar.DAY_OF_YEAR)
         return today == otherDay
+    }
+
+    private val badgeViewModel by viewModels<QuestBadgeViewModel>()
+    private fun achieveBadge() {
+        badgeViewModel.saveBadge(8)
+        observe()
+    }
+
+    private fun observe() {
+        badgeViewModel.badgeResultLiveData.observe(this) {
+            badgeViewModel.showBadgeAchieveDialog(this, this,8)
+        }
     }
 }

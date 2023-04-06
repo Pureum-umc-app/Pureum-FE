@@ -2,8 +2,10 @@ package kr.co.pureum.views.quest
 
 import android.app.Activity
 import android.app.Dialog
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
