@@ -102,6 +102,7 @@ class SignUpGradeActivity : BaseActivity<ActivitySignUpGradeBinding>(R.layout.ac
                     PureumApplication.spfManager.setUserId(it.userId)
                     startActivity(Intent(this, MainActivity::class.java).apply {
                         putExtra("screen", 1)
+                        putExtra("first", true)
                     })
                     finish()
                 }

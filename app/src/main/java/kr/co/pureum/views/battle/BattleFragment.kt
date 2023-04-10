@@ -94,7 +94,7 @@ class BattleFragment : BaseFragment<FragmentBattleBinding>(R.layout.fragment_bat
                     })
                 }
                 layoutManager = LinearLayoutManager(requireContext())
-                //isNestedScrollingEnabled = false
+                isNestedScrollingEnabled = false
             }
         }
     }

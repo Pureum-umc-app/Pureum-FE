@@ -4,6 +4,7 @@ import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.activity.viewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -67,6 +68,7 @@ class QuestAttendanceFragment : BaseFragment<FragmentQuestAttendanceBinding>(R.l
         viewModel.stampsLiveData.observe(viewLifecycleOwner) {
             with(binding) {
                 accumulatedCnt = it.accumulatedCnt
+                if (accumulatedCnt == 30) achieveBadge()
                 val stampSheetList = MutableList(it.accumulatedCnt / 12) { 12 }
                 stampSheetList.add(it.currentCnt)
                 with(questAttendanceViewPager) {
@@ -83,6 +85,14 @@ class QuestAttendanceFragment : BaseFragment<FragmentQuestAttendanceBinding>(R.l
             }
             PureumApplication.spfManager.setAttendance(System.currentTimeMillis())
         }
+        badgeViewModel.badgeResultLiveData.observe(viewLifecycleOwner) {
+            badgeViewModel.showBadgeAchieveDialog(requireContext(), requireActivity(),1)
+        }
+    }
+
+    private val badgeViewModel by viewModels<QuestBadgeViewModel>()
+    private fun achieveBadge() {
+        badgeViewModel.saveBadge(1)
     }
 
     private fun isToday(timeInMillis: Long): Boolean {

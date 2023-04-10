@@ -13,6 +13,7 @@ import android.os.Build
 import android.os.SystemClock
 import android.provider.Settings
 import android.util.Log
+import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
@@ -23,6 +24,8 @@ import kr.co.pureum.base.BaseActivity
 import kr.co.pureum.databinding.ActivityMainBinding
 import kr.co.pureum.di.PureumApplication
 import kr.co.pureum.utils.PureumBroadcastReceiver
+import kr.co.pureum.views.quest.QuestBadgeFragment
+import kr.co.pureum.views.quest.QuestBadgeViewModel
 import java.time.LocalDate
 import java.time.ZoneId
 import java.util.*
@@ -39,6 +42,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         getUsageStats()
         initBottomNavigation()
         if (!isToday(PureumApplication.spfManager.getAlarmTime())) startAlarm()
+        if (intent.hasExtra("first")) achieveBadge()
     }
 
     private fun getUsageStats() {
@@ -264,5 +268,17 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         calendar.timeInMillis = timeInMillis
         val otherDay = calendar.get(Calendar.DAY_OF_YEAR)
         return today == otherDay
+    }
+
+    private val badgeViewModel by viewModels<QuestBadgeViewModel>()
+    private fun achieveBadge() {
+        badgeViewModel.saveBadge(8)
+        observe()
+    }
+
+    private fun observe() {
+        badgeViewModel.badgeResultLiveData.observe(this) {
+            badgeViewModel.showBadgeAchieveDialog(this, this,8)
+        }
     }
 }
