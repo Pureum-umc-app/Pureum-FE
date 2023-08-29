@@ -2,6 +2,7 @@ package kr.co.domain.model
 
 data class MyBattleProgMoreDto (
     var battleId: Long,
+    var blamed: Boolean,
     var duration: Int,
     var keyword: String,
     var keywordId: Int,

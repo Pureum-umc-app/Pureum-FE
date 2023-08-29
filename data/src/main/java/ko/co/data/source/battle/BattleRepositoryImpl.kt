@@ -11,6 +11,7 @@ import kr.co.domain.model.BattleLikeReq
 import kr.co.domain.model.BattleRequestResponse
 import kr.co.domain.model.BattleSentenceRequest
 import kr.co.domain.model.BattleSentenceResponse
+import kr.co.domain.model.BlameBattleSentenceResponse
 import kr.co.domain.model.KeywordsResponse
 import kr.co.domain.model.MyBattleCompMore
 import kr.co.domain.model.MyBattleCompletion
@@ -79,4 +80,7 @@ class BattleRepositoryImpl @Inject constructor(
 
     override suspend fun postBattleLike(sentenceId: Long, userId: Long): BattleLike =
         dataSource.postBattleLike(sentenceId, userId)
+
+    override suspend fun blameBattleSentence(battleSentenceId: Long): BlameBattleSentenceResponse =
+        dataSource.blameBattleSentence(battleSentenceId)
 }

@@ -13,4 +13,5 @@ interface ProfileRepository {
     suspend fun deleteMySentence(sentenceId: Long): DefaultResponse
     suspend fun modifyMySentence(sentence: String, sentenceId: Long) : DefaultResponse
     suspend fun mySentenceInfo(sentenceId: Long) : MySentenceInfoResponse
+    suspend fun postContact(contactRequest: ContactRequest) : ContactResponse
 }

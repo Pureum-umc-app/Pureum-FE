@@ -19,8 +19,8 @@ class QuestSentenceRepositoryImpl @Inject constructor(
         return dataSource.sentencesComplete(userId)
     }
 
-    override suspend fun sentencesList(limit: Int, page: Int, sort: String, userId: Long, word_id: Long): SentencesListResponse {
-        return dataSource.sentencesList(limit, page, sort, userId, word_id)
+    override suspend fun sentencesList(userId: Long, word_id: Long, page: Int, limit: Int, sort: String): SentencesListResponse {
+        return dataSource.sentencesList(userId, word_id, page, limit, sort)
     }
 
     override suspend fun writeSentences(keywordId: Long, sentence: String, status: String, userId: Long): WriteSentencesResponse {
@@ -29,4 +29,8 @@ class QuestSentenceRepositoryImpl @Inject constructor(
 
     override suspend fun getProfileInfo(userId: Long): ProfileInfoResponse =
         dataSource.getProfileInfo(userId)
+
+    override suspend fun blameSentence(sentenceId: Long): BlameSentenceResponse =
+        dataSource.blameSentence(sentenceId)
+
 }

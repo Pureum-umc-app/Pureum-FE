@@ -185,4 +185,18 @@ class ProfileDataSource @Inject constructor(
         }
         return response
     }
+
+    suspend fun postContact(contactRequest: ContactRequest): ContactResponse {
+        var response = ContactResponse(code = 0, isSuccess = false, message = "", result = "")
+        withContext(Dispatchers.IO) {
+            kotlin.runCatching {
+                pureumService.postContact(contactRequest)
+            }.onSuccess {
+                response = it
+            }.onFailure {
+                Log.e(TAG, "post contact failed")
+            }
+        }
+        return response
+    }
 }

@@ -83,6 +83,9 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_p
                 })
             }
 
+            profileInquiryButton.setOnClickListener {
+                startActivity(Intent(requireActivity(), InquiryActivity::class.java))
+            }
             // TODO: 추가 항목 리스너 구현 필요
         }
     }

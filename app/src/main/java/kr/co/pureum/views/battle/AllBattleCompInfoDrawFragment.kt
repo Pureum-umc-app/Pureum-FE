@@ -1,5 +1,6 @@
 package kr.co.pureum.views.battle
 
+import android.content.ContentValues
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -16,7 +17,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import kr.co.pureum.R
 import kr.co.pureum.base.BaseFragment
 import kr.co.pureum.databinding.FragmentAllBattleCompInfoDrawBinding
-import kr.co.pureum.databinding.FragmentMyBattleCompInfoDrawBinding
 
 @AndroidEntryPoint
 class AllBattleCompInfoDrawFragment : BaseFragment<FragmentAllBattleCompInfoDrawBinding>(R.layout.fragment_all_battle_comp_info_draw) {
@@ -50,6 +50,8 @@ class AllBattleCompInfoDrawFragment : BaseFragment<FragmentAllBattleCompInfoDraw
     private fun observe() {
         viewModel.allBattleCompListLiveData.observe(viewLifecycleOwner) {
             binding.allBattleCompMoreDto = it
+            Log.e(ContentValues.TAG, "$it")
+            Log.e(ContentValues.TAG, "winner cnt : ${it.winnerLikeCnt}\nloser cnt : ${it.loserLikeCnt}")
 
             Glide.with(binding.battleFirstProfile.context)
                 .load(it.winnerImage)

@@ -19,7 +19,7 @@ tools:context=".views.battle.AllBattleCompInfoDrawFragment">
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:scrollbars="none"
-    android:layout_marginBottom="80dp"
+    android:layout_marginBottom="60dp"
     android:overScrollMode="never">
 
 
@@ -127,9 +127,10 @@ tools:context=".views.battle.AllBattleCompInfoDrawFragment">
                     />
 
                 <TextView
+                    android:id="@+id/draw_my_battle_sentence_like_cnt_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{allBattleCompMoreDto.winnerLikeCnt, default=`5`}"
+                    android:text="@{String.valueOf(allBattleCompMoreDto.winnerLikeCnt)}"
                     android:fontFamily="@font/nanum_square_neo_bold"
                     android:layout_marginEnd="10dp"
                     android:textSize="14sp"/>
@@ -201,9 +202,10 @@ tools:context=".views.battle.AllBattleCompInfoDrawFragment">
                     />
 
                 <TextView
+                    android:id="@+id/draw_my_battle_op_sentence_like_cnt_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{allBattleCompMoreDto.loserLikeCnt, default=`5`}"
+                    android:text="@{String.valueOf(allBattleCompMoreDto.loserLikeCnt), default = 5}"
                     android:fontFamily="@font/nanum_square_neo_bold"
                     android:layout_marginEnd="10dp"
                     android:textSize="14sp"/>

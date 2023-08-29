@@ -29,6 +29,9 @@
         android:theme="@style/Theme.Pureum"
         tools:targetApi="31">
         <activity
+            android:name=".views.profile.InquiryActivity"
+            android:exported="false" />
+        <activity
             android:name=".views.profile.ProfileSentenceModifyActivity"
             android:exported="false" />
 

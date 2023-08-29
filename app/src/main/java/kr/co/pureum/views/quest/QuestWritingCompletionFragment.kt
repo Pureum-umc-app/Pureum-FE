@@ -24,6 +24,7 @@ class QuestWritingCompletionFragment : BaseFragment<FragmentQuestWritingCompleti
         super.onViewCreated(view, savedInstanceState)
         initView()
         observe()
+        initListener()
     }
 
     private fun initView() {
@@ -81,13 +82,13 @@ class QuestWritingCompletionFragment : BaseFragment<FragmentQuestWritingCompleti
                 Log.e(ContentValues.TAG, _size.toString())
                 binding.isLoading = false
             }
-            //initListener()
+            initListener()
         }
-//        viewModel.completeKeywordLiveData.observe(viewLifecycleOwner) {
-//            todayKeyword = it
-//            index = _keywords.indexOf(it)
-//            wordId = _wordId[index]
-//            binding.isLoading = false
-//        }
+        viewModel.completeKeywordLiveData.observe(viewLifecycleOwner) {
+            todayKeyword = it
+            index = _keywords.indexOf(it)
+            wordId = _wordId[index]
+            binding.isLoading = false
+        }
     }
 }
