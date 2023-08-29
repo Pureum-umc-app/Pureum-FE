@@ -58,7 +58,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="14dp"
                 android:layout_marginTop="10dp"
-                android:text="@{writtenSentence.time, default=방금}"
+                android:text="@{writtenSentence.date, default=방금}"
                 android:fontFamily="@font/nanum_square_neo_regular"
                 android:textColor="@color/text2"
                 android:textSize="12sp"
@@ -84,7 +84,7 @@
                 android:layout_marginStart="4dp"
                 android:layout_marginTop="26dp"
                 android:textColor="@color/text1"
-                android:text="@{Integer.toString(writtenSentence.likeNum), default=0}"
+                android:text="@{Integer.toString(writtenSentence.likeCnt), default=0}"
                 android:textSize="12sp"
                 app:layout_constraintStart_toEndOf="@+id/item_like_icon_ib"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -105,6 +105,18 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/item_profile_image_ib" />
 
+            <TextView
+                android:id="@+id/item_written_sentence_blame_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="28dp"
+                android:layout_marginBottom="15dp"
+                android:text="@{writtenSentence.isBlamed.equals(writtenSentence.BLAME_TRUE) ? @string/cancel_blame_sentence : @string/blame_sentence, default=@string/blame_sentence}"
+                android:fontFamily="@font/nanum_square_neo_regular"
+                android:textColor="@color/text1"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

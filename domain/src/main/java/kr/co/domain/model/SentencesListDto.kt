@@ -1,14 +1,20 @@
 package kr.co.domain.model
 
 data class SentencesListDto(
-    var image: String,
+    var date: String,
+    var isBlamed: String,
+    var isLiked: String,
     var keyword: String,
     var keywordId: Long,
-    var likeNum: Int,
+    var likeCnt: Int,
     var nickname: String,
-    var selfLike: Boolean,
+    var profileImg: String,
     var sentence: String,
     var sentenceId: Long,
-    var time: String,
     var userId: Long
-)
+) {
+    companion object {
+        const val BLAME_TRUE: String = "T"
+        const val BLAME_FALSE: String = "F"
+    }
+}

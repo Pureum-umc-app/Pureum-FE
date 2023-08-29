@@ -1,11 +1,14 @@
 package kr.co.pureum.views.quest
 
+import android.content.ContentValues
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import kr.co.domain.model.BlameSentenceResponse
 import kr.co.domain.model.Keyword
 import kr.co.domain.model.ProfileInfo
 import kr.co.domain.model.SentencesListDto
@@ -74,6 +77,10 @@ class QuestViewModel @Inject constructor(
     val sentenceListLiveData: LiveData<List<SentencesListDto>?>
         get() = _sentenceListLiveData
 
+    private var _blameSentenceLiveData = MutableLiveData<BlameSentenceResponse>()
+    val blameSentenceLiveData : LiveData<BlameSentenceResponse>
+        get()=_blameSentenceLiveData
+
     fun getTodayKeyword() {
         viewModelScope.launch {
             val res = repository.todayKeyword(PureumApplication.spfManager.getUserId()).result
@@ -116,14 +123,14 @@ class QuestViewModel @Inject constructor(
         _completeKeywordLiveData.value = keyword
     }
 
-    fun sentencesList(limit: Int, page: Int, sort: String, word_id: Long) {
+    fun sentencesList(word_id: Long, page: Int, limit: Int, sort: String) {
         viewModelScope.launch {
             val res = repository.sentencesList(
-                limit,
-                page,
-                sort,
                 PureumApplication.spfManager.getUserId(),
-                word_id
+                word_id,
+                page,
+                limit,
+                sort
             ).result
             _sentenceListLiveData.value = res
         }
@@ -152,6 +159,13 @@ class QuestViewModel @Inject constructor(
         viewModelScope.launch {
             val res = repository.getProfileInfo(PureumApplication.spfManager.getUserId())
             _profileInfoLiveData.value = res.result
+        }
+    }
+
+    fun blameSentence(sentenceId : Long) {
+        viewModelScope.launch {
+            val res = repository.blameSentence(sentenceId)
+            _blameSentenceLiveData.value = res
         }
     }
 }

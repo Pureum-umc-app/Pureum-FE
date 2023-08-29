@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".views.profile.InquiryActivity">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="8dp"
+            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+            app:elevation="0dp"
+            app:layout_constraintTop_toTopOf="parent">
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/main_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/bg">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/nanum_square_neo_bold"
+                    android:text="@string/inquiry"
+                    android:textSize="16sp" />
+            </androidx.appcompat.widget.Toolbar>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <TextView
+            android:id="@+id/inquiry_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="24dp"
+            android:fontFamily="@font/nanum_square_neo_bold"
+            android:text="@string/inquiry_desc"
+            android:textColor="@color/text1"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/appbar_layout" />
+
+        <TextView
+            android:id="@+id/inquiry_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:fontFamily="@font/nanum_square_neo_bold"
+            android:text="@string/inquiry_title"
+            android:textColor="@color/text1"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:layout_marginTop="30dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/inquiry_desc" />
+
+        <EditText
+            android:id="@+id/inquiry_desc_et"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:inputType="text"
+            android:backgroundTint="@color/white"
+            android:background="@drawable/custom_round_et"
+            android:fontFamily="@font/nanum_square_neo_bold"
+            android:gravity="top"
+            android:hint="@string/inquiry_desc_hint"
+            android:padding="18dp"
+            android:textColor="@color/text2"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:layout_marginTop="22dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="20dp"
+            app:layout_constraintBottom_toTopOf="@+id/inquiry_email_title"
+            app:layout_constraintTop_toBottomOf="@+id/inquiry_title" />
+
+        <TextView
+            android:id="@+id/inquiry_email_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:fontFamily="@font/nanum_square_neo_bold"
+            android:text="@string/inquiry_email_title"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="20dp"
+            app:layout_constraintBottom_toTopOf="@+id/inquiry_email_et"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <EditText
+            android:id="@+id/inquiry_email_et"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@drawable/custom_round_et"
+            android:backgroundTint="@color/white"
+            android:fontFamily="@font/nanum_square_neo_bold"
+            android:inputType="textEmailAddress"
+            android:hint="@string/inquiry_email_hint"
+            android:padding="18dp"
+            android:textColor="@color/text2"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="20dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            app:layout_constraintBottom_toTopOf="@+id/inquiry_clause_notify"/>
+        <TextView
+            android:id="@+id/inquiry_clause_notify"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nanum_square_neo_bold"
+            android:text="@string/inquiry_clause_notify"
+            android:textColor="@color/text1"
+            android:textSize="12sp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="9dp"
+            app:layout_constraintBottom_toTopOf="@+id/inquiry_clause_agree_tv" />
+
+        <androidx.appcompat.widget.AppCompatCheckBox
+            android:id="@+id/inquiry_clause_agree_cb"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:checked="false"
+            android:background="@drawable/selector_inquiry_clause_check_box"
+            android:button="@null"
+            android:backgroundTint="@null"
+            android:layout_marginStart="24dp"
+            android:layout_marginBottom="14dp"
+            app:layout_constraintBottom_toTopOf="@+id/inquiry_send_button"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/inquiry_clause_agree_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nanum_square_neo_bold"
+            android:text="@string/inquiry_clause_agree"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:layout_marginStart="7dp"
+            app:layout_constraintBottom_toBottomOf="@+id/inquiry_clause_agree_cb"
+            app:layout_constraintStart_toEndOf="@+id/inquiry_clause_agree_cb"
+            app:layout_constraintTop_toTopOf="@+id/inquiry_clause_agree_cb" />
+
+        <Button
+            android:id="@+id/inquiry_send_button"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/bg_rectangle_10dp"
+            android:fontFamily="@font/nanum_square_neo_regular"
+            android:text="@string/inquiry_send_button"
+            android:textSize="16sp"
+            android:elevation="0dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="60dp"
+            app:layout_constraintBottom_toBottomOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

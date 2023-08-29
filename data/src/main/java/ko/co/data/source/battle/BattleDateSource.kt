@@ -1,5 +1,6 @@
 package ko.co.data.source.battle
 
+import android.content.ContentValues
 import android.content.ContentValues.TAG
 import android.util.Log
 import ko.co.data.remote.PureumService
@@ -24,6 +25,8 @@ import kr.co.domain.model.BattleRequestResponse
 import kr.co.domain.model.BattleSentenceDto
 import kr.co.domain.model.BattleSentenceRequest
 import kr.co.domain.model.BattleSentenceResponse
+import kr.co.domain.model.BlameBattleSentenceResponse
+import kr.co.domain.model.BlameSentenceResponse
 import kr.co.domain.model.Keyword
 import kr.co.domain.model.KeywordsResponse
 import kr.co.domain.model.MyBattleCompMore
@@ -232,6 +235,7 @@ class BattleDateSource @Inject constructor(
         var response = MyBattleProgMore(0, false, "getMyBattleProgMoreInfo Failed",
             result = MyBattleProgMoreDto(
                 battleId = 1,
+                blamed = false,
                 duration = 0,
                 keyword = "string",
                 keywordId = 0,
@@ -359,12 +363,14 @@ class BattleDateSource @Inject constructor(
                     challengedLikeCnt = 3,
                     challengedNickname = "푸름",
                     challengedSentence = "황폐화된 자연을 복구하였다.",
+                    challengedSentenceBlamed = false,
                     challengedSentenceId = 2,
                     challengerId = 3,
                     challengerImage = "",
                     challengerLikeCnt = 4,
                     challengerNickname = "르미",
                     challengerSentence = "떨어진 내 성적을 복구하였다.",
+                    challengerSentenceBlamed = false,
                     challengerSentenceId = 4,
                     duration = 10,
                     keyword = "복구",
@@ -429,6 +435,20 @@ class BattleDateSource @Inject constructor(
                 response = it
             }.onFailure {
                 Log.e(TAG, "postBattleLike Failed: $it")
+            }
+        }
+        return response
+    }
+
+    suspend fun blameBattleSentence(battleSentenceId: Long) : BlameBattleSentenceResponse {
+        var response = BlameBattleSentenceResponse(code = 0, isSuccess = false, message = "blameBattleSentence Failed", result = "")
+        withContext(Dispatchers.IO) {
+            runCatching {
+                pureumService.blameBattleSentence(battleSentenceId)
+            }.onSuccess {
+                response = it
+            }.onFailure {
+                Log.e(ContentValues.TAG, "blameSentence Failed: $it")
             }
         }
         return response

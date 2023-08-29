@@ -24,7 +24,10 @@ class QuestVoidFragment : BaseFragment<FragmentQuestVoidBinding>(R.layout.fragme
     private val arg : QuestVoidFragmentArgs by navArgs()
     private lateinit var _keyword: String
     val viewModel by viewModels<QuestViewModel>()
-    private val dataWrittenSentenceAdapter = DataWrittenSentenceRVAdapter()
+    private val dataWrittenSentenceAdapter = DataWrittenSentenceRVAdapter(object :
+        DataWrittenSentenceRVAdapter.OnDataWrittenSentenceClickListener {
+        override fun onBlameClickListener(sentenceId: Long, isBlamed: String) {}
+    })
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
@@ -38,15 +41,15 @@ class QuestVoidFragment : BaseFragment<FragmentQuestVoidBinding>(R.layout.fragme
         val todayKeyword = arg.todayKeyword
         val wordId = arg.wordId
         viewModel.setWordId(wordId)
-        Log.e(ContentValues.TAG, wordId.toString())
         viewModel.setKeyword(todayKeyword)
         viewModel.getTodayKeyword()
-        viewModel.sentencesList(20, 0, "date", wordId)
+        viewModel.sentencesList(wordId, 0, 20, "date")
         binding.isLoading = true
     }
 
     private fun observe() {
         viewModel.sentenceListLiveData.observe(viewLifecycleOwner) {
+            Log.e(ContentValues.TAG, "QuestVoidFragment sentenceListLiveData : $it")
             if (it != null) {
                 dataWrittenSentenceAdapter.setData(it)
                 initLayoutExamination()

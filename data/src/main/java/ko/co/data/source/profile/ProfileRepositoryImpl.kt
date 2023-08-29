@@ -2,6 +2,8 @@ package ko.co.data.source.profile
 
 import android.content.Context
 import android.net.Uri
+import kr.co.domain.model.ContactRequest
+import kr.co.domain.model.ContactResponse
 import kr.co.domain.model.DefaultResponse
 import kr.co.domain.model.MySentenceInfoResponse
 import kr.co.domain.model.MySentencesListResponse
@@ -36,4 +38,8 @@ class ProfileRepositoryImpl @Inject constructor(
 
     override suspend fun mySentenceInfo(sentenceId: Long): MySentenceInfoResponse =
         dataSource.mySentenceInfo(sentenceId)
+
+    override suspend fun postContact(contactRequest: ContactRequest): ContactResponse =
+        dataSource.postContact(contactRequest)
+
 }

@@ -106,11 +106,11 @@ interface PureumService {
     // 단어별 문장 리스트 반환 API
     @GET("/sentences/{userId}")
     suspend fun sentencesList(
-        @Query("limit")limit: Int,
-        @Query("page")page: Int,
-        @Query("sort")sort: String,
         @Path("userId")userId: Long,
-        @Query("word_id")word_id: Long
+        @Query("wordId")wordId: Long,
+        @Query("page")page: Int,
+        @Query("limit")limit: Int,
+        @Query("sort")sort: String
     ) : SentencesListResponse
     @POST("/sentences/write")
     suspend fun sentencesWrite(@Body writeSentencesReq: WriteSentencesReq) : WriteSentencesResponse
@@ -219,4 +219,14 @@ interface PureumService {
     //나의 문장 단어 정보 반환 API
     @GET("/mypages/sentence/{sentenceId}/word")
     suspend fun mySentenceInfo(@Path("sentenceId") sentenceId: Long) : MySentenceInfoResponse
+
+    // 문의 하기
+    @POST("/contact")
+    suspend fun postContact(@Body contactReq : ContactRequest) : ContactResponse
+    // 문장 신고 하기
+    @POST("/blame/sentence/{sentenceId}")
+    suspend fun blameSentence(@Path("sentenceId") sentenceId: Long) : BlameSentenceResponse
+
+    @POST("/blame/battle-sentence/{battleSentenceId}")
+    suspend fun blameBattleSentence(@Path("battleSentenceId") battleSentenceId: Long) : BlameBattleSentenceResponse
 }

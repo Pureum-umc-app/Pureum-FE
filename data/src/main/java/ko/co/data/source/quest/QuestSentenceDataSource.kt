@@ -76,22 +76,23 @@ class QuestSentenceDataSource @Inject constructor(
         return response
     }
 
-    suspend fun sentencesList(limit: Int, page: Int, sort: String, userId: Long, word_id: Long): SentencesListResponse {
+    suspend fun sentencesList(userId: Long, wordId: Long, page: Int, limit: Int, sort: String): SentencesListResponse {
         var response = SentencesListResponse(
             code = 0, isSuccess = true, message = "요청에 성공하였습니다", result = List<SentencesListDto>(1) {
                 SentencesListDto(
-                    image = "기본", keyword = "한탄", keywordId = 1, likeNum = 0, nickname = "르미",
-                    selfLike = false, sentence = "나는 한숨 쉬는 것을 한탄해", sentenceId = 1, time = "2022-02-09", userId = 1
+                    date = "2022-02-09", isBlamed = "F", isLiked = "T",  keyword = "한탄", keywordId = 1, likeCnt = 0,
+                    nickname = "르미", profileImg = "기본", sentence = "나는 한숨 쉬는 것을 한탄해", sentenceId = 1,  userId = 1
                 )
             }
         )
         withContext(Dispatchers.IO) {
             runCatching {
-                pureumService.sentencesList(limit, page, sort, userId, word_id)
+                Log.e(ContentValues.TAG, "$userId, $wordId, $page, $limit, $sort")
+                pureumService.sentencesList(userId, wordId, page, limit, sort)
             }.onSuccess {
                 response = it
             }.onFailure {
-                Log.e(ContentValues.TAG, "sentences List Failed")
+                Log.e(ContentValues.TAG, "sentences List Failed : $it")
             }
         }
         return response
@@ -123,6 +124,19 @@ class QuestSentenceDataSource @Inject constructor(
                 response = it
             }.onFailure {
                 Log.e(ContentValues.TAG, "getProfileInfo Failed: $it")
+            }
+        }
+        return response
+    }
+    suspend fun blameSentence(sentenceId: Long) : BlameSentenceResponse {
+        var response = BlameSentenceResponse(code = 0, isSuccess = false, message = "blameSentence Failed", result = "")
+        withContext(Dispatchers.IO) {
+            runCatching {
+                pureumService.blameSentence(sentenceId)
+            }.onSuccess {
+                response = it
+            }.onFailure {
+                Log.e(ContentValues.TAG, "blameSentence Failed: $it")
             }
         }
         return response

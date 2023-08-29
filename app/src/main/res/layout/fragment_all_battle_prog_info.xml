@@ -240,16 +240,36 @@ tools:context=".views.battle.AllBattleProgInfoFragment">
                     android:textSize="14sp"/>
 
             </LinearLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="16dp"
                 android:layout_marginHorizontal="16dp"
-                android:text="@{allBattleProgMoreDto.challengerSentence, default=`황폐화된 자연을 복구하였다.`}"
-                android:fontFamily="@font/nanum_square_neo_bold"
-                android:textSize="14sp"/>
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{allBattleProgMoreDto.challengerSentence, default=`황폐화된 자연을 복구하였다.`}"
+                    android:fontFamily="@font/nanum_square_neo_bold"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+                <TextView
+                    android:id="@+id/blame_first_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{allBattleProgMoreDto.challengerSentenceBlamed ? @string/cancel_blame_sentence : @string/blame_sentence, default=@string/blame_sentence}"
+                    android:textColor="@color/text2"
+                    android:fontFamily="@font/nanum_square_neo_bold"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
         </LinearLayout>
 
         <LinearLayout
@@ -317,16 +337,37 @@ tools:context=".views.battle.AllBattleProgInfoFragment">
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/battle_final_my_sentence"
-                android:layout_width="wrap_content"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="16dp"
                 android:layout_marginHorizontal="16dp"
-                android:text="@{allBattleProgMoreDto.challengedSentence, default=`황폐화된 자연을 복구하였다.`}"
-                android:fontFamily="@font/nanum_square_neo_bold"
-                android:textSize="14sp"/>
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+                <TextView
+                    android:id="@+id/battle_final_my_sentence"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{allBattleProgMoreDto.challengedSentence, default=`황폐화된 자연을 복구하였다.`}"
+                    android:fontFamily="@font/nanum_square_neo_bold"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+                <TextView
+                    android:id="@+id/blame_second_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{allBattleProgMoreDto.challengedSentenceBlamed ? @string/cancel_blame_sentence : @string/blame_sentence, default=@string/blame_sentence}"
+                    android:textColor="@color/text2"
+                    android:fontFamily="@font/nanum_square_neo_bold"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
         </LinearLayout>
 
         <TextView
