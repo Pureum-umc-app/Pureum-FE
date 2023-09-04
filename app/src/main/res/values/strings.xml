@@ -180,6 +180,11 @@
     <string name="battle_other_sentence">상대가 작성한 문장</string>
     <string name="battle_my_sentence">내가 작성한 문장</string>
     <string name="battle_the_end">이미 종료된 대결입니다.</string>
+    <string name="battle_sentence_completed">작성 완료</string>
+    <string name="battle_cannot_modified">작성 완료시 문장 수정이 불가합니다.</string>
+    <string name="battle_start_text">대결이 시작되었습니다!</string>
+    <string name="battle_go_my_battle">내 대결 보러가기</string>
+    <string name="battle_exit">나가기</string>
 
     <!-- ProfileFragment -->
     <string name="account_info">계정 정보</string>

@@ -4,8 +4,6 @@ import android.content.ContentValues
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import androidx.core.view.isGone
-import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import kr.co.pureum.R
 import kr.co.pureum.base.BaseFragment
@@ -39,7 +37,7 @@ class QuestWritingCompletionFragment : BaseFragment<FragmentQuestWritingCompleti
         with(binding) {
             questCompletionSentenceOneCv.setOnClickListener {
                 if (_keywords.isNotEmpty()) {
-                    //viewModel.setCompleteKeyword(_keywords[size-3])
+                    viewModel.setCompleteKeyword(_keywords[0])
                     val action = QuestClickFragmentDirections.actionQuestClickFragmentToQuestVoidFragment(todayKeyword, wordId, index)
                     Log.e(ContentValues.TAG, todayKeyword)
                     findNavController().navigate(action)
@@ -47,7 +45,7 @@ class QuestWritingCompletionFragment : BaseFragment<FragmentQuestWritingCompleti
             }
             questCompletionSentenceTwoCv.setOnClickListener {
                 if (_keywords.isNotEmpty()) {
-                    //viewModel.setCompleteKeyword(_keywords[size-2])
+                    viewModel.setCompleteKeyword(_keywords[1])
                     val action = QuestClickFragmentDirections.actionQuestClickFragmentToQuestVoidFragment(todayKeyword, wordId, index)
                     Log.e(ContentValues.TAG, todayKeyword)
                     findNavController().navigate(action)
@@ -56,7 +54,7 @@ class QuestWritingCompletionFragment : BaseFragment<FragmentQuestWritingCompleti
 
             questCompletionSentenceThreeCv.setOnClickListener {
                 if (_keywords.isNotEmpty()) {
-                    //viewModel.setCompleteKeyword(_keywords[size-1])
+                    viewModel.setCompleteKeyword(_keywords[2])
                     val action = QuestClickFragmentDirections.actionQuestClickFragmentToQuestVoidFragment(todayKeyword,wordId, index)
                     Log.e(ContentValues.TAG, todayKeyword)
                     findNavController().navigate(action)
