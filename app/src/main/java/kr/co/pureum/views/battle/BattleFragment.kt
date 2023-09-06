@@ -30,6 +30,12 @@ class BattleFragment : BaseFragment<FragmentBattleBinding>(R.layout.fragment_bat
         initView()
         initListener()
         observe()
+
+        if (requireActivity().intent.hasExtra("myChallenge")) {
+            val action = BattleFragmentDirections.actionBattleFragmentToMyBattleFragment()
+            findNavController().navigate(action)
+            requireActivity().intent.removeExtra("myChallenge")
+        }
     }
 
     private fun checkNavArgs() {
@@ -83,8 +89,13 @@ class BattleFragment : BaseFragment<FragmentBattleBinding>(R.layout.fragment_bat
                         }
 
                         override fun onClickWriteButton(battleId: Long) {
-                            val action = BattleFragmentDirections.actionBattleFragmentToOnBattleSentenceFragment(battleId)
-                            findNavController().navigate(action)
+                            /*val action = BattleFragmentDirections.actionBattleFragmentToOnBattleSentenceFragment(battleId)
+                            findNavController().navigate(action)*/
+                            val intent = Intent(context, BattleAcceptActivity::class.java).apply {
+                                putExtra("battleId", battleId)
+                            }
+                            Log.d("battleId", battleId.toString())
+                            startActivity(intent)
                         }
 
                         override fun onClickCancelButton(battleId: Long) {

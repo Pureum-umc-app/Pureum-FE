@@ -29,6 +29,9 @@
         android:theme="@style/Theme.Pureum"
         tools:targetApi="31">
         <activity
+            android:name=".views.battle.BattleAcceptActivity"
+            android:exported="false" />
+        <activity
             android:name=".views.battle.MyBattleWriteSentenceActivity"
             android:exported="false" />
         <activity
