@@ -4,6 +4,7 @@ import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.view.WindowManager
+import androidx.activity.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import kr.co.pureum.R
 import kr.co.pureum.base.BaseActivity
@@ -13,7 +14,10 @@ import kr.co.pureum.views.MainActivity
 
 @AndroidEntryPoint
 class MyBattleWriteSentenceActivity : BaseActivity<ActivityMyBattleWriteSentenceBinding>(R.layout.activity_my_battle_write_sentence) {
+    private var battleId: Long? = null
+    private val viewModel by viewModels<OnBattleViewModel>()
     override fun initView() {
+        battleId = intent.getLongExtra("battleId", 0)
         initListener()
     }
 
@@ -21,6 +25,7 @@ class MyBattleWriteSentenceActivity : BaseActivity<ActivityMyBattleWriteSentence
         with(binding) {
             battleSentenceCompletionBt.setOnClickListener {
                 completionDialog(this@MyBattleWriteSentenceActivity)
+                viewModel.writeSentence(battleId!!, battleSentenceWritingEt.text.toString())
             }
         }
     }
@@ -55,5 +60,9 @@ class MyBattleWriteSentenceActivity : BaseActivity<ActivityMyBattleWriteSentence
         dialog.window?.setBackgroundDrawableResource(R.drawable.bg_dialog)
         dialog.window!!.setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT)
         dialog.show()
+    }
+
+    private fun observe() {
+
     }
 }

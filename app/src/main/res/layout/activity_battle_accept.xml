@@ -95,7 +95,7 @@
                         android:id="@+id/my_profile"
                         android:layout_width="52dp"
                         android:layout_height="52dp"
-                        android:src="@drawable/bg_default_profile_image"
+                        android:src="@{myBattleWattingMoreDto.myImage, default = @drawable/bg_default_profile_image}"
                         android:contentDescription="@string/home_rank_profile_image" />
 
                     <LinearLayout
@@ -147,7 +147,7 @@
                         android:id="@+id/opp_profile"
                         android:layout_width="52dp"
                         android:layout_height="52dp"
-                        android:src="@drawable/bg_default_profile_image"
+                        android:src="@{myBattleWattingMoreDto.myImage, default = @drawable/bg_default_profile_image}"
                         android:contentDescription="@string/home_rank_profile_image" />
 
                     <TextView
@@ -201,7 +201,7 @@
                         android:id="@+id/my_profile_img"
                         android:layout_width="52dp"
                         android:layout_height="52dp"
-                        android:src="@drawable/bg_default_profile_image"
+                        android:src="@{myBattleWattingMoreDto.myImage, default = @drawable/bg_default_profile_image}"
                         android:contentDescription="@string/home_rank_profile_image" />
 
                     <LinearLayout
@@ -275,7 +275,7 @@
                         android:id="@+id/opp_profile_img"
                         android:layout_width="52dp"
                         android:layout_height="52dp"
-                        android:src="@drawable/bg_default_profile_image"
+                        android:src="@{myBattleWattingMoreDto.oppImage, default = @drawable/bg_default_profile_image}"
                         android:contentDescription="@string/home_rank_profile_image" />
 
                     <TextView
@@ -299,12 +299,12 @@
                     android:id="@+id/battle_final_my_sentence"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
                     android:layout_marginTop="20dp"
                     android:layout_marginBottom="16dp"
-                    android:layout_marginHorizontal="16dp"
-                    android:text="@{myBattleWattingMoreDto.oppSentence, default=`황폐화된 자연을 복구하였다.`}"
                     android:fontFamily="@font/nanum_square_neo_bold"
-                    android:textSize="14sp"/>
+                    android:text="@{myBattleWattingMoreDto.oppSentence, default=`황폐화된 자연을 복구하였다.`}"
+                    android:textSize="14sp" />
             </LinearLayout>
 
             <TextView
