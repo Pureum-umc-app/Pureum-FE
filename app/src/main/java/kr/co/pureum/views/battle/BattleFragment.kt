@@ -87,7 +87,6 @@ class BattleFragment : BaseFragment<FragmentBattleBinding>(R.layout.fragment_bat
                             isLoading = true
                             viewModel.acceptBattle(battleId)
                         }
-
                         override fun onClickWriteButton(battleId: Long) {
                             /*val action = BattleFragmentDirections.actionBattleFragmentToOnBattleSentenceFragment(battleId)
                             findNavController().navigate(action)*/

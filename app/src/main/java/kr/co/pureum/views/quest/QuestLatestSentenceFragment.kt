@@ -12,7 +12,6 @@ import kr.co.pureum.adapter.quest.DataWrittenSentenceRVAdapter
 import kr.co.pureum.base.BaseFragment
 import kr.co.pureum.databinding.DialogSentenceBlameBinding
 import kr.co.pureum.databinding.FragmentQuestLatestSentenceBinding
-import kr.co.pureum.views.MainActivity
 
 class QuestLatestSentenceFragment : BaseFragment<FragmentQuestLatestSentenceBinding>(R.layout.fragment_quest_latest_sentence) {
     private var wordId: Long = 0
@@ -63,6 +62,10 @@ class QuestLatestSentenceFragment : BaseFragment<FragmentQuestLatestSentenceBind
             DataWrittenSentenceRVAdapter.OnDataWrittenSentenceClickListener {
             override fun onBlameClickListener(sentenceId: Long, isBlamed :String) {
                 showBlameDialog(sentenceId, isBlamed)
+            }
+
+            override fun onLikeButtonClickListener(sentenceId: Long) {
+                viewModel.postLike(sentenceId, wordId, page, limit, sort)
             }
         })
     }

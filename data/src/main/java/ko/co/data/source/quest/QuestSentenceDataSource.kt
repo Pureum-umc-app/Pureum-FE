@@ -141,4 +141,22 @@ class QuestSentenceDataSource @Inject constructor(
         }
         return response
     }
+
+    suspend fun sentenceLike(sentenceId: Long, userId: Long): SentenceLikeResponse {
+        var response = SentenceLikeResponse(code = 0,
+            isSuccess = false,
+            message = "sentencelike Failed",
+            result = SentenceLikeDto(sentence_like_id = 0, status = "1")
+        )
+        withContext(Dispatchers.IO) {
+            runCatching {
+                pureumService.sentenceLike(SentenceLikeReq(sentenceId, userId))
+            }.onSuccess {
+                response = it
+            }.onFailure {
+                Log.e(ContentValues.TAG, "sentenceLike Failed: $it")
+            }
+        }
+        return response
+    }
 }

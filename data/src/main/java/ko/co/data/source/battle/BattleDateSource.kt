@@ -1,6 +1,5 @@
 package ko.co.data.source.battle
 
-import android.content.ContentValues
 import android.content.ContentValues.TAG
 import android.util.Log
 import ko.co.data.remote.PureumService
@@ -26,8 +25,6 @@ import kr.co.domain.model.BattleSentenceDto
 import kr.co.domain.model.BattleSentenceRequest
 import kr.co.domain.model.BattleSentenceResponse
 import kr.co.domain.model.BlameBattleSentenceResponse
-import kr.co.domain.model.BlameSentenceResponse
-import kr.co.domain.model.Keyword
 import kr.co.domain.model.KeywordsResponse
 import kr.co.domain.model.MyBattleCompMore
 import kr.co.domain.model.MyBattleCompMoreDto
@@ -37,6 +34,8 @@ import kr.co.domain.model.MyBattleProgMore
 import kr.co.domain.model.MyBattleProgMoreDto
 import kr.co.domain.model.MyBattleProgress
 import kr.co.domain.model.MyBattleProgressDto
+import kr.co.domain.model.MyWaitBattleDto
+import kr.co.domain.model.MyWaitBattleResponse
 import kr.co.domain.model.OpponentsResponse
 import kr.co.domain.model.ProfileImage
 import kr.co.domain.model.ProfileImageResponse
@@ -448,7 +447,23 @@ class BattleDateSource @Inject constructor(
             }.onSuccess {
                 response = it
             }.onFailure {
-                Log.e(ContentValues.TAG, "blameSentence Failed: $it")
+                Log.e(TAG, "blameSentence Failed: $it")
+            }
+        }
+        return response
+    }
+    suspend fun getMyWaitBattleInfo(battleId: Long) : MyWaitBattleResponse {
+        var response = MyWaitBattleResponse(code = 0, isSuccess = true, message = "성공",
+            MyWaitBattleDto(duration = 5, opponentImage = "default",
+            opponentName = "물리", opponentSentence = "물리가 어려워", userImage = "default",
+            userName = "물물", word = "물리", wordMean = "물리하다"))
+        withContext(Dispatchers.IO) {
+            kotlin.runCatching {
+                pureumService.getMyWaitBattleInfo(battleId)
+            }.onSuccess {
+                response = it
+            }.onFailure {
+                Log.e(TAG, "getWaitMyBattle Failed: $it")
             }
         }
         return response

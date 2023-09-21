@@ -1,7 +1,5 @@
 package kr.co.pureum.views.quest
 
-import android.content.ContentValues
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,8 +7,8 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import kr.co.domain.model.BlameSentenceResponse
-import kr.co.domain.model.Keyword
 import kr.co.domain.model.ProfileInfo
+import kr.co.domain.model.SentenceLikeResponse
 import kr.co.domain.model.SentencesListDto
 import kr.co.domain.model.WriteSentencesDto
 import kr.co.domain.repository.QuestRepository
@@ -81,6 +79,10 @@ class QuestViewModel @Inject constructor(
     val blameSentenceLiveData : LiveData<BlameSentenceResponse>
         get()=_blameSentenceLiveData
 
+    private val _sentenceLikeLiveData = MutableLiveData<SentenceLikeResponse>()
+    val sentenceLikeLiveData: LiveData<SentenceLikeResponse>
+        get() = _sentenceLikeLiveData
+
     fun getTodayKeyword() {
         viewModelScope.launch {
             val res = repository.todayKeyword(PureumApplication.spfManager.getUserId()).result
@@ -147,11 +149,6 @@ class QuestViewModel @Inject constructor(
             _todayWriteSentencesResponseLiveData.value = res.result
         }
     }
-    //왜 안돼...
-    fun getMySentenceList() {
-        val res = repository
-
-    }
 
     private val _profileInfoLiveData = MutableLiveData<ProfileInfo>()
     val profileInfoLiveData: LiveData<ProfileInfo> = _profileInfoLiveData
@@ -166,6 +163,17 @@ class QuestViewModel @Inject constructor(
         viewModelScope.launch {
             val res = repository.blameSentence(sentenceId)
             _blameSentenceLiveData.value = res
+        }
+    }
+
+    fun postLike(sentenceId: Long, word_id: Long, page: Int, limit: Int, sort: String) {
+        viewModelScope.launch {
+            val res = repository.sentenceLike(sentenceId, PureumApplication.spfManager.getUserId())
+            _sentenceLikeLiveData.value = res
+            sentencesList(word_id,
+                page,
+                limit,
+                sort)
         }
     }
 }

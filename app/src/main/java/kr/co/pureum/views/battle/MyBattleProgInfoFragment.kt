@@ -3,35 +3,19 @@ package kr.co.pureum.views.battle
 import android.app.Dialog
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
 import android.view.View
-import android.view.ViewGroup
-import androidx.core.content.ContextCompat
-import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import dagger.hilt.android.AndroidEntryPoint
-import kr.co.domain.model.MyBattleProgMoreDto
 import kr.co.pureum.R
-import kr.co.pureum.adapter.battle.MyBattleCompletionAdapter
-import kr.co.pureum.adapter.battle.MyBattleProgressAdapter
 import kr.co.pureum.base.BaseFragment
 import kr.co.pureum.databinding.DialogDefaultBinding
 import kr.co.pureum.databinding.FragmentMyBattleProgInfoBinding
-import kr.co.pureum.databinding.FragmentMyBattleProgressBinding
-import kr.co.pureum.views.MainActivity
-import kr.co.pureum.views.home.HomeFragment
 
 @AndroidEntryPoint
 class MyBattleProgInfoFragment : BaseFragment<FragmentMyBattleProgInfoBinding>(R.layout.fragment_my_battle_prog_info) {
@@ -50,7 +34,7 @@ class MyBattleProgInfoFragment : BaseFragment<FragmentMyBattleProgInfoBinding>(R
 
     private fun initView() {
         Log.e("ScreenBuild", "MyBattleProgInfoFragment")
-        viewModel.getMyBattleProgMoreInfo(args.itemIdx)
+        viewModel.getMyBattleProgMoreInfo(args.itemIdx)     // 이게 수정 전 기존 api
         with(binding) {
         }
 

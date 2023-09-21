@@ -7,20 +7,18 @@ import kr.co.domain.model.AllBattleProgress
 import kr.co.domain.model.BattleControlResponse
 import kr.co.domain.model.BattleId
 import kr.co.domain.model.BattleLike
-import kr.co.domain.model.BattleLikeReq
 import kr.co.domain.model.BattleRequestResponse
-import kr.co.domain.model.BattleSentenceRequest
 import kr.co.domain.model.BattleSentenceResponse
 import kr.co.domain.model.BlameBattleSentenceResponse
 import kr.co.domain.model.KeywordsResponse
 import kr.co.domain.model.MyBattleCompMore
 import kr.co.domain.model.MyBattleCompletion
 import kr.co.domain.model.MyBattleProgMore
-import kr.co.domain.model.MyBattleProgMoreDto
 import kr.co.domain.model.OpponentsResponse
 import kr.co.domain.model.ProfileImageResponse
 import kr.co.domain.model.WaitingBattleResponse
 import kr.co.domain.model.MyBattleProgress
+import kr.co.domain.model.MyWaitBattleResponse
 import kr.co.domain.repository.BattleRepository
 import javax.inject.Inject
 
@@ -77,6 +75,9 @@ class BattleRepositoryImpl @Inject constructor(
 
     override suspend fun getAllBattleCompMoreInfo(itemIdx: Long): AllBattleCompMore =
         dataSource.getAllBattleCompMoreInfo(itemIdx)
+
+    override suspend fun getMyWaitBattleInfo(battleId: Long): MyWaitBattleResponse =
+        dataSource.getMyWaitBattleInfo(battleId)
 
     override suspend fun postBattleLike(sentenceId: Long, userId: Long): BattleLike =
         dataSource.postBattleLike(sentenceId, userId)

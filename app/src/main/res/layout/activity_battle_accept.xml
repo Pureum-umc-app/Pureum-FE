@@ -7,8 +7,8 @@
     <data>
         <import type="android.view.View"/>
         <variable
-            name="myBattleWattingMoreDto"
-            type="kr.co.domain.model.MyBattleProgMoreDto" />
+            name="myWaitBattle"
+            type="kr.co.domain.model.MyWaitBattleDto" />
         <variable
             name="isLoading"
             type="java.lang.Boolean" />
@@ -63,7 +63,7 @@
                 app:layout_constraintTop_toBottomOf="@id/appbar_layout"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:text="@{myBattleWattingMoreDto.keyword, default=`복구`}"
+                android:text="@{myWaitBattle.word, default=`복구`}"
                 android:fontFamily="@font/nanum_square_neo_extrabold"
                 android:textSize="22sp"
                 android:visibility="@{isLoading ? View.GONE : View.VISIBLE}"/>
@@ -95,7 +95,7 @@
                         android:id="@+id/my_profile"
                         android:layout_width="52dp"
                         android:layout_height="52dp"
-                        android:src="@{myBattleWattingMoreDto.myImage, default = @drawable/bg_default_profile_image}"
+                        android:src="@{myWaitBattle.userImage, default = @drawable/bg_default_profile_image}"
                         android:contentDescription="@string/home_rank_profile_image" />
 
                     <LinearLayout
@@ -117,7 +117,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:fontFamily="@font/nanum_square_neo_bold"
-                            android:text="@{myBattleWattingMoreDto.myNickname, default=`푸름`}"
+                            android:text="@{myWaitBattle.userName, default=`푸름`}"
                             android:textSize="14sp" />
                     </LinearLayout>
                 </LinearLayout>
@@ -147,7 +147,7 @@
                         android:id="@+id/opp_profile"
                         android:layout_width="52dp"
                         android:layout_height="52dp"
-                        android:src="@{myBattleWattingMoreDto.myImage, default = @drawable/bg_default_profile_image}"
+                        android:src="@{myWaitBattle.opponentImage, default = @drawable/bg_default_profile_image}"
                         android:contentDescription="@string/home_rank_profile_image" />
 
                     <TextView
@@ -155,7 +155,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
-                        android:text="@{myBattleWattingMoreDto.oppNickname, default=`르미`}"
+                        android:text="@{myWaitBattle.opponentName, default=`르미`}"
                         android:fontFamily="@font/nanum_square_neo_bold"
                         android:textSize="14sp"/>
                 </LinearLayout>
@@ -201,7 +201,7 @@
                         android:id="@+id/my_profile_img"
                         android:layout_width="52dp"
                         android:layout_height="52dp"
-                        android:src="@{myBattleWattingMoreDto.myImage, default = @drawable/bg_default_profile_image}"
+                        android:src="@{myWaitBattle.userImage, default = @drawable/bg_default_profile_image}"
                         android:contentDescription="@string/home_rank_profile_image" />
 
                     <LinearLayout
@@ -221,7 +221,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@{myBattleWattingMoreDto.myNickname, default=`푸름`}"
+                            android:text="@{myWaitBattle.userName, default=`푸름`}"
                             android:fontFamily="@font/nanum_square_neo_bold"
                             android:textSize="14sp"/>
                     </LinearLayout>
@@ -275,14 +275,14 @@
                         android:id="@+id/opp_profile_img"
                         android:layout_width="52dp"
                         android:layout_height="52dp"
-                        android:src="@{myBattleWattingMoreDto.oppImage, default = @drawable/bg_default_profile_image}"
+                        android:src="@{myWaitBattle.opponentImage, default = @drawable/bg_default_profile_image}"
                         android:contentDescription="@string/home_rank_profile_image" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
-                        android:text="@{myBattleWattingMoreDto.oppNickname, default=`르미`}"
+                        android:text="@{myWaitBattle.opponentName, default=`르미`}"
                         android:fontFamily="@font/nanum_square_neo_bold"
                         android:textSize="14sp"/>
 
@@ -303,7 +303,7 @@
                     android:layout_marginTop="20dp"
                     android:layout_marginBottom="16dp"
                     android:fontFamily="@font/nanum_square_neo_bold"
-                    android:text="@{myBattleWattingMoreDto.oppSentence, default=`황폐화된 자연을 복구하였다.`}"
+                    android:text="@{myWaitBattle.opponentSentence, default=`황폐화된 자연을 복구하였다.`}"
                     android:textSize="14sp" />
             </LinearLayout>
 
@@ -346,7 +346,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="8dp"
-                        android:text="@{Integer.toString(myBattleWattingMoreDto.duration), default=10}"
+                        android:text="@{myWaitBattle.duration, default=10}"
                         android:fontFamily="@font/nanum_square_neo_bold"
                         android:textSize="40sp"/>
 
@@ -364,6 +364,28 @@
                     android:layout_weight="1"/>
 
             </LinearLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:padding="2dp"
+                android:background="@drawable/bg_circle"
+                android:backgroundTint="@null"
+                android:visibility="@{isLoading ? View.VISIBLE : View.GONE}">
+
+                <com.google.android.material.progressindicator.CircularProgressIndicator
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:indeterminate="true" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
                 android:id="@+id/my_battle_final_period_body"
