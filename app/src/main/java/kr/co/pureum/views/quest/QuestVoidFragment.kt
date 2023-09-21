@@ -26,7 +26,11 @@ class QuestVoidFragment : BaseFragment<FragmentQuestVoidBinding>(R.layout.fragme
     val viewModel by viewModels<QuestViewModel>()
     private val dataWrittenSentenceAdapter = DataWrittenSentenceRVAdapter(object :
         DataWrittenSentenceRVAdapter.OnDataWrittenSentenceClickListener {
-        override fun onBlameClickListener(sentenceId: Long, isBlamed: String) {}
+        override fun onBlameClickListener(sentenceId: Long, isBlamed: String) {
+
+        }
+        override fun onLikeButtonClickListener(sentenceId: Long) {
+        }
     })
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

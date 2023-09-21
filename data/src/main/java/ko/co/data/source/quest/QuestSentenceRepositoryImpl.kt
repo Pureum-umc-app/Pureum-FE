@@ -32,5 +32,6 @@ class QuestSentenceRepositoryImpl @Inject constructor(
 
     override suspend fun blameSentence(sentenceId: Long): BlameSentenceResponse =
         dataSource.blameSentence(sentenceId)
-
+    override suspend fun sentenceLike(sentenceId: Long, userId: Long): SentenceLikeResponse =
+        dataSource.sentenceLike(sentenceId, userId)
 }

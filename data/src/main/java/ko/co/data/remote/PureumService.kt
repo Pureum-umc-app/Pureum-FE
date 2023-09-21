@@ -90,6 +90,10 @@ interface PureumService {
     // 대결 신청 API
     @POST("/battles")
     suspend fun sendBattleRequest(@Body battleRequest: BattleRequest): BattleRequestResponse
+
+    @GET("/battles/wait/my/{battleIdx}")
+    suspend fun getMyWaitBattleInfo(@Path("battleIdx") battleId: Long): MyWaitBattleResponse
+
     // 대결 받은 사람 대결 문장 작성 API
     @POST("/battles/challenged/write")
     suspend fun writeSentence(@Body battleSentence: BattleSentenceRequest): BattleSentenceResponse
@@ -112,6 +116,10 @@ interface PureumService {
         @Query("limit")limit: Int,
         @Query("sort")sort: String
     ) : SentencesListResponse
+
+    @POST("/sentences/like")
+    suspend fun sentenceLike(@Body sentenceLikeReq: SentenceLikeReq): SentenceLikeResponse
+
     @POST("/sentences/write")
     suspend fun sentencesWrite(@Body writeSentencesReq: WriteSentencesReq) : WriteSentencesResponse
 

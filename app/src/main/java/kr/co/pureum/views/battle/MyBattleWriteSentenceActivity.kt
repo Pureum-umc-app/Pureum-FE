@@ -30,7 +30,7 @@ class MyBattleWriteSentenceActivity : BaseActivity<ActivityMyBattleWriteSentence
         }
     }
 
-    // TODO:  대결 받은 사람 대결 문장 작성 API 연결
+    // TODO:  키워드 의미 api 마무리
 
     private fun completionDialog(context: Context) {
         val dialogBinding: DialogBattleSentenceCompletionBinding = DialogBattleSentenceCompletionBinding.inflate(layoutInflater)

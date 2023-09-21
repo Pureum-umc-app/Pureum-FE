@@ -1,8 +1,8 @@
 package kr.co.pureum.adapter.quest
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.AdapterView.OnItemClickListener
 import androidx.recyclerview.widget.RecyclerView
 import kr.co.domain.model.SentencesListDto
 import kr.co.pureum.R
@@ -16,6 +16,7 @@ class DataWrittenSentenceRVAdapter(
 
     interface OnDataWrittenSentenceClickListener {
         fun onBlameClickListener(sentenceId : Long, isBlamed: String)
+        fun onLikeButtonClickListener(sentenceId: Long)
     }
 
     inner class DataWrittenSentenceViewHolder(binding: ItemWrittenSentenceBinding) : RecyclerView.ViewHolder(binding.root){
@@ -23,6 +24,16 @@ class DataWrittenSentenceRVAdapter(
             with(binding) {
                 itemProfileImageIb.setImageResource(R.drawable.ic_appicon_round)
                 writtenSentence = sentencesListDto
+                itemLikeNumberTv.text = sentencesListDto.likeCnt.toString()
+                Log.e("liked", sentencesListDto.isLiked)
+                when(sentencesListDto.isLiked) {
+                    "T"-> {
+                        itemLikeIconIb.isChecked = true
+                    }
+                    else -> {
+                        itemLikeIconIb.isChecked = false
+                    }
+                }
             }
         }
     }
@@ -39,6 +50,9 @@ class DataWrittenSentenceRVAdapter(
         holder.bind(writtenSentenceList[position])
         binding.itemWrittenSentenceBlameTv.setOnClickListener {
             clickListener.onBlameClickListener(writtenSentenceList[position].sentenceId, writtenSentenceList[position].isBlamed)
+        }
+        binding.itemLikeIconIb.setOnClickListener {
+            clickListener.onLikeButtonClickListener(writtenSentenceList[position].sentenceId)
         }
     }
 

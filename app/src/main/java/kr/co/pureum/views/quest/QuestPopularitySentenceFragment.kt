@@ -6,12 +6,10 @@ import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import kr.co.pureum.R
 import kr.co.pureum.adapter.quest.DataWrittenSentenceRVAdapter
 import kr.co.pureum.base.BaseFragment
-import kr.co.pureum.databinding.DialogDefaultBinding
 import kr.co.pureum.databinding.DialogSentenceBlameBinding
 import kr.co.pureum.databinding.FragmentQuestPopularitySentenceBinding
 
@@ -63,6 +61,10 @@ class QuestPopularitySentenceFragment : BaseFragment<FragmentQuestPopularitySent
             DataWrittenSentenceRVAdapter.OnDataWrittenSentenceClickListener {
             override fun onBlameClickListener(sentenceId: Long, isBlamed: String) {
                 showBlameDialog(sentenceId, isBlamed)
+            }
+
+            override fun onLikeButtonClickListener(sentenceId: Long) {
+                viewModel.postLike(sentenceId, wordId, page, limit, sort)
             }
         })
     }

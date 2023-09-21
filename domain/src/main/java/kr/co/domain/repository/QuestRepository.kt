@@ -10,4 +10,5 @@ interface QuestRepository {
     suspend fun writeSentences(keywordId: Long, sentence: String, status: String, userId: Long): WriteSentencesResponse
     suspend fun getProfileInfo(userId: Long) : ProfileInfoResponse
     suspend fun blameSentence(sentenceId : Long) : BlameSentenceResponse
+    suspend fun sentenceLike(sentenceId: Long, userId: Long): SentenceLikeResponse
 }
