@@ -95,7 +95,7 @@
                         android:id="@+id/my_profile"
                         android:layout_width="52dp"
                         android:layout_height="52dp"
-                        android:src="@{myWaitBattle.userImage, default = @drawable/bg_default_profile_image}"
+                        android:src="@drawable/bg_default_profile_image"
                         android:contentDescription="@string/home_rank_profile_image" />
 
                     <LinearLayout
@@ -147,7 +147,7 @@
                         android:id="@+id/opp_profile"
                         android:layout_width="52dp"
                         android:layout_height="52dp"
-                        android:src="@{myWaitBattle.opponentImage, default = @drawable/bg_default_profile_image}"
+                        android:src="@drawable/bg_default_profile_image"
                         android:contentDescription="@string/home_rank_profile_image" />
 
                     <TextView
@@ -201,7 +201,7 @@
                         android:id="@+id/my_profile_img"
                         android:layout_width="52dp"
                         android:layout_height="52dp"
-                        android:src="@{myWaitBattle.userImage, default = @drawable/bg_default_profile_image}"
+                        android:src="@drawable/bg_default_profile_image"
                         android:contentDescription="@string/home_rank_profile_image" />
 
                     <LinearLayout
@@ -275,7 +275,7 @@
                         android:id="@+id/opp_profile_img"
                         android:layout_width="52dp"
                         android:layout_height="52dp"
-                        android:src="@{myWaitBattle.opponentImage, default = @drawable/bg_default_profile_image}"
+                        android:src="@drawable/bg_default_profile_image"
                         android:contentDescription="@string/home_rank_profile_image" />
 
                     <TextView
@@ -346,7 +346,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="8dp"
-                        android:text="@{myWaitBattle.duration, default=10}"
+                        android:text="@{Integer.toString(myWaitBattle.duration), default=`10`}"
                         android:fontFamily="@font/nanum_square_neo_bold"
                         android:textSize="40sp"/>
 
